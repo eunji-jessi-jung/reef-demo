@@ -327,6 +327,10 @@
       "owner_questions": 67
     }
   },
+  "owner_question": {
+    "heading": "SYS-ORDER — Which hostname and path prefix actually front order-service?",
+    "body": "**Question.** In production, what URL does a caller hit to cancel an order, and is there a gateway that rewrites the path?\n\n**Why it matters.** Three sources disagree, and the disagreement is not cosmetic: it decides whether the one CORS rule in the service protects the cancel endpoint at all.\n- `sources/context/registry/services.yaml` lists the endpoint as `https://api.sellflow.co.kr/orders`.\n- `delivery-bff:src/generated/orderApi.ts` calls `POST /api/v1/orders/{ordNo}/cancel`.\n- `order-service:src/main/java/kr/co/sellflow/order/controller/OrderController.java` maps `POST /orders/{ordNo}/cancel` — no `/api/v1` prefix.\n- `order-service:src/main/java/kr/co/sellflow/order/config/WebConfig.java` applies its single-origin CORS allowlist to `/api/**` only, which does not match the controller's own mapping.\n\nIf no gateway rewrites `/api/v1/orders/...` to `/orders/...`, the customer-app cancel path has been 404-ing since delivery-bff's client was generated (2022-11-08). If a gateway does rewrite it, then the CORS rule guards a path pattern the controller never serves.\n\n**Already checked.** `order-service:src/main/resources/application.yml` sets only `server.port: 8081` and no `server.servlet.context-path`; no reverse-proxy, ingress or gateway config exists anywhere in the order-service repo (full `find . -type f`); a grep across all five repos found `delivery-bff:src/orderClient.ts` as the sole caller.\n\n**Files a human would need.** The gateway/ingress configuration (not in any of the five repos), `sources/context/registry/services.yaml`, `order-service:src/main/java/kr/co/sellflow/order/controller/OrderController.java`, `order-service:src/main/java/kr/co/sellflow/order/config/WebConfig.java`, `delivery-bff:src/generated/orderApi.ts`."
+  },
   "evaluation": {
     "questions": 52,
     "answered": 47,

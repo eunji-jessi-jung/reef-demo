@@ -31,58 +31,100 @@
       </div>
     </section>
 
-    <section class="beat" id="brief" data-beat="1">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b1.kicker"></p>
-        <div id="b1-stage"><p class="skeleton-note">scene 1 — brief — 뼈대 (다음 단계에서 구현)</p></div>
-      </div>
-    </section>
     <section class="beat" id="search" data-beat="2">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b2.kicker"></p>
-        <div id="b2-stage"><p class="skeleton-note">scene 2 — search — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="q-line"><span class="q-mark">?</span><span data-i18n="b2.q"></span></div>
+        <div class="find-row">
+          <button class="find-btn" data-find="doc" data-i18n="b2.findDoc"></button>
+          <button class="find-btn" data-find="code" data-i18n="b2.findCode"></button>
+        </div>
+        <div class="grid2 find-panels">
+          <figure class="panel find-panel" data-panel="doc" hidden>
+            <figcaption class="tag" data-i18n="b2.docLabel"></figcaption>
+            <div class="find-body"></div>
+            <p class="src"></p>
+          </figure>
+          <figure class="panel find-panel" data-panel="code" hidden>
+            <figcaption class="tag" data-i18n="b2.codeLabel"></figcaption>
+            <pre class="find-body"></pre>
+            <p class="src"></p>
+          </figure>
+        </div>
       </div>
     </section>
     <section class="beat" id="crosscheck" data-beat="3">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b3.kicker"></p>
-        <div id="b3-stage"><p class="skeleton-note">scene 3 — crosscheck — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="stamps">
+          <span class="stamp"><b data-i18n="b3.stampDoc"></b> ✓</span>
+          <span class="stamp"><b data-i18n="b3.stampCode"></b> ✓</span>
+          <span class="stamp stamp-verdict" data-i18n="b3.agree"></span>
+        </div>
+        <p class="lede" data-i18n="b3.conclusion"></p>
+        <p class="body" data-i18n="b3.body"></p>
       </div>
     </section>
     <section class="beat" id="reveal" data-beat="4">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b4.kicker"></p>
-        <div id="b4-stage"><p class="skeleton-note">scene 4 — reveal — 뼈대 (다음 단계에서 구현)</p></div>
+                <p class="body" data-i18n="b4.run"></p>
+        <pre class="term" id="b4-term"></pre>
+        <p class="lede punch" id="b4-punch" hidden></p>
+        <figure class="panel reef-says" id="b4-reef" hidden>
+          <figcaption class="tag" data-i18n="b4.reefsays"></figcaption>
+          <div class="find-body"></div>
+          <p class="src"></p>
+        </figure>
       </div>
     </section>
     <section class="beat" id="path" data-beat="5">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b5.kicker"></p>
-        <div id="b5-stage"><p class="skeleton-note">scene 5 — path — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="path-head">
+          <button class="find-btn" id="b5-next" data-i18n="b5.advance"></button>
+          <button class="find-btn ghost" id="b5-replay" data-i18n="b5.replay"></button>
+          <span class="meta" id="b5-counter"></span>
+        </div>
+        <ol class="hops" id="b5-hops"></ol>
+        <p class="lede punch" id="b5-punch" hidden data-i18n="b5.stops"></p>
       </div>
     </section>
     <section class="beat" id="backlog" data-beat="6">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b6.kicker"></p>
-        <div id="b6-stage"><p class="skeleton-note">scene 6 — backlog — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="figures" id="b6-figures"></div>
+        <svg class="spark" id="b6-chart" viewBox="0 0 820 120" preserveAspectRatio="none" role="img"></svg>
+        <p class="meta" data-i18n="b6.zero"></p>
+        <figure class="panel caveat" id="b6-caveat">
+          <figcaption class="tag" data-i18n="b6.caveat"></figcaption>
+          <div class="find-body"></div>
+        </figure>
       </div>
     </section>
     <section class="beat" id="evaluation" data-beat="7">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b7.kicker"></p>
-        <div id="b7-stage"><p class="skeleton-note">scene 7 — evaluation — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="figures" id="b7-figures"></div>
+        <p class="body" id="b7-method"></p>
       </div>
     </section>
     <section class="beat" id="loop" data-beat="8">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b8.kicker"></p>
-        <div id="b8-stage"><p class="skeleton-note">scene 8 — loop — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="figures" id="b8-figures"></div>
+        <p class="body" data-i18n="b8.note"></p>
       </div>
     </section>
     <section class="beat" id="unknowns" data-beat="9">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b9.kicker"></p>
-        <div id="b9-stage"><p class="skeleton-note">scene 9 — unknowns — 뼈대 (다음 단계에서 구현)</p></div>
+                <div class="figures" id="b9-figures"></div>
+        <p class="body" data-i18n="b9.note"></p>
+        <figure class="panel owner-q" id="b9-sample">
+          <figcaption class="tag" data-i18n="b9.sample"></figcaption>
+          <div class="find-body"></div>
+        </figure>
       </div>
     </section>
     <section class="beat" id="ask" data-beat="chat">
@@ -115,7 +157,9 @@
     <section class="beat" id="verify" data-beat="10">
       <div class="beat-inner">
         <p class="kicker" data-i18n="b10.kicker"></p>
-        <div id="b10-stage"><p class="skeleton-note">scene 10 — verify — 뼈대 (다음 단계에서 구현)</p></div>
+                <p class="lede" data-i18n="b10.clone"></p>
+        <pre class="term" id="b10-clone"></pre>
+        <div class="repo-links" id="b10-links"></div>
       </div>
     </section>
   </main>

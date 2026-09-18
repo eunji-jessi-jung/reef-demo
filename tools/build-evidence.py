@@ -103,6 +103,18 @@ def reef_side():
     }
 
 
+def owner_question(heading_contains="Which hostname and path prefix"):
+    """One entry from the owner bank, shown whole. The four-part shape is the point:
+    the question, what it blocks, what was already exhausted, and where to look."""
+    text = (RF / ".reef/questions-for-owner.md").read_text(encoding="utf-8")
+    blocks = text.split("\n## ")
+    hit = next((b for b in blocks if heading_contains in b.split("\n")[0]), None)
+    if hit is None:
+        return None
+    lines = hit.split("\n")
+    return {"heading": lines[0].strip(), "body": "\n".join(lines[1:]).strip()}
+
+
 def evaluation():
     qs = json.loads((RF / ".reef/questions.json").read_text(encoding="utf-8"))
     qs = qs if isinstance(qs, list) else qs["questions"]
@@ -139,6 +151,7 @@ def main():
         },
         "fixture": fx,
         "reef": reef_side(),
+        "owner_question": owner_question(),
         "evaluation": evaluation(),
         "loop": {"changed_files": 32, "artifacts_gone_false": 13, "artifacts_refreshed": 23},
         "log": [{"at": m.group(1)[:16].replace("T", " "), "text": m.group(2).strip()}

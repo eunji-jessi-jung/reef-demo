@@ -1,17 +1,19 @@
 /* reef demo — shared shell: data loading, i18n, nav state, reveal-on-scroll */
 
-export const state = { lang: 'ko', strings: null, ev: null };
+export const state = { lang: 'ko', strings: null, ev: null, digest: null, qa: null };
 
 const LS_KEY = 'reef-demo-lang';
 
 async function loadData() {
   const base = document.body.dataset.base || '.';
-  const [strings, ev] = await Promise.all([
+  const [strings, ev, digest] = await Promise.all([
     fetch(`${base}/data/strings.json`).then(r => r.json()),
     fetch(`${base}/data/evidence.json`).then(r => r.json()),
+    fetch(`${base}/data/digest.json`).then(r => r.json()).catch(() => ({ items: [] })),
   ]);
   state.strings = strings;
   state.ev = ev;
+  state.digest = digest;
 }
 
 export function t(key, vars) {

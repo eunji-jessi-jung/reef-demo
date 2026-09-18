@@ -183,5 +183,141 @@
   "chat.open": {
     "ko": "저장소에서 보기",
     "en": "View in the repository"
+  },
+  "b2.q": {
+    "ko": "정산이 끝난 주문은 취소할 수 있나?",
+    "en": "Can a settled order be cancelled?"
+  },
+  "b2.findDoc": {
+    "ko": "사내 위키에서 찾기",
+    "en": "Look in the company wiki"
+  },
+  "b2.findCode": {
+    "ko": "소스 코드에서 찾기",
+    "en": "Look in the source code"
+  },
+  "b2.docLabel": {
+    "ko": "위키 · 주문 취소 정책 §4",
+    "en": "Wiki · Order cancellation policy §4"
+  },
+  "b2.codeLabel": {
+    "ko": "order-service · OrderCancelServiceV1.java",
+    "en": "order-service · OrderCancelServiceV1.java"
+  },
+  "b3.stampDoc": {
+    "ko": "문서",
+    "en": "Document"
+  },
+  "b3.stampCode": {
+    "ko": "코드",
+    "en": "Code"
+  },
+  "b3.agree": {
+    "ko": "일치",
+    "en": "agree"
+  },
+  "b3.body": {
+    "ko": "서로 다른 두 출처가 같은 말을 한다. 보통은 여기서 확인이 끝난다.",
+    "en": "Two independent sources say the same thing. Normally the check ends here."
+  },
+  "b4.run": {
+    "ko": "그 클래스를 누가 부르는지 찾아본다",
+    "en": "Find out who calls that class"
+  },
+  "b4.hits": {
+    "ko": "{n}줄",
+    "en": "{n} hits"
+  },
+  "b4.allself": {
+    "ko": "다섯 줄 전부 그 파일 자신이다. 호출자 0.",
+    "en": "All five are that file itself. Zero callers."
+  },
+  "b4.reefsays": {
+    "ko": "리프가 적어 둔 것",
+    "en": "What the reef recorded"
+  },
+  "b5.hop": {
+    "ko": "홉",
+    "en": "hop"
+  },
+  "b5.breaks": {
+    "ko": "단절 {n}곳",
+    "en": "{n} breaks"
+  },
+  "b5.advance": {
+    "ko": "다음 홉",
+    "en": "Next hop"
+  },
+  "b5.replay": {
+    "ko": "처음부터",
+    "en": "Replay"
+  },
+  "b5.stops": {
+    "ko": "돈은 6홉에서 멈춘다. 이후 어느 것도 되돌리지 않는다.",
+    "en": "The money stops at hop six. Nothing downstream recovers it."
+  },
+  "b6.rows": {
+    "ko": "대기 건수",
+    "en": "rows waiting"
+  },
+  "b6.amount": {
+    "ko": "추정 미정정 금액",
+    "en": "estimated uncorrected amount"
+  },
+  "b6.months": {
+    "ko": "연속 개월",
+    "en": "consecutive months"
+  },
+  "b6.zero": {
+    "ko": "41개월 중 잔액이 0인 달은 한 번도 없다",
+    "en": "Not one of the 41 months has a zero balance"
+  },
+  "b7.answered": {
+    "ko": "질문에 답함",
+    "en": "questions answered"
+  },
+  "b7.fragments": {
+    "ko": "정답 조각 회수",
+    "en": "answer-key fragments recovered"
+  },
+  "b7.under": {
+    "ko": "리프가 스스로 낮게 매긴 문항",
+    "en": "questions the reef had understated"
+  },
+  "b7.over": {
+    "ko": "부풀린 문항",
+    "en": "overstated"
+  },
+  "b8.changed": {
+    "ko": "소스 파일 변경",
+    "en": "source files changed"
+  },
+  "b8.false": {
+    "ko": "거짓이 된 아티팩트",
+    "en": "artifacts that stopped being true"
+  },
+  "b8.refreshed": {
+    "ko": "다시 검증한 아티팩트",
+    "en": "artifacts re-verified"
+  },
+  "b9.unknowns": {
+    "ko": "기록된 모르는 것",
+    "en": "recorded unknowns"
+  },
+  "b9.questions": {
+    "ko": "오너에게 넘긴 질문",
+    "en": "questions handed to the owner"
+  },
+  "b9.sample": {
+    "ko": "그중 한 장",
+    "en": "One of them"
+  },
+  "b10.clone": {
+    "ko": "세 저장소가 전부 공개돼 있습니다. 채점 기준까지 들어 있습니다.",
+    "en": "All three repositories are public. The grading key is in there too."
+  },
+  "ui.more": {
+    "ko": "더 보기",
+    "en": "Show more"
   }
 }
