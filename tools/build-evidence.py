@@ -134,6 +134,47 @@ def evaluation():
     }
 
 
+# External and prior evidence. Hand-maintained because it lives outside the three
+# repositories — but each entry was checked against its primary source on the date
+# recorded, and `verified` is the date that check happened, not the date it was typed.
+EXTERNAL = {
+    "eth": {
+        "title": "Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?",
+        "authors": "Gloaguen, Mündler, Müller, Raychev, Vechev — ETH Zurich",
+        "ref": "arXiv 2602.11988", "url": "https://arxiv.org/abs/2602.11988",
+        "dates": "v1 2026-02-12 · v2 2026-06-23", "verified": "2026-09-19",
+        "stance": "challenge",
+        "findings": [
+            "Context files do not generally improve task success rates — for LLM-generated and developer-committed files alike.",
+            "They increase inference cost by over 20% on average.",
+            "Repository overviews, though popular and recommended by model providers, are not helpful.",
+            "Instructions in context files are, by contrast, well followed by agents.",
+            "The authors recommend evaluating any context-file improvement rigorously before deploying it.",
+        ],
+    },
+    "supabase": {
+        "title": "supabase-reef benchmark",
+        "url": "https://github.com/eunji-jessi-jung/supabase-reef/blob/main/reef-benchmark-report.md",
+        "verified": "2026-09-19", "stance": "support",
+        "design": "28 runs · 5 Supabase repositories · 7 analysis tasks · Claude Opus 4.6 and Sonnet 4.6 · each task once with the reef and once without",
+        "results": [
+            ["Opus — rubric", "49/55 (89%)", "55/55 (100%)"],
+            ["Sonnet — rubric", "51/55 (93%)", "55/55 (100%)"],
+            ["Opus — tool calls", "185", "164 (−11%)"],
+            ["Sonnet — tool calls", "236", "173 (−27%)"],
+            ["Opus — tokens", "377,924", "387,183 (+2%)"],
+            ["Sonnet — tokens", "400,416", "388,624 (−3%)"],
+        ],
+        "caveats": [
+            "Designed by reef's own author, so selection bias applies and the rubric may be reef-shaped.",
+            "One codebase, one run per condition.",
+            "Every task is analysis, not implementation.",
+            "Build cost is not counted in the return.",
+        ],
+    },
+}
+
+
 def main():
     fx = {"wiki": wiki(), "v1": legacy_class(), "grep": grep_proof(), "backlog": backlog()}
     fx["counts"] = {
@@ -153,6 +194,7 @@ def main():
         "reef": reef_side(),
         "owner_question": owner_question(),
         "evaluation": evaluation(),
+        "external": EXTERNAL,
         "loop": {"changed_files": 32, "artifacts_gone_false": 13, "artifacts_refreshed": 23},
         "log": [{"at": m.group(1)[:16].replace("T", " "), "text": m.group(2).strip()}
                 for m in re.finditer(r"\*\*(\S+?)\*\* — (.+)", log)],

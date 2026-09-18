@@ -13,6 +13,7 @@
       <a href="index.html"  data-i18n="nav.demo"></a>
       <a href="why.html"    data-i18n="nav.why"></a>
       <a href="how.html"    data-i18n="nav.how"></a>
+      <a href="index.html#ask" data-i18n="nav.ask"></a>
       <a href="verify.html" data-i18n="nav.verify"></a>
     </nav>
     <div class="lang">
@@ -20,19 +21,26 @@
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
   </header>
-
   <main>
+
     <section class="beat">
       <div class="beat-inner">
         <p class="kicker" data-i18n="nav.verify"></p>
-        <p class="skeleton-note">verify.html — 뼈대. 내용은 다음 단계에서.</p>
+        <h1 class="lede wide" data-i18n="verify.h"></h1>
+        <p class="body" data-i18n="verify.lede"></p>
+        <pre class="term" id="v-clone"></pre>
+        <p class="meta" data-i18n="verify.note"></p>
+        <div class="repo-links" id="v-links"></div>
+      </div>
+    </section>
+
+    <section class="beat">
+      <div class="beat-inner">
+        <ol class="steps" id="v-steps"></ol>
       </div>
     </section>
   </main>
-  <footer><span class="meta">reef demo · skeleton</span></footer>
-  <script type="module">
-    import { boot } from './assets/js/site.js';
-    boot();
-  </script>
+  <footer><span class="meta">reef · <a href="https://github.com/eunji-jessi-jung/reef">github</a></span></footer>
+  <script type="module" src="assets/js/pages.js"></script>
 </body>
 </html>
