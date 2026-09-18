@@ -27,7 +27,9 @@ const PER_IP_WINDOW = 6;
 const BUDGET        = Number(process.env.REEF_REQUEST_BUDGET || 400);
 
 const ALLOWED = (process.env.REEF_ALLOWED_ORIGINS ||
-  'https://eunji-jessi-jung.github.io,http://localhost:4173,http://127.0.0.1:4173')
+  ['https://eunji-jessi-jung.github.io',      // the published site
+   'https://reef-demo-delta.vercel.app',      // the copy Vercel serves alongside the function
+   'http://localhost:4173', 'http://127.0.0.1:4173'].join(','))
   .split(',').map(s => s.trim());
 
 /* In-memory only. A serverless instance may be recycled, so this throttles a burst

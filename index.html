@@ -169,8 +169,10 @@
   </footer>
 
   <script>
-    /* Set by the deploy step. Empty means: prepared answers only, no proxy. */
-    window.REEF_API = "";
+    /* The proxy holds the key and the reef; the browser only sends a question.
+       Empty means: prepared answers only. If this endpoint is unreachable or out of
+       budget, the chat drops back to them on its own. */
+    window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
   </script>
   <script type="module" src="assets/js/beats.js"></script>
 </body>
