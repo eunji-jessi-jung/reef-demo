@@ -1,0 +1,11 @@
+{
+  "name": "reef-demo",
+  "private": true,
+  "type": "module",
+  "description": "Demo site for reef — static pages plus one chat proxy.",
+  "scripts": {
+    "digest": "python3 tools/build-digest.py",
+    "evidence": "python3 tools/build-evidence.py",
+    "serve": "python3 -m http.server 4173"
+  }
+}

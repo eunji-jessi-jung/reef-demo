@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <title>reef — demo</title>
+</head>
+<body data-base=".">
+  <header class="topbar">
+    <a class="brand" href="index.html">~ <span>reef</span></a>
+    <nav class="nav">
+      <a href="index.html"  data-i18n="nav.demo"></a>
+      <a href="why.html"    data-i18n="nav.why"></a>
+      <a href="how.html"    data-i18n="nav.how"></a>
+      <a href="index.html#ask" data-i18n="nav.ask"></a>
+      <a href="verify.html" data-i18n="nav.verify"></a>
+    </nav>
+    <div class="lang">
+      <button data-lang="ko" aria-pressed="true">한국어</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="beat" id="top">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="site.tagline"></p>
+        <h1 class="lede" data-i18n="b1.brief"></h1>
+        <p class="meta" data-i18n="b1.meta"></p>
+      </div>
+    </section>
+
+    <section class="beat" id="brief" data-beat="1">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b1.kicker"></p>
+        <div id="b1-stage"><p class="skeleton-note">scene 1 — brief — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="search" data-beat="2">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b2.kicker"></p>
+        <div id="b2-stage"><p class="skeleton-note">scene 2 — search — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="crosscheck" data-beat="3">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b3.kicker"></p>
+        <div id="b3-stage"><p class="skeleton-note">scene 3 — crosscheck — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="reveal" data-beat="4">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b4.kicker"></p>
+        <div id="b4-stage"><p class="skeleton-note">scene 4 — reveal — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="path" data-beat="5">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b5.kicker"></p>
+        <div id="b5-stage"><p class="skeleton-note">scene 5 — path — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="backlog" data-beat="6">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b6.kicker"></p>
+        <div id="b6-stage"><p class="skeleton-note">scene 6 — backlog — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="evaluation" data-beat="7">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b7.kicker"></p>
+        <div id="b7-stage"><p class="skeleton-note">scene 7 — evaluation — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="loop" data-beat="8">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b8.kicker"></p>
+        <div id="b8-stage"><p class="skeleton-note">scene 8 — loop — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="unknowns" data-beat="9">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b9.kicker"></p>
+        <div id="b9-stage"><p class="skeleton-note">scene 9 — unknowns — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+    <section class="beat" id="ask" data-beat="chat">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="chat.kicker"></p>
+        <p class="body" data-i18n="chat.lede"></p>
+        <div class="chat has-panel">
+          <div class="chat-main">
+            <div class="chat-chips"></div>
+            <div class="chat-log" aria-live="polite"></div>
+            <form class="chat-form" hidden>
+              <input class="chat-input" type="text" maxlength="500" autocomplete="off"
+                     data-i18n-ph="chat.placeholder">
+              <button type="submit" data-i18n="chat.send"></button>
+            </form>
+            <p class="chat-offline" data-i18n="chat.offline"></p>
+          </div>
+          <aside class="artifact-panel" hidden>
+            <div class="artifact-head">
+              <p class="artifact-title"></p>
+              <button class="artifact-close" data-i18n="chat.close"></button>
+            </div>
+            <div class="artifact-body"></div>
+            <a class="artifact-link src" target="_blank" rel="noopener" data-i18n="chat.open"></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="beat" id="verify" data-beat="10">
+      <div class="beat-inner">
+        <p class="kicker" data-i18n="b10.kicker"></p>
+        <div id="b10-stage"><p class="skeleton-note">scene 10 — verify — 뼈대 (다음 단계에서 구현)</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="meta">reef demo · skeleton</span>
+  </footer>
+
+  <script>
+    /* Set by the deploy step. Empty means: prepared answers only, no proxy. */
+    window.REEF_API = "";
+  </script>
+  <script type="module" src="assets/js/beats.js"></script>
+</body>
+</html>

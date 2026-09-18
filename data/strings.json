@@ -1,0 +1,187 @@
+{
+  "_note": "UI copy only. Quotations from the fixture and the reef live in evidence.json and are never translated — the English column glosses them.",
+  "nav.demo": {
+    "ko": "데모",
+    "en": "Demo"
+  },
+  "nav.why": {
+    "ko": "왜 만들었나",
+    "en": "Why"
+  },
+  "nav.how": {
+    "ko": "어떻게 만들었나",
+    "en": "How"
+  },
+  "nav.verify": {
+    "ko": "직접 검증하기",
+    "en": "Verify"
+  },
+  "site.title": {
+    "ko": "reef",
+    "en": "reef"
+  },
+  "site.tagline": {
+    "ko": "사람이 남기고 · 코드가 검증하고 · 변경이 다시 묻는다",
+    "en": "People leave it · code verifies it · change asks again"
+  },
+  "b1.kicker": {
+    "ko": "당신은 오늘 이 회사에 도착했다",
+    "en": "You arrived at this company today"
+  },
+  "b1.brief": {
+    "ko": "정산 정정 업무를 AI 에이전트로 자동화하려고 합니다. 현재 프로세스가 어떻게 도는지, 무엇을 자동화하면 되는지 3일 안에 파악해 주세요.",
+    "en": "We want to automate settlement-correction work with an AI agent. Work out how the current process runs and what to automate. You have three days."
+  },
+  "b1.meta": {
+    "ko": "저장소 {repos}개 · 파일 {files}개 · 비코드 소스 {docs}종",
+    "en": "{repos} repositories · {files} files · {docs} kinds of non-code source"
+  },
+  "b2.kicker": {
+    "ko": "먼저, 당신이 찾아본다",
+    "en": "First, you look it up"
+  },
+  "b2.prompt": {
+    "ko": "무엇부터 확인하시겠습니까?",
+    "en": "Where would you start?"
+  },
+  "b2.doc": {
+    "ko": "사내 위키",
+    "en": "Company wiki"
+  },
+  "b2.code": {
+    "ko": "소스 코드",
+    "en": "Source code"
+  },
+  "b3.kicker": {
+    "ko": "문서와 코드가 서로를 뒷받침한다",
+    "en": "Document and code corroborate each other"
+  },
+  "b3.verdict": {
+    "ko": "교차검증 통과",
+    "en": "Cross-check passed"
+  },
+  "b3.conclusion": {
+    "ko": "“정산이 끝난 주문은 취소가 차단된다”",
+    "en": "“A settled order is blocked from cancellation”"
+  },
+  "b4.kicker": {
+    "ko": "그런데 그 코드를 누가 부르는가",
+    "en": "But who calls that code?"
+  },
+  "b4.result": {
+    "ko": "다섯 줄 전부가 자기 파일 안에 있다. 호출자 0.",
+    "en": "All five hits are inside that same file. Zero callers."
+  },
+  "b4.punch": {
+    "ko": "두 검색이 서로 동의했다. 둘 다 틀렸다.",
+    "en": "Two searches agreed. Both were wrong."
+  },
+  "b5.kicker": {
+    "ko": "그럼 돈은 실제로 어디까지 가는가",
+    "en": "So how far does the money actually get?"
+  },
+  "b5.note": {
+    "ko": "9홉 · 독립적인 단절 4곳 · 각각 단독으로 충분하다",
+    "en": "Nine hops · four independent breaks · each sufficient on its own"
+  },
+  "b6.kicker": {
+    "ko": "41개월치가 쌓여 있다",
+    "en": "41 months of it has piled up"
+  },
+  "b6.caveat": {
+    "ko": "그리고 리프는 이 숫자를 그대로 쓰지 말라고 적었다",
+    "en": "And the reef wrote down that you should not cite this figure as it stands"
+  },
+  "b7.kicker": {
+    "ko": "그럼 리프가 맞다는 근거는",
+    "en": "So what says the reef is right?"
+  },
+  "b7.blind": {
+    "ko": "눈 가린 채점",
+    "en": "Blind grading"
+  },
+  "b8.kicker": {
+    "ko": "코드가 바뀌면",
+    "en": "When the code changes"
+  },
+  "b8.note": {
+    "ko": "생성기는 다시 만든다. 리프는 무엇이 거짓이 됐는지 말한다.",
+    "en": "A generator regenerates. A reef tells you what stopped being true."
+  },
+  "b9.kicker": {
+    "ko": "모르는 것은 모른다고 한다",
+    "en": "What it does not know, it says"
+  },
+  "b9.note": {
+    "ko": "AI가 묻고, 사람은 자기만 아는 것에만 답한다",
+    "en": "The AI asks; the human answers only what only they can"
+  },
+  "b10.kicker": {
+    "ko": "믿지 마시고, 돌려보세요",
+    "en": "Don't take our word for it. Run it."
+  },
+  "ui.recording": {
+    "ko": "실측 기록",
+    "en": "recorded run"
+  },
+  "ui.source": {
+    "ko": "출처",
+    "en": "source"
+  },
+  "ui.scroll": {
+    "ko": "스크롤",
+    "en": "scroll"
+  },
+  "nav.ask": {
+    "ko": "물어보기",
+    "en": "Ask"
+  },
+  "chat.kicker": {
+    "ko": "직접 물어보세요",
+    "en": "Ask it yourself"
+  },
+  "chat.lede": {
+    "ko": "이 답변은 리프의 아티팩트 80개만 보고 만들어집니다. 소스코드는 보지 않습니다.",
+    "en": "These answers come from the reef's 80 artifacts alone. The source code is not consulted."
+  },
+  "chat.prepared": {
+    "ko": "준비된 답변 · 아티팩트만 읽고 생성",
+    "en": "prepared answer · generated from artifacts only"
+  },
+  "chat.live": {
+    "ko": "실시간",
+    "en": "live"
+  },
+  "chat.placeholder": {
+    "ko": "셀플로우에 대해 무엇이든 물어보세요",
+    "en": "Ask anything about Sellflow"
+  },
+  "chat.send": {
+    "ko": "보내기",
+    "en": "Send"
+  },
+  "chat.offline": {
+    "ko": "자유 질문은 지금 꺼져 있습니다. 위의 준비된 질문은 그대로 동작합니다.",
+    "en": "Free-form questions are off right now. The prepared questions above still work."
+  },
+  "chat.spent": {
+    "ko": "실시간 응답 한도에 도달했습니다. 준비된 질문으로 계속 보실 수 있습니다.",
+    "en": "The live budget is spent. The prepared questions still work."
+  },
+  "chat.error": {
+    "ko": "응답을 받지 못했습니다. 다시 시도해 보세요.",
+    "en": "No answer came back. Try again."
+  },
+  "chat.unknowns": {
+    "ko": "이 아티팩트가 모른다고 적어 둔 것",
+    "en": "What this artifact records as not determinable"
+  },
+  "chat.close": {
+    "ko": "닫기",
+    "en": "Close"
+  },
+  "chat.open": {
+    "ko": "저장소에서 보기",
+    "en": "View in the repository"
+  }
+}
