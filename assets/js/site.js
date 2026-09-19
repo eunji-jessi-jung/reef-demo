@@ -51,6 +51,7 @@ export function copyVars() {
     answered: e.answered,
     partial: e.partial,
     understated: e.self_understated,
+    report: e.report,
     frag: e.fragments_total,
     changed: l.changed_files,
     gone: l.artifacts_gone_false,

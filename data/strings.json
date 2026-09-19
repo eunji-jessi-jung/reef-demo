@@ -400,8 +400,8 @@
     "en": "Stateless. Same code, same output, every run"
   },
   "L.d1b": {
-    "ko": "아티팩트마다 인용한 파일의 스냅샷을 들고 있습니다. 모르는 것 {unknowns}건은 모름으로 적혀 있고, 사람이 한 번 답한 것은 다음 회차에도 남습니다",
-    "en": "Each artifact holds a snapshot of every file it cites. {unknowns} things are recorded as not known, and what a person answered once is still there next run"
+    "ko": "아티팩트마다 인용 파일 스냅샷 · 모름 {unknowns}건 · 사람의 답은 남음",
+    "en": "A snapshot per artifact · {unknowns} unknowns recorded · a person's answer stays"
   },
   "L.d2k": {
     "ko": "유지보수",
@@ -412,8 +412,8 @@
     "en": "It regenerates"
   },
   "L.d2b": {
-    "ko": "다시 색인해 스냅샷과 대조하고, 더는 참이 아닌 주장을 이름 댑니다",
-    "en": "It re-indexes, diffs against the snapshots, and names the claims that stopped being true"
+    "ko": "다시 색인 → 스냅샷 대조 → 더는 참이 아닌 주장을 지목",
+    "en": "Re-index → diff against snapshots → name the claims that stopped being true"
   },
   "L.d3k": {
     "ko": "코드 밖 정보",
@@ -424,8 +424,8 @@
     "en": "Usually reads the code alone"
   },
   "L.d3b": {
-    "ko": "위키·티켓·회의록·인수인계 {docs}건을 코드와 같은 자격으로 읽고, 서로 어긋나면 모순으로 기록합니다",
-    "en": "Reads the {docs} wiki pages, tickets, minutes and handovers on the same footing as the code, and records a contradiction when they disagree"
+    "ko": "위키·티켓·회의록·인수인계 {docs}건을 코드와 같은 자격으로 · 어긋나면 모순 기록",
+    "en": "{docs} wiki pages, tickets, minutes, handovers — cited like code · disagreement recorded as contradiction"
   },
   "L.diffNote": {
     "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 \"더는 참이 아님\"으로 지목했고, {refreshed}개를 갱신했습니다.",
@@ -456,24 +456,24 @@
     "en": "Outside the fictional company"
   },
   "L.sLede": {
-    "ko": "reef 는 셀플로우에 맞춰 만든 게 아닙니다. 서비스와 데이터와 인터페이스가 있는 코드베이스면 됩니다.",
-    "en": "reef was not built around Sellflow. What it needs is a codebase with services, data and interfaces. That is the whole requirement."
+    "ko": "서비스와 데이터와 인터페이스가 있는 코드베이스면 됩니다.",
+    "en": "A codebase with services, data and interfaces. That is the whole requirement."
   },
   "L.sFitT": {
     "ko": "맞는 곳",
     "en": "Where it fits"
   },
   "L.sFit": {
-    "ko": "마이크로서비스, 모듈이 있는 모놀리스, 풀스택 앱, 데이터 파이프라인, IaC. 저장소 3~15개가 한 도메인을 이루는 규모가 가장 좋습니다 — 한 사람이 전체를 못 쥐면서도 연결을 전부 추적할 수 있는 크기입니다. 100개가 넘으면 팀이나 도메인 단위로 쪼갭니다.",
-    "en": "Microservices, monoliths with modules, full-stack apps, data pipelines, infrastructure-as-code. The sweet spot is 3 to 15 repositories forming one domain — big enough that no one person holds the whole picture, small enough to trace every connection. Past a hundred, split it by team or domain."
+    "ko": "저장소 3~15개가 한 도메인을 이루는 규모가 가장 좋습니다. 100개가 넘으면 팀·도메인 단위로 쪼갭니다.",
+    "en": "Best at 3 to 15 repositories forming one domain. Past a hundred, split by team or domain."
   },
   "L.sUnfitT": {
     "ko": "안 맞는 곳",
     "en": "Where it doesn't"
   },
   "L.sUnfit": {
-    "ko": "백엔드 없는 네이티브 모바일 앱, 게임 엔진, 임베디드 펌웨어, ML 학습 노트북. 데이터 스키마도 API 경계도 없어서 reef 가 붙잡을 재료가 없습니다.",
-    "en": "Native mobile apps with no backend, game engines, embedded firmware, ML training notebooks. There are no data schemas or service boundaries for it to hold on to."
+    "ko": "데이터 스키마도 API 경계도 없어서 붙잡을 재료가 없습니다.",
+    "en": "No data schemas or service boundaries to hold on to."
   },
   "L.sCta": {
     "ko": "한계와 고지까지 전부 보기",
@@ -616,64 +616,64 @@
     "en": "Contract and governance"
   },
   "Z.govDesc": {
-    "ko": "플러그인이 들고 다닙니다. 아티팩트 9종, 관계 5종(`parent` `depends_on` `refines` `constrains` `supersedes`), 프런트매터 스키마, 템플릿. 아티팩트는 받아들여질 때마다 이 계약에 대고 검증됩니다.",
-    "en": "Ships with the plugin. Nine artifact types, five relation types (`parent` `depends_on` `refines` `constrains` `supersedes`), the frontmatter schema, the templates. Every artifact is validated against this contract on accept."
+    "ko": "플러그인이 들고 다니는 규칙입니다. 아티팩트는 받아들여질 때마다 여기에 대고 검증됩니다.",
+    "en": "The rules the plugin carries. Every artifact is validated against them on accept."
   },
   "Z.srcName": {
     "ko": "원자료 — 읽기만 합니다",
     "en": "Raw evidence, read only"
   },
   "Z.srcDesc": {
-    "ko": "저장소 {repos}개, 거기서 뽑은 API 스펙과 ER 다이어그램, 그리고 회사가 가진 문서 {docs}건 — 위키 스냅샷, 티켓, 회의록, 인수인계.",
-    "en": "{repos} repositories, the API specs and ER diagrams pulled out of them, and the company's own {docs} documents: a wiki export, tickets, minutes, a handover."
+    "ko": "저장소 {repos}개와 회사 문서 {docs}건.",
+    "en": "{repos} repositories and the company's {docs} documents."
   },
   "Z.srcRule": {
     "ko": "reef 는 여기에 아무것도 쓰지 않습니다.",
     "en": "reef writes nothing here."
   },
   "Z.flow1": {
-    "ko": "AI 가 증거를 읽고 아티팩트를 씁니다. 주장마다 출처 파일이 붙고, 소스로 확인이 안 되는 것은 `known_unknowns` 에 남습니다.",
-    "en": "AI reads the evidence and writes the artifacts. Every claim names its source file; what the sources cannot settle goes into `known_unknowns`."
+    "ko": "AI 가 읽고 씁니다. 주장마다 출처 파일, 확인 안 되는 것은 `known_unknowns`.",
+    "en": "AI reads and writes. A source file per claim; what cannot be verified goes to `known_unknowns`."
   },
   "Z.artName": {
     "ko": "정본 지식 층",
     "en": "The canonical knowledge layer"
   },
   "Z.artDesc": {
-    "ko": "아티팩트 {artifacts}개 · 9종 · 서로 위키링크로 연결. 각각이 `sources` `last_verified` `freshness_triggers` `known_unknowns` 를 프런트매터로 들고 있습니다 — 사람이 아니라 에이전트가 읽으라고.",
-    "en": "{artifacts} artifacts · nine types · wikilinked to each other. Each carries `sources`, `last_verified`, `freshness_triggers` and `known_unknowns` in its frontmatter — for an agent to read, not a person."
+    "ko": "아티팩트 {artifacts}개 · 9종 · 위키링크. 에이전트가 읽으라고 쓴 것입니다.",
+    "en": "{artifacts} artifacts · nine types · wikilinked. Written for an agent to read."
   },
   "Z.artRule": {
-    "ko": "스킬이 쓰고 스킬이 고칩니다. 지금 {unknowns}건이 모름으로 적혀 있습니다.",
-    "en": "Written and maintained by the skills. {unknowns} things are currently recorded as not known."
+    "ko": "모름으로 적힌 것 {unknowns}건.",
+    "en": "{unknowns} recorded as not known."
   },
   "Z.flow2": {
-    "ko": "아티팩트가 받아들여질 때, 인용한 모든 파일의 해시가 스냅샷으로 남습니다.",
-    "en": "When an artifact is accepted, a hash of every file it cites is snapshotted."
+    "ko": "받아들여질 때 인용 파일 전부를 해시로 스냅샷.",
+    "en": "On accept, every cited file is hashed into a snapshot."
   },
   "Z.stateName": {
     "ko": "상태",
     "en": "State"
   },
   "Z.stateDesc": {
-    "ko": "소스 색인, 아티팩트별 스냅샷(인용 파일마다 sha256), 소스↔아티팩트 지도, 질문 은행.",
-    "en": "The source index, one snapshot per artifact (a sha256 for every cited file), the source-to-artifact map, and the question bank."
+    "ko": "색인 · 아티팩트별 스냅샷 · 지도 · 질문 은행.",
+    "en": "Index · one snapshot per artifact · the map · the question banks."
   },
   "Z.stateRule": {
-    "ko": "`update` 는 다시 색인하고 스냅샷과 대조해서, 어떤 주장이 더는 참이 아닌지 이름을 댑니다. 다시 생성하지 않습니다.",
-    "en": "`update` re-indexes, diffs against the snapshots, and names the claims that stopped being true. It does not regenerate."
+    "ko": "`update` 는 대조합니다. 재생성하지 않습니다.",
+    "en": "`update` diffs. It does not regenerate."
   },
   "Z.flow3": {
-    "ko": "소스로 풀 수 없는 {owner}건은 사람에게 갈 질문으로 뽑혀 있습니다. 답하면 다음 회차에도 남습니다.",
-    "en": "{owner} things the sources cannot settle are pulled out as questions for a person. An answer stays through the next pass."
+    "ko": "소스로 못 푸는 {owner}건은 사람에게. 답은 다음 회차에도 남습니다.",
+    "en": "{owner} the sources cannot settle go to a person. Answers stay through the next pass."
   },
   "Z.readName": {
     "ko": "읽는 쪽",
     "en": "Whoever reads it"
   },
   "Z.readDesc": {
-    "ko": "에이전트는 `CLAUDE.md` 로 들어와 `index.md` 를 타고 그래프를 걷습니다. 사람은 Obsidian 으로 같은 폴더를 엽니다. 둘 다 아티팩트를 고치지 않습니다.",
-    "en": "An agent enters through `CLAUDE.md` and walks the graph from `index.md`. A person opens the same folder in Obsidian. Neither edits an artifact."
+    "ko": "에이전트는 `CLAUDE.md` 로 들어와 그래프를 걷고, 사람은 Obsidian 으로 엽니다. 둘 다 고치지 않습니다.",
+    "en": "An agent enters through `CLAUDE.md` and walks the graph; a person opens it in Obsidian. Neither edits."
   },
   "Z.note": {
     "ko": "구역 이름은 실제 폴더 이름입니다. 셀플로우 리프 저장소를 열면 이 구조 그대로입니다.",
@@ -700,151 +700,183 @@
     "en": "Plenty of tools turn code into documentation"
   },
   "L.uLede": {
-    "ko": "reef 가 다른 점은 세 가지입니다. 상태를 가집니다. 유지보수가 됩니다. 코드 밖의 정보를 같이 읽습니다. 지식 베이스는 대개 이 셋이 없어서 죽습니다 — 낡거나, 틀렸거나, 아무도 못 찾아서.",
-    "en": "reef differs in three ways. It has state. It can be maintained. It reads what is not code. Knowledge bases usually die for want of exactly those three — they go stale, they turn out wrong, or nobody can find anything in them."
+    "ko": "reef 가 다른 점은 셋입니다 — 상태 · 유지보수 · 코드 밖 정보. 지식 베이스는 대개 이 셋이 없어서 죽습니다.",
+    "en": "reef differs in three ways — state, maintenance, and what is not code. Knowledge bases usually die for want of exactly those."
   },
   "L.tech.out": {
     "ko": "만드는 것",
-    "en": "Makes"
+    "en": "makes"
   },
   "L.tech.where": {
     "ko": "두는 곳",
-    "en": "Kept in"
+    "en": "kept in"
   },
   "L.tech.rule": {
-    "ko": "따르는 규칙",
-    "en": "Answers to"
+    "ko": "규칙",
+    "en": "rules"
   },
-  "L.tech.f1.out": {
-    "ko": "`reef.py init` 가 `.reef/` `artifacts/` `sources/` 를 만들고, `reef.py index` 가 소스 파일마다 해시를 떠 `.reef/source-index.json` 에 적습니다.",
-    "en": "`reef.py init` scaffolds `.reef/` `artifacts/` `sources/`; `reef.py index` hashes every source file into `.reef/source-index.json`."
+  "L.tech.report": {
+    "ko": "{report}",
+    "en": "{report}"
   },
-  "L.tech.f1.where": {
-    "ko": "이름·설명·소스 경로·서비스 묶음은 `.reef/project.json` 에. 첫 줄은 `log.md` 에 남습니다.",
-    "en": "Name, description, source paths and service groupings go to `.reef/project.json`. The first line lands in `log.md`."
+  "L.tech.answer": {
+    "ko": "사람의 답",
+    "en": "a person's answer"
   },
-  "L.tech.f1.rule": {
-    "ko": "모델 호출 없음. 이 단계에서 판단하는 것은 서비스 묶음 하나뿐이고, 그것도 사람이 표를 보고 고칩니다.",
-    "en": "No model call. The one judgement here is the service grouping, and a person corrects it from a table."
+  "L.rule.f1.1": {
+    "ko": "모델 호출 0",
+    "en": "no model call"
   },
-  "L.tech.f2.out": {
-    "ko": "snorkel 은 서비스마다 SYS·SCH·API·GLOSSARY·RISK, 서비스 쌍마다 CON 을 초안으로 씁니다. source 는 앱을 실제로 띄워 OpenAPI 와 ERD 를 뽑습니다 — 사용자 제공 → 캐시된 레시피 → 런타임 → 기존 스펙(낡음 경고) → 코드 읽기, 다섯 단계 순서로.",
-    "en": "snorkel drafts SYS, SCH, API, GLOSSARY and RISK per service and a CON per service pair. source imports the apps to pull OpenAPI and ERDs — user-provided, then cached recipe, then runtime, then an existing spec with a staleness warning, then reading the code, in that order."
+  "L.rule.f1.2": {
+    "ko": "서비스 묶음은 사람이 확정",
+    "en": "grouping confirmed by a person"
   },
-  "L.tech.f2.where": {
-    "ko": "아티팩트는 `artifacts/<종류>/`, 스펙은 `sources/apis/` `sources/schemas/` `sources/infra/`, 성공한 추출 명령은 `.reef/source-recipes.json` 에 캐시. 발견 질문은 `.reef/questions.json`.",
-    "en": "Artifacts in `artifacts/<type>/`; specs in `sources/apis/`, `sources/schemas/`, `sources/infra/`; a working extraction command cached in `.reef/source-recipes.json`. Discovery questions in `.reef/questions.json`."
+  "L.rule.f2.1": {
+    "ko": "쓸 때마다 lint → snapshot",
+    "en": "lint → snapshot on write"
   },
-  "L.tech.f2.rule": {
-    "ko": "아티팩트 하나를 쓸 때마다 `lint` → 오류 수정 → `snapshot`. 끝나면 `audit` 가 서비스별 최소 구성에 대고 검사하고, `rebuild-index` 가 `index.md` 를 다시 만듭니다.",
-    "en": "Every artifact written is linted, fixed, then snapshotted. At the end `audit` checks the per-service minimums and `rebuild-index` regenerates `index.md`."
+  "L.rule.f2.2": {
+    "ko": "audit: 최소 구성",
+    "en": "audit: minimums"
   },
-  "L.tech.f3.out": {
-    "ko": "`reef.py manifest` 가 스펙·스키마·질문 은행에서 무엇을 깊게 팔지 계획을 뽑고, 에이전트들이 배치로 나눠 씁니다 — PROC·DEC·PAT·GLOSSARY 가 주로 여기서 나옵니다.",
-    "en": "`reef.py manifest` derives a plan from the specs, schemas and question bank, and agents write it in batches — most PROC, DEC, PAT and GLOSSARY artifacts come from here."
+  "L.rule.f2.3": {
+    "ko": "추출 5단계 우선순위",
+    "en": "5-tier extraction order"
   },
-  "L.tech.f3.where": {
-    "ko": "계획은 `.reef/scuba-manifest.json` 의 `planned` `completed` `skipped` 세 목록. 오케스트레이터만 이 파일을 옮겨 적습니다.",
-    "en": "The plan lives in `.reef/scuba-manifest.json` as three lists — `planned`, `completed`, `skipped`. Only the orchestrator moves entries between them."
+  "L.rule.f3.1": {
+    "ko": "쓰는 즉시 lint",
+    "en": "lint on write"
   },
-  "L.tech.f3.rule": {
-    "ko": "쓰는 즉시 lint. 배치마다 검증 게이트, 배치 묶음마다 사람 검토 지점. 브리핑 전 목표는 lint 오류 0.",
-    "en": "Lint on write. A verification gate after every batch, a human checkpoint between rounds. Target before the briefing: zero lint errors."
+  "L.rule.f3.2": {
+    "ko": "배치마다 검증 게이트",
+    "en": "gate per batch"
   },
-  "L.tech.fDeep.out": {
-    "ko": "경로 하나를 코드 줄 단위로 따라가 PROC 하나를 빽빽하게 씁니다 — 홉마다 파일과 줄, 끊긴 곳마다 증거.",
-    "en": "Follows one path through the code line by line and writes one dense PROC — a file and line per hop, evidence at every break."
+  "L.rule.f3.3": {
+    "ko": "사람 검토 지점",
+    "en": "human checkpoint"
   },
-  "L.tech.fDeep.where": {
-    "ko": "`artifacts/processes/` 에. 관련 아티팩트의 `relates_to` 와 `## Related` 를 양방향으로 맞춥니다.",
-    "en": "Into `artifacts/processes/`, with `relates_to` and `## Related` on the neighbouring artifacts brought into line both ways."
+  "L.rule.f3.4": {
+    "ko": "목표 lint 오류 0",
+    "en": "target: zero lint errors"
   },
-  "L.tech.fDeep.rule": {
-    "ko": "scuba 매니페스트가 닫혀 있어야 시작합니다. 쓴 뒤 lint → snapshot → `rebuild-index` → `rebuild-map` → log.",
-    "en": "Gated on the scuba manifest being closed. After writing: lint, snapshot, `rebuild-index`, `rebuild-map`, log."
+  "L.rule.fDeep.1": {
+    "ko": "scuba 완료 후에만",
+    "en": "only after scuba closes"
   },
-  "L.tech.f4.out": {
-    "ko": "`.reef/questions.json` 의 질문마다 답과 근거 아티팩트, 그리고 답했음·부분·못 답함 판정.",
-    "en": "For every question in `.reef/questions.json`: an answer, the artifacts it rests on, and a verdict — answered, partial or unanswered."
+  "L.rule.fDeep.2": {
+    "ko": "홉마다 파일·줄",
+    "en": "file and line per hop"
   },
-  "L.tech.f4.where": {
-    "ko": "판정은 같은 파일의 `status` 로 되돌아가고, 요약은 `log.md` 에.",
-    "en": "Verdicts are written back as `status` in the same file; the summary goes to `log.md`."
+  "L.rule.fDeep.3": {
+    "ko": "lint → snapshot → rebuild",
+    "en": "lint → snapshot → rebuild"
   },
-  "L.tech.f4.rule": {
-    "ko": "답은 `artifacts/` 만 읽어서 냅니다. 소스도, 정답도 보지 않습니다. 못 답한 것은 다음 `/reef:deep` 의 입력이 됩니다.",
-    "en": "Answers come from `artifacts/` alone — no sources, no key. What it could not answer becomes input to the next `/reef:deep`."
+  "L.rule.f4.1": {
+    "ko": "artifacts/ 만 읽음",
+    "en": "reads artifacts only"
   },
-  "L.tech.f5.out": {
-    "ko": "`index` 를 새로 뜨고 `diff` 로 스냅샷과 대조해 영향받은 아티팩트를, `detect-new` 로 아직 어떤 아티팩트도 인용하지 않은 새 파일을 찾습니다.",
-    "en": "Re-runs `index`, then `diff` against the snapshots to find the affected artifacts and `detect-new` to find files no artifact cites yet."
+  "L.rule.f4.2": {
+    "ko": "소스·정답 안 봄",
+    "en": "no sources, no key"
   },
-  "L.tech.f5.where": {
-    "ko": "결과는 `.reef/update-report.json`. 자잘한 것(날짜 갱신, 단순 이름 변경)은 바로 적용하고 나머지는 검토를 받습니다. 끝난 보고서는 `.reef/update-history/` 로.",
-    "en": "Findings go to `.reef/update-report.json`. Trivial items — freshness bumps, plain renames — are applied outright; the rest wait for review. Finished reports are archived to `.reef/update-history/`."
+  "L.rule.f4.3": {
+    "ko": "못 답한 것 → deep",
+    "en": "gaps feed deep"
   },
-  "L.tech.f5.rule": {
-    "ko": "소스가 사라진 아티팩트는 지우지 않고 `status: orphaned` 로 표시합니다. 고친 아티팩트는 다시 lint → snapshot.",
-    "en": "An artifact whose source is gone is not deleted but marked `status: orphaned`. Every artifact touched is linted and snapshotted again."
+  "L.rule.f5.1": {
+    "ko": "스냅샷과 대조",
+    "en": "diffs against snapshots"
   },
-  "L.tech.f6.out": {
-    "ko": "`reef.py index-context` 가 `sources/context/` `sources/raw/` 를 훑어 새 파일·바뀐 파일·아무 아티팩트도 인용하지 않는 파일을 냅니다.",
-    "en": "`reef.py index-context` sweeps `sources/context/` and `sources/raw/` and reports what is new, what changed, and what no artifact cites."
+  "L.rule.f5.2": {
+    "ko": "사소한 건 자동 적용",
+    "en": "trivial applied outright"
   },
-  "L.tech.f6.where": {
-    "ko": "이전 상태는 `.reef/context-index.json`. 연결하기로 한 파일 경로는 해당 아티팩트의 `sources` 프런트매터에 들어갑니다.",
-    "en": "Previous state in `.reef/context-index.json`. A file chosen for linking is added to that artifact's `sources` frontmatter."
+  "L.rule.f5.3": {
+    "ko": "삭제 대신 orphaned",
+    "en": "orphaned, not deleted"
   },
-  "L.tech.f6.rule": {
-    "ko": "문서를 코드와 같은 자격으로 인용합니다 — 위키 한 쪽도 `sources` 의 한 줄입니다.",
-    "en": "Documents are cited on the same footing as code — a wiki page is one more line in `sources`."
+  "L.rule.f6.1": {
+    "ko": "문서 = 코드와 같은 자격",
+    "en": "docs cited like code"
   },
-  "L.tech.f7.out": {
-    "ko": "`reef.py unknowns` 가 모든 아티팩트의 `known_unknowns` 를 걷어 옵니다. 소스로 풀리는 것은 먼저 풀어 아티팩트를 고치고, 남는 것만 묶고 순위를 매깁니다.",
-    "en": "`reef.py unknowns` harvests every artifact's `known_unknowns`. Whatever the sources can settle is settled first and the artifact fixed; only the rest is clustered and ranked."
+  "L.rule.f7.1": {
+    "ko": "소스로 풀리면 먼저 풂",
+    "en": "settled from sources first"
   },
-  "L.tech.f7.where": {
-    "ko": "`.reef/questions-for-owner.md`. 항목마다 다섯 부분 — 질문, 무엇이 막히는지, 이미 뒤진 곳, 어디를 보면 되는지, `Routes to`(어느 아티팩트의 어느 모름인지).",
-    "en": "`.reef/questions-for-owner.md`. Five parts per entry — the question, what it blocks, what was already searched, where to look, and `Routes to` (which unknown in which artifact)."
+  "L.rule.f7.2": {
+    "ko": "항목 5부 + Routes to",
+    "en": "five parts + Routes to"
   },
-  "L.tech.f7.rule": {
-    "ko": "`Routes to` 가 색인입니다. 다음 실행은 그걸로 사라진 모름을 걷어내고 새 것을 덧붙입니다 — 파일을 통째로 다시 쓰지 않습니다.",
-    "en": "`Routes to` is the index. The next run uses it to drop unknowns that have gone and append new ones — it never rewrites the file."
+  "L.rule.f7.3": {
+    "ko": "통째로 다시 안 씀",
+    "en": "never rewritten"
   },
-  "L.tech.f8.out": {
-    "ko": "사람의 답.",
-    "en": "A person's answer."
+  "L.rule.f8.1": {
+    "ko": "{owner}건 열려 있음 · 답한 사람 0",
+    "en": "{owner} open · answered by nobody yet"
   },
-  "L.tech.f8.where": {
-    "ko": "`.reef/questions-for-owner.md` 의 그 항목 아래. 파일에 남습니다.",
-    "en": "Under that entry in `.reef/questions-for-owner.md`. It stays in the file."
+  "L.rule.fTest2.1": {
+    "ko": "별도 에이전트",
+    "en": "a separate agent"
   },
-  "L.tech.f8.rule": {
-    "ko": "답을 아티팩트에 옮겨 적는 것은 다음 회차의 일입니다. 이 데모의 리프에서는 아직 아무도 답하지 않았습니다 — {owner}건이 열려 있습니다.",
-    "en": "Carrying the answer into an artifact is the next pass's job. In this demo's reef nobody has answered yet — {owner} are open."
+  "L.rule.fTest2.2": {
+    "ko": "채점자가 우선",
+    "en": "grader wins"
   },
-  "L.tech.fTest2.out": {
-    "ko": "첫 채점과 같은 절차, 다른 에이전트. 판정이 `.reef/questions.json` 에 돌아가고 보고서가 `.reef/` 에 남습니다.",
-    "en": "Same procedure as the first grading, a different agent. Verdicts go back to `.reef/questions.json` and the report stays in `.reef/`."
+  "L.rule.fTest2.3": {
+    "ko": "낮춰 잡음 {understated} · 높여 잡음 0",
+    "en": "understated {understated} · overstated 0"
   },
-  "L.tech.fTest2.where": {
-    "ko": "이 리프의 보고서: `.reef/test-report-2026-09-19.md`.",
-    "en": "This reef's report: `.reef/test-report-2026-09-19.md`."
+  "L.rule.fHealth.1": {
+    "ko": "기계 검사 7종",
+    "en": "7 mechanical checks"
   },
-  "L.tech.fTest2.rule": {
-    "ko": "리프가 스스로 매긴 `status` 와 채점자의 판정이 어긋나면 채점자를 따릅니다. 여기서는 {understated}문항을 리프가 낮춰 잡고 있었고, 높여 잡은 것은 없었습니다.",
-    "en": "Where the reef's own `status` disagrees with the grader, the grader wins. Here the reef had understated {understated} questions and overstated none."
+  "L.rule.fHealth.2": {
+    "ko": "아무것도 안 고침",
+    "en": "fixes nothing"
   },
-  "L.tech.fHealth.out": {
-    "ko": "`index` → `lint` → `diff`, 이 순서로. 기계 검사 일곱 가지 — ID·파일명 일치, 필수 필드, 댕글링 위키링크, `relates_to` 와 `## Related` 동기화, 인용 파일 존재 등.",
-    "en": "`index`, then `lint`, then `diff`, in that order. Seven mechanical checks — id/filename match, required fields, dangling wikilinks, `relates_to` against `## Related`, cited files existing, and so on."
+  "L.rule.fHealth.3": {
+    "ko": "last_verified vs 수정 시각",
+    "en": "last_verified vs mtime"
   },
-  "L.tech.fHealth.where": {
-    "ko": "아무것도 고치지 않습니다. `index` 가 `.reef/source-index.json` 만 다시 쓰고, 아티팩트는 손대지 않습니다.",
-    "en": "Fixes nothing. `index` rewrites only `.reef/source-index.json`; no artifact is touched."
+  "L.rule.fHealth.4": {
+    "ko": "orphaned 띄움",
+    "en": "surfaces orphaned"
   },
-  "L.tech.fHealth.rule": {
-    "ko": "신선도는 아티팩트의 `last_verified` 를 인용 파일의 수정 시각과 비교해 매깁니다. `status: orphaned` 인 것은 따로 띄웁니다.",
-    "en": "Freshness is `last_verified` against the modification time of the files it cites. Anything with `status: orphaned` is surfaced on its own."
+  "L.fit.1": {
+    "ko": "마이크로서비스",
+    "en": "microservices"
+  },
+  "L.fit.2": {
+    "ko": "모듈형 모놀리스",
+    "en": "modular monolith"
+  },
+  "L.fit.3": {
+    "ko": "풀스택 앱",
+    "en": "full-stack app"
+  },
+  "L.fit.4": {
+    "ko": "데이터 파이프라인",
+    "en": "data pipeline"
+  },
+  "L.fit.5": {
+    "ko": "IaC",
+    "en": "IaC"
+  },
+  "L.unfit.1": {
+    "ko": "백엔드 없는 모바일 앱",
+    "en": "mobile app, no backend"
+  },
+  "L.unfit.2": {
+    "ko": "게임 엔진",
+    "en": "game engine"
+  },
+  "L.unfit.3": {
+    "ko": "임베디드 펌웨어",
+    "en": "embedded firmware"
+  },
+  "L.unfit.4": {
+    "ko": "ML 학습 노트북",
+    "en": "ML notebooks"
   }
 }

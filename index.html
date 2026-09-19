@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=74877afc">
+  <link rel="stylesheet" href="assets/css/site.css?v=ec13074a">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -75,6 +75,7 @@
             <div>
               <b data-i18n="Z.govName"></b>
               <span data-md="Z.govDesc"></span>
+              <div class="chips-row"><code class="ch">9 types</code><code class="ch">parent</code><code class="ch">depends_on</code><code class="ch">refines</code><code class="ch">constrains</code><code class="ch">supersedes</code><code class="ch">frontmatter</code><code class="ch">templates</code></div>
             </div>
           </div>
 
@@ -83,6 +84,7 @@
             <div>
               <b data-i18n="Z.srcName"></b>
               <span data-md="Z.srcDesc"></span>
+              <div class="chips-row"><code class="ch">repos/</code><code class="ch">apis/</code><code class="ch">schemas/</code><code class="ch">infra/</code><code class="ch">context/</code><code class="ch">raw/</code></div>
               <em data-md="Z.srcRule"></em>
             </div>
           </div>
@@ -93,6 +95,7 @@
             <div>
               <b data-i18n="Z.artName"></b>
               <span data-md="Z.artDesc"></span>
+              <div class="chips-row"><code class="ch">sources</code><code class="ch">last_verified</code><code class="ch">freshness_triggers</code><code class="ch">known_unknowns</code><code class="ch">relates_to</code></div>
               <em data-md="Z.artRule"></em>
             </div>
           </div>
@@ -103,6 +106,7 @@
             <div>
               <b data-i18n="Z.stateName"></b>
               <span data-md="Z.stateDesc"></span>
+              <div class="chips-row"><code class="ch">source-index.json</code><code class="ch">artifact-state/</code><code class="ch">source-artifact-map.json</code><code class="ch">questions.json</code><code class="ch">questions-for-owner.md</code></div>
               <em data-md="Z.stateRule"></em>
             </div>
           </div>
@@ -133,11 +137,11 @@
         <div class="stages">
           <div class="stage">
             <div class="stage-copy"><code>/reef:init</code><p data-i18n="L.f1"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f1.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f1.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f1.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py init</code><code class="ch ch-cmd">reef.py index</code><code class="ch">source-index.json</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/project.json</code><code class="ch">log.md</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f1.1"></span><span class="ch ch-rule" data-i18n="L.rule.f1.2"></span></div>
+              </div></div>
             <figure class="cast" data-scene="init">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -149,11 +153,11 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:snorkel</code><code>/reef:source</code><p data-i18n="L.f2"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f2.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f2.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f2.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-type">SYS</code><code class="ch ch-type">SCH</code><code class="ch ch-type">API</code><code class="ch ch-type">GLOSSARY</code><code class="ch ch-type">RISK</code><code class="ch ch-type">CON</code><code class="ch">openapi.json</code><code class="ch">schema.md</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">artifacts/*/</code><code class="ch">sources/apis/</code><code class="ch">sources/schemas/</code><code class="ch">sources/infra/</code><code class="ch">.reef/source-recipes.json</code><code class="ch">.reef/questions.json</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f2.1"></span><span class="ch ch-rule" data-i18n="L.rule.f2.2"></span><span class="ch ch-rule" data-i18n="L.rule.f2.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="snorkel">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -165,11 +169,11 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:scuba</code><p data-i18n="L.f3"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f3.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f3.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f3.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py manifest</code><code class="ch ch-type">PROC</code><code class="ch ch-type">DEC</code><code class="ch ch-type">PAT</code><code class="ch ch-type">GLOSSARY</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/scuba-manifest.json</code><code class="ch">planned</code><code class="ch">completed</code><code class="ch">skipped</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f3.1"></span><span class="ch ch-rule" data-i18n="L.rule.f3.2"></span><span class="ch ch-rule" data-i18n="L.rule.f3.3"></span><span class="ch ch-rule" data-i18n="L.rule.f3.4"></span></div>
+              </div></div>
             <figure class="cast" data-scene="scuba">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -181,11 +185,11 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:deep</code><p data-i18n="L.fDeep"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.fDeep.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.fDeep.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.fDeep.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-type">PROC</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">artifacts/processes/</code><code class="ch">relates_to</code><code class="ch">## Related</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.fDeep.1"></span><span class="ch ch-rule" data-i18n="L.rule.fDeep.2"></span><span class="ch ch-rule" data-i18n="L.rule.fDeep.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="deep">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -197,11 +201,11 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:test</code><p data-i18n="L.f4"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f4.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f4.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f4.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch">answered</code><code class="ch">partial</code><code class="ch">unanswered</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/questions.json</code><code class="ch">log.md</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f4.1"></span><span class="ch ch-rule" data-i18n="L.rule.f4.2"></span><span class="ch ch-rule" data-i18n="L.rule.f4.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="test-1">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -217,11 +221,11 @@
         <div class="stages">
           <div class="stage">
             <div class="stage-copy"><code>/reef:update</code><p data-i18n="L.f5"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f5.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f5.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f5.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py index</code><code class="ch ch-cmd">reef.py diff</code><code class="ch ch-cmd">reef.py detect-new</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/update-report.json</code><code class="ch">.reef/update-history/</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f5.1"></span><span class="ch ch-rule" data-i18n="L.rule.f5.2"></span><span class="ch ch-rule" data-i18n="L.rule.f5.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="update">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -233,19 +237,19 @@
           </div>
           <div class="stage stage-text">
             <div class="stage-copy"><code>/reef:feed</code><p data-i18n="L.f6"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f6.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f6.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f6.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py index-context</code><code class="ch">new</code><code class="ch">changed</code><code class="ch">unreferenced</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/context-index.json</code><code class="ch">sources:</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f6.1"></span></div>
+              </div></div>
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:ask</code><p data-i18n="L.f7"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f7.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f7.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f7.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py unknowns</code><code class="ch">known_unknowns</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/questions-for-owner.md</code><code class="ch">Routes to</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f7.1"></span><span class="ch ch-rule" data-i18n="L.rule.f7.2"></span><span class="ch ch-rule" data-i18n="L.rule.f7.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="ask">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -257,19 +261,19 @@
           </div>
           <div class="stage stage-text is-human">
             <div class="stage-copy"><span class="who" data-i18n="L.fHuman"></span><p data-i18n="L.f8"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.f8.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.f8.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.f8.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><span class="ch ch-rule" data-i18n="L.tech.answer"></span></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/questions-for-owner.md</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.f8.1"></span></div>
+              </div></div>
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:test</code><p data-i18n="L.fTest2"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.fTest2.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.fTest2.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.fTest2.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch">answered</code><code class="ch">partial</code><code class="ch">unanswered</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/questions.json</code><code class="ch" data-i18n="L.tech.report"></code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.fTest2.1"></span><span class="ch ch-rule" data-i18n="L.rule.fTest2.2"></span><span class="ch ch-rule" data-i18n="L.rule.fTest2.3"></span></div>
+              </div></div>
             <figure class="cast" data-scene="test-2">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -281,11 +285,11 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:health</code><p data-i18n="L.fHealth"></p>
-              <dl class="stage-tech">
-                <dt data-i18n="L.tech.out"></dt><dd data-md="L.tech.fHealth.out"></dd>
-                <dt data-i18n="L.tech.where"></dt><dd data-md="L.tech.fHealth.where"></dd>
-                <dt data-i18n="L.tech.rule"></dt><dd data-md="L.tech.fHealth.rule"></dd>
-              </dl></div>
+              <div class="stage-tech">
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.out"></span><code class="ch ch-cmd">reef.py index</code><code class="ch ch-cmd">reef.py lint</code><code class="ch ch-cmd">reef.py diff</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.where"></span><code class="ch">.reef/source-index.json</code></div>
+                <div class="chips-row"><span class="cl" data-i18n="L.tech.rule"></span><span class="ch ch-rule" data-i18n="L.rule.fHealth.1"></span><span class="ch ch-rule" data-i18n="L.rule.fHealth.2"></span><span class="ch ch-rule" data-i18n="L.rule.fHealth.3"></span><span class="ch ch-rule" data-i18n="L.rule.fHealth.4"></span></div>
+              </div></div>
             <figure class="cast" data-scene="health">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -350,10 +354,12 @@
         <div class="grid2 fit">
           <div class="fit-yes">
             <p class="phase" data-i18n="L.sFitT"></p>
+            <div class="chips-row chips-lg"><span class="ch ch-yes" data-i18n="L.fit.1"></span><span class="ch ch-yes" data-i18n="L.fit.2"></span><span class="ch ch-yes" data-i18n="L.fit.3"></span><span class="ch ch-yes" data-i18n="L.fit.4"></span><span class="ch ch-yes" data-i18n="L.fit.5"></span></div>
             <p class="body" data-i18n="L.sFit"></p>
           </div>
           <div class="fit-no">
             <p class="phase" data-i18n="L.sUnfitT"></p>
+            <div class="chips-row chips-lg"><span class="ch ch-no" data-i18n="L.unfit.1"></span><span class="ch ch-no" data-i18n="L.unfit.2"></span><span class="ch ch-no" data-i18n="L.unfit.3"></span><span class="ch ch-no" data-i18n="L.unfit.4"></span></div>
             <p class="body" data-i18n="L.sUnfit"></p>
           </div>
         </div>
@@ -375,6 +381,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=7780efd8"></script>
+  <script type="module" src="assets/js/landing.js?v=26c901b3"></script>
 </body>
 </html>
