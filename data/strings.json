@@ -184,8 +184,8 @@
     "en": "How it was graded"
   },
   "A.evalMethod": {
-    "ko": "{questions}문항은 reef 가 스스로 만들었습니다. 아티팩트만 읽는 에이전트가 풀었고, 소스도 문서도 정답도 보지 못했습니다.",
-    "en": "reef wrote all {questions} questions itself. An agent reading only the artifacts answered them, with no sources, no documents and no key."
+    "ko": "질문 은행에는 reef 가 찾은 질문과 사람이 넣은 질문이 함께 들어갑니다. 이 데모에는 오너가 없어 {questions}문항 모두 reef 가 만든 것이고, 아티팩트만 읽는 에이전트가 소스도 문서도 정답도 없이 풀었습니다.",
+    "en": "The bank holds both the questions reef found and the questions a person adds. This demo has no owner, so all {questions} are reef's own, answered by an agent reading only the artifacts — no sources, no documents, no key."
   },
   "A.evalNote": {
     "ko": "부족했던 5건은 소스로 답할 수 없는 유형. reef 가 스스로를 낮춰 잡은 것 11건, 높여 잡은 것 0건.",
@@ -280,8 +280,8 @@
     "en": "Free-form questions are off right now. The prepared questions above still work."
   },
   "A.figAnswered": {
-    "ko": "스스로 만든 질문에 완답",
-    "en": "fully answered, on its own questions"
+    "ko": "완답",
+    "en": "fully answered"
   },
   "A.figFragments": {
     "ko": "정답에 필요한 사실 회수",
@@ -348,8 +348,8 @@
     "en": "Works the drafts deeper against the sources. Every claim gets a citation."
   },
   "L.f4": {
-    "ko": "스스로 만든 질문을 아티팩트만 읽는 에이전트로 채점합니다. 정답은 채점이 끝날 때까지 봉인합니다.",
-    "en": "Grades the questions it generated itself with an agent that may read only the artifacts. The key stays sealed until grading closes."
+    "ko": "reef 가 찾은 질문과 사람이 넣은 질문을 함께 채점합니다. 아티팩트만 읽는 에이전트가 풀고, 정답은 봉인합니다.",
+    "en": "Grades the bank — the questions reef found and the questions a person added. An agent reading only the artifacts answers; the key stays sealed."
   },
   "L.fPhase2": {
     "ko": "그 다음부터 — 변경이 돌립니다",
@@ -532,8 +532,8 @@
     "en": "Install the plugin in Claude Code and point it at the repositories."
   },
   "L.stripNote": {
-    "ko": "정답을 먼저 적어 둔 가상 회사에서, reef 가 스스로 만든 {questions}문항을 아티팩트만 읽는 별도 에이전트가 풀었습니다. 정답은 봉인.",
-    "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered the {questions} questions reef had written itself. Key sealed."
+    "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 봉인.",
+    "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered {questions} questions. Key sealed."
   },
   "ui.menu": {
     "ko": "메뉴 열기 / 닫기",
