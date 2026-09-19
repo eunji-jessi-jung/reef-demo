@@ -5,8 +5,8 @@
  * published repositories — it runs the grep for real and sums the CSV for real. Nothing
  * here is prose typed by hand.
  */
-import { boot, state, t, copyVars } from './site.js';
-import { mountChat } from './chat.js';
+import { boot, state, t, copyVars } from './site.js?v=4454c13f';
+import { mountChat } from './chat.js?v=76953645';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

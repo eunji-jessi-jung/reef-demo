@@ -4,7 +4,7 @@
  * all come from data/evidence.json. The external block is the only hand-maintained
  * part of it, and each entry records the date its primary source was checked.
  */
-import { boot, state, t } from './site.js';
+import { boot, state, t } from './site.js?v=4454c13f';
 
 const $  = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[c]));
