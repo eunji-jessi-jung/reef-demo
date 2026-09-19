@@ -15,6 +15,7 @@
   --sans:"Manrope","Pretendard","Apple SD Gothic Neo",-apple-system,
          BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --gut:clamp(18px,5vw,72px);
+  --band:clamp(44px,7.5vh,92px);   /* vertical padding of every section, on every page */
   --page:1360px;
   --measure:66ch;
 
@@ -168,7 +169,7 @@ body::before{
    Centred, because with the comparison moved out there is no second column for the
    type to sit against, and left-aligned copy in an empty band drifts to one side. */
 .hero{
-  padding:clamp(72px,14vh,150px) var(--gut) clamp(40px,7vh,80px);
+  padding:clamp(72px,14vh,150px) var(--gut) var(--band);
   display:flex; flex-direction:column; overflow:hidden; text-align:center;
 }
 .hero-inner{max-width:var(--page); margin:0 auto; width:100%; flex:0 0 auto}
@@ -179,7 +180,7 @@ body::before{
    edge, so the next band begins on open background rather than on a line. */
 /* The hero's bottom padding and this band's top padding used to add up to three
    hundred pixels of nothing on a tall screen. Half of each is enough. */
-.hero + .band{border-top:0; position:relative; isolation:isolate; padding-top:clamp(40px,7vh,88px)}
+.hero + .band{border-top:0; position:relative; isolation:isolate}
 /* The hero's cool glow does not stop at the hero. It carries on into the band below
    and fades out there, so the two read as one body of water with the comparison
    sitting in it. */
@@ -261,7 +262,7 @@ body::before{
 /* The divider has to be visible against deep water, where --line is tuned for
    panel edges and disappears at full width. */
 .band{
-  padding:clamp(80px,13vh,176px) var(--gut);
+  padding:var(--band) var(--gut);
   border-top:1px solid color-mix(in srgb, var(--ink) 13%, transparent);
 }
 .band-tight{padding-bottom:clamp(20px,3vh,32px); border-top:0}
@@ -531,7 +532,7 @@ body[data-shot="1"] .cta{display:inline-flex}
 
 /* Evidence sits immediately under the fold, so it gets the emphasis a first section
    would otherwise spend on a heading. */
-.band-strip{padding-top:clamp(40px,6vh,72px); padding-bottom:clamp(80px,13vh,176px); border-top:0}
+.band-strip{border-top:0}
 .band-strip .figures{margin-top:4px}
 .band-strip .cta{margin-top:18px}
 
