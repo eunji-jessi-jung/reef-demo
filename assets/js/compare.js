@@ -15,7 +15,7 @@
  */
 import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=665ae28c';
 import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded,
-         shortestPair, wireArtifactPanel } from './pair.js?v=7ab61c4d';
+         shortestPair, wireArtifactPanel } from './pair.js?v=b2c8ac8f';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';

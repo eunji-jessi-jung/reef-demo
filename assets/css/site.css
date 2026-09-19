@@ -5,10 +5,15 @@
    into. Dark is kept and reachable with ?theme=dark, so the two can be compared
    without a rebuild — see assets/js/site.js. */
 :root{
-  --bg:#faf9f7; --bg-soft:#f2f1ec; --panel:#ffffff; --line:#e3e0d9;
-  --ink:#16191d; --ink-dim:#4f5963; --ink-faint:#8a929b;
-  --accent:#0d7a66; --warn:#9a6b00; --bad:#b3261e; --good:#1c7a3c;
-  --code-bg:#f2f1ec; --code-ink:#2b3239;
+  /* Warm paper rather than white, and a green-black ink rather than a neutral one —
+     both lifted from SayBriefly, where the palette does the work an illustration
+     budget would otherwise have to. */
+  --bg:#faf8f3; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
+  --ink:#13211c; --ink-dim:#4c5a54; --ink-faint:#8b938d;
+  --accent:#0d7a66; --accent-wash:#eaf5f1;
+  --highlight:#ffe98a;
+  --warn:#8a5d00; --bad:#b3261e; --good:#1c7a3c;
+  --code-bg:#f3f0e8; --code-ink:#2b3733;
   --lift:0 1px 2px rgba(22,25,29,.05), 0 10px 30px rgba(22,25,29,.07);
   --panel-shadow:0 18px 50px rgba(22,25,29,.18);
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
@@ -22,6 +27,7 @@
   --ink:#e6edf3; --ink-dim:#93a3b1; --ink-faint:#5d6b78;
   --accent:#4ec9b0; --warn:#e3b341; --bad:#f07178; --good:#7ee787;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
+  --accent-wash:#111d1b; --highlight:#4a3c00;
   --lift:none;
   --panel-shadow:0 18px 50px rgba(0,0,0,.55);
 }
@@ -437,3 +443,41 @@ main > .artifact-panel{
   max-width:760px; margin-inline:auto; max-height:56vh; overflow-y:auto;
   box-shadow:var(--panel-shadow);
 }
+
+/* ---------- light-mode character ---------- */
+/* One soft wash behind the hero. The gallery's rule is that a single gradient behind
+   the hero is fine and a page that shimmers everywhere reads as a template. */
+.hero{
+  background:
+    radial-gradient(90ch 60ch at 18% -10%, var(--accent-wash), transparent 60%),
+    var(--bg);
+}
+
+/* The eyebrow as a highlighter mark rather than a caption. */
+.hero .kicker{
+  align-self:flex-start; background:var(--highlight); color:var(--ink);
+  padding:5px 13px; border-radius:999px; margin-bottom:22px;
+  text-transform:none; letter-spacing:.04em;
+}
+:root[data-theme="dark"] .hero .kicker{background:transparent; color:var(--accent); padding:0}
+
+/* The two arms should not look interchangeable: the reef side is tinted, the side
+   without one is left plain. */
+.arm-reef{background:var(--accent-wash)}
+:root[data-theme="dark"] .arm-reef{background:var(--panel)}
+
+/* "Not determinable" is a defined term in the artifact contract and it is the whole
+   difference between the two answers, so it is marked rather than left to be found. */
+.arm-body mark{
+  background:var(--highlight); color:inherit; padding:1px 4px; border-radius:4px;
+}
+
+/* Figures carry the evidence; they were sized like captions. */
+.fig b{font-size:clamp(34px,5.5vw,52px); letter-spacing:-.02em}
+.fig span{font-size:14px}
+
+/* Cards respond, which on a light page reads as "this is a thing you can use". */
+.repo,.src-card{transition:transform .15s ease, box-shadow .15s ease}
+.repo:hover,.src-card:hover{transform:translateY(-2px); box-shadow:var(--panel-shadow)}
+.cta{transition:transform .15s ease, filter .15s ease}
+.cta:hover{transform:translateY(-1px)}

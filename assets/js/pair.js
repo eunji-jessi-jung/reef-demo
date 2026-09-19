@@ -86,6 +86,11 @@ export function renderAnswer(arm, text) {
         ? chip(ref) + (rest ? `<span class="cite-plain">${esc(rest)}</span>` : '')
         : `<span class="cite-plain">${esc(rest)}</span>`).join(' ');
     })
+    /* Applied last, because the citation splitter escapes whatever is left over in a
+       bracket and would turn these tags back into characters. A defined term in the
+       artifact contract, and the one thing the side without a reef never says — marked
+       where it already appears, never inserted. */
+    .replace(/\b(not determinable)\b/gi, '<mark>$1</mark>')
     .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 }
 
