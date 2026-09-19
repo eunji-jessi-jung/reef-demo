@@ -20,20 +20,20 @@
   "en": "A Claude Code plugin"
  },
  "L.h1": {
-  "ko": "거듭할수록 쌓이는 지식",
-  "en": "Knowledge That Compounds"
+  "ko": "아무도 문서화하지 않은 시스템에 물어보기",
+  "en": "Ask the system nobody documented"
  },
  "L.sub": {
-  "ko": "코드와 사내 문서를 읽고, 출처가 붙은 답을 만듭니다.",
-  "en": "It reads your code alongside your company's documents, then answers questions with the sources attached."
+  "ko": "물려받은 코드베이스에 대한 출처가 붙은 답. 아무도 적어두지 않은 부분까지.",
+  "en": "Sourced answers about a codebase you inherited, including the parts nobody wrote down."
  },
  "L.cta": {
   "ko": "직접 물어보기",
-  "en": "Ask it yourself"
+  "en": "Ask your own question"
  },
  "L.ctaNote": {
-  "ko": "가상의 회사를 하나 만들어 뒀습니다. reef 를 쓴 답과 안 쓴 답을 나란히 놓고 볼 수 있습니다.",
-  "en": "I built a fictional company for this. You can put the answer with reef next to the answer without it."
+  "ko": "아래는 실제로 기록된 실행입니다. 같은 질문, 같은 모델 — 한쪽만 reef 를 들고 있습니다.",
+  "en": "Below is a recorded run. Same question, same model. Only one side is holding a reef."
  },
  "L.foot": {
   "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
@@ -582,5 +582,13 @@
  "T.runNote": {
   "ko": "플러그인을 Claude Code 에 설치하고 저장소를 가리키면 됩니다. `/reef:init` 이 소스를 물어보고, 나머지는 순서대로 돕니다.",
   "en": "Install the plugin into Claude Code and point it at your repositories. `/reef:init` asks where the sources are; the rest runs in order."
+ },
+ "L.pairNote": {
+  "ko": "양쪽 인용이 모두 열립니다 — 왼쪽은 아티팩트와 그 아티팩트가 모른다고 적은 것, 오른쪽은 GitHub 의 실제 파일.",
+  "en": "Both sides' citations open: the left one opens the artifact and what it records as unknown, the right one opens the actual file on GitHub."
+ },
+ "L.stripNote": {
+  "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 채점이 끝날 때까지 봉인했습니다.",
+  "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered {questions} questions. The key stayed sealed until grading closed."
  }
 }

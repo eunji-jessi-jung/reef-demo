@@ -90,8 +90,34 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 }
 
 /* ---------- 1. landing ---------- */
-.hero{padding:clamp(40px,9vh,96px) var(--gut) clamp(48px,10vh,104px)}
-.hero-inner{max-width:920px; margin:0 auto}
+/* The hero holds the headline and the product. The product is deliberately taller
+   than the room left for it, so the fold cuts it — which is what tells a visitor
+   there is more without asking them to take that on trust. */
+.hero{
+  padding:clamp(32px,7vh,72px) var(--gut) 0; min-height:100svh;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+/* min-height alone lets the pair push the hero to whatever height it needs, which is
+   the opposite of the intended effect. A definite height is what makes the flex child
+   shrink and the fold do the cutting. */
+@media(min-width:900px){
+  .hero{height:100svh; min-height:0}
+}
+@media(max-width:899px){
+  .hero-demo{max-height:58svh}
+}
+.hero-inner{max-width:920px; margin:0 auto; width:100%; flex:0 0 auto}
+.hero-demo{
+  flex:1 1 auto; min-height:0; max-width:1180px; width:100%; margin:28px auto 0;
+  position:relative; overflow:hidden;
+}
+/* Fade the cut edge rather than slicing a line through a sentence. */
+.hero-demo::after{
+  content:""; position:absolute; inset:auto 0 0 0; height:120px; pointer-events:none;
+  background:linear-gradient(to bottom, transparent, var(--bg));
+}
+.hero-demo .compare{margin:0}
+.hero-demo .cmp-row{min-width:0}
 .hero-h1{font-size:clamp(28px,5.2vw,52px); margin:0 0 22px; font-weight:650}
 .hero-sub{font-size:clamp(17px,1.5vw,19px); color:var(--ink-dim); max-width:60ch; margin:0 0 36px}
 
@@ -362,12 +388,31 @@ body[data-shot="ask"] [data-i18n="T.askNote"]{display:none}
 /* A short section left at the top of a 16:9 frame leaves the bottom half empty, so
    every shot but the comparison is centred. The comparison is taller than the frame
    and must stay top-aligned, or centring would cut its first lines. */
-body[data-shot]:not([data-shot="ask"]) main{
+body[data-shot]:not([data-shot="ask"]):not([data-shot="1"]) main{
   min-height:100vh; display:flex; align-items:center;
 }
-body[data-shot]:not([data-shot="ask"]) main > section{width:100%}
-/* The cover is the gallery thumbnail, so it keeps its button and is set larger. */
-body[data-shot="1"] .hero{padding-block:0}
+body[data-shot]:not([data-shot="ask"]):not([data-shot="1"]) main > section{width:100%}
+/* The cover is the hero exactly as a visitor meets it, crop included, so it is left
+   alone apart from keeping the button that shot mode otherwise hides. */
 body[data-shot="1"] .cta{display:inline-flex}
-body[data-shot="1"] .hero-h1{font-size:64px}
-body[data-shot="1"] .hero-desc{font-size:22px; margin-bottom:44px}
+
+/* The hero pair is a still, not a conversation: tighter type, no interaction chrome. */
+.hero-demo .arm{padding:14px 16px}
+.hero-demo .arm-body{font-size:14px}
+.hero-demo .cmp-q{font-size:clamp(15px,1.6vw,17px); padding-bottom:10px; margin-bottom:10px}
+.hero-demo .arm-meta{display:none}
+
+/* Evidence sits immediately under the fold, so it gets the emphasis a first section
+   would otherwise spend on a heading. */
+.band-strip{border-top:0; padding-top:clamp(32px,5vh,56px)}
+.band-strip .figures{margin-top:4px}
+.band-strip .cta{margin-top:18px}
+
+/* The artifact panel is fixed on the landing page, because the citation that opened it
+   may be anywhere in the fold. */
+.hero ~ .artifact-panel,
+main > .artifact-panel{
+  position:fixed; inset:auto var(--gut) 20px var(--gut); z-index:30; margin:0;
+  max-width:760px; margin-inline:auto; max-height:56vh; overflow-y:auto;
+  box-shadow:0 18px 50px rgba(0,0,0,.55);
+}

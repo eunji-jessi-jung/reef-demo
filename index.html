@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=2af2b849">
+  <link rel="stylesheet" href="assets/css/site.css?v=bb24afc4">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -22,24 +22,36 @@
   </header>
 
   <main>
-    <!-- One screen. Says what it is, why it matters, and where to go next. -->
-    <section class="hero">
+    <!-- The hero, and the product in the same screen. The references that do this
+         well never make you click through to see the thing work, so the recorded pair
+         sits here, cropped by the fold. -->
+    <section class="hero" id="top">
       <div class="hero-inner">
         <p class="kicker" data-i18n="L.kicker"></p>
         <h1 class="hero-h1" data-i18n="L.h1"></h1>
         <p class="hero-desc" data-i18n="L.sub"></p>
-
         <div class="cta-row">
-          <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>→</em></a>
+          <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>&#8594;</em></a>
           <p class="cta-note" data-i18n="L.ctaNote"></p>
         </div>
       </div>
+      <div class="hero-demo">
+        <div class="compare" id="hero-pair"></div>
+      </div>
     </section>
 
+    <!-- Evidence, immediately. Not at the bottom. -->
+    <section class="band band-strip">
+      <div class="band-inner">
+        <h2 data-i18n="L.cTitle"></h2>
+        <div class="figures" id="eval-figures"></div>
+        <p class="body" data-i18n="L.stripNote"></p>
+        <p class="meta" data-i18n="L.pairNote"></p>
+        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
+      </div>
+    </section>
 
-    <!-- 2. The skills, as two phases of one loop. The second phase is the product's
-         whole claim, so it is drawn as a loop rather than another list. -->
-    <section class="band" id="how">
+<section class="band" id="how">
       <div class="band-inner">
         <h2 data-i18n="L.fTitle"></h2>
         <p class="body" data-i18n="L.fLede"></p>
@@ -64,9 +76,7 @@
         <a class="cta" href="try.html"><span data-i18n="L.fCta"></span> <em>&#8594;</em></a>
       </div>
     </section>
-
-    <!-- 3. What you get, and the objection that always follows it. -->
-    <section class="band">
+<section class="band">
       <div class="band-inner">
         <h2 data-i18n="L.vTitle"></h2>
         <p class="body" data-i18n="L.vLede"></p>
@@ -90,11 +100,7 @@
         <p class="body" data-i18n="L.diffNote"></p>
       </div>
     </section>
-
-    <!-- 4. Range. The preliminary round scores 확장성 and the site had nothing on it:
-         one fictional company, and the one real benchmark three clicks away. Stating
-         where it does not fit is part of the answer. -->
-    <section class="band">
+<section class="band">
       <div class="band-inner">
         <h2 data-i18n="L.sTitle"></h2>
         <p class="body" data-i18n="L.sLede"></p>
@@ -116,23 +122,21 @@
         <a class="cta cta-quiet" href="about.html"><span data-i18n="L.sCta"></span> <em>&#8594;</em></a>
       </div>
     </section>
-
-    <!-- 5. How it was checked, in three numbers, with the way to check it yourself. -->
-    <section class="band">
-      <div class="band-inner">
-        <h2 data-i18n="L.cTitle"></h2>
-        <p class="body" data-i18n="L.cLede"></p>
-        <div class="figures" id="eval-figures"></div>
-        <p class="body" data-i18n="L.cNote"></p>
-        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
+    <aside class="artifact-panel" id="artifact" hidden>
+      <div class="artifact-head">
+        <p class="artifact-title"></p>
+        <button class="artifact-close" data-i18n="chat.close"></button>
       </div>
-    </section>
+      <div class="artifact-body"></div>
+      <a class="artifact-link src" target="_blank" rel="noopener" data-i18n="chat.open"></a>
+    </aside>
+
   </main>
 
   <footer>
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=791b6bf8"></script>
+  <script type="module" src="assets/js/landing.js?v=1d4b19db"></script>
 </body>
 </html>

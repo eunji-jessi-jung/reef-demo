@@ -170,7 +170,12 @@ function trimHistory(raw) {
     .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
 }
 
-async function ask(arm, question, history) {
+const LANG_RULE = {
+  en: 'Answer in English. Keep Korean identifiers and quoted Korean source text as they are.',
+  ko: '한국어로 답하십시오.',
+};
+
+async function ask(arm, question, history, lang) {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -183,7 +188,10 @@ async function ask(arm, question, history) {
       max_tokens: MAX_TOKENS,
       system: [{ type: 'text', text: system(arm), cache_control: { type: 'ephemeral' } }],
       output_config: { effort: EFFORT },
-      messages: [...history, { role: 'user', content: question }],
+      messages: [...history, {
+        role: 'user',
+        content: lang ? `${question}\n\n${LANG_RULE[lang]}` : question,
+      }],
     }),
   });
 
@@ -220,6 +228,13 @@ export default async function handler(req, res) {
   const question = String(body.question || '').trim().slice(0, MAX_QUESTION);
   if (!question) return res.status(400).json({ error: 'empty_question' });
 
+  /* Which language the answer must be in. Rule 7 asks the model to follow the
+     question, and on a Korean-heavy corpus it does not reliably: three of eight
+     recorded English pairs came back in Korean. So the caller states it, and the
+     instruction rides with the question instead of the system prompt, which keeps
+     the prompt cache to one entry per arm. */
+  const lang = body.lang === 'en' ? 'en' : body.lang === 'ko' ? 'ko' : null;
+
   /* Default to the reef arm alone. The comparison page asks for both. */
   const asked = Array.isArray(body.arms) ? body.arms : ['reef'];
   const arms = ARMS.filter(a => asked.includes(a));
@@ -236,7 +251,7 @@ export default async function handler(req, res) {
     histories[arm] ?? (arm === 'reef' ? body.history : undefined));
 
   try {
-    const results = await Promise.all(arms.map(a => ask(a, question, historyFor(a))));
+    const results = await Promise.all(arms.map(a => ask(a, question, historyFor(a), lang)));
     spent += results.filter(r => !r.error).length;
 
     const out = {};

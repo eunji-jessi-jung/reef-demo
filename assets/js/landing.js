@@ -1,11 +1,17 @@
-/* The landing page. Its only moving part is the three grading figures, which come
-   from evidence.json so the page cannot quote a score the repositories no longer
-   support. */
+/* The landing page.
+ *
+ * Two things move. The grading figures come from evidence.json so the page cannot
+ * quote a score the repositories no longer support, and the hero carries a recorded
+ * comparison — the product, in the first screen, rather than a click away.
+ *
+ * The pair is recorded rather than live on purpose: it renders instantly, costs
+ * nothing, and is the same every visit. Asking a live question is what try.html is
+ * for, and that is where the button goes.
+ */
 import { state, t, boot, esc } from './site.js?v=b3ed5e9a';
+import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=416874ae';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
-/* The benchmark that answers "does this work anywhere but your fictual company".
-   Straight from evidence.json's external.supabase block. */
 function renderBench() {
   const host = document.getElementById('bench');
   const b = state.ev?.external?.supabase;
@@ -32,5 +38,31 @@ function renderEval() {
   ].join('');
 }
 
+/* The shortest recorded pair, so a long answer cannot run past the fold and look
+   truncated. Re-renders on a language change because the answers are per language. */
+function renderHeroPair() {
+  const host = document.getElementById('hero-pair');
+  if (!host) return;
+  host.innerHTML = '';
+  const item = shortestPair(state.lang);
+  if (!item) return;
+  const q = item.q[state.lang] || item.q.ko;
+  fillRecorded(addRow(host, q, 'hero'), item, state.lang);
+}
+
+function render() {
+  renderBench();
+  renderEval();
+  renderHeroPair();
+}
+
 await stageShot();
-boot(() => { renderBench(); renderEval(); shotReady(); });
+await boot(() => { render(); shotReady(); });
+
+/* The answers are loaded after the shell, so the hero pair is drawn once they arrive. */
+const base = document.body.dataset.base || '.';
+state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' })
+  .then(r => r.json()).catch(() => ({ items: [] }));
+renderHeroPair();
+wireArtifactPanel(document, document.getElementById('artifact'));
+shotReady();

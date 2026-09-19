@@ -34,8 +34,21 @@ PACE_S = 16
 RETRY_WAIT_S = 65
 
 
-def call(endpoint, question, retries=1):
-    body = json.dumps({"question": question, "arms": list(ARMS)}).encode("utf-8")
+def hangul_share(text: str) -> float:
+    """How much of a string is Hangul. The only reliable way to catch the failure this
+    script used to accept in silence: an English question answered in Korean."""
+    if not text:
+        return 0.0
+    return sum(1 for c in text if "\uac00" <= c <= "\ud7a3") / len(text)
+
+
+def wrong_language(text: str, lang: str) -> bool:
+    share = hangul_share(text)
+    return share > 0.15 if lang == "en" else share < 0.05
+
+
+def call(endpoint, question, lang, retries=1):
+    body = json.dumps({"question": question, "arms": list(ARMS), "lang": lang}).encode("utf-8")
     req = urllib.request.Request(endpoint, data=body, method="POST", headers={
         "content-type": "application/json", "origin": ORIGIN})
     try:
@@ -49,7 +62,7 @@ def call(endpoint, question, retries=1):
         if e.code == 429 and "rate_limited" in detail and retries:
             print(f"    throttled; waiting {RETRY_WAIT_S}s", file=sys.stderr)
             time.sleep(RETRY_WAIT_S)
-            return call(endpoint, question, retries - 1)
+            return call(endpoint, question, lang, retries - 1)
         return {"_http": e.code, "_body": detail}
     except Exception as e:                                   # noqa: BLE001
         return {"_error": repr(e)}
@@ -65,8 +78,11 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--endpoint", default=DEFAULT_ENDPOINT)
     ap.add_argument("--only", help="comma-separated question ids")
+    ap.add_argument("--langs", default=",".join(LANGS),
+                    help="comma-separated languages to record (default: both)")
     args = ap.parse_args()
 
+    langs = tuple(s.strip() for s in args.langs.split(",") if s.strip() in LANGS)
     doc = json.loads(QA.read_text(encoding="utf-8"))
     items = doc["items"]
     if args.only:
@@ -78,9 +94,9 @@ def main() -> int:
     calls = 0
 
     for it in items:
-        for lang in LANGS:
+        for lang in langs:
             question = it["q"][lang]
-            data = call(args.endpoint, question)
+            data = call(args.endpoint, question, lang)
             calls += 1
             if "arms" not in data:
                 failures.append(f"{it['id']}/{lang}: {data}")
@@ -93,6 +109,11 @@ def main() -> int:
                 if res.get("error") or not res.get("answer"):
                     failures.append(f"{it['id']}/{lang}/{arm}: {res.get('error')}")
                     marks.append(f"{arm}=fail")
+                    continue
+                if wrong_language(res["answer"], lang):
+                    failures.append(f"{it['id']}/{lang}/{arm}: answered in the wrong "
+                                    f"language ({hangul_share(res['answer']):.0%} Hangul)")
+                    marks.append(f"{arm}=LANG")
                     continue
                 key = "a" if arm == "reef" else "a_raw"
                 cite = "cites" if arm == "reef" else "cites_raw"

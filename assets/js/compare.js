@@ -14,10 +14,11 @@
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
 import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=b3ed5e9a';
+import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded,
+         shortestPair, wireArtifactPanel } from './pair.js?v=416874ae';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';
-const ARMS = ['reef', 'raw'];
 
 let live = Boolean(API);
 let offlineKey = 'chat.offline';
@@ -25,104 +26,11 @@ const history = { reef: [], raw: [] };
 let el = {};
 let seq = 0;
 
-/* ---------- citations ---------- */
-
-/* A source path as the raw arm cites it — `order-service:src/...` — resolved to the
-   file on GitHub. Everything the no-reef arm was given lives in the fixture repository
-   and nowhere else, which is what makes it a control arm: code under repos/, the
-   company's documents under sources/. */
-function sourceUrl(path) {
-  const fixture = state.ev?.repos?.fixture;
-  const [group, rest] = path.split(/:(.+)/);
-  if (!rest || !fixture) return null;
-  return group === 'sellflow-docs'
-    ? `${fixture}/blob/main/sources/${rest}`
-    : `${fixture}/blob/main/repos/${group}/${rest}`;
-}
-
-function knownIds() {
-  return new Set((state.digest?.items || []).map(a => a.id));
-}
-
-function knownPaths() {
-  const out = new Set();
-  (state.sources?.groups || []).forEach(g => g.paths.forEach(p => out.add(`${g.name}:${p}`)));
-  return out;
-}
-
-/* Render an answer: paragraphs, inline code, and citation chips. One bracket can hold
-   several references and not all of them resolve — chip the ones that do, leave the
-   rest as plain text rather than inventing a link. */
-function renderAnswer(arm, text) {
-  const known = arm === 'reef' ? knownIds() : knownPaths();
-  const chip = ref => arm === 'reef'
-    ? `<button class="cite" data-artifact="${esc(ref)}">${esc(ref)}</button>`
-    : `<a class="cite" href="${esc(sourceUrl(ref))}" target="_blank" rel="noopener">${esc(shorten(ref))}</a>`;
-
-  return esc(text)
-    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\[([^\]\n]+)\]/g, (m, inner) => {
-      /* A bracket holds one or more references, and a reference is not always alone in
-         its slot: the model writes things like "RISK-…-BACKLOG의 Not determinable 항목"
-         or follows an id with the source file in parentheses. Chip the reference and
-         leave the rest as text, rather than dropping a citation that resolves. */
-      const split = part => {
-        if (known.has(part)) return [part, ''];
-        const m2 = /^([A-Za-z0-9-]+)(.*)$/.exec(part);
-        return m2 && known.has(m2[1]) ? [m2[1], m2[2]] : [null, part];
-      };
-      const parts = inner.split(/[,;]/).map(s => s.trim()).filter(Boolean).map(split);
-      if (!parts.some(([ref]) => ref)) return m;
-      return parts.map(([ref, rest]) => ref
-        ? chip(ref) + (rest ? `<span class="cite-plain">${esc(rest)}</span>` : '')
-        : `<span class="cite-plain">${esc(rest)}</span>`).join(' ');
-    })
-    .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-}
-
-/* Java package paths are long enough to break the layout on a phone. The full path is
-   kept in the link's title and in the href, so nothing is hidden — only shortened. */
-function shorten(path) {
-  const [group, rest] = path.split(/:(.+)/);
-  if (!rest) return path;
-  const tail = rest.split('/').slice(-1)[0];
-  return `${group}:${tail}`;
-}
-
-/* ---------- the two panels ---------- */
-
-function armPanel(arm, id) {
-  const label = arm === 'reef' ? 'T.armReef' : 'T.armRaw';
-  const note = arm === 'reef' ? 'T.armReefNote' : 'T.armRawNote';
-  return `<figure class="panel arm arm-${arm}" id="${id}-${arm}">
-    <figcaption class="arm-head">
-      <b>${esc(t(label))}</b>
-      <span class="meta">${esc(t(note, copyVars()))}</span>
-    </figcaption>
-    <div class="arm-body"><p class="thinking">···</p></div>
-    <p class="arm-meta"></p>
-  </figure>`;
-}
+/* ---------- asking ---------- */
 
 function addRow(question) {
-  const id = `cmp${++seq}`;
-  const row = document.createElement('div');
-  row.className = 'cmp-row';
-  row.innerHTML = `<p class="cmp-q"><span class="q-mark">?</span>${esc(question)}</p>
-    <div class="cmp-arms">${ARMS.map(a => armPanel(a, id)).join('')}</div>`;
-  el.compare.prepend(row);
-  return id;
+  return addPairRow(el.compare, question, `cmp${++seq}`);
 }
-
-function fill(id, arm, html, meta) {
-  const panel = document.getElementById(`${id}-${arm}`);
-  if (!panel) return;
-  panel.querySelector('.arm-body').innerHTML = html;
-  panel.querySelector('.arm-meta').textContent = meta || '';
-}
-
-/* ---------- asking ---------- */
 
 async function ask(question) {
   const id = addRow(question);
@@ -130,18 +38,12 @@ async function ask(question) {
   return askRecorded(id, question);
 }
 
-/* The fallback. A recorded pair is a real run that was saved, so it is labelled as one
-   and never as a live answer. A question with no recorded pair gets an honest blank. */
+/* The fallback. A recorded pair is a real run that was saved, so it is labelled as
+   one and never as a live answer. A question with no recorded pair gets an honest
+   blank. */
 function askRecorded(id, question) {
   const item = (state.qa?.items || []).find(it => it.q.ko === question || it.q.en === question);
-  for (const arm of ARMS) {
-    const text = arm === 'reef'
-      ? item?.a?.[state.lang] || item?.a?.ko
-      : item?.a_raw?.[state.lang] || item?.a_raw?.ko;
-    fill(id, arm,
-      text ? renderAnswer(arm, text) : `<p class="muted">${esc(t('chat.offline'))}</p>`,
-      text ? t('T.recorded', copyVars()) : '');
-  }
+  fillRecorded(id, item, state.lang);
 }
 
 async function askLive(id, question) {
@@ -153,6 +55,7 @@ async function askLive(id, question) {
       body: JSON.stringify({
         question,
         arms: ARMS,
+        lang: state.lang,
         histories: { reef: history.reef.slice(-6), raw: history.raw.slice(-6) },
       }),
     });
@@ -191,24 +94,6 @@ async function askLive(id, question) {
   } finally {
     el.form?.removeAttribute('aria-busy');
   }
-}
-
-/* ---------- the artifact panel ---------- */
-
-function openArtifact(id) {
-  const a = (state.digest?.items || []).find(x => x.id === id);
-  el.panelTitle.textContent = id + (a ? ` — ${a.title}` : '');
-  el.panelBody.innerHTML = a
-    ? `<p class="tag">${a.type} · ${a.status} · verified ${a.verified}</p>`
-      + '<ul>' + a.facts.map(f =>
-          `<li>${esc(f.c)}${f.s ? ` <span class="src">${esc(f.s)}</span>` : ''}</li>`).join('') + '</ul>'
-      + (a.unknowns?.length
-          ? `<p class="tag">${esc(t('chat.unknowns'))}</p><ul>`
-            + a.unknowns.map(u => `<li>${esc(u)}</li>`).join('') + '</ul>'
-          : '')
-    : `<p>${esc(id)}</p>`;
-  el.panelLink.href = `${state.ev?.repos?.reef}/tree/main/artifacts`;
-  el.panel.hidden = false;
 }
 
 /* ---------- the page around it ---------- */
@@ -303,11 +188,7 @@ async function mount() {
     ask(v);
   });
 
-  document.addEventListener('click', e => {
-    const c = e.target.closest('button.cite');
-    if (c) openArtifact(c.dataset.artifact);
-    if (e.target.closest('.artifact-close')) el.panel.hidden = true;
-  });
+  wireArtifactPanel(document, el.panel);
 }
 
 /* The shell loads the data first; everything here reads it. Chips and the inventory
