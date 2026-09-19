@@ -16,108 +16,56 @@
   "en": "Details"
  },
  "L.kicker": {
-  "ko": "Claude Code 플러그인 · 스킬 13개 · Apache-2.0",
-  "en": "A Claude Code plugin · 13 skills · Apache-2.0"
+  "ko": "Claude Code 플러그인",
+  "en": "A Claude Code plugin"
  },
  "L.h1": {
-  "ko": "코드를 읽어주는 도구는 많습니다.\nreef 는 코드에 없는 것을 묻습니다.",
-  "en": "Plenty of tools read your code.\nreef asks about what is not in it."
+  "ko": "코드는 다 읽었는데,\n왜 이렇게 돌아가는지는 아무도 모를 때",
+  "en": "You have read all the code.\nNobody can tell you why it works this way."
  },
  "L.sub": {
-  "ko": "저장소와 사내 문서를 함께 읽고, 인용된 주장 · 명시된 모름 · 기록된 모순으로 된 아티팩트를 남깁니다. 요약이 아닙니다 — 알아낸 것을 더하기 때문에 원본보다 큽니다.",
-  "en": "It reads the repositories and the company's own documents together, and leaves artifacts made of cited claims, stated unknowns and recorded contradictions. Not a summary — it adds what was worked out, so it comes out bigger than its sources."
+  "ko": "reef 는 저장소와 사내 문서를 같이 읽고, 질문에 답하는 지식 베이스를 만듭니다. 답에는 출처가 붙고, 확인이 안 되는 건 모른다고 적습니다.",
+  "en": "reef reads your repositories and your company's documents together, and builds something that answers questions. Answers come with their sources, and what cannot be confirmed is written down as unknown."
  },
  "L.v1t": {
-  "ko": "주장마다 출처가 붙는다",
-  "en": "Every claim names its source"
+  "ko": "출처가 같이 옵니다",
+  "en": "The source comes with it"
  },
  "L.v1b": {
-  "ko": "Key Fact {facts}개 중 {sourced}개가 출처 파일을 답니다. 나머지 {unsourced}개는 grep이 0건을 반환했다는 사실처럼, 파일 하나로 가리킬 수 없는 것들입니다.",
-  "en": "{sourced} of {facts} key facts name the file they came from. The other {unsourced} rest on something no single file holds — a grep that returned nothing, a term in one domain mapped onto another's."
+  "ko": "어느 파일에서 나온 말인지 붙어 옵니다. 못 미더우면 눌러서 그 파일을 열어 보면 됩니다.",
+  "en": "Every answer says which file it came from. If you doubt it, click through and read the file."
  },
  "L.v2t": {
-  "ko": "모른다고 말한다",
+  "ko": "모르면 모른다고 합니다",
   "en": "It says when it does not know"
  },
  "L.v2b": {
-  "ko": "「소스로는 판정 불가」가 {unknowns}건 명시돼 있습니다. 매끄럽게 넘어가는 대신 질문으로 남깁니다.",
-  "en": "{unknowns} findings are recorded as not determinable from the sources. Instead of smoothing over a gap, it leaves the question standing."
+  "ko": "소스로 확인이 안 되는 건 그냥 모른다고 남깁니다. 그럴듯하게 지어내지 않습니다.",
+  "en": "What the sources cannot settle is left standing as unknown. It does not fill the gap with something plausible."
  },
  "L.v3t": {
-  "ko": "채점할 수 있다",
-  "en": "It can be graded"
+  "ko": "코드가 바뀌면 알려줍니다",
+  "en": "It tells you when the code moves"
  },
  "L.v3b": {
-  "ko": "아티팩트만 읽는 에이전트가 {questions}문항에 답하고, 정답은 채점이 끝날 때까지 봉인했습니다. {answered}문항 완답, 정답 조각 {frag}/{frag} 복원.",
-  "en": "An agent allowed to read only the artifacts answered {questions} questions with the key sealed until grading closed. {answered} fully answered; {frag} of {frag} answer fragments recovered."
+  "ko": "어떤 설명이 더는 맞지 않는지 이름을 대 줍니다.",
+  "en": "It names the explanations that have stopped being true."
  },
  "L.cta": {
-  "ko": "reef 있는 답과 없는 답, 나란히 보기",
-  "en": "See the same question answered with and without it"
+  "ko": "직접 물어보기",
+  "en": "Ask it yourself"
  },
  "L.ctaNote": {
-  "ko": "같은 질문 · 같은 모델 · 같은 분량의 컨텍스트. 한쪽만 reef 를 들고 있습니다.",
-  "en": "Same question, same model, same amount of context. Only one side is holding a reef."
- },
- "L.diffTitle": {
-  "ko": "문서 생성기와 무엇이 다른가",
-  "en": "How this differs from a documentation generator"
- },
- "L.diffHeadA": {
-  "ko": "생성기",
-  "en": "A generator"
- },
- "L.diffHeadB": {
-  "ko": "reef",
-  "en": "reef"
- },
- "L.d1k": {
-  "ko": "산출물",
-  "en": "What comes out"
- },
- "L.d1a": {
-  "ko": "코드에서 읽어낸 설명",
-  "en": "An account read off the code"
- },
- "L.d1b": {
-  "ko": "인용된 주장 + 명시된 모름 + 기록된 모순",
-  "en": "Cited claims, stated unknowns, recorded contradictions"
- },
- "L.d2k": {
-  "ko": "상태",
-  "en": "State"
- },
- "L.d2a": {
-  "ko": "무상태 — 같은 코드에서 매번 같은 것이 나옵니다",
-  "en": "Stateless — the same code yields the same output every run"
- },
- "L.d2b": {
-  "ko": "누적 — 사람이 한 번 답한 것이 다음 회차에 남습니다",
-  "en": "Cumulative — what a person answered once is still there next run"
- },
- "L.d3k": {
-  "ko": "코드가 바뀌면",
-  "en": "When the code changes"
- },
- "L.d3a": {
-  "ko": "다시 생성합니다",
-  "en": "It regenerates"
- },
- "L.d3b": {
-  "ko": "어떤 주장이 더는 참이 아닌지 이름을 댑니다",
-  "en": "It names the claims that stopped being true"
- },
- "L.diffNote": {
-  "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 「더는 참이 아님」으로 지목했고, {refreshed}개를 갱신했습니다.",
-  "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
+  "ko": "가상의 회사를 하나 만들어 뒀습니다. reef 를 쓴 답과 안 쓴 답을 나란히 놓고 볼 수 있습니다.",
+  "en": "There is a fictional company set up for this. You can put the answer with reef and the answer without it side by side."
  },
  "L.foot": {
-  "ko": "셀플로우는 이 데모를 위해 지은 가상의 회사입니다. 실재하는 회사·인물·사건과 무관합니다.",
-  "en": "Sellflow is a fictional company built for this demo. It is not based on any real company, person or incident."
+  "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
+  "en": "Sellflow is a company made up for this demo. It has nothing to do with any real company or person."
  },
  "L.footLink": {
-  "ko": "만든 방법 · 링크 · 한계 전부 보기",
-  "en": "How it was built, every link, and the limits"
+  "ko": "만든 방법과 링크는 상세 페이지에",
+  "en": "How it was built, and every link"
  },
  "T.kicker": {
   "ko": "3일",
@@ -418,5 +366,57 @@
  "T.recorded": {
   "ko": "기록된 실행 · {recordedAt}",
   "en": "recorded run · {recordedAt}"
+ },
+ "A.diffTitle": {
+  "ko": "문서 생성기와 무엇이 다른가",
+  "en": "How this differs from a documentation generator"
+ },
+ "A.diffHeadA": {
+  "ko": "생성기",
+  "en": "A generator"
+ },
+ "A.diffHeadB": {
+  "ko": "reef",
+  "en": "reef"
+ },
+ "A.d1k": {
+  "ko": "산출물",
+  "en": "What comes out"
+ },
+ "A.d1a": {
+  "ko": "코드에서 읽어낸 설명",
+  "en": "An account read off the code"
+ },
+ "A.d1b": {
+  "ko": "인용된 주장 + 명시된 모름 + 기록된 모순",
+  "en": "Cited claims, stated unknowns, recorded contradictions"
+ },
+ "A.d2k": {
+  "ko": "상태",
+  "en": "State"
+ },
+ "A.d2a": {
+  "ko": "무상태 — 같은 코드에서 매번 같은 것이 나옵니다",
+  "en": "Stateless — the same code yields the same output every run"
+ },
+ "A.d2b": {
+  "ko": "누적 — 사람이 한 번 답한 것이 다음 회차에 남습니다",
+  "en": "Cumulative — what a person answered once is still there next run"
+ },
+ "A.d3k": {
+  "ko": "코드가 바뀌면",
+  "en": "When the code changes"
+ },
+ "A.d3a": {
+  "ko": "다시 생성합니다",
+  "en": "It regenerates"
+ },
+ "A.d3b": {
+  "ko": "어떤 주장이 더는 참이 아닌지 이름을 댑니다",
+  "en": "It names the claims that stopped being true"
+ },
+ "A.diffNote": {
+  "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 「더는 참이 아님」으로 지목했고, {refreshed}개를 갱신했습니다.",
+  "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
  }
 }
