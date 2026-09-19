@@ -591,10 +591,6 @@
   "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 채점이 끝날 때까지 봉인했습니다.",
   "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered {questions} questions. The key stayed sealed until grading closed."
  },
- "ui.theme": {
-  "ko": "밝게 / 어둡게 전환",
-  "en": "Switch between light and dark"
- },
  "ui.menu": {
   "ko": "메뉴 열기 / 닫기",
   "en": "Open and close the menu"

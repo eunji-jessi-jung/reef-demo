@@ -8,8 +8,8 @@
  * nothing, and is the same every visit. Asking a live question is what try.html is
  * for, and that is where the button goes.
  */
-import { state, t, boot, esc } from './site.js?v=aa474e4a';
-import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=624e1b4b';
+import { state, t, boot, esc } from './site.js?v=8027c50d';
+import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=f8566019';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {

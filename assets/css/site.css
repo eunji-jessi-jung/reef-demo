@@ -1,10 +1,10 @@
 /* reef demo — three pages: an overview, a comparison, and the details.
    Mobile first; the only breakpoints are where a two-column layout starts to fit. */
-/* Two palettes, dark by default. The page is carried by two dense panels of cited
-   text and they read better on dark, and coral only means anything against deep
-   water — so the background carries a green-blue cast rather than a neutral charcoal.
-   Light is the alternative, on [data-theme="light"] and ?theme=light. The switch in
-   the topbar drives both; see assets/js/site.js. */
+/* One palette: deep water. The page is carried by two dense panels of cited text and
+   they read better on dark, and coral only means anything against water — so the
+   neutrals carry a green-blue cast rather than being a neutral charcoal. A light
+   alternative existed briefly and was dropped: warm paper cannot hold the metaphor,
+   so it said less than this does. */
 :root{
   /* Structural, not palette. These must sit outside both themes: an undefined var
      invalidates the whole declaration that uses it, so losing --gut here silently
@@ -20,23 +20,11 @@
 
   --bg:#061714; --bg-deep:#03100f; --bg-soft:#0b201d; --panel:#0e2320; --line:#1c3833;
   --ink:#e9f2ee; --ink-dim:#94aba4; --ink-faint:#5f7871;
-  --accent:#ff7d66; --warn:#e3b341; --bad:#f07178; --good:#7ee787; --deep:#4ec9b0;
+  --accent:#ff7d66; --warn:#e3b341; --deep:#4ec9b0;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
   --accent-wash:#221714; --dot:rgba(233,242,238,.05);
   --lift:none;
   --panel-shadow:0 18px 50px rgba(0,0,0,.55);
-}
-:root[data-theme="light"]{
-  /* Warm paper rather than white, and a green-black ink rather than a neutral one —
-     both lifted from SayBriefly, where the palette does the work an illustration
-     budget would otherwise have to. */
-  --bg:#faf8f3; --bg-deep:#f4f1e8; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
-  --ink:#13211c; --ink-dim:#4c5a54; --ink-faint:#8b938d;
-  --accent:#c2503c; --accent-wash:#fdeeea; --dot:rgba(19,33,28,.06);
-  --warn:#8a5d00; --bad:#b3261e; --good:#1c7a3c; --deep:#0f5d50;
-  --code-bg:#f3f0e8; --code-ink:#2b3733;
-  --lift:0 1px 2px rgba(22,25,29,.05), 0 10px 30px rgba(22,25,29,.07);
-  --panel-shadow:0 18px 50px rgba(22,25,29,.18);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -152,15 +140,11 @@ body::before{
     radial-gradient(54% 44% at 12% 42%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 70%),
     radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
 }
-:root[data-theme="light"] body::before{opacity:.55}
 
 /* Sections fade in as they arrive. Presentational only — nothing waits on it. */
 .hero,.band{opacity:1; transition:opacity .4s ease}
 @media(prefers-reduced-motion:no-preference){
-  /* On a dark page .35 reads as "not arrived yet". On a light one the same value
-     reads as disabled, so the light default fades far less. */
-  .band:not([data-active]){opacity:.72}
-  :root:not([data-theme="light"]) .band:not([data-active]){opacity:.35}
+  .band:not([data-active]){opacity:.35}
 }
 
 /* ---------- 1. landing ---------- */
@@ -506,12 +490,11 @@ main > .artifact-panel{
     radial-gradient(38% 40% at 22% 10%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 72%);
   opacity:.85;
 }
-:root[data-theme="light"] .hero::before{opacity:.5}
 
 /* The two arms should not look interchangeable: the reef side is tinted, the side
    without one is left plain. */
-.arm-reef{background:var(--accent-wash)}
-:root:not([data-theme="light"]) .arm-reef{background:var(--panel)}
+.arm-reef{background:var(--panel)}
+
 
 /* "Not determinable" is a defined term in the artifact contract and it is the whole
    difference between the two answers, so it is marked rather than left to be found. */
@@ -530,20 +513,6 @@ main > .artifact-panel{
 .cta{transition:transform .15s ease, filter .15s ease}
 .cta:hover{transform:translateY(-1px)}
 
-/* ---------- theme toggle ---------- */
-.theme-toggle{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:34px; height:34px; padding:0; cursor:pointer;
-  background:transparent; color:var(--ink-faint);
-  border:1px solid var(--line); border-radius:8px;
-}
-.theme-toggle:hover{color:var(--ink); background:var(--panel)}
-.theme-toggle svg{width:17px; height:17px}
-/* Show the thing you would switch to, not the thing you are looking at. */
-.theme-toggle .icon-sun{display:none}
-.theme-toggle .icon-moon{display:block}
-:root:not([data-theme="light"]) .theme-toggle .icon-sun{display:block}
-:root:not([data-theme="light"]) .theme-toggle .icon-moon{display:none}
 
 /* The two kinds of citation are not the same claim, so they are not the same colour.
    A coral chip is an artifact — something the reef wrote and stands behind. A sea-green
@@ -584,7 +553,6 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
   .nav{flex-direction:column; gap:2px}
   .nav a{padding:11px 12px; font-size:16px}
   .lang{align-self:flex-start}
-  .theme-toggle{margin-left:auto}
 }
 
 /* ---------- the colony ---------- */
@@ -607,12 +575,12 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
   /* Placed explicitly: the drawing sits before the copy in the markup so it is not
      announced ahead of the headline, but it belongs on the right. */
   .hero-copy{grid-column:1; grid-row:1}
-  .colony{grid-column:2; grid-row:1; opacity:.8}
+  .colony{grid-column:2; grid-row:1; opacity:1}
 }
 
 /* Below that it sits above the headline as a band, small and quiet. */
 @media(max-width:1079px){
-  .colony{width:min(220px,44vw); margin:0 0 -8px auto; opacity:.6}
+  .colony{width:min(240px,46vw); margin:0 0 -8px auto; opacity:.85}
 }
 @media(max-width:600px){ .colony{display:none} }
 
@@ -621,7 +589,7 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
      generator lays them down in and roughly the order the reef was built in. */
   .colony circle{
     animation:polyp .5s ease-out backwards;
-    animation-delay:calc(var(--i, 0) * 9ms);
+    animation-delay:calc(var(--i, 0) * 1.6ms);
     transform-box:fill-box; transform-origin:center;
   }
 }
