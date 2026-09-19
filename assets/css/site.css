@@ -65,8 +65,7 @@ h2{font-size:clamp(28px,4.2vw,54px); margin:0 0 20px; font-weight:600; letter-sp
   font-family:var(--mono); font-weight:600; font-size:17px; letter-spacing:.01em;
   text-decoration:none; color:var(--ink);
 }
-.brand span{color:var(--accent)}
-.brand:hover span{filter:brightness(1.15)}
+.brand span{color:var(--ink)}
 .nav{display:flex; gap:4px; flex-wrap:wrap; min-width:0}
 .nav{gap:2px}
 .nav a{
@@ -569,5 +568,6 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 
 /* The wordmark: the same two waves as the icon, then the name. */
 .brand{display:inline-flex; align-items:center; gap:9px}
-.brand-mark{width:26px; height:20px; color:var(--accent); flex:0 0 auto}
-.brand:hover .brand-mark{filter:brightness(1.12)}
+.brand-mark{width:26px; height:20px; color:var(--ink); flex:0 0 auto}
+.brand{opacity:1; transition:opacity .15s ease}
+.brand:hover{opacity:.72}
