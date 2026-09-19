@@ -4,9 +4,11 @@
   "type": "module",
   "description": "Demo site for reef — static pages plus one chat proxy.",
   "scripts": {
+    "build": "zsh tools/build.sh",
+    "evidence": "python3 tools/build-evidence.py",
     "digest": "python3 tools/build-digest.py",
     "stamp": "python3 tools/stamp-assets.py",
-    "evidence": "python3 tools/build-evidence.py",
-    "serve": "python3 -m http.server 4173"
+    "serve": "python3 -m http.server 4173",
+    "deploy": "zsh tools/build.sh && git add -A && echo 'now: git commit && git push && vercel deploy --prod'"
   }
 }

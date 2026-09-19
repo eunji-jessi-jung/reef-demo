@@ -7,6 +7,35 @@ and a chat you can ask.
 Static pages on GitHub Pages, plus one serverless function that proxies the chat so the
 API key never reaches the browser.
 
+## Iterating on it
+
+One command before every commit:
+
+```bash
+npm run build
+```
+
+It re-extracts the evidence, rebuilds the digest, stamps content hashes onto the
+assets **and onto the module imports**, and then checks that every `data-i18n` key
+used in a page exists in `data/strings.json` in both languages and that the data
+files parse. It exits non-zero if not.
+
+Then, depending on what changed:
+
+| Changed | Ship with |
+|---|---|
+| Pages, styles, scripts, copy, data | `git push` — GitHub Pages serves the site |
+| `api/chat.js` or the digest | `vercel deploy --prod` — Vercel serves the function |
+| Both | both, in either order |
+
+The two are independent: the site can ship while the proxy is stale, and the chat
+falls back to its prepared answers if the proxy is missing entirely.
+
+**The stamp step is not cosmetic.** GitHub Pages caches assets, and an ES module's
+imports are cached separately from the script that imports them. Skipping it is how
+a fix lands and the person looking at the page never sees it — which happened here
+once already.
+
 ## Nothing here is typed by hand
 
 Every number and quotation on the site is extracted from the three published
