@@ -20,12 +20,12 @@
     "en": "A Claude Code plugin"
   },
   "L.h1": {
-    "ko": "아무도 문서화하지 않은 시스템에 물어보기",
-    "en": "Ask the system nobody documented"
+    "ko": "맨땅에 헤딩하지 마세요",
+    "en": "Don't start from scratch"
   },
   "L.sub": {
-    "ko": "코드베이스를 물려받으면 답은 매번 처음부터 다시 찾게 됩니다. 아무도 적어두지 않았기 때문입니다. reef 는 저장소와 사내 문서를 읽어 출처가 붙은 답을 만들고, 확인되지 않는 것은 모른다고 남겨 둡니다.",
-    "en": "Answers about a codebase you inherited get worked out from scratch every time, because nobody wrote them down. reef reads the repositories and the company's documents, builds answers that carry their sources, and leaves what it could not verify standing as unknown."
+    "ko": "reef 는 저장소와 사내 문서를 읽어 AI 에이전트가 쓸 지식 레이어를 만듭니다. 답마다 출처가 붙고, 확인되지 않은 것은 모른다고 남습니다.",
+    "en": "reef reads your repositories and your company's documents and builds a knowledge layer for AI agents. Every answer carries its sources, and what it could not verify stays marked unknown."
   },
   "L.cta": {
     "ko": "직접 물어보기",
