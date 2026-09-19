@@ -168,7 +168,7 @@ body::before{
    Centred, because with the comparison moved out there is no second column for the
    type to sit against, and left-aligned copy in an empty band drifts to one side. */
 .hero{
-  padding:clamp(72px,14vh,150px) var(--gut) clamp(64px,12vh,132px);
+  padding:clamp(72px,14vh,150px) var(--gut) clamp(40px,7vh,80px);
   display:flex; flex-direction:column; overflow:hidden; text-align:center;
 }
 .hero-inner{max-width:var(--page); margin:0 auto; width:100%; flex:0 0 auto}
@@ -177,7 +177,9 @@ body::before{
 .hero .kicker{align-self:center}
 /* No rule under the hero. Its water and its glow both fade to nothing before the
    edge, so the next band begins on open background rather than on a line. */
-.hero + .band{border-top:0; position:relative; isolation:isolate}
+/* The hero's bottom padding and this band's top padding used to add up to three
+   hundred pixels of nothing on a tall screen. Half of each is enough. */
+.hero + .band{border-top:0; position:relative; isolation:isolate; padding-top:clamp(40px,7vh,88px)}
 /* The hero's cool glow does not stop at the hero. It carries on into the band below
    and fades out there, so the two read as one body of water with the comparison
    sitting in it. */
