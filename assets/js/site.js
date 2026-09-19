@@ -150,20 +150,6 @@ function wireNav() {
   });
 }
 
-/* Fade sections in as they arrive. Presentational only — nothing waits on it. */
-function wireReveal() {
-  if (!('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.dataset.active = 'true';
-        e.target.dispatchEvent(new CustomEvent('reef:enter'));
-      }
-    });
-  }, { threshold: 0.35 });
-  document.querySelectorAll('.band, .hero').forEach(b => io.observe(b));
-}
-
 export async function boot(afterI18n) {
   try { state.lang = localStorage.getItem(LS_KEY) || 'ko'; } catch {}
   await loadData();
@@ -172,7 +158,6 @@ export async function boot(afterI18n) {
   trackBarHeight();
   wireNav();
   applyI18n();
-  wireReveal();
   if (afterI18n) {
     afterI18n();
     document.addEventListener('reef:lang', afterI18n);

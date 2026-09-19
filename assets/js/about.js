@@ -1,7 +1,7 @@
 /* The details page. Every table and figure here is rendered from evidence.json, which
    tools/build-evidence.py generates out of the published repositories. Nothing on this
    page is typed by hand, so a number cannot drift away from the thing it describes. */
-import { state, t, boot, esc, md, copyVars } from './site.js?v=8027c50d';
+import { state, t, boot, esc, md, copyVars } from './site.js?v=d6465fc8';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 const $ = sel => document.querySelector(sel);

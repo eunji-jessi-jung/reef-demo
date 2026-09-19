@@ -32,10 +32,12 @@ body{
   margin:0; color:var(--ink);
   /* A fine dot field over the whole page, which is what stops a flat dark background
      reading as an empty div. Sized so it is texture at reading distance, not pattern. */
+  /* Both layers scroll with the document. A fixed background repaints the whole
+     viewport on every scroll frame, which is what made scrolling feel like it was
+     bobbing. The depth gradient spans the body, so it still reads as depth. */
   background:
     radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0 / 22px 22px,
     linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-  background-attachment:scroll, fixed;
   font-family:var(--sans); font-size:17px; line-height:1.65;
   -webkit-font-smoothing:antialiased;
   /* Two rules working together. keep-all stops Korean breaking mid-word — without it
@@ -102,8 +104,7 @@ footer p{margin:0 0 8px; max-width:var(--measure); margin-inline:auto}
 .muted{color:var(--ink-faint)}
 .preline{white-space:pre-line}
 .panel{
-  background:color-mix(in srgb, var(--panel) 82%, transparent);
-  backdrop-filter:blur(6px);
+  background:color-mix(in srgb, var(--panel) 88%, transparent);
   border:1px solid var(--line); border-radius:16px; padding:22px;
   box-shadow:var(--lift);
 }
@@ -135,16 +136,15 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
    on a repaint. */
 body::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  /* Promoted to its own compositing layer so it is composited on scroll rather than
+     repainted. It is the one fixed thing left, and it is what keeps the light with
+     the viewport. */
+  transform:translateZ(0);
   background:
     radial-gradient(62% 48% at 78% 8%,  color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%),
     radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
 }
 
-/* Sections fade in as they arrive. Presentational only — nothing waits on it. */
-.hero,.band{opacity:1; transition:opacity .4s ease}
-@media(prefers-reduced-motion:no-preference){
-  .band:not([data-active]){opacity:.35}
-}
 
 /* ---------- 1. landing ---------- */
 /* The hero holds the headline and the product. The product is deliberately taller
