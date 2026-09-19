@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=d31c6d3c">
+  <link rel="stylesheet" href="assets/css/site.css?v=0f809c71">
   <title>reef — 같은 질문, 답 두 개</title>
   <meta name="description" content="One question about a legacy system, answered twice: once holding a reef, once holding the raw sources.">
 </head>
@@ -37,7 +37,7 @@
     <!-- 1. The brief: who you are and what you were asked. -->
     <section class="band band-tight">
       <div class="band-inner">
-        <p class="kicker" data-i18n="T.kicker"></p>
+        <p class="section-label" data-i18n="T.briefLabel"></p>
         <blockquote class="brief preline" data-i18n="T.h1"></blockquote>
         <p class="body" data-i18n="T.brief"></p>
         <p class="fair" data-md="T.timeline"></p>
@@ -48,6 +48,7 @@
     <!-- 2. The sources, rendered from the manifest the proxy was built from. -->
     <section class="band">
       <div class="band-inner">
+        <p class="section-label" data-i18n="T.srcLabel"></p>
         <h2 data-i18n="T.srcTitle"></h2>
         <p class="body" data-i18n="T.srcNote"></p>
         <div class="src-grid" id="src-grid"></div>
@@ -61,6 +62,7 @@
     <!-- 3. How the reef was built. Five commands, in order. -->
     <section class="band">
       <div class="band-inner">
+        <p class="section-label" data-i18n="T.buildLabel"></p>
         <h2 data-i18n="T.buildTitle"></h2>
         <ol class="steps">
           <li data-md="T.s1"></li>
@@ -76,6 +78,7 @@
     <!-- 4. The payoff: one question, two answers, side by side. -->
     <section class="band band-ask" id="ask">
       <div class="band-inner">
+        <p class="section-label" data-i18n="T.askLabel"></p>
         <h2 data-i18n="T.askTitle"></h2>
         <p class="body" data-i18n="T.askNote"></p>
         <p class="fair" data-i18n="T.fair"></p>
@@ -106,6 +109,7 @@
     <!-- Feasibility: the thing installs and runs, and here is the order. -->
     <section class="band">
       <div class="band-inner">
+        <p class="section-label" data-i18n="T.runLabel"></p>
         <h2 data-i18n="T.runTitle"></h2>
         <p class="body" data-md="T.runNote"></p>
         <pre class="term" id="run"></pre>

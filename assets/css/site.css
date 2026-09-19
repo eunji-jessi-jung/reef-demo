@@ -14,8 +14,8 @@
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
   --sans:"Manrope","Pretendard","Apple SD Gothic Neo",-apple-system,
          BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  --gut:clamp(16px,4vw,48px);
-  --page:1120px;
+  --gut:clamp(18px,5vw,72px);
+  --page:1360px;
   --measure:66ch;
 
   --bg:#061714; --bg-deep:#03100f; --bg-soft:#0b201d; --panel:#0e2320; --line:#1c3833;
@@ -46,7 +46,7 @@ body{
 }
 a{color:var(--accent)}
 h1,h2{line-height:1.22}
-h2{font-size:clamp(24px,3.1vw,38px); margin:0 0 18px; font-weight:500; letter-spacing:-.02em}
+h2{font-size:clamp(28px,4.2vw,54px); margin:0 0 20px; font-weight:600; letter-spacing:-.028em}
 
 /* ---------- chrome ---------- */
 /* The bar aligns to the same column the content uses, rather than hugging the window
@@ -175,8 +175,8 @@ body::before{
 .hero-demo .compare{margin:0}
 .hero-demo .cmp-row{min-width:0}
 .hero-h1{
-  font-size:clamp(32px,6vw,66px); margin:0 0 24px;
-  font-weight:500; letter-spacing:-.022em; line-height:1.18;
+  font-size:clamp(34px,6.6vw,78px); margin:0 0 26px;
+  font-weight:600; letter-spacing:-.032em; line-height:1.12;
 }
 .hero-sub{font-size:clamp(17px,1.5vw,19px); color:var(--ink-dim); max-width:60ch; margin:0 0 36px}
 
@@ -195,8 +195,13 @@ body::before{
 .cta em{font-style:normal; font-family:var(--mono)}
 .cta:hover{filter:brightness(1.08)}
 
-.band{padding:clamp(64px,10vh,128px) var(--gut)}
-.band-tight{padding-bottom:clamp(20px,3vh,32px)}
+/* The divider has to be visible against deep water, where --line is tuned for
+   panel edges and disappears at full width. */
+.band{
+  padding:clamp(80px,13vh,176px) var(--gut);
+  border-top:1px solid color-mix(in srgb, var(--ink) 13%, transparent);
+}
+.band-tight{padding-bottom:clamp(20px,3vh,32px); border-top:0}
 .band-inner{max-width:var(--page); margin:0 auto}
 .band-disc .band-inner{max-width:var(--measure)}
 
@@ -364,7 +369,7 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 }
 
 /* ---------- landing: the skill flow ---------- */
-h3{font-size:clamp(17px,1.9vw,20px); margin:34px 0 12px; color:var(--ink)}
+h3{font-size:clamp(18px,2.1vw,24px); margin:44px 0 14px; font-weight:600; color:var(--ink)}
 .phase{
   font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
   color:var(--accent); margin:28px 0 14px;
@@ -463,7 +468,7 @@ body[data-shot="1"] .cta{display:inline-flex}
 
 /* Evidence sits immediately under the fold, so it gets the emphasis a first section
    would otherwise spend on a heading. */
-.band-strip{padding-top:clamp(28px,4vh,44px); padding-bottom:clamp(64px,10vh,128px)}
+.band-strip{padding-top:clamp(40px,6vh,72px); padding-bottom:clamp(80px,13vh,176px); border-top:0}
 .band-strip .figures{margin-top:4px}
 .band-strip .cta{margin-top:18px}
 
@@ -594,3 +599,11 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
   }
 }
 @keyframes polyp{from{opacity:0; transform:scale(.3)}}
+
+/* The section marker: what this part of the page is, in two words, before the
+   heading says anything. Walkie's is the clearest example of why it works — it gives
+   the eye somewhere to land at the top of every section. */
+.section-label{
+  font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-faint); margin:0 0 14px;
+}

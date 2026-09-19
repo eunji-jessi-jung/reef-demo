@@ -594,5 +594,41 @@
  "ui.menu": {
   "ko": "메뉴 열기 / 닫기",
   "en": "Open and close the menu"
+ },
+ "L.cLabel": {
+  "ko": "검증",
+  "en": "Evidence"
+ },
+ "L.fLabel": {
+  "ko": "작동 방식",
+  "en": "How it runs"
+ },
+ "L.vLabel": {
+  "ko": "설계",
+  "en": "Design"
+ },
+ "L.sLabel": {
+  "ko": "적용 범위",
+  "en": "Range"
+ },
+ "T.briefLabel": {
+  "ko": "상황",
+  "en": "The brief"
+ },
+ "T.srcLabel": {
+  "ko": "재료",
+  "en": "What you get"
+ },
+ "T.buildLabel": {
+  "ko": "제작",
+  "en": "How it was built"
+ },
+ "T.askLabel": {
+  "ko": "비교",
+  "en": "The comparison"
+ },
+ "T.runLabel": {
+  "ko": "실행",
+  "en": "Running it"
  }
 }
