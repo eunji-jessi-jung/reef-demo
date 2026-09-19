@@ -340,3 +340,34 @@ h3{font-size:clamp(17px,1.9vw,20px); margin:34px 0 12px; color:var(--ink)}
 .answers li > b{display:block; margin-bottom:6px; color:var(--ink)}
 .answers li > span{display:block; color:var(--ink-dim)}
 .answers li > span b{color:var(--ink)}
+
+/* ---------- screenshot mode (?shot=) ---------- */
+/* The only section left visible sits at the top of the document, which is where a
+   headless capture looks. No nav, no chrome, no interaction affordances. */
+body[data-shot] .topbar{display:none}
+body[data-shot] main{padding-top:0}
+body[data-shot] .band,body[data-shot] .hero{
+  border-top:0; opacity:1; padding-top:clamp(32px,6vh,56px);
+}
+body[data-shot] footer{display:none}
+body[data-shot] .chat-chips{display:none}
+body[data-shot] .chat-form{display:none !important}
+body[data-shot] .chat-offline{display:none}
+body[data-shot] .cta{display:none}
+body[data-shot] details{display:none}
+/* In the comparison shot the section heading and its intro cost 150px the answers
+   need. The fairness note stays — it is the part of that section worth capturing. */
+body[data-shot="ask"] h2,
+body[data-shot="ask"] [data-i18n="T.askNote"]{display:none}
+/* A short section left at the top of a 16:9 frame leaves the bottom half empty, so
+   every shot but the comparison is centred. The comparison is taller than the frame
+   and must stay top-aligned, or centring would cut its first lines. */
+body[data-shot]:not([data-shot="ask"]) main{
+  min-height:100vh; display:flex; align-items:center;
+}
+body[data-shot]:not([data-shot="ask"]) main > section{width:100%}
+/* The cover is the gallery thumbnail, so it keeps its button and is set larger. */
+body[data-shot="1"] .hero{padding-block:0}
+body[data-shot="1"] .cta{display:inline-flex}
+body[data-shot="1"] .hero-h1{font-size:64px}
+body[data-shot="1"] .hero-desc{font-size:22px; margin-bottom:44px}

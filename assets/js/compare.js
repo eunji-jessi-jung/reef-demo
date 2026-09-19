@@ -14,6 +14,7 @@
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
 import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=b3ed5e9a';
+import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';
 const ARMS = ['reef', 'raw'];
@@ -62,9 +63,20 @@ function renderAnswer(arm, text) {
     .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\[([^\]\n]+)\]/g, (m, inner) => {
-      const parts = inner.split(/[,;]/).map(s => s.trim());
-      if (!parts.some(p => known.has(p))) return m;
-      return parts.map(p => known.has(p) ? chip(p) : `<span class="cite-plain">${esc(p)}</span>`).join(' ');
+      /* A bracket holds one or more references, and a reference is not always alone in
+         its slot: the model writes things like "RISK-…-BACKLOG의 Not determinable 항목"
+         or follows an id with the source file in parentheses. Chip the reference and
+         leave the rest as text, rather than dropping a citation that resolves. */
+      const split = part => {
+        if (known.has(part)) return [part, ''];
+        const m2 = /^([A-Za-z0-9-]+)(.*)$/.exec(part);
+        return m2 && known.has(m2[1]) ? [m2[1], m2[2]] : [null, part];
+      };
+      const parts = inner.split(/[,;]/).map(s => s.trim()).filter(Boolean).map(split);
+      if (!parts.some(([ref]) => ref)) return m;
+      return parts.map(([ref, rest]) => ref
+        ? chip(ref) + (rest ? `<span class="cite-plain">${esc(rest)}</span>` : '')
+        : `<span class="cite-plain">${esc(rest)}</span>`).join(' ');
     })
     .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 }
@@ -303,7 +315,28 @@ async function mount() {
    screen are left alone — each was answered in the language it was asked in, and
    re-translating one would be a new claim, not a translation. */
 (async () => {
+  const shooting = await stageShot();
   await boot();
   await mount();
   document.addEventListener('reef:lang', () => { chips(); renderSources(); });
+
+  /* A screenshot of this page has to show an answered question — an empty chat says
+     nothing. The recorded pairs are used rather than the live proxy: instant, free,
+     and the same every time, which is what a screenshot needs. */
+  if (shooting) {
+    live = false;
+    if (shotId === 'ask') {
+      /* Pick the shortest recorded pair. A 16:9 frame is 900px tall and a long answer
+         runs off the bottom mid-sentence, which looks like a bug rather than an answer.
+         Choosing by length keeps the shot whole even after the pairs are re-recorded. */
+      const len = it => Math.max((it.a?.[state.lang] || it.a?.ko || '').length,
+                                 (it.a_raw?.[state.lang] || it.a_raw?.ko || '').length);
+      const pick = [...(state.qa?.items || [])].sort((a, b) => len(a) - len(b))[0];
+      if (pick) {
+        const q = pick.q[state.lang] || pick.q.ko;
+        askRecorded(addRow(q), q);
+      }
+    }
+    shotReady();
+  }
 })();

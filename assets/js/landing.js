@@ -2,6 +2,7 @@
    from evidence.json so the page cannot quote a score the repositories no longer
    support. */
 import { state, t, boot, esc } from './site.js?v=b3ed5e9a';
+import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 /* The benchmark that answers "does this work anywhere but your fictual company".
    Straight from evidence.json's external.supabase block. */
@@ -31,4 +32,5 @@ function renderEval() {
   ].join('');
 }
 
-boot(() => { renderBench(); renderEval(); });
+await stageShot();
+boot(() => { renderBench(); renderEval(); shotReady(); });
