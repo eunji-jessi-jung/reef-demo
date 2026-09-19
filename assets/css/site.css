@@ -18,9 +18,19 @@
   --page:1360px;
   --measure:66ch;
 
-  --bg:#061714; --bg-deep:#03100f; --bg-soft:#0b201d; --panel:#0e2320; --line:#1c3833;
-  --ink:#e9f2ee; --ink-dim:#94aba4; --ink-faint:#5f7871;
-  --accent:#ff7d66; --warn:#e3b341;
+  /* The water was green-leaning, which at this lightness read as plain black. Same
+     darkness, hue tilted from teal toward blue — deep rather than unlit. */
+  --bg:#07151b; --bg-deep:#040f14; --bg-soft:#0c1e26; --panel:#0e212b; --line:#1c3542;
+  --ink:#e8f1f4; --ink-dim:#95a9b2; --ink-faint:#61767f;
+  /* The accent used to be one flat hue applied at full strength in forty-odd places,
+     which is what made the largest surface — the button — look cheap. It is now a
+     short range: amber at one end, rose at the other, coral in the middle. Both ends
+     are neighbours of coral rather than a second meaningful colour, so the gradient
+     reads as one accent with depth in it and not as two colours competing. */
+  --accent:#ff8a6e; --accent-warm:#ffab6d; --accent-deep:#f4687f;
+  --grad:linear-gradient(103deg, var(--accent-warm) 0%, var(--accent) 46%, var(--accent-deep) 100%);
+  --grad-v:linear-gradient(176deg, var(--accent-warm) 0%, var(--accent) 48%, var(--accent-deep) 100%);
+  --warn:#e3b341;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
   --accent-wash:#221714; --dot:rgba(233,242,238,.05);
   --lift:none;
@@ -122,7 +132,7 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 }
 .q-mark{color:var(--accent); font-family:var(--mono); margin-right:10px}
 /* The reef column of any comparison, so the eye finds it without a legend. */
-.is-reef{color:var(--ink); border-left:2px solid var(--accent) !important}
+.is-reef{color:var(--ink); border-left:2px solid color-mix(in srgb, var(--accent) 62%, transparent) !important}
 
 /* A class selector beats the UA rule for [hidden], so display:flex/grid on a
    component silently un-hides it. State this once, loudly. */
@@ -140,8 +150,8 @@ body::before{
      the viewport. */
   transform:translateZ(0);
   background:
-    radial-gradient(62% 48% at 78% 8%,  color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%),
-    radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
+    radial-gradient(62% 48% at 78% 8%,  color-mix(in srgb, var(--accent-warm) 20%, transparent), transparent 68%),
+    radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent-deep) 12%, transparent), transparent 72%);
 }
 
 
@@ -149,11 +159,17 @@ body::before{
 /* The hero holds the headline and the product. The product is deliberately taller
    than the room left for it, so the fold cuts it — which is what tells a visitor
    there is more without asking them to take that on trust. */
+/* The hero holds three things and nothing else: the line, the descriptor, the button.
+   Centred, because with the comparison moved out there is no second column for the
+   type to sit against, and left-aligned copy in an empty band drifts to one side. */
 .hero{
-  padding:clamp(32px,7vh,72px) var(--gut) 0;
-  display:flex; flex-direction:column; overflow:hidden;
+  padding:clamp(72px,14vh,150px) var(--gut) clamp(64px,12vh,132px);
+  display:flex; flex-direction:column; overflow:hidden; text-align:center;
 }
 .hero-inner{max-width:var(--page); margin:0 auto; width:100%; flex:0 0 auto}
+.hero .hero-desc{margin-left:auto; margin-right:auto}
+.hero .cta-row{align-items:center}
+.hero .kicker{align-self:center}
 /* The pair used to be capped and cropped by the fold, on the theory that a cut edge
    tells a visitor there is more. It does not — it tells them the answers are long. Two
    essays cannot be compared at a glance, so each arm is clamped to the same few lines
@@ -208,7 +224,7 @@ body::before{
 
 .values{list-style:none; margin:0 0 40px; padding:0; display:grid; gap:18px}
 @media(min-width:900px){ .values{grid-template-columns:repeat(3,1fr); gap:24px} }
-.values li{border-top:2px solid var(--accent); padding-top:14px}
+.values li{border-top:2px solid transparent; border-image:var(--grad) 1; padding-top:14px}
 .values b{display:block; margin-bottom:6px; font-size:16px}
 .values span{color:var(--ink-dim); font-size:15px; line-height:1.6}
 
@@ -216,7 +232,7 @@ body::before{
 .cta{
   display:inline-flex; align-items:center; gap:10px; text-decoration:none;
   font-size:clamp(15px,1.4vw,17px); font-weight:600; color:var(--bg);
-  background:var(--accent); border-radius:999px; padding:14px 24px;
+  background:var(--grad); border-radius:999px; padding:14px 24px;
 }
 .cta em{font-style:normal; font-family:var(--mono)}
 .cta:hover{filter:brightness(1.08)}
@@ -244,7 +260,7 @@ tfoot td{font-size:13px; color:var(--ink-faint); font-family:var(--mono)}
 
 /* ---------- 2. comparison ---------- */
 .brief{
-  margin:0 0 22px; padding:0 0 0 18px; border-left:3px solid var(--accent);
+  margin:0 0 22px; padding:0 0 0 18px; border-left:3px solid transparent; border-image:var(--grad-v) 1;
   font-size:clamp(20px,3vw,30px); font-weight:600; line-height:1.4;
 }
 .src-grid{display:grid; gap:12px; margin-bottom:18px}
@@ -281,7 +297,7 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 }
 .chat-input:focus{outline:none; border-color:var(--accent)}
 .chat-form button{
-  font:inherit; font-size:15px; background:var(--accent); color:var(--bg);
+  font:inherit; font-size:15px; background:var(--grad); color:var(--bg);
   border:0; border-radius:8px; padding:11px 20px; cursor:pointer;
 }
 .chat-form[aria-busy="true"]{opacity:.55; pointer-events:none}
@@ -295,7 +311,7 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 .cmp-arms{display:grid; gap:14px}
 @media(min-width:900px){ .cmp-arms{grid-template-columns:1fr 1fr; align-items:start} }
 .arm{margin:0; padding:16px 18px; min-width:0}
-.arm-reef{border-color:var(--accent)}
+.arm-reef{border-color:color-mix(in srgb, var(--accent) 48%, transparent)}
 .arm-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:12px}
 .arm-head b{font-size:15px}
 .arm-reef .arm-head b{color:var(--accent)}
@@ -315,7 +331,7 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 .cite-plain{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); padding:1px 5px}
 
 .artifact-panel{
-  margin-top:20px; background:var(--bg-soft); border:1px solid var(--accent);
+  margin-top:20px; background:var(--bg-soft); border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   border-radius:10px; padding:16px 18px;
 }
 .artifact-head{display:flex; align-items:center; gap:10px; margin-bottom:10px}
@@ -429,14 +445,14 @@ h3{font-size:clamp(18px,2.1vw,24px); margin:44px 0 14px; font-weight:600; color:
   border-radius:0 0 10px 10px; font-size:14px; color:var(--ink-dim);
 }
 .loop-mark{color:var(--accent); font-size:18px; line-height:1}
-.cta-quiet{background:transparent; color:var(--accent); border:1px solid var(--accent)}
+.cta-quiet{background:transparent; color:var(--accent); border:1px solid color-mix(in srgb, var(--accent) 55%, transparent)}
 .cta-quiet:hover{background:color-mix(in srgb,var(--accent) 12%,transparent); filter:none}
 .band .cta{margin-top:10px}
 
 /* ---------- landing: the three questions, and where it fits ---------- */
 .questions{list-style:none; margin:0 0 8px; padding:0; counter-reset:q; display:grid; gap:20px}
 @media(min-width:900px){ .questions{grid-template-columns:repeat(3,1fr); gap:26px} }
-.questions li{counter-increment:q; border-top:2px solid var(--accent); padding-top:14px}
+.questions li{counter-increment:q; border-top:2px solid transparent; border-image:var(--grad) 1; padding-top:14px}
 .questions b{display:block; margin-bottom:8px; font-size:16px}
 .questions b::before{
   content:counter(q); font-family:var(--mono); color:var(--accent);
@@ -446,7 +462,7 @@ h3{font-size:clamp(18px,2.1vw,24px); margin:44px 0 14px; font-weight:600; color:
 /* Where it fits, and where it does not — the second half is the part that earns trust,
    so it is not styled as a warning. */
 .fit{margin-bottom:8px}
-.fit-yes{border-left:2px solid var(--accent); padding-left:16px}
+.fit-yes{border-left:2px solid transparent; border-image:var(--grad-v) 1; padding-left:16px}
 .fit-no{border-left:2px solid var(--line); padding-left:16px}
 .fit .phase{margin-top:0}
 .fit .body{max-width:none}
@@ -517,7 +533,8 @@ main > .artifact-panel{
   content:""; position:absolute; inset:-25% -10% auto -10%; height:120%;
   z-index:-1; pointer-events:none;
   background:
-    radial-gradient(46% 50% at 74% 34%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%);
+    radial-gradient(56% 56% at 50% 26%, color-mix(in srgb, var(--accent-warm) 22%, transparent), transparent 72%),
+    radial-gradient(44% 46% at 50% 78%, color-mix(in srgb, var(--accent-deep) 13%, transparent), transparent 74%);
   opacity:.85;
 }
 
@@ -599,3 +616,14 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 .brand-mark{width:26px; height:20px; color:var(--ink); flex:0 0 auto}
 .brand{opacity:1; transition:opacity .15s ease}
 .brand:hover{opacity:.72}
+
+/* Text painted with the accent range. Guarded: without background-clip the rule set
+   never applies and the element keeps its solid accent colour, rather than going
+   transparent and disappearing. */
+@supports (background-clip:text) or (-webkit-background-clip:text){
+  .hero .kicker, .fig b{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
+  }
+}

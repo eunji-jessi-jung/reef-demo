@@ -32,8 +32,8 @@
     "en": "Ask your own question"
   },
   "L.ctaNote": {
-    "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다 — 서비스 5개, 3년치 문서, 정리한 사람 없음. 아래는 같은 질문을 두 번 던져 기록한 실행이고, 한쪽만 reef 를 들고 있습니다.",
-    "en": "Sellflow is a company invented for this demo: five services, three years of documents, nobody ever tidied them. Below is a recorded run of the same question put twice, and only one side was holding a reef."
+    "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다 — 서비스 5개, 3년치 문서, 정리한 사람 없음. 기록된 실행이고, 한쪽만 reef 를 들고 있습니다.",
+    "en": "Sellflow is a company invented for this demo: five services, three years of documents, nobody ever tidied them. This is a recorded run, and only one side was holding a reef."
   },
   "L.foot": {
     "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
@@ -646,5 +646,13 @@
   "L.pairLess": {
     "ko": "접기",
     "en": "Collapse"
+  },
+  "L.dLabel": {
+    "ko": "비교",
+    "en": "Side by side"
+  },
+  "L.dTitle": {
+    "ko": "같은 질문을 두 번 던졌습니다",
+    "en": "The same question, put twice"
   }
 }

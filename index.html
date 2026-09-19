@@ -6,11 +6,11 @@
   <link rel="icon" href="assets/img/favicon.svg?v=b5378351" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/favicon.svg?v=b5378351">
   <meta name="color-scheme" content="dark">
-  <style>html{background:#061714;color-scheme:dark}</style>
+  <style>html{background:#07151b;color-scheme:dark}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=669b46be">
+  <link rel="stylesheet" href="assets/css/site.css?v=53b4a022">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -55,18 +55,29 @@
           <p class="hero-desc" data-i18n="L.sub"></p>
           <div class="cta-row">
             <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>&#8594;</em></a>
-            <p class="cta-note" data-i18n="L.ctaNote"></p>
           </div>
         </div>
       </div>
-      <div class="hero-demo" data-clamped>
-        <div class="pair-pick">
-          <p class="pair-pick-label" data-i18n="L.pickQ"></p>
-          <div class="chips" id="hero-qs"></div>
+    </section>
+
+    <!-- The comparison, in its own room. It used to share the first screen with the
+         headline, which meant the first screen had a headline, a descriptor, a button,
+         a setup paragraph, a row of questions, an instruction and two answers in it —
+         a page about a product rather than a product. -->
+    <section class="band" id="demo">
+      <div class="band-inner">
+        <p class="section-label" data-i18n="L.dLabel"></p>
+        <h2 data-i18n="L.dTitle"></h2>
+        <p class="body" data-i18n="L.ctaNote"></p>
+        <div class="hero-demo" data-clamped>
+          <div class="pair-pick">
+            <p class="pair-pick-label" data-i18n="L.pickQ"></p>
+            <div class="chips" id="hero-qs"></div>
+          </div>
+          <p class="pair-watch" data-i18n="L.pairWatch"></p>
+          <div class="compare" id="hero-pair"></div>
+          <button class="pair-more" id="pair-more" type="button"></button>
         </div>
-        <p class="pair-watch" data-i18n="L.pairWatch"></p>
-        <div class="compare" id="hero-pair"></div>
-        <button class="pair-more" id="pair-more" type="button"></button>
       </div>
     </section>
 
