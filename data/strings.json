@@ -24,8 +24,8 @@
     "en": "Don't dive head first into the sea of information"
   },
   "L.sub": {
-    "ko": "reef 가 소스 코드와 지식 저장소를 읽어 AI 에이전트를 위한 지식 레이어를 만들어 드립니다.",
-    "en": "Let reef build an AI agent-first knowledge layer for you, from your source code and your knowledge repositories."
+    "ko": "reef 가 소스 코드와 지식 저장소를 읽어 AI 에이전트를 위한 지식 레이어를 만들고, 코드가 바뀌면 어떤 지식이 낡았는지 짚어 줍니다.",
+    "en": "Let reef build an AI agent-first knowledge layer for you, from your source code and your knowledge repositories — and when the code moves, it names what went stale."
   },
   "L.cta": {
     "ko": "직접 물어보기",
