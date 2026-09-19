@@ -32,8 +32,8 @@
     "en": "Ask your own question"
   },
   "L.ctaNote": {
-    "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다 — 서비스 5개, 3년치 문서, 정리한 사람 없음. 기록된 실행이고, 한쪽만 reef 를 들고 있습니다.",
-    "en": "Sellflow is a company invented for this demo: five services, three years of documents, nobody ever tidied them. This is a recorded run, and only one side was holding a reef."
+    "ko": "셀플로우는 지어낸 회사입니다 — 서비스 5개, 3년치 문서, 정리한 사람 없음. 같은 질문, 같은 모델, 한쪽만 reef.",
+    "en": "Sellflow is an invented company — five services, three years of documents, nobody ever tidied them. Same question, same model, only one side holding a reef."
   },
   "L.foot": {
     "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
@@ -80,7 +80,7 @@
     "en": "Deliberately withheld"
   },
   "T.buildTitle": {
-    "ko": "이 리프는 이렇게 만들어졌습니다",
+    "ko": "이 reef 는 이렇게 만들어졌습니다",
     "en": "How this reef was built"
   },
   "T.s1": {
@@ -104,7 +104,7 @@
     "en": "`/reef:test` — blind grading. An agent reading only the artifacts answers {questions} questions; the key stays sealed until grading closes."
   },
   "T.buildNote": {
-    "ko": "사람이 손으로 쓴 아티팩트는 없습니다. 무엇을 언제 왜 했는지는 리프 저장소의 `log.md` 에 그대로 남아 있습니다.",
+    "ko": "사람이 손으로 쓴 아티팩트는 없습니다. 무엇을 언제 왜 했는지는 reef 저장소의 `log.md` 에 그대로 남아 있습니다.",
     "en": "No artifact was hand-written. What was done, when and why is in `log.md` in the reef repository."
   },
   "T.askTitle": {
@@ -112,7 +112,7 @@
     "en": "One question, two answers"
   },
   "T.askNote": {
-    "ko": "아래 질문을 누르거나, 직접 무엇이든 물어보세요. 왼쪽은 리프를 들고 답하고, 오른쪽은 셀플로우 원본 전체를 들고 답합니다.",
+    "ko": "아래 질문을 누르거나, 직접 무엇이든 물어보세요. 왼쪽은 reef 를 들고 답하고, 오른쪽은 셀플로우 원본 전체를 들고 답합니다.",
     "en": "Pick a question, or ask your own. The answer on the left is holding the reef. The one on the right is holding all of Sellflow's sources."
   },
   "T.fair": {
@@ -188,7 +188,7 @@
     "en": "An agent allowed to read only the artifacts answered {questions} questions. No source repositories, no document tree, no answer key, and the key stayed sealed until grading closed."
   },
   "A.evalNote": {
-    "ko": "부족했던 5건은 전부 소스로는 답할 수 없고 답하는 방법만 제시할 수 있는 유형이었습니다. 리프가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
+    "ko": "부족했던 5건은 전부 소스로는 답할 수 없고 답하는 방법만 제시할 수 있는 유형이었습니다. reef 가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
     "en": "All five short answers were the same kind: the sources cannot settle them, so the reef could only supply the method. It understated itself on 11 questions and overstated itself on none. The report goes question by question."
   },
   "A.ethTitle": {
@@ -220,7 +220,7 @@
     "en": "Limits"
   },
   "A.limit1": {
-    "ko": "아티팩트 {artifacts}개 전부 `status: draft` 입니다. 소스에 대고 검증은 됐지만 사람이 검토하지는 않았다는 뜻입니다. 리프는 이 구분을 지킵니다.",
+    "ko": "아티팩트 {artifacts}개 전부 `status: draft` 입니다. 소스에 대고 검증은 됐지만 사람이 검토하지는 않았다는 뜻입니다. reef 는 이 구분을 지킵니다.",
     "en": "All {artifacts} artifacts are `status: draft`. That means verified against the sources but not reviewed by a person, and keeping those two apart is one of the reef's rules."
   },
   "A.limit2": {
@@ -332,7 +332,7 @@
     "en": "Build it once, then keep it turning"
   },
   "L.fLede": {
-    "ko": "스킬 13개가 있지만 순서는 단순합니다. 처음에 한 바퀴 돌려 세우고, 그 뒤로는 코드와 문서가 바뀔 때마다 다시 돕니다. 각 단계 옆의 창은 셀플로우 리프가 실제로 세워진 날의 그 단계를 재생합니다 — 시각은 실행 로그의 실제 타임스탬프입니다.",
+    "ko": "스킬 13개가 있지만 순서는 단순합니다. 처음에 한 바퀴 돌려 세우고, 그 뒤로는 코드와 문서가 바뀔 때마다 다시 돕니다. 각 단계 옆의 창은 셀플로우 reef 가 실제로 세워진 날의 그 단계를 재생합니다 — 시각은 실행 로그의 실제 타임스탬프입니다.",
     "en": "Thirteen skills, but the order is simple. One pass to stand it up, then it runs again whenever the code or the documents move. The window beside each step replays that step from the day the Sellflow reef was actually built — the clock is the real timestamp from the run log."
   },
   "L.fPhase1": {
@@ -396,40 +396,40 @@
     "en": "State"
   },
   "L.d1a": {
-    "ko": "무상태 — 같은 코드에서 매번 같은 것이 나옵니다",
-    "en": "Stateless. Same code, same output, every run"
+    "ko": "무상태. 같은 코드, 같은 결과",
+    "en": "Stateless. Same code, same output"
   },
   "L.d1b": {
-    "ko": "아티팩트마다 인용 파일 스냅샷 · 모름 {unknowns}건 · 사람의 답은 남음",
-    "en": "A snapshot per artifact · {unknowns} unknowns recorded · a person's answer stays"
+    "ko": "아티팩트마다 스냅샷 · 모름 {unknowns}건 · 사람의 답은 남음",
+    "en": "A snapshot per artifact · {unknowns} unknowns · a person's answer stays"
   },
   "L.d2k": {
     "ko": "유지보수",
     "en": "Maintenance"
   },
   "L.d2a": {
-    "ko": "다시 생성합니다",
-    "en": "It regenerates"
+    "ko": "다시 생성",
+    "en": "Regenerates"
   },
   "L.d2b": {
-    "ko": "다시 색인 → 스냅샷 대조 → 더는 참이 아닌 주장을 지목",
-    "en": "Re-index → diff against snapshots → name the claims that stopped being true"
+    "ko": "대조해서, 더는 참이 아닌 주장을 지목",
+    "en": "Diffs, and names the claims that stopped being true"
   },
   "L.d3k": {
     "ko": "코드 밖 정보",
     "en": "Beyond the code"
   },
   "L.d3a": {
-    "ko": "대개 코드만 읽습니다",
-    "en": "Usually reads the code alone"
+    "ko": "코드만",
+    "en": "Code only"
   },
   "L.d3b": {
-    "ko": "위키·티켓·회의록·인수인계 {docs}건을 코드와 같은 자격으로 · 어긋나면 모순 기록",
-    "en": "{docs} wiki pages, tickets, minutes, handovers — cited like code · disagreement recorded as contradiction"
+    "ko": "위키·티켓·회의록·인수인계 {docs}건을 코드와 같은 자격으로",
+    "en": "{docs} wiki pages, tickets, minutes and handovers, cited like code"
   },
   "L.diffNote": {
-    "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 \"더는 참이 아님\"으로 지목했고, {refreshed}개를 갱신했습니다.",
-    "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
+    "ko": "지난 실행: 바뀐 파일 {changed}건 → 아티팩트 {gone}개 지목, {refreshed}개 갱신.",
+    "en": "Last run: {changed} changed files → {gone} artifacts named, {refreshed} refreshed."
   },
   "L.cTitle": {
     "ko": "믿어 달라고 하지 않습니다",
@@ -520,11 +520,11 @@
     "en": "A paper meant to be cited in support turned out, once read, to argue against this approach, so the argument was rebuilt around it. And five defects that surfaced while using the plugin on Sellflow got fixed and published. Four of them were breaking change detection."
   },
   "A.aiTools": {
-    "ko": "쓴 것: Claude Code (Opus 5) 로 플러그인·픽스처·리프·이 사이트를, Claude Sonnet 5 로 이 데모의 채팅을. 그 밖에는 Python 3 과 Vercel Functions 뿐입니다.",
+    "ko": "쓴 것: Claude Code (Opus 5) 로 플러그인·픽스처·reef·이 사이트를, Claude Sonnet 5 로 이 데모의 채팅을. 그 밖에는 Python 3 과 Vercel Functions 뿐입니다.",
     "en": "Claude Code (Opus 5) for the plugin, the fixture, the reef and this site. Claude Sonnet 5 for the chat here. Beyond that, Python 3 and one Vercel function."
   },
   "T.timeline": {
-    "ko": "이 리프는 {drafts_min}분 만에 초안 {drafts}개가 서고, {full_hours}시간 뒤 아티팩트 {artifacts}개가 됐습니다. 눈 가린 채점까지 같은 날 안에 끝났습니다 — 무엇을 언제 했는지는 리프 저장소 `log.md` 에 {log_entries}건의 타임스탬프로 남아 있습니다.",
+    "ko": "이 reef 는 {drafts_min}분 만에 초안 {drafts}개가 서고, {full_hours}시간 뒤 아티팩트 {artifacts}개가 됐습니다. 눈 가린 채점까지 같은 날 안에 끝났습니다 — 무엇을 언제 했는지는 reef 저장소 `log.md` 에 {log_entries}건의 타임스탬프로 남아 있습니다.",
     "en": "This reef stood up {drafts} drafts in {drafts_min} minutes and reached {artifacts} artifacts {full_hours} hours later. The blind grading finished the same day. What happened when is in the reef's own `log.md`, {log_entries} timestamped entries."
   },
   "T.runTitle": {
@@ -535,13 +535,9 @@
     "ko": "플러그인을 Claude Code 에 설치하고 저장소를 가리키면 됩니다. `/reef:init` 이 소스를 물어보고, 나머지는 순서대로 돕니다.",
     "en": "Install the plugin into Claude Code and point it at your repositories. `/reef:init` asks where the sources are; the rest runs in order."
   },
-  "L.pairNote": {
-    "ko": "양쪽 인용이 모두 열립니다 — 왼쪽은 아티팩트와 그 아티팩트가 모른다고 적은 것, 오른쪽은 GitHub 의 실제 파일.",
-    "en": "Both sides' citations open: the left one opens the artifact and what it records as unknown, the right one opens the actual file on GitHub."
-  },
   "L.stripNote": {
-    "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 채점이 끝날 때까지 봉인했습니다.",
-    "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered {questions} questions. The key stayed sealed until grading closed."
+    "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 봉인.",
+    "en": "A fictional company with its answer written down first; a separate agent reading only the artifacts answered {questions} questions. Key sealed."
   },
   "ui.menu": {
     "ko": "메뉴 열기 / 닫기",
@@ -580,8 +576,8 @@
     "en": "Press a question to switch"
   },
   "L.pairWatch": {
-    "ko": "볼 곳 — 답이 어디서 왔는지 댈 수 있는지, 그리고 모르는 것을 모른다고 말하는지.",
-    "en": "What to watch: whether the answer can name where it came from, and whether it says so when it cannot know."
+    "ko": "볼 곳 — 출처를 댈 수 있는지, 모르는 것을 모른다고 하는지.",
+    "en": "Watch for: whether it can name its source, and whether it says so when it cannot know."
   },
   "L.pairMore": {
     "ko": "답 전체 보기",
@@ -596,7 +592,7 @@
     "en": "The same question, put twice"
   },
   "L.rNote": {
-    "ko": "화면 녹화가 아닙니다. 실행 로그(`log.md`)의 문장, init 스킬이 실제로 출력하는 안내, 리프의 `project.json`, 그리고 빌드 시점에 실행한 `reef.py index · lint · diff` 의 결과로 재구성했습니다. 손으로 쓴 줄은 없습니다 — 만드는 도구는 `tools/build-cast.py` 입니다.",
+    "ko": "화면 녹화가 아닙니다. 실행 로그(`log.md`)의 문장, init 스킬이 실제로 출력하는 안내, reef 의 `project.json`, 그리고 빌드 시점에 실행한 `reef.py index · lint · diff` 의 결과로 재구성했습니다. 손으로 쓴 줄은 없습니다 — 만드는 도구는 `tools/build-cast.py` 입니다.",
     "en": "This is not a screen recording. It is reassembled from the run log (`log.md`), what the init skill actually prints, the reef's `project.json`, and `reef.py index · lint · diff` run at build time. No line was typed by hand — the tool that makes it is `tools/build-cast.py`."
   },
   "L.zLabel": {
@@ -604,11 +600,11 @@
     "en": "Layout"
   },
   "L.zTitle": {
-    "ko": "리프 하나는 이렇게 생겼습니다",
+    "ko": "reef 하나는 이렇게 생겼습니다",
     "en": "What one reef looks like"
   },
   "L.zLede": {
-    "ko": "네 구역이 있고, 진실은 한 방향으로만 흐릅니다 — 소스에서 아티팩트로, 아티팩트에서 읽는 쪽으로. 거꾸로 흐르는 길은 없습니다. 아래 숫자는 셀플로우 리프의 실제 값입니다.",
+    "ko": "네 구역이 있고, 진실은 한 방향으로만 흐릅니다 — 소스에서 아티팩트로, 아티팩트에서 읽는 쪽으로. 거꾸로 흐르는 길은 없습니다. 아래 숫자는 셀플로우 reef 의 실제 값입니다.",
     "en": "Four zones, and truth flows one way — from sources into artifacts, from artifacts to whoever reads them. There is no path back. The numbers below are the Sellflow reef's real ones."
   },
   "Z.govName": {
@@ -676,7 +672,7 @@
     "en": "An agent enters through `CLAUDE.md` and walks the graph; a person opens it in Obsidian. Neither edits."
   },
   "Z.note": {
-    "ko": "구역 이름은 실제 폴더 이름입니다. 셀플로우 리프 저장소를 열면 이 구조 그대로입니다.",
+    "ko": "구역 이름은 실제 폴더 이름입니다. 셀플로우 reef 저장소를 열면 이 구조 그대로입니다.",
     "en": "The zone names are the real folder names. Open the Sellflow reef repository and this is what you find."
   },
   "L.fDeep": {
@@ -700,8 +696,8 @@
     "en": "Plenty of tools turn code into documentation"
   },
   "L.uLede": {
-    "ko": "reef 가 다른 점은 셋입니다 — 상태 · 유지보수 · 코드 밖 정보. 지식 베이스는 대개 이 셋이 없어서 죽습니다.",
-    "en": "reef differs in three ways — state, maintenance, and what is not code. Knowledge bases usually die for want of exactly those."
+    "ko": "다른 점은 셋입니다 — 상태 · 유지보수 · 코드 밖 정보.",
+    "en": "Three differences — state, maintenance, and what is not code."
   },
   "L.tech.report": {
     "ko": "{report}",
