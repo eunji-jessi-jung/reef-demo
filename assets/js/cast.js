@@ -70,7 +70,8 @@ export function startCast(root) {
       body.appendChild(lineEl('', 'out'));
     }
     if (clock && scenes.length) {
-      clock.textContent = scenes.length > 1 ? `${scenes[0].at} → ${scenes.at(-1).at}` : scenes[0].at;
+      const ats = scenes.map(sc => sc.at).filter(Boolean);
+      clock.textContent = ats.length > 1 ? `${ats[0]} → ${ats.at(-1)}` : (ats[0] || 'now');
     }
   }
 
@@ -78,7 +79,7 @@ export function startCast(root) {
     body.innerHTML = '';
     for (const s of scenes) {
       if (myGen !== gen) return;
-      if (clock) clock.textContent = s.at;
+      if (clock) clock.textContent = s.at || 'now';
 
       const cmd = lineEl('', 'in');
       const cur = document.createElement('i');

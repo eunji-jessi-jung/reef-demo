@@ -10,7 +10,7 @@
  */
 import { state, t, boot, esc } from './site.js?v=e4822d9d';
 import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=b3047820';
-import { startCast } from './cast.js?v=793bac6f';
+import { startCast } from './cast.js?v=c9b001af';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
