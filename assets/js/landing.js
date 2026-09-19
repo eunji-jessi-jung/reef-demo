@@ -8,8 +8,8 @@
  * nothing, and is the same every visit. Asking a live question is what try.html is
  * for, and that is where the button goes.
  */
-import { state, t, boot, esc } from './site.js?v=665ae28c';
-import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=b2c8ac8f';
+import { state, t, boot, esc } from './site.js?v=9f4bb69e';
+import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=bb02e5c4';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -48,6 +48,17 @@ function renderHeroPair() {
   if (!item) return;
   const q = item.q[state.lang] || item.q.ko;
   fillRecorded(addRow(host, q, 'hero'), item, state.lang);
+  markCrop();
+}
+
+/* Whether the pair is actually being cut, which depends on the window. Only then does
+   the fade at the bottom mean anything. */
+function markCrop() {
+  const box = document.querySelector('.hero-demo');
+  if (!box) return;
+  const cropped = box.scrollHeight > box.clientHeight + 4;
+  if (cropped) box.dataset.cropped = '';
+  else delete box.dataset.cropped;
 }
 
 function render() {
@@ -65,4 +76,5 @@ state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' })
   .then(r => r.json()).catch(() => ({ items: [] }));
 renderHeroPair();
 wireArtifactPanel(document, document.getElementById('artifact'));
+addEventListener('resize', markCrop);
 shotReady();

@@ -11,7 +11,6 @@
   --bg:#faf8f3; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
   --ink:#13211c; --ink-dim:#4c5a54; --ink-faint:#8b938d;
   --accent:#0d7a66; --accent-wash:#eaf5f1;
-  --highlight:#ffe98a;
   --warn:#8a5d00; --bad:#b3261e; --good:#1c7a3c;
   --code-bg:#f3f0e8; --code-ink:#2b3733;
   --lift:0 1px 2px rgba(22,25,29,.05), 0 10px 30px rgba(22,25,29,.07);
@@ -27,7 +26,7 @@
   --ink:#e6edf3; --ink-dim:#93a3b1; --ink-faint:#5d6b78;
   --accent:#4ec9b0; --warn:#e3b341; --bad:#f07178; --good:#7ee787;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
-  --accent-wash:#111d1b; --highlight:#4a3c00;
+  --accent-wash:#141f1d;
   --lift:none;
   --panel-shadow:0 18px 50px rgba(0,0,0,.55);
 }
@@ -121,25 +120,23 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
    than the room left for it, so the fold cuts it — which is what tells a visitor
    there is more without asking them to take that on trust. */
 .hero{
-  padding:clamp(32px,7vh,72px) var(--gut) 0; min-height:100svh;
+  padding:clamp(32px,7vh,72px) var(--gut) 0;
   display:flex; flex-direction:column; overflow:hidden;
 }
-/* min-height alone lets the pair push the hero to whatever height it needs, which is
-   the opposite of the intended effect. A definite height is what makes the flex child
-   shrink and the fold do the cutting. */
-@media(min-width:900px){
-  .hero{height:100svh; min-height:0}
-}
-@media(max-width:899px){
-  .hero-demo{max-height:58svh}
-}
 .hero-inner{max-width:920px; margin:0 auto; width:100%; flex:0 0 auto}
+/* Capped rather than stretched. Tying the hero to 100svh and letting this fill the
+   remainder crops correctly on a short window and leaves a hole on a tall one, because
+   the pair is then shorter than the space it was given. A cap crops at every size and
+   never opens a gap. */
 .hero-demo{
-  flex:1 1 auto; min-height:0; max-width:1180px; width:100%; margin:28px auto 0;
+  max-width:1180px; width:100%; margin:28px auto 0;
+  max-height:clamp(300px, 46svh, 560px);
   position:relative; overflow:hidden;
 }
-/* Fade the cut edge rather than slicing a line through a sentence. */
-.hero-demo::after{
+/* Fade the cut edge rather than slicing a line through a sentence — but only when
+   there is actually a cut. On a wide window the pair fits, and fading text that is not
+   truncated reads as a rendering fault. landing.js sets the flag. */
+.hero-demo[data-cropped]::after{
   content:""; position:absolute; inset:auto 0 0 0; height:120px; pointer-events:none;
   background:linear-gradient(to bottom, transparent, var(--bg));
 }
@@ -453,14 +450,6 @@ main > .artifact-panel{
     var(--bg);
 }
 
-/* The eyebrow as a highlighter mark rather than a caption. */
-.hero .kicker{
-  align-self:flex-start; background:var(--highlight); color:var(--ink);
-  padding:5px 13px; border-radius:999px; margin-bottom:22px;
-  text-transform:none; letter-spacing:.04em;
-}
-:root[data-theme="dark"] .hero .kicker{background:transparent; color:var(--accent); padding:0}
-
 /* The two arms should not look interchangeable: the reef side is tinted, the side
    without one is left plain. */
 .arm-reef{background:var(--accent-wash)}
@@ -469,7 +458,8 @@ main > .artifact-panel{
 /* "Not determinable" is a defined term in the artifact contract and it is the whole
    difference between the two answers, so it is marked rather than left to be found. */
 .arm-body mark{
-  background:var(--highlight); color:inherit; padding:1px 4px; border-radius:4px;
+  background:var(--accent-wash); color:inherit; padding:1px 3px; border-radius:3px;
+  box-shadow:inset 0 -2px 0 var(--accent);
 }
 
 /* Figures carry the evidence; they were sized like captions. */
@@ -481,3 +471,18 @@ main > .artifact-panel{
 .repo:hover,.src-card:hover{transform:translateY(-2px); box-shadow:var(--panel-shadow)}
 .cta{transition:transform .15s ease, filter .15s ease}
 .cta:hover{transform:translateY(-1px)}
+
+/* ---------- theme toggle ---------- */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:32px; height:32px; padding:0; cursor:pointer;
+  background:transparent; color:var(--ink-faint);
+  border:1px solid var(--line); border-radius:8px;
+}
+.theme-toggle:hover{color:var(--ink); background:var(--panel)}
+.theme-toggle svg{width:17px; height:17px}
+/* Show the thing you would switch to, not the thing you are looking at. */
+.theme-toggle .icon-sun{display:none}
+.theme-toggle .icon-moon{display:block}
+:root[data-theme="dark"] .theme-toggle .icon-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .icon-moon{display:none}

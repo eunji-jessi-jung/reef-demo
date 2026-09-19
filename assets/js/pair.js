@@ -10,7 +10,7 @@
  * it says it does not know; a source citation opens the actual file on GitHub. Neither
  * side gets to be believed.
  */
-import { state, t, esc, copyVars } from './site.js?v=665ae28c';
+import { state, t, esc, copyVars } from './site.js?v=9f4bb69e';
 
 export const ARMS = ['reef', 'raw'];
 

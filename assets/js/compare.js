@@ -13,9 +13,9 @@
  * If the proxy is absent, over budget or unreachable, the page falls back to recorded
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
-import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=665ae28c';
+import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=9f4bb69e';
 import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded,
-         shortestPair, wireArtifactPanel } from './pair.js?v=b2c8ac8f';
+         shortestPair, wireArtifactPanel } from './pair.js?v=bb02e5c4';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';

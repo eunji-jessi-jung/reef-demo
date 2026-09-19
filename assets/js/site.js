@@ -93,6 +93,10 @@ export function applyI18n(root = document) {
   root.querySelectorAll('[data-i18n-ph]').forEach(el => {
     el.placeholder = t(el.dataset.i18nPh);
   });
+  root.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nAria));
+    el.title = t(el.dataset.i18nAria);
+  });
   document.documentElement.lang = state.lang === 'ko' ? 'ko' : 'en';
   document.querySelectorAll('.lang button').forEach(b => {
     b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang));
@@ -133,13 +137,33 @@ function wireReveal() {
 
 /* Light is the default. ?theme=dark switches to the previous palette so the two can
    be compared on the same content; the choice is remembered per browser. */
+const THEME_KEY = 'reef-demo-theme';
+
+function setTheme(theme) {
+  if (theme === 'dark') document.documentElement.dataset.theme = 'dark';
+  else delete document.documentElement.dataset.theme;
+  document.querySelectorAll('[data-theme-toggle]').forEach(b => {
+    b.setAttribute('aria-pressed', String(theme === 'dark'));
+  });
+  try { localStorage.setItem(THEME_KEY, theme); } catch {}
+}
+
+/* Light is the default. ?theme=dark still works, and the toggle writes the same key,
+   so a choice made either way survives a reload. The OS preference is deliberately
+   not consulted: light is a design decision here, not a fallback. */
 function applyTheme() {
   const asked = new URLSearchParams(location.search).get('theme');
   let theme = asked;
-  if (!theme) { try { theme = localStorage.getItem('reef-demo-theme'); } catch {} }
-  if (theme === 'dark') document.documentElement.dataset.theme = 'dark';
-  else delete document.documentElement.dataset.theme;
-  if (asked) { try { localStorage.setItem('reef-demo-theme', asked); } catch {} }
+  if (!theme) { try { theme = localStorage.getItem(THEME_KEY); } catch {} }
+  setTheme(theme === 'dark' ? 'dark' : 'light');
+}
+
+function wireTheme() {
+  document.querySelectorAll('[data-theme-toggle]').forEach(b => {
+    b.addEventListener('click', () => {
+      setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+  });
 }
 
 export async function boot(afterI18n) {
@@ -147,6 +171,7 @@ export async function boot(afterI18n) {
   try { state.lang = localStorage.getItem(LS_KEY) || 'ko'; } catch {}
   await loadData();
   wireLang();
+  wireTheme();
   wireNav();
   applyI18n();
   wireReveal();
