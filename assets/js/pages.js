@@ -4,7 +4,8 @@
  * all come from data/evidence.json. The external block is the only hand-maintained
  * part of it, and each entry records the date its primary source was checked.
  */
-import { boot, state, t } from './site.js?v=4454c13f';
+import { runShot } from './shot.js?v=61b6fd32';
+import { boot, state, t } from './site.js?v=27772b03';
 
 const $  = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;' }[c]));
@@ -106,4 +107,4 @@ boot(() => {
   const ev = state.ev;
   if (!ev) return;
   renderPaper(ev); renderBenchmark(ev); renderHow(ev); renderVerify(ev);
-});
+}).then(runShot);

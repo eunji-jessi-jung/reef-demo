@@ -5,8 +5,9 @@
  * published repositories — it runs the grep for real and sums the CSV for real. Nothing
  * here is prose typed by hand.
  */
-import { boot, state, t, copyVars } from './site.js?v=4454c13f';
-import { mountChat } from './chat.js?v=76953645';
+import { runShot } from './shot.js?v=61b6fd32';
+import { boot, state, t, copyVars } from './site.js?v=27772b03';
+import { mountChat } from './chat.js?v=19dfc0e4';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -181,6 +182,6 @@ function render() {
   if (!wired) { wired = true; sceneSearch(ev); sceneReveal(ev); scenePath(ev); }
 }
 
-boot(render);
+boot(render).then(runShot);
 const chatRoot = $('#ask');
 if (chatRoot) mountChat(chatRoot);

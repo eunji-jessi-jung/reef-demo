@@ -86,4 +86,5 @@ export async function boot(afterI18n) {
     afterI18n();
     document.addEventListener('reef:lang', afterI18n);
   }
+  return true;
 }

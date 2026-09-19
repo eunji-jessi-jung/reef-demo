@@ -7,7 +7,7 @@
  * chat quietly loses its input box and keeps the prepared questions — the demo never
  * arrives at a broken state.
  */
-import { state, t } from './site.js?v=4454c13f';
+import { state, t } from './site.js?v=27772b03';
 
 const API = window.REEF_API || '';          // set in the page; empty = prepared only
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
