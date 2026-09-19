@@ -175,6 +175,9 @@ body::before{
 .hero .hero-desc{margin-left:auto; margin-right:auto}
 .hero .cta-row{align-items:center}
 .hero .kicker{align-self:center}
+/* No rule under the hero. Its water and its glow both fade to nothing before the
+   edge, so the next band begins on open background rather than on a line. */
+.hero + .band{border-top:0}
 /* The pair used to be capped and cropped by the fold, on the theory that a cut edge
    tells a visitor there is more. It does not — it tells them the answers are long. Two
    essays cannot be compared at a glance, so each arm is clamped to the same few lines
@@ -545,8 +548,8 @@ main > .artifact-panel{
   background-size:320px 168px;
   /* Cleared where the type sits and strongest toward the edges, so the water is
      something the headline floats on rather than something it competes with. */
-  -webkit-mask-image:radial-gradient(ellipse 66% 60% at 50% 46%, transparent 12%, rgba(0,0,0,.4) 58%, #000 100%);
-          mask-image:radial-gradient(ellipse 66% 60% at 50% 46%, transparent 12%, rgba(0,0,0,.4) 58%, #000 100%);
+  -webkit-mask-image:radial-gradient(ellipse 78% 58% at 50% 46%, transparent 12%, #000 46%, #000 56%, transparent 90%);
+          mask-image:radial-gradient(ellipse 78% 58% at 50% 46%, transparent 12%, #000 46%, #000 56%, transparent 90%);
 }
 
 .hero::before{
@@ -554,7 +557,7 @@ main > .artifact-panel{
   z-index:-1; pointer-events:none;
   background:
     radial-gradient(56% 56% at 50% 26%, color-mix(in srgb, var(--accent-warm) 22%, transparent), transparent 72%),
-    radial-gradient(52% 50% at 50% 82%, color-mix(in srgb, var(--accent-cool) 20%, transparent), transparent 74%);
+    radial-gradient(60% 30% at 50% 72%, color-mix(in srgb, var(--accent-cool) 22%, transparent), transparent 70%);
   opacity:.85;
 }
 
