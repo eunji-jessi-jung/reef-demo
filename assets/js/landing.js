@@ -1,8 +1,8 @@
 /* The landing page.
  *
- * Two things move. The grading figures come from evidence.json so the page cannot
- * quote a score the repositories no longer support, and the hero carries a recorded
- * comparison — the product, in the first screen, rather than a click away.
+ * The grading figures come from evidence.json so the page cannot quote a score the
+ * repositories no longer support; the comparison is recorded; and each step of the
+ * skill flow has a replay of that step beside it (cast.js).
  *
  * The pair is recorded rather than live on purpose: it renders instantly, costs
  * nothing, and is the same every visit. Asking a live question is what try.html is
@@ -10,7 +10,7 @@
  */
 import { state, t, boot, esc } from './site.js?v=d6465fc8';
 import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=88e3036d';
-import { startCast } from './cast.js?v=86ee0af5';
+import { startCast } from './cast.js?v=e8750f8f';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -123,5 +123,5 @@ renderHeroPair();
 renderMore();
 wireHero();
 wireArtifactPanel(document, document.getElementById('artifact'));
-startCast(document.getElementById('cast'));
+document.querySelectorAll('.cast').forEach(startCast);
 shotReady();

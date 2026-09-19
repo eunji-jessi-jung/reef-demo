@@ -714,3 +714,28 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 }
 @media(max-width:620px){ .zone-flow{margin-left:22px; padding-left:18px} }
 .zone-arrow{font-family:var(--mono); color:var(--accent); flex:0 0 auto; line-height:1.6}
+
+
+/* ---------- landing: one skill per row, its replay beside it ---------- */
+.stages{display:grid; gap:0; margin:8px 0 26px}
+.stage{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px 32px;
+  align-items:start; padding:22px 0; border-top:1px solid var(--line);
+}
+.stage:first-child{border-top:0}
+@media(max-width:900px){ .stage{grid-template-columns:1fr; gap:14px} }
+.stage-copy code{
+  display:inline-block; font-family:var(--mono); font-size:14px; color:var(--accent);
+  margin:0 10px 8px 0; padding-top:2px;
+}
+.stage-copy p{margin:0; font-size:16px; line-height:1.65; color:var(--ink-dim); max-width:46ch; word-break:keep-all}
+.stage-copy .who{
+  display:inline-block; font-family:var(--mono); font-size:12px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink); border:1px dashed var(--accent);
+  border-radius:999px; padding:3px 10px; margin:0 10px 8px 0;
+}
+.stage-text{grid-template-columns:1fr}
+.stage .cast{margin:0}
+.stage .cast-body{height:clamp(220px, 34vh, 320px); font-size:12.5px; padding:14px 16px}
+.h3-gap{margin-top:56px}
+h3.phase{margin-top:34px}

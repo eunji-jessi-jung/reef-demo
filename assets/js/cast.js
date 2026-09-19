@@ -12,7 +12,9 @@
  */
 import { esc } from './site.js?v=d6465fc8';
 
-const T = { char: 42, line: 85, art: 34, afterCmd: 260, scene: 900, hold: 4200, clear: 420 };
+/* Slower than a terminal really is. The first cut typed at forty milliseconds a
+   character and nobody could read it; this is the pace of someone watching. */
+const T = { char: 64, line: 190, art: 60, afterCmd: 420, scene: 1100, hold: 5200, clear: 420 };
 
 const still = () =>
   matchMedia('(prefers-reduced-motion: reduce)').matches ||
@@ -48,7 +50,13 @@ export function startCast(root) {
   const base = document.body.dataset.base || '.';
   fetch(`${base}/data/cast.json`, { cache: 'no-cache' })
     .then(r => r.json())
-    .then(cast => { scenes = cast.scenes || []; if (still()) renderStill(); else observe(); })
+    .then(cast => {
+      /* A player may ask for a subset by scene id — one skill's replay beside that
+         skill's description — or, with no attribute, play the whole day. */
+      const want = (root.dataset.scene || '').split(',').map(x => x.trim()).filter(Boolean);
+      scenes = (cast.scenes || []).filter(sc => !want.length || want.includes(sc.id));
+      if (still()) renderStill(); else observe();
+    })
     .catch(() => { body.textContent = ''; });
 
   const sleep = ms => new Promise(res => { timer = setTimeout(res, ms); });
@@ -61,7 +69,9 @@ export function startCast(root) {
       s.lines.forEach(l => body.appendChild(lineEl(l, classify(l))));
       body.appendChild(lineEl('', 'out'));
     }
-    if (clock && scenes.length) clock.textContent = `${scenes[0].at} → ${scenes.at(-1).at}`;
+    if (clock && scenes.length) {
+      clock.textContent = scenes.length > 1 ? `${scenes[0].at} → ${scenes.at(-1).at}` : scenes[0].at;
+    }
   }
 
   async function play(myGen) {

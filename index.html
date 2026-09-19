@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=cee9bcbe">
+  <link rel="stylesheet" href="assets/css/site.css?v=d611cb9c">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -120,96 +120,139 @@
       </div>
     </section>
 
-    <!-- The application, running. Everything below this is what reef produces; this
-         is reef being used, which the page otherwise never showed. It is a replay
-         assembled from the run log and reef.py's real output, and the copy beside it
-         says so — see tools/build-cast.py for where every line comes from. -->
-    <section class="band" id="run">
-      <div class="band-inner">
-        <p class="section-label" data-i18n="L.rLabel"></p>
-        <h2 data-i18n="L.rTitle"></h2>
-        <p class="body" data-md="L.rLede"></p>
-        <figure class="cast" id="cast">
-          <figcaption class="cast-bar">
-            <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="cast-title">claude — ~/sellflow-reef</span>
-            <span class="cast-clock"></span>
-          </figcaption>
-          <pre class="cast-body" aria-live="off"></pre>
-        </figure>
-        <p class="meta" data-md="L.rNote"></p>
-      </div>
-    </section>
-
-    <!-- The comparison, in its own room. It used to share the first screen with the
-         headline, which meant the first screen had a headline, a descriptor, a button,
-         a setup paragraph, a row of questions, an instruction and two answers in it —
-         a page about a product rather than a product. -->
-    <section class="band" id="demo">
-      <div class="band-inner">
-        <p class="section-label" data-i18n="L.dLabel"></p>
-        <h2 data-i18n="L.dTitle"></h2>
-        <p class="body" data-i18n="L.ctaNote"></p>
-        <div class="hero-demo" data-clamped>
-          <div class="pair-pick">
-            <p class="pair-pick-label" data-i18n="L.pickQ"></p>
-            <div class="chips" id="hero-qs"></div>
-          </div>
-          <p class="pair-watch" data-i18n="L.pairWatch"></p>
-          <div class="compare" id="hero-pair"></div>
-          <button class="pair-more" id="pair-more" type="button"></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Evidence, immediately. Not at the bottom. -->
-    <section class="band band-strip">
-      <div class="band-inner">
-        <p class="section-label" data-i18n="L.cLabel"></p>
-        <h2 data-i18n="L.cTitle"></h2>
-        <div class="figures" id="eval-figures"></div>
-        <p class="body" data-i18n="L.stripNote"></p>
-        <p class="meta" data-i18n="L.pairNote"></p>
-        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
-      </div>
-    </section>
-
-<section class="band" id="how">
+    <!-- How it runs, one skill at a time. Each step has the day's replay of that step
+         beside it, at half width, so the description and the terminal read as one row.
+         Every line in a window has a source — see tools/build-cast.py. -->
+    <section class="band" id="how">
       <div class="band-inner">
         <p class="section-label" data-i18n="L.fLabel"></p>
         <h2 data-i18n="L.fTitle"></h2>
         <p class="body" data-i18n="L.fLede"></p>
 
-        <p class="phase" data-i18n="L.fPhase1"></p>
-        <ol class="flow">
-          <li><code>/reef:init</code><span data-i18n="L.f1"></span></li>
-          <li><code>/reef:snorkel</code><code>/reef:source</code><span data-i18n="L.f2"></span></li>
-          <li><code>/reef:scuba</code><span data-i18n="L.f3"></span></li>
-          <li><code>/reef:test</code><span data-i18n="L.f4"></span></li>
-        </ol>
+        <h3 class="phase" data-i18n="L.fPhase1"></h3>
+        <div class="stages">
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:init</code><p data-i18n="L.f1"></p></div>
+            <figure class="cast" data-scene="init">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:snorkel</code><code>/reef:source</code><p data-i18n="L.f2"></p></div>
+            <figure class="cast" data-scene="snorkel">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:scuba</code><p data-i18n="L.f3"></p></div>
+            <figure class="cast" data-scene="scuba">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:deep</code><p data-i18n="L.fDeep"></p></div>
+            <figure class="cast" data-scene="deep">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:test</code><p data-i18n="L.f4"></p></div>
+            <figure class="cast" data-scene="test-1">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+        </div>
 
-        <p class="phase" data-i18n="L.fPhase2"></p>
-        <ol class="flow">
-          <li><code>/reef:update</code><span data-i18n="L.f5"></span></li>
-          <li><code>/reef:feed</code><span data-i18n="L.f6"></span></li>
-          <li><code>/reef:ask</code><span data-i18n="L.f7"></span></li>
-          <li class="is-human"><span class="who" data-i18n="L.fHuman"></span><span data-i18n="L.f8"></span></li>
-        </ol>
+        <h3 class="phase" data-i18n="L.fPhase2"></h3>
+        <div class="stages">
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:update</code><p data-i18n="L.f5"></p></div>
+            <figure class="cast" data-scene="update">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage stage-text">
+            <div class="stage-copy"><code>/reef:feed</code><p data-i18n="L.f6"></p></div>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:ask</code><p data-i18n="L.f7"></p></div>
+            <figure class="cast" data-scene="ask">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage stage-text is-human">
+            <div class="stage-copy"><span class="who" data-i18n="L.fHuman"></span><p data-i18n="L.f8"></p></div>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:test</code><p data-i18n="L.fTest2"></p></div>
+            <figure class="cast" data-scene="test-2">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+          <div class="stage">
+            <div class="stage-copy"><code>/reef:health</code><p data-i18n="L.fHealth"></p></div>
+            <figure class="cast" data-scene="health">
+              <figcaption class="cast-bar">
+                <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="cast-title">claude — ~/sellflow-reef</span>
+                <span class="cast-clock"></span>
+              </figcaption>
+              <pre class="cast-body" aria-live="off"></pre>
+            </figure>
+          </div>
+        </div>
         <p class="loop-back"><span class="loop-mark" aria-hidden="true">&#8630;</span><span data-i18n="L.fLoop"></span></p>
-
-        <a class="cta" href="try.html"><span data-i18n="L.fCta"></span> <em>&#8594;</em></a>
+        <p class="meta" data-md="L.rNote"></p>
       </div>
     </section>
-<section class="band">
+
+    <!-- Value: what makes this different from a generator, then the difference felt —
+         the same question answered with and without a reef — then the grading. -->
+    <section class="band" id="value">
       <div class="band-inner">
-        <p class="section-label" data-i18n="L.vLabel"></p>
-        <h2 data-i18n="L.vTitle"></h2>
-        <p class="body" data-i18n="L.vLede"></p>
-        <ol class="questions">
-          <li><b data-i18n="L.q1t"></b><span data-i18n="L.q1b"></span></li>
-          <li><b data-i18n="L.q2t"></b><span data-i18n="L.q2b"></span></li>
-          <li><b data-i18n="L.q3t"></b><span data-i18n="L.q3b"></span></li>
-        </ol>
+        <p class="section-label" data-i18n="L.uLabel"></p>
+        <h2 data-i18n="L.uTitle"></h2>
+        <p class="body" data-i18n="L.uLede"></p>
 
         <h3 data-i18n="L.diffTitle"></h3>
         <table class="diff">
@@ -223,9 +266,28 @@
           </tbody>
         </table>
         <p class="body" data-i18n="L.diffNote"></p>
+
+        <h3 class="h3-gap" data-i18n="L.dTitle"></h3>
+        <p class="body" data-i18n="L.ctaNote"></p>
+        <div class="hero-demo" data-clamped>
+          <div class="pair-pick">
+            <p class="pair-pick-label" data-i18n="L.pickQ"></p>
+            <div class="chips" id="hero-qs"></div>
+          </div>
+          <p class="pair-watch" data-i18n="L.pairWatch"></p>
+          <div class="compare" id="hero-pair"></div>
+          <button class="pair-more" id="pair-more" type="button"></button>
+        </div>
+
+        <h3 class="h3-gap" data-i18n="L.cTitle"></h3>
+        <div class="figures" id="eval-figures"></div>
+        <p class="body" data-i18n="L.stripNote"></p>
+        <p class="meta" data-i18n="L.pairNote"></p>
+        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
       </div>
     </section>
-<section class="band">
+
+    <section class="band" id="range">
       <div class="band-inner">
         <p class="section-label" data-i18n="L.sLabel"></p>
         <h2 data-i18n="L.sTitle"></h2>
@@ -240,11 +302,6 @@
             <p class="body" data-i18n="L.sUnfit"></p>
           </div>
         </div>
-
-        <h3 data-i18n="L.sBenchT"></h3>
-        <p class="body" data-i18n="L.sBench"></p>
-        <table class="bench" id="bench"></table>
-        <p class="body caution" data-i18n="L.sNeg"></p>
         <a class="cta cta-quiet" href="about.html"><span data-i18n="L.sCta"></span> <em>&#8594;</em></a>
       </div>
     </section>
@@ -263,6 +320,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=e4ebf8b1"></script>
+  <script type="module" src="assets/js/landing.js?v=0b9dc690"></script>
 </body>
 </html>
