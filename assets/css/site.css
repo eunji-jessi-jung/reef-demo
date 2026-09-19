@@ -646,3 +646,38 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
     color:transparent; -webkit-text-fill-color:transparent;
   }
 }
+
+
+/* ---------- landing: the terminal replay ---------- */
+.cast{
+  margin:28px 0 0; padding:0; white-space:normal; border:1px solid var(--line); border-radius:12px;
+  background:var(--code-bg); overflow:hidden; box-shadow:var(--panel-shadow);
+  transition:opacity .4s ease;
+}
+.cast[data-fading]{opacity:0}
+.cast-bar{
+  display:flex; align-items:center; gap:12px; padding:10px 14px;
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono); font-size:12px; color:var(--ink-faint);
+}
+.cast-dots{display:inline-flex; gap:6px}
+.cast-dots i{display:block; width:10px; height:10px; border-radius:50%; background:var(--line)}
+.cast-title{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.cast-clock{color:var(--ink-dim); font-variant-numeric:tabular-nums}
+.cast-body{
+  height:clamp(320px, 54vh, 480px); overflow:auto; padding:16px 18px;
+  font-family:var(--mono); font-size:13px; line-height:1.55; color:var(--code-ink);
+  white-space:pre-wrap; overflow-wrap:anywhere;
+}
+.cast-body .tl{display:block}
+.cast-body .in{color:var(--ink); margin-top:2px}
+.cast-body .in::before{content:"❯ "; color:var(--accent)}
+.cast-body .ask{color:var(--accent-warm)}
+.cast-body .ans{color:var(--ink-dim)}
+.cast-body .art{color:var(--ink-faint)}
+.cast-body .cur{
+  display:inline-block; width:.6em; height:1.05em; background:var(--accent);
+  vertical-align:-.15em; animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){ .cast-body .cur{animation:none} .cast{transition:none} }

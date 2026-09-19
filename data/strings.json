@@ -654,5 +654,21 @@
   "L.dTitle": {
     "ko": "같은 질문을 두 번 던졌습니다",
     "en": "The same question, put twice"
+  },
+  "L.rLabel": {
+    "ko": "재현",
+    "en": "Replay"
+  },
+  "L.rTitle": {
+    "ko": "돌아가는 모습",
+    "en": "What running it looks like"
+  },
+  "L.rLede": {
+    "ko": "터미널에서 `/reef:init` 한 번으로 시작합니다. 아래는 셀플로우 리프가 실제로 세워진 하루를 압축한 것입니다 — 오른쪽 위 시각은 실행 로그의 실제 타임스탬프입니다.",
+    "en": "It starts in the terminal, with one `/reef:init`. Below is the day the Sellflow reef was actually built, compressed — the clock at the top right is the real timestamp from the run log."
+  },
+  "L.rNote": {
+    "ko": "화면 녹화가 아닙니다. 실행 로그(`log.md`)의 문장, init 스킬이 실제로 출력하는 안내, 리프의 `project.json`, 그리고 빌드 시점에 실행한 `reef.py index · lint · diff` 의 결과로 재구성했습니다. 손으로 쓴 줄은 없습니다 — 만드는 도구는 `tools/build-cast.py` 입니다.",
+    "en": "This is not a screen recording. It is reassembled from the run log (`log.md`), what the init skill actually prints, the reef's `project.json`, and `reef.py index · lint · diff` run at build time. No line was typed by hand — the tool that makes it is `tools/build-cast.py`."
   }
 }

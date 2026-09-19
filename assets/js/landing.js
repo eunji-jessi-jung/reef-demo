@@ -10,6 +10,7 @@
  */
 import { state, t, boot, esc } from './site.js?v=d6465fc8';
 import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=88e3036d';
+import { startCast } from './cast.js?v=86ee0af5';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -122,4 +123,5 @@ renderHeroPair();
 renderMore();
 wireHero();
 wireArtifactPanel(document, document.getElementById('artifact'));
+startCast(document.getElementById('cast'));
 shotReady();

@@ -15,6 +15,9 @@ python3 tools/build-corpus.py
 echo "── digest    (the reef, compressed for the chat's system prompt)"
 python3 tools/build-digest.py
 
+echo "── cast      (the terminal replay, from the run log and reef.py output)"
+python3 tools/build-cast.py
+
 echo "── stamp     (content hashes on assets and module imports)"
 python3 tools/stamp-assets.py
 

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=ce23c926">
+  <link rel="stylesheet" href="assets/css/site.css?v=565bead3">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -57,6 +57,27 @@
             <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>&#8594;</em></a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- The application, running. Everything below this is what reef produces; this
+         is reef being used, which the page otherwise never showed. It is a replay
+         assembled from the run log and reef.py's real output, and the copy beside it
+         says so — see tools/build-cast.py for where every line comes from. -->
+    <section class="band" id="run">
+      <div class="band-inner">
+        <p class="section-label" data-i18n="L.rLabel"></p>
+        <h2 data-i18n="L.rTitle"></h2>
+        <p class="body" data-md="L.rLede"></p>
+        <figure class="cast" id="cast">
+          <figcaption class="cast-bar">
+            <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="cast-title">claude — ~/sellflow-reef</span>
+            <span class="cast-clock"></span>
+          </figcaption>
+          <pre class="cast-body" aria-live="off"></pre>
+        </figure>
+        <p class="meta" data-md="L.rNote"></p>
       </div>
     </section>
 
@@ -182,6 +203,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=68a2ead5"></script>
+  <script type="module" src="assets/js/landing.js?v=e4ebf8b1"></script>
 </body>
 </html>
