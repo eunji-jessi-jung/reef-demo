@@ -18,13 +18,20 @@ let el = {};
 
 /* Render an answer: paragraphs, inline code, and citation chips that open the artifact. */
 function renderAnswer(text, cites = []) {
-  const known = new Set(cites);
-  const html = esc(text)
+  /* One bracket can hold several references, and some of them name source files
+     rather than artifacts. Chip the ones that resolve; leave the rest as text. */
+  const known = new Set([...(state.digest?.items || []).map(a => a.id), ...cites]);
+  return esc(text)
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\[([A-Z][A-Z0-9-]{3,})\]/g, (m, id) =>
-      known.has(id) || state.ev?.reef ? `<button class="cite" data-artifact="${id}">${id}</button>` : m)
+    .replace(/\[([^\]\n]+)\]/g, (m, inner) => {
+      const parts = inner.split(/[,;]/).map(t => t.trim());
+      if (!parts.some(t => known.has(t))) return m;
+      return parts.map(t => known.has(t)
+        ? `<button class="cite" data-artifact="${t}">${t}</button>`
+        : `<span class="cite-plain">${t}</span>`).join(' ');
+    })
     .split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-  return html;
 }
 
 function bubble(role, html, meta = '') {

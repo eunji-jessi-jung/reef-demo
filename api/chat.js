@@ -156,9 +156,14 @@ export default async function handler(req, res) {
       console.error('empty_answer', JSON.stringify(data.usage), data.stop_reason);
       return res.status(502).json({ error: 'empty_answer', stop_reason: data.stop_reason });
     }
-    const cites = [...new Set((text.match(/\[([A-Z][A-Z0-9-]{3,})\]/g) || [])
-      .map(m => m.slice(1, -1))
-      .filter(id => digest.items.some(a => a.id === id)))];
+    /* A bracket may hold several references, and not all of them are artifacts —
+       the model also cites source files by name. Take every token inside every
+       bracket, keep the ones that resolve to an artifact, drop the rest. */
+    const known = new Set(digest.items.map(a => a.id));
+    const cites = [...new Set([...text.matchAll(/\[([^\]\n]+)\]/g)]
+      .flatMap(m => m[1].split(/[,;]/))
+      .map(t => t.trim())
+      .filter(t => known.has(t)))];
 
     return res.status(200).json({
       answer: text,
