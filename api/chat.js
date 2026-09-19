@@ -18,7 +18,13 @@ import digest from '../data/digest.json' with { type: 'json' };
    here would refute the very claim the demo makes. At this traffic the difference
    against Haiku is well under a dollar. Override to compare: REEF_MODEL. */
 const MODEL         = process.env.REEF_MODEL || 'claude-sonnet-5';
-const MAX_TOKENS    = 700;
+/* Sonnet 5 thinks adaptively and defaults to high effort, which on a 700-token
+   ceiling spent the whole budget on reasoning and returned an empty answer. This
+   job is grounded extraction with citations, not deep reasoning, so low effort is
+   right: the model mostly skips thinking, and the ceiling leaves room when it
+   doesn't. Changing either invalidates the prompt cache once. */
+const MAX_TOKENS    = 1200;
+const EFFORT        = process.env.REEF_EFFORT || 'low';
 const MAX_QUESTION  = 500;    // characters
 const MAX_TURNS     = 6;      // prior messages carried
 const MAX_HISTORY   = 4000;   // characters of history
@@ -129,6 +135,7 @@ export default async function handler(req, res) {
         model: MODEL,
         max_tokens: MAX_TOKENS,
         system: [{ type: 'text', text: cachedSystem, cache_control: { type: 'ephemeral' } }],
+        output_config: { effort: EFFORT },
         messages: [...history, { role: 'user', content: question }],
       }),
     });
@@ -142,6 +149,10 @@ export default async function handler(req, res) {
     const data = await r.json();
     spent += 1;
     const text = (data.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n').trim();
+    if (!text) {
+      console.error('empty_answer', JSON.stringify(data.usage), data.stop_reason);
+      return res.status(502).json({ error: 'empty_answer', stop_reason: data.stop_reason });
+    }
     const cites = [...new Set((text.match(/\[([A-Z][A-Z0-9-]{3,})\]/g) || [])
       .map(m => m.slice(1, -1))
       .filter(id => digest.items.some(a => a.id === id)))];
