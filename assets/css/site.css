@@ -9,9 +9,11 @@
   /* Structural, not palette. These must sit outside both themes: an undefined var
      invalidates the whole declaration that uses it, so losing --gut here silently
      zeroed the padding on every section. */
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo",
-         "Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  /* Manrope and JetBrains Mono, the pairing Talent Solutions uses. Neither carries
+     Hangul, so the Korean stack follows immediately behind and takes over for it. */
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  --sans:"Manrope","Pretendard","Apple SD Gothic Neo",-apple-system,
+         BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --gut:clamp(16px,4vw,48px);
   --page:1120px;
   --measure:66ch;
@@ -20,7 +22,7 @@
   --ink:#e8f0ec; --ink-dim:#93a79f; --ink-faint:#5f736c;
   --accent:#ff7d66; --warn:#e3b341; --bad:#f07178; --good:#7ee787; --deep:#4ec9b0;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
-  --accent-wash:#1d1512;
+  --accent-wash:#1d1512; --dot:rgba(232,240,236,.055);
   --lift:none;
   --panel-shadow:0 18px 50px rgba(0,0,0,.55);
 }
@@ -30,7 +32,7 @@
      budget would otherwise have to. */
   --bg:#faf8f3; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
   --ink:#13211c; --ink-dim:#4c5a54; --ink-faint:#8b938d;
-  --accent:#c2503c; --accent-wash:#fdeeea;
+  --accent:#c2503c; --accent-wash:#fdeeea; --dot:rgba(19,33,28,.06);
   --warn:#8a5d00; --bad:#b3261e; --good:#1c7a3c; --deep:#0f5d50;
   --code-bg:#f3f0e8; --code-ink:#2b3733;
   --lift:0 1px 2px rgba(22,25,29,.05), 0 10px 30px rgba(22,25,29,.07);
@@ -39,15 +41,23 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0; background:var(--bg); color:var(--ink);
+  margin:0; color:var(--ink);
+  /* A fine dot field over the whole page, which is what stops a flat dark background
+     reading as an empty div. Sized so it is texture at reading distance, not pattern. */
+  background:
+    radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0 / 22px 22px,
+    var(--bg);
   font-family:var(--sans); font-size:17px; line-height:1.65;
   -webkit-font-smoothing:antialiased;
-  /* Korean identifiers and Java package paths are long; never let one scroll the page. */
+  /* Two rules working together. keep-all stops Korean breaking mid-word — without it
+     시스템 splits as 시스/템 — while overflow-wrap still lets a long unbroken Latin
+     token, a Java package path or a file name, wrap rather than scroll the page. */
+  word-break:keep-all;
   overflow-wrap:anywhere;
 }
 a{color:var(--accent)}
-h1,h2{line-height:1.25; letter-spacing:-.01em}
-h2{font-size:clamp(20px,2.4vw,26px); margin:0 0 14px}
+h1,h2{line-height:1.22}
+h2{font-size:clamp(22px,2.7vw,32px); margin:0 0 16px; font-weight:500; letter-spacing:-.018em}
 
 /* ---------- chrome ---------- */
 /* The bar aligns to the same column the content uses, rather than hugging the window
@@ -94,15 +104,16 @@ footer p{margin:0 0 8px; max-width:var(--measure); margin-inline:auto}
 
 /* ---------- shared blocks ---------- */
 .kicker{
-  font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--accent); margin:0 0 16px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-faint); margin:0 0 18px;
 }
+.hero .kicker{color:var(--accent)}
 .body{color:var(--ink-dim); max-width:var(--measure); margin:0 0 14px}
 .meta{font-family:var(--mono); font-size:13px; color:var(--ink-faint); max-width:var(--measure)}
 .muted{color:var(--ink-faint)}
 .preline{white-space:pre-line}
 .panel{
-  background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px;
+  background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px;
   box-shadow:var(--lift);
 }
 pre,code{font-family:var(--mono); font-size:13.5px}
@@ -163,7 +174,10 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 }
 .hero-demo .compare{margin:0}
 .hero-demo .cmp-row{min-width:0}
-.hero-h1{font-size:clamp(28px,5.2vw,52px); margin:0 0 22px; font-weight:650}
+.hero-h1{
+  font-size:clamp(30px,5.6vw,58px); margin:0 0 22px;
+  font-weight:500; letter-spacing:-.022em; line-height:1.18;
+}
 .hero-sub{font-size:clamp(17px,1.5vw,19px); color:var(--ink-dim); max-width:60ch; margin:0 0 36px}
 
 .values{list-style:none; margin:0 0 40px; padding:0; display:grid; gap:18px}
@@ -176,7 +190,7 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 .cta{
   display:inline-flex; align-items:center; gap:10px; text-decoration:none;
   font-size:clamp(15px,1.4vw,17px); font-weight:600; color:var(--bg);
-  background:var(--accent); border-radius:8px; padding:14px 22px;
+  background:var(--accent); border-radius:999px; padding:14px 24px;
 }
 .cta em{font-style:normal; font-family:var(--mono)}
 .cta:hover{filter:brightness(1.08)}
@@ -204,7 +218,7 @@ tfoot td{font-size:13px; color:var(--ink-faint); font-family:var(--mono)}
 }
 .src-grid{display:grid; gap:12px; margin-bottom:18px}
 @media(min-width:720px){ .src-grid{grid-template-columns:repeat(3,1fr)} }
-.src-card{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px}
+.src-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px}
 .src-card.is-docs{border-color:var(--accent)}
 .src-name{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin:0 0 2px}
 .src-name b{font-size:20px; font-family:var(--mono)}
@@ -288,7 +302,7 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 @media(min-width:840px){ .repo-list{grid-template-columns:repeat(3,1fr)} }
 .repo{
   display:block; text-decoration:none; background:var(--panel);
-  border:1px solid var(--line); border-radius:10px; padding:16px;
+  border:1px solid var(--line); border-radius:16px; padding:18px;
 }
 .repo:hover{border-color:var(--accent)}
 .repo b{display:block; font-family:var(--mono); font-size:16px; color:var(--accent); margin-bottom:8px}
@@ -352,14 +366,14 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 /* ---------- landing: the skill flow ---------- */
 h3{font-size:clamp(17px,1.9vw,20px); margin:34px 0 12px; color:var(--ink)}
 .phase{
-  font-family:var(--mono); font-size:13px; letter-spacing:.06em; color:var(--accent);
-  margin:26px 0 12px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); margin:28px 0 14px;
 }
 .flow{list-style:none; margin:0; padding:0; display:grid; gap:10px}
 @media(min-width:900px){ .flow{grid-template-columns:repeat(4,1fr); gap:22px} }
 .flow li{
   position:relative; background:var(--panel); border:1px solid var(--line);
-  border-radius:10px; padding:14px 16px; min-width:0;
+  border-radius:16px; padding:18px 18px; min-width:0;
 }
 .flow code{display:block; color:var(--accent); font-size:13px; margin-bottom:2px}
 .flow code + code{margin-top:0}
@@ -465,11 +479,18 @@ main > .artifact-panel{
 /* ---------- light-mode character ---------- */
 /* One soft wash behind the hero. The gallery's rule is that a single gradient behind
    the hero is fine and a page that shimmers everywhere reads as a template. */
-.hero{
+.hero{position:relative; isolation:isolate}
+/* One bloom, behind everything, bleeding off the top. A single soft light source is
+   the whole of "restraint with the glow" — the page does not shimmer anywhere else. */
+.hero::before{
+  content:""; position:absolute; inset:-25% -10% auto -10%; height:120%;
+  z-index:-1; pointer-events:none;
   background:
-    radial-gradient(90ch 60ch at 18% -10%, var(--accent-wash), transparent 60%),
-    var(--bg);
+    radial-gradient(42% 46% at 72% 34%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 70%),
+    radial-gradient(38% 40% at 24% 12%, color-mix(in srgb, var(--deep) 20%, transparent), transparent 70%);
+  filter:blur(46px); opacity:.75;
 }
+:root[data-theme="light"] .hero::before{opacity:.5}
 
 /* The two arms should not look interchangeable: the reef side is tinted, the side
    without one is left plain. */
