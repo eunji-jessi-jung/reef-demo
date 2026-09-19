@@ -3,18 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=683b5be7">
+  <link rel="stylesheet" href="assets/css/site.css?v=b1b7ea24">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
 <body data-base=".">
   <header class="topbar">
     <a class="brand" href="index.html">~ <span>reef</span></a>
+    <div class="bar-end" id="gnb">
     <nav class="nav">
       <a href="index.html" data-i18n="nav.home"></a>
       <a href="try.html"   data-i18n="nav.try"></a>
       <a href="about.html" data-i18n="nav.about"></a>
     </nav>
+    <div class="lang">
+      <button data-lang="ko" aria-pressed="true">한국어</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
     <button class="theme-toggle" data-theme-toggle aria-pressed="false" data-i18n-aria="ui.theme">
       <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none"
            stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
@@ -26,10 +32,13 @@
         <path d="M20 13.4A8.2 8.2 0 1 1 10.6 4a6.6 6.6 0 0 0 9.4 9.4Z"/>
       </svg>
     </button>
-    <div class="lang">
-      <button data-lang="ko" aria-pressed="true">한국어</button>
-      <button data-lang="en" aria-pressed="false">EN</button>
-    </div>
+    <button class="menu-toggle" data-menu-toggle aria-expanded="false"
+            aria-controls="gnb" data-i18n-aria="ui.menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
+        <path class="bar-a" d="M4 7h16"/><path class="bar-b" d="M4 12h16"/><path class="bar-c" d="M4 17h16"/>
+      </svg>
+    </button>
   </header>
 
   <main>
@@ -148,6 +157,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=7206b856"></script>
+  <script type="module" src="assets/js/landing.js?v=b9f0f369"></script>
 </body>
 </html>

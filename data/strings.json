@@ -8,12 +8,12 @@
   "en": "Overview"
  },
  "nav.try": {
-  "ko": "비교해보기",
-  "en": "Compare"
+  "ko": "사용해 보기",
+  "en": "Try it"
  },
  "nav.about": {
-  "ko": "상세",
-  "en": "Details"
+  "ko": "더 자세히 알아보기",
+  "en": "Learn more"
  },
  "L.kicker": {
   "ko": "Claude Code 플러그인",
@@ -594,5 +594,9 @@
  "ui.theme": {
   "ko": "밝게 / 어둡게 전환",
   "en": "Switch between light and dark"
+ },
+ "ui.menu": {
+  "ko": "메뉴 열기 / 닫기",
+  "en": "Open and close the menu"
  }
 }

@@ -66,7 +66,7 @@ h2{font-size:clamp(20px,2.4vw,26px); margin:0 0 14px}
 }
 .brand span{color:var(--accent)}
 .brand:hover span{filter:brightness(1.15)}
-.nav{display:flex; gap:4px; margin-left:auto; flex-wrap:wrap; min-width:0}
+.nav{display:flex; gap:4px; flex-wrap:wrap; min-width:0}
 .nav{gap:2px}
 .nav a{
   font-size:15px; text-decoration:none; color:var(--ink-dim);
@@ -518,3 +518,34 @@ a.cite{
   border-color:color-mix(in srgb, var(--deep) 36%, transparent);
 }
 a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
+
+/* ---------- the bar's right-hand group, and its phone form ---------- */
+.bar-end{display:flex; align-items:center; gap:16px; margin-left:auto}
+.menu-toggle{
+  display:none; align-items:center; justify-content:center;
+  width:38px; height:38px; padding:0; cursor:pointer;
+  background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:8px;
+}
+.menu-toggle svg{width:20px; height:20px}
+.menu-toggle .bar-a,.menu-toggle .bar-b,.menu-toggle .bar-c{
+  transition:transform .18s ease, opacity .18s ease; transform-origin:center;
+}
+.menu-toggle[aria-expanded="true"] .bar-a{transform:translateY(5px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .bar-b{opacity:0}
+.menu-toggle[aria-expanded="true"] .bar-c{transform:translateY(-5px) rotate(-45deg)}
+
+@media(max-width:720px){
+  /* On a phone the links and the language switch fold away, so the bar is one row:
+     the brand, the theme, and the menu. */
+  .menu-toggle{display:inline-flex}
+  .bar-end{
+    display:none; order:3; width:100%; margin:0;
+    flex-direction:column; align-items:stretch; gap:10px;
+    padding:14px 0 4px; border-top:1px solid var(--line);
+  }
+  .bar-end[data-open]{display:flex}
+  .nav{flex-direction:column; gap:2px}
+  .nav a{padding:11px 12px; font-size:16px}
+  .lang{align-self:flex-start}
+  .theme-toggle{margin-left:auto}
+}

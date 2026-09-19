@@ -116,6 +116,23 @@ function wireLang() {
 
 /* The bar wraps on a narrow screen, so its height is not a constant and main cannot
    reserve a fixed number. Measured instead, and kept measured. */
+/* The menu only exists on a phone; on a wider screen the group is always visible and
+   the button is not rendered. Closing on navigation is not needed — every link leaves
+   the page — but closing on Escape and on a link tap keeps it from covering content. */
+function wireMenu() {
+  const btn = document.querySelector('[data-menu-toggle]');
+  const group = document.getElementById('gnb');
+  if (!btn || !group) return;
+  const close = () => { delete group.dataset.open; btn.setAttribute('aria-expanded', 'false'); };
+  btn.addEventListener('click', () => {
+    const open = group.hasAttribute('data-open');
+    if (open) close();
+    else { group.dataset.open = ''; btn.setAttribute('aria-expanded', 'true'); }
+  });
+  group.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+}
+
 function trackBarHeight() {
   const bar = document.querySelector('.topbar');
   if (!bar) return;
@@ -186,6 +203,7 @@ export async function boot(afterI18n) {
   await loadData();
   wireLang();
   wireTheme();
+  wireMenu();
   trackBarHeight();
   wireNav();
   applyI18n();
