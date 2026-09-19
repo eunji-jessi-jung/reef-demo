@@ -456,24 +456,24 @@
     "en": "Outside the fictional company"
   },
   "L.sLede": {
-    "ko": "서비스와 데이터와 인터페이스가 있는 코드베이스면 됩니다.",
-    "en": "A codebase with services, data and interfaces. That is the whole requirement."
+    "ko": "서비스·데이터·인터페이스가 있는 코드베이스면 됩니다.",
+    "en": "Any codebase with services, data and interfaces."
   },
   "L.sFitT": {
     "ko": "맞는 곳",
     "en": "Where it fits"
   },
   "L.sFit": {
-    "ko": "저장소 3~15개가 한 도메인을 이루는 규모가 가장 좋습니다. 100개가 넘으면 팀·도메인 단위로 쪼갭니다.",
-    "en": "Best at 3 to 15 repositories forming one domain. Past a hundred, split by team or domain."
+    "ko": "저장소 3~15개가 한 도메인을 이루는 규모. 100개가 넘으면 팀 단위로 쪼갭니다.",
+    "en": "3 to 15 repositories forming one domain. Past a hundred, split by team."
   },
   "L.sUnfitT": {
     "ko": "안 맞는 곳",
     "en": "Where it doesn't"
   },
   "L.sUnfit": {
-    "ko": "데이터 스키마도 API 경계도 없어서 붙잡을 재료가 없습니다.",
-    "en": "No data schemas or service boundaries to hold on to."
+    "ko": "붙잡을 스키마도 API 경계도 없습니다.",
+    "en": "No schemas or service boundaries to hold on to."
   },
   "L.sCta": {
     "ko": "한계와 고지까지 전부 보기",
