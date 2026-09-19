@@ -13,7 +13,7 @@
  * If the proxy is absent, over budget or unreachable, the page falls back to recorded
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
-import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=c69a150e';
+import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=47ab1988';
 
 const API = window.REEF_API || '';
 const ARMS = ['reef', 'raw'];

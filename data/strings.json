@@ -28,12 +28,12 @@
   "en": "It reads the repositories and the company's own documents together, and leaves artifacts made of cited claims, stated unknowns and recorded contradictions. Not a summary — it adds what was worked out, so it comes out bigger than its sources."
  },
  "L.v1t": {
-  "ko": "인용 없는 문장이 없다",
-  "en": "No sentence without a source"
+  "ko": "주장마다 출처가 붙는다",
+  "en": "Every claim names its source"
  },
  "L.v1b": {
-  "ko": "주장마다 파일과 줄이 붙습니다. 확인 없이 믿어야 하는 문장이 0개입니다.",
-  "en": "Every claim carries the file and line it came from. Nothing has to be taken on trust."
+  "ko": "Key Fact {facts}개 중 {sourced}개가 출처 파일을 답니다. 나머지 {unsourced}개는 grep이 0건을 반환했다는 사실처럼, 파일 하나로 가리킬 수 없는 것들입니다.",
+  "en": "{sourced} of {facts} key facts name the file they came from. The other {unsourced} rest on something no single file holds — a grep that returned nothing, a term in one domain mapped onto another's."
  },
  "L.v2t": {
   "ko": "모른다고 말한다",
