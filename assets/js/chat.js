@@ -134,7 +134,7 @@ export async function mountChat(root) {
   };
 
   const base = document.body.dataset.base || '.';
-  state.qa = await fetch(`${base}/data/qa.json`).then(r => r.json()).catch(() => ({ items: [] }));
+  state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' }).then(r => r.json()).catch(() => ({ items: [] }));
 
   chips();
   syncInput();

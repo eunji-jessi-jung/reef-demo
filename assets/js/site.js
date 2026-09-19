@@ -7,9 +7,9 @@ const LS_KEY = 'reef-demo-lang';
 async function loadData() {
   const base = document.body.dataset.base || '.';
   const [strings, ev, digest] = await Promise.all([
-    fetch(`${base}/data/strings.json`).then(r => r.json()),
-    fetch(`${base}/data/evidence.json`).then(r => r.json()),
-    fetch(`${base}/data/digest.json`).then(r => r.json()).catch(() => ({ items: [] })),
+    fetch(`${base}/data/strings.json`, { cache: 'no-cache' }).then(r => r.json()),
+    fetch(`${base}/data/evidence.json`, { cache: 'no-cache' }).then(r => r.json()),
+    fetch(`${base}/data/digest.json`, { cache: 'no-cache' }).then(r => r.json()).catch(() => ({ items: [] })),
   ]);
   state.strings = strings;
   state.ev = ev;
