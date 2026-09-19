@@ -114,6 +114,18 @@ function wireLang() {
   });
 }
 
+/* The bar wraps on a narrow screen, so its height is not a constant and main cannot
+   reserve a fixed number. Measured instead, and kept measured. */
+function trackBarHeight() {
+  const bar = document.querySelector('.topbar');
+  if (!bar) return;
+  const set = () => document.documentElement.style.setProperty('--bar', `${bar.offsetHeight}px`);
+  set();
+  if ('ResizeObserver' in window) new ResizeObserver(set).observe(bar);
+  else addEventListener('resize', set);
+  document.addEventListener('reef:lang', set);
+}
+
 function wireNav() {
   const here = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav a').forEach(a => {
@@ -174,6 +186,7 @@ export async function boot(afterI18n) {
   await loadData();
   wireLang();
   wireTheme();
+  trackBarHeight();
   wireNav();
   applyI18n();
   wireReveal();

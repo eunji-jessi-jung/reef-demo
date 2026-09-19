@@ -13,6 +13,7 @@
   --sans:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo",
          "Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --gut:clamp(16px,4vw,48px);
+  --page:1120px;
   --measure:66ch;
 
   --bg:#08110f; --bg-soft:#0e1a17; --panel:#111e1a; --line:#1f302b;
@@ -49,27 +50,42 @@ h1,h2{line-height:1.25; letter-spacing:-.01em}
 h2{font-size:clamp(20px,2.4vw,26px); margin:0 0 14px}
 
 /* ---------- chrome ---------- */
+/* The bar aligns to the same column the content uses, rather than hugging the window
+   edges — on a wide screen the brand and the nav were sitting a metre apart from
+   anything they belong to. */
 .topbar{
   position:fixed; inset:0 0 auto 0; z-index:20; display:flex; align-items:center;
-  gap:12px; flex-wrap:wrap; padding:10px var(--gut);
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  gap:16px; flex-wrap:wrap; min-height:68px;
+  padding:12px max(var(--gut), calc((100% - var(--page)) / 2));
+  background:color-mix(in srgb,var(--bg) 84%,transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
 }
-.brand{font-family:var(--mono); font-weight:600; text-decoration:none; color:var(--ink)}
+.brand{
+  font-family:var(--mono); font-weight:600; font-size:17px; letter-spacing:.01em;
+  text-decoration:none; color:var(--ink);
+}
 .brand span{color:var(--accent)}
+.brand:hover span{filter:brightness(1.15)}
 .nav{display:flex; gap:4px; margin-left:auto; flex-wrap:wrap; min-width:0}
+.nav{gap:2px}
 .nav a{
-  font-size:14px; text-decoration:none; color:var(--ink-dim);
-  padding:6px 10px; border-radius:6px; white-space:nowrap;
+  font-size:15px; text-decoration:none; color:var(--ink-dim);
+  padding:9px 14px; border-radius:8px; white-space:nowrap;
 }
-.nav a:hover,.nav a[aria-current="page"]{color:var(--ink); background:var(--panel)}
-.lang{display:flex; border:1px solid var(--line); border-radius:6px; overflow:hidden}
+.nav a:hover{color:var(--ink); background:var(--panel)}
+/* The page you are on should be legible at a glance, not a slightly different grey. */
+.nav a[aria-current="page"]{
+  color:var(--accent); background:var(--accent-wash);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.lang{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden}
 .lang button{
-  font:inherit; font-size:13px; background:transparent; color:var(--ink-faint);
-  border:0; padding:5px 9px; cursor:pointer;
+  font:inherit; font-size:13.5px; background:transparent; color:var(--ink-faint);
+  border:0; padding:7px 11px; cursor:pointer;
 }
 .lang button[aria-pressed="true"]{background:var(--panel); color:var(--ink)}
-main{padding-top:58px}
+/* --bar is measured by site.js; the fallback matches the unwrapped height. */
+main{padding-top:var(--bar,68px)}
 footer{
   padding:40px var(--gut) 56px; border-top:1px solid var(--line);
   text-align:center; font-size:14px; color:var(--ink-faint);
@@ -128,13 +144,13 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
   padding:clamp(32px,7vh,72px) var(--gut) 0;
   display:flex; flex-direction:column; overflow:hidden;
 }
-.hero-inner{max-width:920px; margin:0 auto; width:100%; flex:0 0 auto}
+.hero-inner{max-width:var(--page); margin:0 auto; width:100%; flex:0 0 auto}
 /* Capped rather than stretched. Tying the hero to 100svh and letting this fill the
    remainder crops correctly on a short window and leaves a hole on a tall one, because
    the pair is then shorter than the space it was given. A cap crops at every size and
    never opens a gap. */
 .hero-demo{
-  max-width:1180px; width:100%; margin:28px auto 0;
+  max-width:var(--page); width:100%; margin:28px auto 0;
   max-height:clamp(300px, 46svh, 560px);
   position:relative; overflow:hidden;
 }
@@ -167,7 +183,7 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 
 .band{padding:clamp(64px,10vh,128px) var(--gut)}
 .band-tight{padding-bottom:clamp(20px,3vh,32px)}
-.band-inner{max-width:1000px; margin:0 auto}
+.band-inner{max-width:var(--page); margin:0 auto}
 .band-disc .band-inner{max-width:var(--measure)}
 
 table{width:100%; border-collapse:collapse; margin:0 0 18px; font-size:15px}
@@ -480,7 +496,7 @@ main > .artifact-panel{
 /* ---------- theme toggle ---------- */
 .theme-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  width:32px; height:32px; padding:0; cursor:pointer;
+  width:34px; height:34px; padding:0; cursor:pointer;
   background:transparent; color:var(--ink-faint);
   border:1px solid var(--line); border-radius:8px;
 }
