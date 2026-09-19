@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=60466656">
+  <link rel="stylesheet" href="assets/css/site.css?v=4fe4406c">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -29,12 +29,6 @@
         <h1 class="hero-h1" data-i18n="L.h1"></h1>
         <p class="hero-desc" data-i18n="L.sub"></p>
 
-        <ul class="values">
-          <li><b data-i18n="L.v1t"></b><span data-i18n="L.v1b"></span></li>
-          <li><b data-i18n="L.v2t"></b><span data-i18n="L.v2b"></span></li>
-          <li><b data-i18n="L.v3t"></b><span data-i18n="L.v3b"></span></li>
-        </ul>
-
         <div class="cta-row">
           <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>→</em></a>
           <p class="cta-note" data-i18n="L.ctaNote"></p>
@@ -42,13 +36,76 @@
       </div>
     </section>
 
+
+    <!-- 2. The skills, as two phases of one loop. The second phase is the product's
+         whole claim, so it is drawn as a loop rather than another list. -->
+    <section class="band" id="how">
+      <div class="band-inner">
+        <h2 data-i18n="L.fTitle"></h2>
+        <p class="body" data-i18n="L.fLede"></p>
+
+        <p class="phase" data-i18n="L.fPhase1"></p>
+        <ol class="flow">
+          <li><code>/reef:init</code><span data-i18n="L.f1"></span></li>
+          <li><code>/reef:snorkel</code><code>/reef:source</code><span data-i18n="L.f2"></span></li>
+          <li><code>/reef:scuba</code><span data-i18n="L.f3"></span></li>
+          <li><code>/reef:test</code><span data-i18n="L.f4"></span></li>
+        </ol>
+
+        <p class="phase" data-i18n="L.fPhase2"></p>
+        <ol class="flow">
+          <li><code>/reef:update</code><span data-i18n="L.f5"></span></li>
+          <li><code>/reef:feed</code><span data-i18n="L.f6"></span></li>
+          <li><code>/reef:ask</code><span data-i18n="L.f7"></span></li>
+          <li class="is-human"><span class="who" data-i18n="L.fHuman"></span><span data-i18n="L.f8"></span></li>
+        </ol>
+        <p class="loop-back"><span class="loop-mark" aria-hidden="true">&#8630;</span><span data-i18n="L.fLoop"></span></p>
+
+        <a class="cta" href="try.html"><span data-i18n="L.fCta"></span> <em>&#8594;</em></a>
+      </div>
+    </section>
+
+    <!-- 3. What you get, and the objection that always follows it. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="L.vTitle"></h2>
+        <ul class="values">
+          <li><b data-i18n="L.v1t"></b><span data-i18n="L.v1b"></span></li>
+          <li><b data-i18n="L.v2t"></b><span data-i18n="L.v2b"></span></li>
+          <li><b data-i18n="L.v3t"></b><span data-i18n="L.v3b"></span></li>
+        </ul>
+
+        <h3 data-i18n="L.diffTitle"></h3>
+        <table class="diff">
+          <thead>
+            <tr><th></th><th data-i18n="L.diffHeadA"></th><th class="is-reef" data-i18n="L.diffHeadB"></th></tr>
+          </thead>
+          <tbody>
+            <tr><th data-i18n="L.d1k"></th><td data-i18n="L.d1a"></td><td class="is-reef" data-i18n="L.d1b"></td></tr>
+            <tr><th data-i18n="L.d2k"></th><td data-i18n="L.d2a"></td><td class="is-reef" data-i18n="L.d2b"></td></tr>
+            <tr><th data-i18n="L.d3k"></th><td data-i18n="L.d3a"></td><td class="is-reef" data-i18n="L.d3b"></td></tr>
+          </tbody>
+        </table>
+        <p class="body" data-i18n="L.diffNote"></p>
+      </div>
+    </section>
+
+    <!-- 4. How it was checked, in three numbers, with the way to check it yourself. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="L.cTitle"></h2>
+        <p class="body" data-i18n="L.cLede"></p>
+        <div class="figures" id="eval-figures"></div>
+        <p class="body" data-i18n="L.cNote"></p>
+        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
+      </div>
+    </section>
   </main>
 
   <footer>
     <p class="meta" data-i18n="L.foot"></p>
-    <p><a href="about.html" data-i18n="L.footLink"></a></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=5eca742b"></script>
+  <script type="module" src="assets/js/landing.js?v=cda8cca8"></script>
 </body>
 </html>

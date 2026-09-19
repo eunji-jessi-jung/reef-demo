@@ -367,56 +367,136 @@
   "ko": "기록된 실행 · {recordedAt}",
   "en": "recorded run · {recordedAt}"
  },
- "A.diffTitle": {
-  "ko": "문서 생성기와 무엇이 다른가",
-  "en": "How this differs from a documentation generator"
+ "L.fTitle": {
+  "ko": "한 번 세우고, 계속 돌립니다",
+  "en": "Build it once, then keep it turning"
  },
- "A.diffHeadA": {
+ "L.fLede": {
+  "ko": "스킬 13개가 있지만 순서는 단순합니다. 처음에 한 바퀴 돌려 세우고, 그 뒤로는 코드와 문서가 바뀔 때마다 다시 돕니다.",
+  "en": "There are 13 skills, but the order is simple. One pass to stand it up, then it turns again whenever the code or the documents move."
+ },
+ "L.fPhase1": {
+  "ko": "처음 한 바퀴",
+  "en": "The first pass"
+ },
+ "L.f1": {
+  "ko": "저장소와 사내 문서를 등록하고 색인합니다.",
+  "en": "Registers and indexes the repositories and the company's documents."
+ },
+ "L.f2": {
+  "ko": "구조를 훑고, 앱을 실제로 띄워 API 스펙과 ER 다이어그램을 뽑습니다.",
+  "en": "Sweeps the structure, then imports the apps themselves to pull API specs and ER diagrams."
+ },
+ "L.f3": {
+  "ko": "초안을 소스에 대고 깊게 파서 채웁니다. 주장마다 인용이 붙습니다.",
+  "en": "Deepens the drafts against the sources. Every claim gets its citation."
+ },
+ "L.f4": {
+  "ko": "아티팩트만 읽는 에이전트로 채점합니다. 정답은 채점이 끝날 때까지 봉인합니다.",
+  "en": "Grades it with an agent that may read only the artifacts. The key stays sealed until grading closes."
+ },
+ "L.fPhase2": {
+  "ko": "그 다음부터 — 변경이 돌립니다",
+  "en": "After that — change drives it"
+ },
+ "L.f5": {
+  "ko": "코드가 바뀌면 다시 색인하고, 어떤 주장이 더는 참이 아닌지 이름을 댑니다.",
+  "en": "When code changes, it re-indexes and names the claims that have stopped being true."
+ },
+ "L.f6": {
+  "ko": "회의록이나 인수인계 문서가 새로 들어오면 찾아서 연결합니다.",
+  "en": "When minutes or a handover turn up, it finds them and wires them in."
+ },
+ "L.f7": {
+  "ko": "소스로는 풀 수 없는 것을 사람이 답할 질문으로 뽑아냅니다.",
+  "en": "Pulls what the sources cannot settle into questions for a person to answer."
+ },
+ "L.f8": {
+  "ko": "사람이 답합니다. 그 답은 다음 회차에도 그대로 남습니다.",
+  "en": "A person answers. That answer is still there on the next pass."
+ },
+ "L.fLoop": {
+  "ko": "다음 회차는 여기서 시작합니다. 매번 처음부터 다시 알아내지 않습니다.",
+  "en": "The next pass starts here. Nothing gets worked out from scratch twice."
+ },
+ "L.fCta": {
+  "ko": "돌려 본 결과 직접 보기",
+  "en": "See what came out of it"
+ },
+ "L.vTitle": {
+  "ko": "무엇이 다른가",
+  "en": "What is different about it"
+ },
+ "L.diffTitle": {
+  "ko": "문서 생성기와 나란히 놓으면",
+  "en": "Put beside a documentation generator"
+ },
+ "L.diffHeadA": {
   "ko": "생성기",
   "en": "A generator"
  },
- "A.diffHeadB": {
+ "L.diffHeadB": {
   "ko": "reef",
   "en": "reef"
  },
- "A.d1k": {
+ "L.d1k": {
   "ko": "산출물",
   "en": "What comes out"
  },
- "A.d1a": {
+ "L.d1a": {
   "ko": "코드에서 읽어낸 설명",
   "en": "An account read off the code"
  },
- "A.d1b": {
+ "L.d1b": {
   "ko": "인용이 붙은 주장, 모른다고 적어 둔 것, 기록된 모순",
   "en": "Cited claims, stated unknowns, recorded contradictions"
  },
- "A.d2k": {
+ "L.d2k": {
   "ko": "상태",
   "en": "State"
  },
- "A.d2a": {
+ "L.d2a": {
   "ko": "무상태 — 같은 코드에서 매번 같은 것이 나옵니다",
   "en": "Stateless — the same code yields the same output every run"
  },
- "A.d2b": {
+ "L.d2b": {
   "ko": "누적 — 사람이 한 번 답한 것이 다음 회차에 남습니다",
   "en": "Cumulative — what a person answered once is still there next run"
  },
- "A.d3k": {
+ "L.d3k": {
   "ko": "코드가 바뀌면",
   "en": "When the code changes"
  },
- "A.d3a": {
+ "L.d3a": {
   "ko": "다시 생성합니다",
   "en": "It regenerates"
  },
- "A.d3b": {
+ "L.d3b": {
   "ko": "어떤 주장이 더는 참이 아닌지 이름을 댑니다",
   "en": "It names the claims that stopped being true"
  },
- "A.diffNote": {
+ "L.diffNote": {
   "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 \"더는 참이 아님\"으로 지목했고, {refreshed}개를 갱신했습니다.",
   "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
+ },
+ "L.cTitle": {
+  "ko": "믿어 달라고 하지 않습니다",
+  "en": "You are not asked to take its word"
+ },
+ "L.cLede": {
+  "ko": "가상의 회사 하나를 지어서 정답을 먼저 적어 두고, 아티팩트만 읽는 에이전트에게 {questions}문항을 풀렸습니다. 정답은 채점이 끝날 때까지 열지 않았습니다.",
+  "en": "A fictional company was built with its answer written down first, then an agent allowed to read only the artifacts answered {questions} questions. The key was not opened until grading closed."
+ },
+ "L.cNote": {
+  "ko": "저장소 세 개가 전부 공개돼 있고 정답도 그 안에 있습니다. 같은 채점을 그대로 다시 돌릴 수 있습니다.",
+  "en": "All three repositories are public and the answer key is in them. The same grading can be run again as it was."
+ },
+ "L.cCta": {
+  "ko": "검증 방법과 한계 전부 보기",
+  "en": "How to check it, and where it falls short"
+ },
+ "L.fHuman": {
+  "ko": "사람",
+  "en": "a person"
  }
 }
