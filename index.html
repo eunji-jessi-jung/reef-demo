@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=90b4b7fc">
+  <link rel="stylesheet" href="assets/css/site.css?v=669b46be">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -45,7 +45,8 @@
   <main>
     <!-- The hero, and the product in the same screen. The references that do this
          well never make you click through to see the thing work, so the recorded pair
-         sits here, cropped by the fold. -->
+         sits here — with the questions beside it, so the first screen is something the
+         reader can act on rather than a still of somebody else's session. -->
     <section class="hero" id="top">
       <div class="hero-inner">
         <div class="hero-copy">
@@ -58,8 +59,14 @@
           </div>
         </div>
       </div>
-      <div class="hero-demo">
+      <div class="hero-demo" data-clamped>
+        <div class="pair-pick">
+          <p class="pair-pick-label" data-i18n="L.pickQ"></p>
+          <div class="chips" id="hero-qs"></div>
+        </div>
+        <p class="pair-watch" data-i18n="L.pairWatch"></p>
         <div class="compare" id="hero-pair"></div>
+        <button class="pair-more" id="pair-more" type="button"></button>
       </div>
     </section>
 
@@ -164,6 +171,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=8b4a6829"></script>
+  <script type="module" src="assets/js/landing.js?v=68a2ead5"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
  * for, and that is where the button goes.
  */
 import { state, t, boot, esc } from './site.js?v=d6465fc8';
-import { addRow, fillRecorded, shortestPair, wireArtifactPanel } from './pair.js?v=88e3036d';
+import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=88e3036d';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -38,33 +38,76 @@ function renderEval() {
   ].join('');
 }
 
-/* The shortest recorded pair, so a long answer cannot run past the fold and look
-   truncated. Re-renders on a language change because the answers are per language. */
+/* Which recorded questions the fold offers. Four rather than all eight, because the
+   point of the fold is that the reader can act, not that they can read everything —
+   try.html carries the rest. The four are chosen to cover the range: a plain question
+   of fact, a question about whether a document can be trusted, a question about a
+   number, and the one the comparison exists for, which is what nobody can know. */
+const FOLD = ['q1', 'q3', 'q4', 'q8'];
+
+function foldItems() {
+  const items = state.qa?.items || [];
+  const picked = FOLD.map(id => items.find(it => it.id === id)).filter(Boolean);
+  return picked.length ? picked : items.slice(0, 4);
+}
+
+let current = null;
+
+function renderChips() {
+  const host = document.getElementById('hero-qs');
+  if (!host) return;
+  const items = foldItems();
+  if (!items.length) return;
+  if (!items.some(it => it.id === current)) current = items[0].id;
+  host.innerHTML = items.map(it => {
+    const q = it.q[state.lang] || it.q.ko;
+    return `<button type="button" data-q="${esc(it.id)}" aria-pressed="${it.id === current}">${esc(q)}</button>`;
+  }).join('');
+}
+
+/* Re-renders on a language change too, because the answers are recorded per language. */
 function renderHeroPair() {
   const host = document.getElementById('hero-pair');
   if (!host) return;
+  const item = foldItems().find(it => it.id === current);
   host.innerHTML = '';
-  const item = shortestPair(state.lang);
   if (!item) return;
-  const q = item.q[state.lang] || item.q.ko;
-  fillRecorded(addRow(host, q, 'hero'), item, state.lang);
-  markCrop();
+  fillRecorded(addRow(host, item.q[state.lang] || item.q.ko, 'hero'), item, state.lang);
 }
 
-/* Whether the pair is actually being cut, which depends on the window. Only then does
-   the fade at the bottom mean anything. */
-function markCrop() {
+/* Both arms open together. Expanding one and not the other would make the shorter
+   answer look like the complete one. */
+function renderMore() {
+  const btn = document.getElementById('pair-more');
   const box = document.querySelector('.hero-demo');
-  if (!box) return;
-  const cropped = box.scrollHeight > box.clientHeight + 4;
-  if (cropped) box.dataset.cropped = '';
-  else delete box.dataset.cropped;
+  if (!btn || !box) return;
+  btn.textContent = t(box.hasAttribute('data-clamped') ? 'L.pairMore' : 'L.pairLess');
+}
+
+function wireHero() {
+  const chips = document.getElementById('hero-qs');
+  const btn = document.getElementById('pair-more');
+  const box = document.querySelector('.hero-demo');
+  chips?.addEventListener('click', e => {
+    const b = e.target.closest('button[data-q]');
+    if (!b || b.dataset.q === current) return;
+    current = b.dataset.q;
+    renderChips();
+    renderHeroPair();
+  });
+  btn?.addEventListener('click', () => {
+    if (box.hasAttribute('data-clamped')) box.removeAttribute('data-clamped');
+    else box.setAttribute('data-clamped', '');
+    renderMore();
+  });
 }
 
 function render() {
   renderBench();
   renderEval();
+  renderChips();
   renderHeroPair();
+  renderMore();
 }
 
 await stageShot();
@@ -74,7 +117,9 @@ await boot(() => { render(); shotReady(); });
 const base = document.body.dataset.base || '.';
 state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' })
   .then(r => r.json()).catch(() => ({ items: [] }));
+renderChips();
 renderHeroPair();
+renderMore();
+wireHero();
 wireArtifactPanel(document, document.getElementById('artifact'));
-addEventListener('resize', markCrop);
 shotReady();
