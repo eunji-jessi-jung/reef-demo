@@ -549,3 +549,43 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
   .lang{align-self:flex-start}
   .theme-toggle{margin-left:auto}
 }
+
+/* ---------- the colony ---------- */
+/* Given its own column rather than floated behind the text. Absolute positioning put
+   it under the fixed bar and let the hero's overflow cut the spiral in half, which
+   loses the one thing the drawing has to show: that it is a single form made of
+   separate pieces. */
+.colony{display:block; width:100%; height:auto}
+
+/* The copy is one grid item so the grid is genuinely one row by two columns. Letting
+   each paragraph be its own item meant the drawing had to span rows it could not
+   name — and spanning to a made-up row number created ninety-odd implicit rows and
+   pushed the hero to seven thousand pixels tall. */
+.hero-copy{display:flex; flex-direction:column; min-width:0}
+@media(min-width:1080px){
+  .hero-inner{
+    display:grid; grid-template-columns:minmax(0,1fr) clamp(300px,26vw,400px);
+    gap:clamp(32px,4vw,72px); align-items:center;
+  }
+  /* Placed explicitly: the drawing sits before the copy in the markup so it is not
+     announced ahead of the headline, but it belongs on the right. */
+  .hero-copy{grid-column:1; grid-row:1}
+  .colony{grid-column:2; grid-row:1; opacity:.8}
+}
+
+/* Below that it sits above the headline as a band, small and quiet. */
+@media(max-width:1079px){
+  .colony{width:min(220px,44vw); margin:0 0 -8px auto; opacity:.6}
+}
+@media(max-width:600px){ .colony{display:none} }
+
+@media(prefers-reduced-motion:no-preference){
+  /* The colony assembles outward from the densest artifacts, which is the order the
+     generator lays them down in and roughly the order the reef was built in. */
+  .colony circle{
+    animation:polyp .5s ease-out backwards;
+    animation-delay:calc(var(--i, 0) * 9ms);
+    transform-box:fill-box; transform-origin:center;
+  }
+}
+@keyframes polyp{from{opacity:0; transform:scale(.3)}}

@@ -15,6 +15,9 @@ python3 tools/build-corpus.py
 echo "── digest    (the reef, compressed for the chat's system prompt)"
 python3 tools/build-digest.py
 
+echo "── hero      (the colony, drawn from the digest, injected into index.html)"
+python3 tools/build-hero.py
+
 echo "── stamp     (content hashes on assets and module imports)"
 python3 tools/stamp-assets.py
 
