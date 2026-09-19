@@ -13,14 +13,15 @@
  * If the proxy is absent, over budget or unreachable, the page falls back to recorded
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
-import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=e4822d9d';
+import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=253c4e71';
 import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded, sourceUrl,
-         shortestPair, wireArtifactPanel } from './pair.js?v=b3047820';
+         shortestPair, wireArtifactPanel } from './pair.js?v=b55ddb71';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';
 
 let live = Boolean(API);
+let busy = false;
 let offlineKey = 'chat.offline';
 const history = { reef: [], raw: [] };
 let el = {};
@@ -34,8 +35,31 @@ function addRow(question) {
 
 async function ask(question) {
   const id = addRow(question);
-  if (live) return askLive(id, question);
-  return askRecorded(id, question);
+  if (!live) return askRecorded(id, question);
+  /* One question at a time while the proxy is answering. Without this a second click
+     lands on a page that looks idle, and spends another request from the budget to
+     tell the reader something the first one is already about to say. */
+  setBusy(true);
+  try {
+    await askLive(id, question);
+  } finally {
+    setBusy(false);
+  }
+}
+
+/* Reflects `busy` onto the controls. Called again after the chips re-render, because
+   a language switch replaces the buttons this disabled. */
+function syncBusy() {
+  el.chips?.querySelectorAll('button').forEach(b => { b.disabled = busy; });
+  if (el.input) el.input.disabled = busy;
+  const send = el.form?.querySelector('button[type="submit"]');
+  if (send) send.disabled = busy;
+  el.form?.classList.toggle('is-busy', busy);
+}
+
+function setBusy(v) {
+  busy = v;
+  syncBusy();
 }
 
 /* The fallback. A recorded pair is a real run that was saved, so it is labelled as
@@ -107,6 +131,7 @@ function chips() {
     b.addEventListener('click', () => ask(b.textContent));
     el.chips.append(b);
   });
+  syncBusy();
 }
 
 /* The source inventory, rendered from the manifest tools/build-corpus.py writes. The
@@ -179,20 +204,41 @@ function renderSources() {
    down: the list, then the file with a way back. Above the breakpoint both panes are
    side by side and the mode attribute is simply not there. */
 const narrow = matchMedia('(max-width: 900px)');
-function setMode(mode) {
+/* `scroll` is opt-in, and only the two places the reader actually drilled through the
+   browser pass it. It used to be unconditional, which meant arriving on this page on a
+   phone scrolled you straight past the brief to the file list — the mode is set once on
+   mount, and that set was indistinguishable from a tap. */
+function setMode(mode, { scroll = false } = {}) {
   const box = document.querySelector('.src-browser');
   if (!box) return;
-  if (narrow.matches && mode) { box.dataset.mode = mode; box.scrollIntoView({ block: 'start' }); }
-  else delete box.dataset.mode;
+  if (narrow.matches && mode) {
+    box.dataset.mode = mode;
+    /* Instant, never smooth. This is a drill-down: the pane swaps from the list to the
+       file, and animating the page there at the same time reads as the page running
+       away rather than as a new screen. `html` sets scroll-behavior:smooth, so the
+       behaviour has to be overridden per call.
+
+       Going back aims at the file just read rather than the top of the pane — without
+       its own scroller the list is long, and returning a reader to its first row
+       throws away the place they had in it. */
+    if (scroll) {
+      const picked = mode === 'list'
+        && el.srcTree?.querySelector('button[data-key][aria-current="true"]');
+      (picked || box).scrollIntoView({
+        block: picked ? 'center' : 'start', behavior: 'instant',
+      });
+    }
+  } else delete box.dataset.mode;
 }
 
 function wireSources() {
   if (!el.srcTree) return;
   el.srcTree.addEventListener('click', e => {
     const b = e.target.closest('button[data-key]');
-    if (b) { showFile(b.dataset.key); setMode('file'); return; }
+    if (b) { showFile(b.dataset.key); setMode('file', { scroll: true }); return; }
   });
-  document.querySelector('.src-back')?.addEventListener('click', () => setMode('list'));
+  document.querySelector('.src-back')?.addEventListener('click',
+    () => setMode('list', { scroll: true }));
   narrow.addEventListener('change', () => setMode(narrow.matches ? 'list' : null));
   if (narrow.matches) setMode('list');
   /* One group open at a time. */
@@ -230,10 +276,6 @@ function syncInput() {
 }
 
 async function mount() {
-  const base = document.body.dataset.base || '.';
-  state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' })
-    .then(r => r.json()).catch(() => ({ items: [] }));
-
   el = {
     chips: document.getElementById('chips'),
     form: document.getElementById('ask-form'),

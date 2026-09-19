@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=998e0aa9">
+  <link rel="stylesheet" href="assets/css/site.css?v=46862523">
   <title>reef</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -56,7 +56,36 @@
           <div class="cta-row">
             <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>&#8594;</em></a>
           </div>
+          <p class="hero-note" data-i18n="L.heroNote"></p>
         </div>
+      </div>
+    </section>
+
+    <!-- Why any of this is needed. The page used to open on the layout, which answers
+         "what is it" before the reader has a reason to care. -->
+    <section class="band band-tight" id="problem">
+      <div class="band-inner">
+        <p class="section-label" data-i18n="P.label"></p>
+        <h2 data-i18n="P.title"></h2>
+        <p class="body" data-i18n="P.body1"></p>
+        <p class="body" data-i18n="P.body2"></p>
+        <p class="body lede-close" data-i18n="P.close"></p>
+      </div>
+    </section>
+
+    <!-- What reef actually produces, before any structure or command names. Four
+         properties, each one a thing the artifacts carry rather than a claim. -->
+    <section class="band" id="makes">
+      <div class="band-inner">
+        <p class="section-label" data-i18n="M.label"></p>
+        <h2 data-i18n="M.title"></h2>
+        <p class="body" data-i18n="M.lede"></p>
+        <ol class="makes">
+          <li><span class="makes-n">01</span><div><b data-i18n="M.t1"></b><span data-md="M.d1"></span></div></li>
+          <li><span class="makes-n">02</span><div><b data-i18n="M.t2"></b><span data-md="M.d2"></span></div></li>
+          <li><span class="makes-n">03</span><div><b data-i18n="M.t3"></b><span data-md="M.d3"></span></div></li>
+          <li><span class="makes-n">04</span><div><b data-i18n="M.t4"></b><span data-md="M.d4"></span></div></li>
+        </ol>
       </div>
     </section>
 
@@ -161,7 +190,7 @@
           </div>
           <div class="stage">
             <div class="stage-copy"><code>/reef:scuba</code><p data-i18n="L.f3"></p>
-              <div class="stage-tech"><div class="chips-row"><code class="ch ch-type">artifacts</code><code class="ch">.reef/scuba-manifest.json</code><span class="ch ch-rule" data-i18n="L.rule.f3.5"></span></div></div></div>
+              <div class="stage-tech"><div class="chips-row"><code class="ch ch-type">artifacts</code><code class="ch">.reef/scuba-manifest.json</code><span class="ch ch-rule" data-i18n="L.rule.f3.5"></span><span class="ch ch-rule" data-i18n="L.rule.f3.6"></span></div></div></div>
             <figure class="cast" data-scene="scuba">
               <figcaption class="cast-bar">
                 <span class="cast-dots" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -289,26 +318,37 @@
             <tr><th></th><th data-i18n="L.diffHeadA"></th><th class="is-reef" data-i18n="L.diffHeadB"></th></tr>
           </thead>
           <tbody>
-            <tr><th data-i18n="L.d1k"></th><td data-i18n="L.d1a"></td><td class="is-reef" data-i18n="L.d1b"></td></tr>
-            <tr><th data-i18n="L.d2k"></th><td data-i18n="L.d2a"></td><td class="is-reef" data-i18n="L.d2b"></td></tr>
-            <tr><th data-i18n="L.d3k"></th><td data-i18n="L.d3a"></td><td class="is-reef" data-i18n="L.d3b"></td></tr>
+            <tr><th data-i18n="L.d1k"></th><td data-i18n="L.d1a"></td><td class="is-reef" data-md="L.d1b"></td></tr>
+            <tr><th data-i18n="L.d2k"></th><td data-i18n="L.d2a"></td><td class="is-reef" data-md="L.d2b"></td></tr>
+            <tr><th data-i18n="L.d3k"></th><td data-i18n="L.d3a"></td><td class="is-reef" data-md="L.d3b"></td></tr>
+            <tr><th data-i18n="L.d4k"></th><td data-i18n="L.d4a"></td><td class="is-reef" data-md="L.d4b"></td></tr>
+            <tr><th data-i18n="L.d5k"></th><td data-i18n="L.d5a"></td><td class="is-reef" data-md="L.d5b"></td></tr>
+            <tr><th data-i18n="L.d6k"></th><td data-i18n="L.d6a"></td><td class="is-reef" data-md="L.d6b"></td></tr>
           </tbody>
         </table>
         <p class="body" data-i18n="L.diffNote"></p>
 
         <h3 class="h3-gap" data-i18n="L.dTitle"></h3>
         <p class="body" data-i18n="L.ctaNote"></p>
+        <p class="fair" data-i18n="L.fair"></p>
         <div class="hero-demo" data-clamped>
           <div class="pair-pick">
             <p class="pair-pick-label" data-i18n="L.pickQ"></p>
             <div class="chips" id="hero-qs"></div>
           </div>
           <p class="pair-watch" data-i18n="L.pairWatch"></p>
+          <ul class="watch-list">
+            <li data-i18n="L.watch1"></li>
+            <li data-i18n="L.watch2"></li>
+            <li data-i18n="L.watch3"></li>
+          </ul>
           <div class="compare" id="hero-pair"></div>
           <button class="pair-more" id="pair-more" type="button"></button>
+          <p class="meta" data-i18n="L.verdict"></p>
         </div>
 
         <h3 class="h3-gap" data-i18n="L.cTitle"></h3>
+        <p class="body" data-i18n="L.cMethod"></p>
         <div class="figures" id="eval-figures"></div>
         <p class="body" data-i18n="L.stripNote"></p>
         <a class="cta cta-quiet" href="about.html"><span data-i18n="L.cCta"></span> <em>&#8594;</em></a>
@@ -347,9 +387,14 @@
   </main>
 
   <footer>
+    <!-- Filled by the shell: the three pages are a sequence, and the order lives in
+         site.js so it is one fact rather than three copies of it. -->
+    <nav class="pager"></nav>
+    <!-- The public repositories, filled from evidence.json. -->
+    <nav class="foot-repos"></nav>
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=ece8b952"></script>
+  <script type="module" src="assets/js/landing.js?v=c6972f78"></script>
 </body>
 </html>

@@ -8,16 +8,21 @@ async function loadData() {
   const base = document.body.dataset.base || '.';
   const get = (name, fallback) =>
     fetch(`${base}/data/${name}`, { cache: 'no-cache' }).then(r => r.json()).catch(() => fallback);
-  const [strings, ev, digest, sources] = await Promise.all([
+  /* qa.json is part of the shell load rather than the pair modules' own, because the
+     recorded run's context sizes are interpolated into copy. Fetched after the first
+     applyI18n, {reefTok} and {rawTok} render as null. */
+  const [strings, ev, digest, sources, qa] = await Promise.all([
     get('strings.json', {}),
     get('evidence.json', {}),
     get('digest.json', { items: [] }),
     get('sources-manifest.json', { groups: [], files_n: 0 }),
+    get('qa.json', { items: [] }),
   ]);
   state.strings = strings;
   state.ev = ev;
   state.digest = digest;
   state.sources = sources;
+  state.qa = qa;
 }
 
 export function t(key, vars) {
@@ -38,7 +43,15 @@ export function copyVars() {
   const r = ev.reef?.counts || {};
   const e = ev.evaluation || {};
   const l = ev.loop || {};
+  const rs = ev.runs || {};
   return {
+    /* What three of the runs recorded about themselves, read back out of log.md. */
+    discovered: rs.snorkel?.answered,
+    discovery: rs.snorkel?.questions,
+    askQ: rs.ask?.questions,
+    askUnknowns: rs.ask?.unknowns,
+    askArtifacts: rs.ask?.artifacts,
+    skills: ev.plugin?.skills,
     repos: f.fixture_repos,
     docs: f.source_docs,
     artifacts: r.artifacts,
@@ -145,6 +158,51 @@ function trackBarHeight() {
   document.addEventListener('reef:lang', set);
 }
 
+/* The pages are read in an order — what it is, then try it, then check it — so each
+   one ends with the way on and the way back. Kept here because the sequence is a fact
+   about the site, and three copies of it in three footers is three chances to drift. */
+const PAGES = [
+  { file: 'index.html', key: 'nav.home' },
+  { file: 'try.html', key: 'nav.try' },
+  { file: 'about.html', key: 'nav.about' },
+];
+
+function renderPager() {
+  const host = document.querySelector('.pager');
+  if (!host) return;
+  const here = location.pathname.split('/').pop() || 'index.html';
+  const i = PAGES.findIndex(p => p.file === here);
+  if (i < 0) { host.hidden = true; return; }
+  host.setAttribute('aria-label', t('ui.pager'));
+
+  /* The ends of the sequence keep their empty cell, so the one link that is there
+     stays on its own side instead of sliding into the middle. */
+  const cell = (page, dir) => {
+    if (!page) return '<span class="pager-gap"></span>';
+    const arrow = dir === 'prev' ? '&#8592;' : '&#8594;';
+    return `<a class="pager-link pager-${dir}" href="${page.file}">
+      <span class="pager-dir">${dir === 'prev' ? arrow + ' ' : ''}${esc(t(`pager.${dir}`))}${dir === 'next' ? ' ' + arrow : ''}</span>
+      <b>${esc(t(page.key))}</b>
+    </a>`;
+  };
+  host.innerHTML = cell(PAGES[i - 1], 'prev') + cell(PAGES[i + 1], 'next');
+}
+
+/* The three public repositories, in the order they are worth opening: the plugin,
+   the fixture it was pointed at, and what it produced. The URLs come from
+   evidence.json; the name is read off the end of each one rather than typed again. */
+const REPOS = ['plugin', 'fixture', 'reef'];
+
+function renderRepos() {
+  const host = document.querySelector('.foot-repos');
+  if (!host) return;
+  const urls = state.ev?.repos || {};
+  host.setAttribute('aria-label', t('ui.repos'));
+  host.innerHTML = REPOS.filter(k => urls[k])
+    .map(k => `<a href="${esc(urls[k])}" target="_blank" rel="noopener">${esc(urls[k].split('/').pop())}</a>`)
+    .join('<span class="foot-repos-sep" aria-hidden="true">·</span>');
+}
+
 function wireNav() {
   const here = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav a').forEach(a => {
@@ -160,6 +218,9 @@ export async function boot(afterI18n) {
   trackBarHeight();
   wireNav();
   applyI18n();
+  renderPager();
+  renderRepos();
+  document.addEventListener('reef:lang', () => { renderPager(); renderRepos(); });
   if (afterI18n) {
     afterI18n();
     document.addEventListener('reef:lang', afterI18n);

@@ -108,6 +108,49 @@ footer{
 }
 footer p{margin:0 0 8px; max-width:var(--measure); margin-inline:auto}
 
+/* The three public repositories, at the foot of every page. A sitemap line: the same
+   size and colour as the fine print beside it, carrying no emphasis of its own. They
+   are somewhere to go afterwards, not something the page is asking for. */
+.foot-repos{
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline;
+  gap:2px 8px; margin:0 auto 10px;
+}
+.foot-repos a{
+  font-size:13px; color:var(--ink-faint);
+  text-decoration:none; text-underline-offset:3px;
+}
+.foot-repos a:hover{color:var(--ink-dim); text-decoration:underline}
+.foot-repos-sep{color:var(--ink-faint); opacity:.5; font-size:12px}
+
+/* The way on, at the end of every page. Two cells so the ends of the sequence keep
+   their side: the first page's Next stays right, the last page's Previous stays left. */
+.pager{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  max-width:var(--page); margin:0 auto 32px; text-align:left;
+}
+.pager-link{
+  display:grid; gap:5px; align-content:center; min-height:72px;
+  padding:16px 18px; text-decoration:none;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  transition:border-color .15s ease, background .15s ease;
+}
+.pager-link:hover{
+  border-color:color-mix(in srgb, var(--accent) 55%, transparent);
+  background:color-mix(in srgb, var(--accent) 5%, var(--panel));
+}
+.pager-dir{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-faint);
+}
+.pager-link b{font-size:16px; font-weight:600; color:var(--ink); word-break:keep-all}
+.pager-next{text-align:right}
+@media(max-width:640px){
+  /* One column, and the empty cell would otherwise be an empty row. */
+  .pager{grid-template-columns:1fr}
+  .pager-gap{display:none}
+  .pager-next{text-align:left}
+}
+
 /* ---------- shared blocks ---------- */
 .kicker{
   font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
@@ -171,6 +214,16 @@ body::before{
 .hero{
   padding:clamp(72px,14vh,150px) var(--gut) var(--band);
   display:flex; flex-direction:column; overflow:hidden; text-align:center;
+}
+/* The bar is translucent, so what sits behind it shows through. main's padding put
+   the bar's height of bare page there while the hero's glow began underneath it —
+   a tonal step along exactly the bar's bottom edge, visible the whole way down the
+   scroll. The hero takes that strip back: it starts at the top of the document, and
+   pads its own content clear of the bar instead. The glow cannot simply bleed up
+   into it, because `overflow:hidden` clips the ::before at the hero's own edge. */
+.hero{
+  margin-top:calc(var(--bar, 68px) * -1);
+  padding-top:calc(clamp(72px,14vh,150px) + var(--bar, 68px));
 }
 .hero-inner{max-width:var(--page); margin:0 auto; width:100%; flex:0 0 auto}
 .hero .hero-desc{margin-left:auto; margin-right:auto}
@@ -288,7 +341,13 @@ tfoot td{font-size:13px; color:var(--ink-faint); font-family:var(--mono)}
 /* The sources, browsable. Groups on the left as an accordion, the chosen file on the
    right, the way a repository host lays it out — because that is the shape a reader
    already knows how to use. */
-.src-browser{display:grid; gap:14px; margin-bottom:18px}
+/* The bar is fixed, so scrolling this into view puts its own top — and on a phone the
+   back button with it — underneath the bar. --bar is measured by the shell and kept
+   measured, because the bar wraps to two rows on a narrow screen. */
+.src-browser{
+  display:grid; gap:14px; margin-bottom:18px;
+  scroll-margin-top:calc(var(--bar, 68px) + 12px);
+}
 @media(min-width:900px){ .src-browser{grid-template-columns:minmax(260px,34%) 1fr; align-items:start} }
 .src-tree{display:grid; gap:8px}
 .src-group{background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden}
@@ -373,7 +432,31 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 .arm-body p{margin:0 0 10px} .arm-body p:last-child{margin:0}
 .arm-body b{color:var(--ink); font-weight:600}
 .arm-meta{font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin:12px 0 0}
-.thinking{color:var(--ink-faint); letter-spacing:.25em}
+/* The waiting state. It used to be three static full stops, which on a live call is
+   twenty-odd seconds of a page that looks broken. Now: dots that move, what it is
+   waiting for in words, and the seconds counting up on the right. */
+.thinking{
+  display:flex; align-items:center; gap:10px;
+  font-size:14px; color:var(--ink-faint);
+}
+.thinking-dots{display:inline-flex; gap:4px; flex:0 0 auto}
+.thinking-dots i{
+  width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.25;
+  animation:thinking 1.3s ease-in-out infinite;
+}
+.thinking-dots i:nth-child(2){animation-delay:.16s}
+.thinking-dots i:nth-child(3){animation-delay:.32s}
+@keyframes thinking{
+  0%,70%,100%{opacity:.22; transform:translateY(0)}
+  35%{opacity:1; transform:translateY(-3px)}
+}
+/* Pushed to the far edge so it reads as a clock rather than part of the sentence. */
+.thinking-clock{margin-left:auto; font-family:var(--mono); font-size:11.5px; opacity:.7}
+
+/* While one pair is in flight the controls are held, so they have to look held. */
+.chat-chips button:disabled{opacity:.45; cursor:default}
+.chat-form.is-busy{opacity:.6}
+.chat-form input:disabled,.chat-form button:disabled{cursor:default}
 
 .cite{
   font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
@@ -493,10 +576,14 @@ h3{font-size:clamp(18px,2.1vw,24px); margin:44px 0 14px; font-weight:600; color:
     color:var(--accent); font-family:var(--mono); font-size:15px; line-height:1;
   }
 }
+/* A closed box. It used to hang off the bottom of the bordered cards the flow was
+   built from, which is why it had no top edge and only bottom corners; the deck that
+   replaced them is borderless rows, so the open top attached to nothing and read as
+   a missing border. Same dashed treatment as .fair, which is the other aside here. */
 .loop-back{
   display:flex; gap:10px; align-items:baseline; margin:12px 0 28px; padding:12px 16px;
-  border:1px dashed var(--line); border-top:0;
-  border-radius:0 0 10px 10px; font-size:14px; color:var(--ink-dim);
+  border:1px dashed var(--line); border-radius:10px;
+  font-size:14px; color:var(--ink-dim);
 }
 .loop-mark{color:var(--accent); font-size:18px; line-height:1}
 .cta-quiet{background:transparent; color:var(--accent); border:1px solid color-mix(in srgb, var(--accent) 55%, transparent)}
@@ -637,9 +724,14 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 .menu-toggle .bar-a,.menu-toggle .bar-b,.menu-toggle .bar-c{
   transition:transform .18s ease, opacity .18s ease; transform-origin:center;
 }
-.menu-toggle[aria-expanded="true"] .bar-a{transform:translateY(5px) rotate(45deg)}
+/* Rotate last, not first. The bars sit at y=7 and y=17 in a 24-unit box whose centre
+   — and so the transform origin — is y=12, so each one has to travel to the middle
+   before it turns. Written the other way round the rotation happens five units off
+   centre and swings the stroke out with it: the two ends still cross, but at 14.1
+   rather than 12, which is the X sitting visibly right of the button it is in. */
+.menu-toggle[aria-expanded="true"] .bar-a{transform:rotate(45deg) translateY(5px)}
 .menu-toggle[aria-expanded="true"] .bar-b{opacity:0}
-.menu-toggle[aria-expanded="true"] .bar-c{transform:translateY(-5px) rotate(-45deg)}
+.menu-toggle[aria-expanded="true"] .bar-c{transform:rotate(-45deg) translateY(-5px)}
 
 @media(max-width:720px){
   /* On a phone the links and the language switch fold away, so the bar is one row:
@@ -715,7 +807,12 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
   vertical-align:-.15em; animation:blink 1s steps(1) infinite;
 }
 @keyframes blink{50%{opacity:0}}
-@media (prefers-reduced-motion:reduce){ .cast-body .cur{animation:none} .cast{transition:none} }
+@media (prefers-reduced-motion:reduce){
+  .cast-body .cur{animation:none} .cast{transition:none}
+  /* The dots stop moving, but they stay visible and the clock keeps counting — the
+     reader still needs to know the answer is coming. */
+  .thinking-dots i{animation:none; opacity:.6}
+}
 
 
 /* ---------- landing: the zone map ---------- */
@@ -796,6 +893,57 @@ h3.phase{margin-top:34px}
 .stage-tech{margin:10px 0 0}
 .zone .chips-row{margin-top:10px}
 
+/* The spine. The rows are one pass of a loop, not eleven independent entries, so on
+   a wide screen they hang off a single line with a node each — and the line runs on
+   past the last one and turns back into the note that says the next pass starts here.
+   Below the breakpoint the deck is a stepper showing one row at a time, where a rail
+   joining rows that are not on screen together would mean nothing; none of this
+   applies there. */
+@media(min-width:900px){
+  .stage-deck{position:relative; padding-left:34px}
+  .stage-deck::before{
+    /* 2px on a centre of 11.5, which is where the nodes are — widening from the
+       left edge instead would walk the line off them by half a pixel. */
+    content:""; position:absolute; left:10.5px; top:10px; bottom:-14px; width:2px;
+    border-radius:2px;
+    /* Fades in under the first phase label and runs warm to cool down the pass, so
+       the eye is told where it starts without a hard cap on the line. */
+    background:linear-gradient(to bottom,
+      transparent 0,
+      color-mix(in srgb, var(--accent) 85%, transparent) 56px,
+      color-mix(in srgb, var(--accent-cool) 82%, transparent) 78%,
+      color-mix(in srgb, var(--accent-cool) 82%, transparent) 100%);
+  }
+  /* One node per row, on the rail, level with the command that names the row. */
+  .stage{position:relative}
+  .stage::before{
+    /* 32px puts the node's centre on the command's, measured — the row's 22px of
+       padding plus the code chip's own half-height. */
+    content:""; position:absolute; left:-27px; top:32px;
+    width:9px; height:9px; border-radius:50%; box-sizing:border-box;
+    background:var(--bg); border:2px solid var(--accent);
+    /* A ring of page colour, so the rail reads as passing behind each node rather
+       than butting into it. */
+    box-shadow:0 0 0 3px var(--bg);
+  }
+  /* The row a person does, not a command: hollow and dashed, like the .who chip. */
+  .stage.is-human::before{border-style:dashed; border-color:var(--accent)}
+  /* A phase label crosses the rail rather than sitting beside it. */
+  .stage-deck h3.phase{position:relative}
+  .stage-deck h3.phase::before{
+    content:""; position:absolute; left:-27px; top:.62em; width:9px; height:2px;
+    background:var(--accent); box-shadow:0 0 0 3px var(--bg);
+  }
+  /* The turn back. The rail carries on below the last row, then curves in to meet
+     the note at its ↺ — dashed, because this is the return and not the pass. */
+  .loop-back{margin-left:34px; position:relative}
+  .loop-back::before{
+    content:""; position:absolute; left:-23.5px; top:-26px; height:calc(50% + 26px);
+    width:22px; border-left:2px dashed var(--accent-cool);
+    border-bottom:2px dashed var(--accent-cool); border-bottom-left-radius:10px;
+  }
+}
+
 /* On a phone the eleven rows of the flow are eleven screens of scrolling with a
    terminal in every one, so the deck shows a single step and the reader pages through
    it. Nothing here applies above the breakpoint; the desktop keeps the full column. */
@@ -822,6 +970,11 @@ h3.phase{margin-top:34px}
 /* The sources browser on a phone: one pane at a time. */
 .src-back{display:none}
 @media(max-width:900px){
+  /* The list drops its own scroller here. Capped at 300px it is a porthole inside a
+     page that also scrolls — order-service alone puts 3,800px of file names behind it,
+     and a drag inside the porthole never moves the page. Only one group is open at a
+     time, so letting it run its natural height leaves the page as the single scroller. */
+  .src-group ul{max-height:none; overflow-y:visible}
   .src-browser[data-mode] .src-view{display:none}
   .src-browser[data-mode="file"] .src-view{display:block}
   .src-browser[data-mode="file"] .src-tree{display:none}
@@ -829,9 +982,84 @@ h3.phase{margin-top:34px}
     display:inline-block; flex:0 0 auto; font:inherit; font-family:var(--mono); font-size:12px;
     color:var(--accent); background:transparent; border:0; padding:0 4px 0 0; cursor:pointer;
   }
-  .src-browser[data-mode="file"] .src-view-body{height:min(62vh, 560px); white-space:pre-wrap; overflow-wrap:anywhere}
+  /* A cap, not a height. Beside the tree on a desktop the pane holds a fixed size so
+     the two columns do not jump as files change; alone on a phone that same fixed size
+     hangs three hundred pixels of nothing under an eleven-line file. */
+  .src-browser[data-mode="file"] .src-view-body{
+    height:auto; max-height:min(62vh, 560px);
+    white-space:pre-wrap; overflow-wrap:anywhere;
+  }
 }
 
 /* The cover shot: the hero fills the 16:9 frame with its copy centred, rather than
    sitting in the top half of it over nothing. */
-body[data-shot] .hero{min-height:100vh; justify-content:center; padding-top:0; padding-bottom:0}
+body[data-shot] .hero{
+  min-height:100vh; justify-content:center; margin-top:0; padding-top:0; padding-bottom:0;
+}
+
+/* ---------- the sections added for the repositioned narrative ---------- */
+
+/* The line under the call to action. The hero states what reef is; this says what
+   kind of thing it is, which is the part a reader carries into the next section. */
+.hero-note{
+  /* The hero is centred, so this has to centre with it: a max-width alone leaves the
+     line hanging off the left of everything above it. */
+  margin:18px auto 0; font-size:14.5px; line-height:1.65; color:var(--ink-faint);
+  max-width:52ch; text-align:center; word-break:keep-all;
+}
+
+/* The last line of the problem section, which is the first mention of reef on the
+   page. It is a body line, so it is not a heading — but it is the turn, so it is not
+   dimmed with the rest either. */
+.lede-close{color:var(--ink); margin-top:22px}
+
+/* What reef leaves behind, as four numbered properties. A list rather than cards:
+   they are read in order — evidence, then the gaps, then staleness, then the human —
+   and a grid of four boxes would invite reading any one of them alone. */
+.makes{list-style:none; margin:26px 0 0; padding:0; display:grid; gap:2px}
+.makes li{
+  display:flex; gap:18px; align-items:baseline;
+  padding:20px 0; border-top:1px solid var(--line);
+}
+.makes li:last-child{border-bottom:1px solid var(--line)}
+.makes-n{
+  font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--accent);
+  flex:0 0 auto; padding-top:2px;
+}
+.makes li>div{min-width:0}
+.makes b{display:block; font-size:clamp(16px,1.8vw,19px); color:var(--ink); margin-bottom:6px}
+.makes span{
+  display:block; font-size:14.5px; line-height:1.65; color:var(--ink-dim);
+  max-width:var(--measure); word-break:keep-all;
+}
+.makes code{font-family:var(--mono); font-size:13px; color:var(--accent)}
+
+/* What to look at in the two answers. The instruction sits above; these are the three
+   things to check, and they are deliberately checkable rather than persuasive. */
+.watch-list{margin:-8px 0 16px; padding-left:20px; max-width:var(--measure)}
+.watch-list li{
+  font-size:14px; line-height:1.6; color:var(--ink-faint); margin-bottom:5px;
+  word-break:keep-all;
+}
+
+/* The three checkpoints the build log supports, on the brief. Each number is only as
+   good as the timestamp beside it in log.md, which is why the last cell counts the
+   timestamps themselves. */
+.result-strip{
+  display:flex; flex-wrap:wrap; gap:14px 32px; margin:22px 0 18px; padding:0;
+}
+.result-strip div{margin:0}
+.result-strip dt{
+  font-family:var(--mono); font-size:clamp(20px,2.8vw,28px); color:var(--accent);
+  line-height:1.15;
+}
+.result-strip dd{margin:4px 0 0; font-size:13px; color:var(--ink-faint)}
+
+/* The closing statement. Four lines that each end, so they are set as separate
+   paragraphs rather than one block that the eye runs through. */
+.band-final .band-inner{max-width:var(--measure)}
+.final-line{margin:0 0 10px; color:var(--ink-dim)}
+.final-last{
+  margin:26px 0 0; font-size:clamp(16px,1.9vw,20px); line-height:1.6; color:var(--ink);
+  word-break:keep-all;
+}

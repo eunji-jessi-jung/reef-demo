@@ -10,7 +10,7 @@
  * it says it does not know; a source citation opens the actual file on GitHub. Neither
  * side gets to be believed.
  */
-import { state, t, esc, copyVars } from './site.js?v=e4822d9d';
+import { state, t, esc, copyVars } from './site.js?v=253c4e71';
 
 export const ARMS = ['reef', 'raw'];
 
@@ -102,9 +102,38 @@ export function armPanel(arm, id) {
       <b>${esc(t(label))}</b>
       <span class="meta">${esc(t(note, copyVars()))}</span>
     </figcaption>
-    <div class="arm-body"><p class="thinking">···</p></div>
+    <div class="arm-body"><div class="thinking" role="status">
+      <span class="thinking-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span data-i18n="chat.thinking"></span>
+      <span class="thinking-clock" aria-hidden="true"></span>
+    </div></div>
     <p class="arm-meta"></p>
   </figure>`;
+}
+
+/* A live pair can take twenty seconds or more: the model reads eighty-odd thousand
+   tokens before it says anything. Three animated dots alone still read as "stuck"
+   once the wait runs past a few seconds, so each pending arm also counts the seconds
+   it has been waiting — a number that keeps moving is the one unambiguous signal that
+   the page is still working and not broken. */
+const PENDING = new Map();
+
+function startPending(panelId) {
+  const clock = document.getElementById(panelId)?.querySelector('.thinking-clock');
+  if (!clock) return;
+  const t0 = Date.now();
+  /* Silent for the first two seconds: a recorded pair fills instantly, and a counter
+     that flashes "0s" on the way past is noise rather than feedback. */
+  const tick = () => {
+    const s = Math.round((Date.now() - t0) / 1000);
+    clock.textContent = s >= 2 ? `${s}s` : '';
+  };
+  PENDING.set(panelId, setInterval(tick, 1000));
+}
+
+function stopPending(panelId) {
+  clearInterval(PENDING.get(panelId));
+  PENDING.delete(panelId);
 }
 
 /* Add an empty row to a host element and return its id, so the arms can be filled
@@ -115,12 +144,22 @@ export function addRow(host, question, id) {
   row.innerHTML = `<p class="cmp-q"><span class="q-mark">?</span>${esc(question)}</p>
     <div class="cmp-arms">${ARMS.map(a => armPanel(a, id)).join('')}</div>`;
   host.prepend(row);
+  ARMS.forEach(arm => {
+    const panel = document.getElementById(`${id}-${arm}`);
+    panel?.setAttribute('aria-busy', 'true');
+    /* The label is set through the same i18n pass as everything else, so a language
+       switch mid-wait moves it too. */
+    panel?.querySelectorAll('[data-i18n]').forEach(n => { n.textContent = t(n.dataset.i18n); });
+    startPending(`${id}-${arm}`);
+  });
   return id;
 }
 
 export function fill(id, arm, html, meta) {
   const panel = document.getElementById(`${id}-${arm}`);
   if (!panel) return;
+  stopPending(`${id}-${arm}`);
+  panel.removeAttribute('aria-busy');
   panel.querySelector('.arm-body').innerHTML = html;
   panel.querySelector('.arm-meta').textContent = meta || '';
 }

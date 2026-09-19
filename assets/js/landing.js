@@ -8,9 +8,9 @@
  * nothing, and is the same every visit. Asking a live question is what try.html is
  * for, and that is where the button goes.
  */
-import { state, t, boot, esc } from './site.js?v=e4822d9d';
-import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=b3047820';
-import { startCast } from './cast.js?v=c9b001af';
+import { state, t, boot, esc } from './site.js?v=253c4e71';
+import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=b55ddb71';
+import { startCast } from './cast.js?v=9c527923';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -150,10 +150,7 @@ function render() {
 await stageShot();
 await boot(() => { render(); shotReady(); });
 
-/* The answers are loaded after the shell, so the hero pair is drawn once they arrive. */
-const base = document.body.dataset.base || '.';
-state.qa = await fetch(`${base}/data/qa.json`, { cache: 'no-cache' })
-  .then(r => r.json()).catch(() => ({ items: [] }));
+/* The answers arrive with the shell, so the hero pair can be drawn straight away. */
 renderChips();
 renderHeroPair();
 renderMore();

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=998e0aa9">
+  <link rel="stylesheet" href="assets/css/site.css?v=46862523">
   <title>reef</title>
   <meta name="description" content="What the reef demo is made of, every repository and report behind it, how it was graded, and the research that argues against it.">
 </head>
@@ -123,6 +123,17 @@
       </div>
     </section>
 
+    <section class="band band-final">
+      <div class="band-inner">
+        <h2 data-i18n="A.finalTitle"></h2>
+        <p class="body final-line" data-i18n="A.final1"></p>
+        <p class="body final-line" data-i18n="A.final2"></p>
+        <p class="body final-line" data-i18n="A.final3"></p>
+        <p class="body final-line" data-i18n="A.final4"></p>
+        <p class="final-last" data-i18n="A.finalLast"></p>
+      </div>
+    </section>
+
     <section class="band band-disc">
       <div class="band-inner">
         <h2 data-i18n="A.discTitle"></h2>
@@ -132,9 +143,14 @@
   </main>
 
   <footer>
+    <!-- Filled by the shell: the three pages are a sequence, and the order lives in
+         site.js so it is one fact rather than three copies of it. -->
+    <nav class="pager"></nav>
+    <!-- The public repositories, filled from evidence.json. -->
+    <nav class="foot-repos"></nav>
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/about.js?v=e8a556e3"></script>
+  <script type="module" src="assets/js/about.js?v=c0fcddcc"></script>
 </body>
 </html>

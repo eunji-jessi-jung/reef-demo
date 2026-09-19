@@ -422,6 +422,20 @@
     "last_min": 462,
     "full_hours": 2.9
   },
+  "runs": {
+    "snorkel": {
+      "answered": 33,
+      "questions": 48
+    },
+    "ask": {
+      "questions": 17,
+      "unknowns": 195,
+      "artifacts": 32
+    }
+  },
+  "plugin": {
+    "skills": 13
+  },
   "log": [
     {
       "at": "2026-09-18 14:56",

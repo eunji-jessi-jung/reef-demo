@@ -12,36 +12,32 @@
     "en": "Ask it"
   },
   "nav.about": {
-    "ko": "더 알아보기",
-    "en": "Learn more"
+    "ko": "검증과 한계",
+    "en": "Evidence & limits"
   },
   "L.kicker": {
     "ko": "Claude Code 플러그인",
     "en": "A Claude Code plugin"
   },
   "L.h1": {
-    "ko": "정보의 바다에 무작정 뛰어들지 마세요",
-    "en": "Don't dive head first into the sea of information"
+    "ko": "AI에게 시스템을 이해시키세요.",
+    "en": "Help AI understand your system."
   },
   "L.sub": {
-    "ko": "reef 가 소스 코드와 지식 저장소를 읽어 AI 에이전트를 위한 지식 레이어를 만들고, 코드가 바뀌면 어떤 지식이 낡았는지 짚어 줍니다.",
-    "en": "Let reef build an AI agent-first knowledge layer for you, from your source code and your knowledge repositories — and when the code moves, it names what went stale."
+    "ko": "reef는 코드와 회사 문서를 읽어, 근거와 모르는 것까지 함께 남는 시스템 지식층을 만듭니다. 코드가 바뀌면 어떤 지식이 낡았는지도 추적합니다.",
+    "en": "reef reads your code and company documents to build system knowledge with evidence and known unknowns. When your code changes, reef tracks which knowledge may have gone stale."
   },
   "L.cta": {
-    "ko": "직접 물어보기",
-    "en": "Ask your own question"
+    "ko": "직접 확인해 보기",
+    "en": "See it in action"
   },
   "L.ctaNote": {
-    "ko": "셀플로우는 지어낸 회사입니다 — 서비스 5개, 3년치 문서, 정리한 사람 없음. 같은 질문, 같은 모델, 한쪽만 reef.",
-    "en": "Sellflow is an invented company — five services, three years of documents, nobody ever tidied them. Same question, same model, only one side holding a reef."
+    "ko": "왼쪽은 reef가 만든 지식에서 답하고, 오른쪽은 원본 파일 전체에서 바로 답합니다.",
+    "en": "The left answers from the knowledge reef built. The right answers from every source file, directly."
   },
   "L.foot": {
     "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
     "en": "Sellflow is a company invented for this demo. It has nothing to do with any real company or person."
-  },
-  "L.footLink": {
-    "ko": "만든 방법과 링크는 상세 페이지에",
-    "en": "How it was built, and every link"
   },
   "T.kicker": {
     "ko": "3일",
@@ -160,12 +156,12 @@
     "en": "All public, Apache-2.0. `sellflow` and `sellflow-reef` side by side — `.reef/project.json` points at `../sellflow/repos/*`."
   },
   "A.repoPlugin": {
-    "ko": "플러그인 — 스킬 13개와 `reef.py`. 모델 호출 없는 결정적 부분은 전부 여기.",
-    "en": "The plugin — 13 skills and `reef.py`. Everything deterministic, with no model call, is here."
+    "ko": "플러그인 — 스킬 {skills}개와 `reef.py`. 모델 호출 없는 결정적 부분은 전부 여기.",
+    "en": "The plugin — {skills} skills and `reef.py`. Everything deterministic, with no model call, is here."
   },
   "A.repoFixture": {
-    "ko": "픽스처 — 가상 회사 셀플로우. 저장소 다섯 개, 문서 트리, `ANSWER-KEY.md`.",
-    "en": "The fixture — Sellflow. Five repositories, the document tree, `ANSWER-KEY.md`."
+    "ko": "픽스처 — 가상 회사 셀플로우. 저장소 {repos}개, 문서 트리, `ANSWER-KEY.md`.",
+    "en": "The fixture — Sellflow. {repos} repositories, the document tree, `ANSWER-KEY.md`."
   },
   "A.repoReef": {
     "ko": "결과물 — 아티팩트 {artifacts}개, `log.md`, `.reef/test-report-2026-09-19.md`.",
@@ -324,12 +320,12 @@
     "en": "recorded run · {recordedAt}"
   },
   "L.fTitle": {
-    "ko": "한 번 세우고, 계속 돌립니다",
-    "en": "Build it once, then keep it turning"
+    "ko": "처음 한 번 깊게 읽고, 그다음부터는 바뀐 것만 따라갑니다.",
+    "en": "Read deeply once; after that, follow only what moved."
   },
   "L.fLede": {
-    "ko": "한 바퀴 돌려 세우고, 코드와 문서가 바뀔 때마다 다시 돕니다. 옆의 창은 셀플로우 reef 가 세워진 날의 그 단계 — 시각은 실제 로그의 것입니다.",
-    "en": "One pass to stand it up, then again whenever the code or the documents move. The window beside each step is that step from the day the Sellflow reef was built — the clock is the log's."
+    "ko": "처음에는 시스템 전체를 탐색해 지식층을 만듭니다. 그다음부터는 코드와 문서의 변화에 맞춰 필요한 부분을 다시 확인합니다.",
+    "en": "The first pass explores the whole system and builds the layer. After that, each change to the code or the documents decides what gets checked again."
   },
   "L.fPhase1": {
     "ko": "처음 한 바퀴",
@@ -340,12 +336,12 @@
     "en": "Registers and indexes the repositories and the company's documents."
   },
   "L.f2": {
-    "ko": "구조를 훑고, 앱을 실제로 띄워 API 스펙과 ER 다이어그램을 뽑습니다.",
-    "en": "Sweeps the structure, then imports the apps to pull real API specs and ER diagrams."
+    "ko": "전체 구조를 훑고, 애플리케이션을 실행해 API 스펙과 ER 구조를 추출합니다. 5개 소스에서 {drafts}개의 아티팩트를 만들고, {discovery}개의 discovery question 중 {discovered}개를 확인했습니다.",
+    "en": "Sweep the structure, then run the applications to extract API specs and ER diagrams. {drafts} artifacts from five sources, and {discovered} of {discovery} discovery questions settled."
   },
   "L.f3": {
-    "ko": "초안을 소스에 대고 깊게 파서 채웁니다. 주장마다 인용이 붙습니다.",
-    "en": "Works the drafts deeper against the sources. Every claim gets a citation."
+    "ko": "초안을 소스에 대고 깊게 파서 채웁니다. 판단이 필요한 지점은 대화로 되묻는 것이 기본값입니다 — AI가 근거를 찾고, 확정은 사람에게 맡깁니다.",
+    "en": "Works the drafts deeper against the sources. Where judgment is needed, asking is the default — AI finds the evidence, a person confirms it."
   },
   "L.f4": {
     "ko": "reef 가 찾은 질문과 사람이 넣은 질문을 함께 채점합니다. 아티팩트만 읽는 에이전트가 풀고, 정답은 봉인합니다.",
@@ -364,12 +360,12 @@
     "en": "When minutes or a handover turn up later, it finds them and wires them in."
   },
   "L.f7": {
-    "ko": "소스로는 풀 수 없는 것을 사람이 답할 질문으로 뽑아냅니다.",
-    "en": "Pulls what the sources cannot settle into questions for a person."
+    "ko": "소스로 답할 수 없는 질문을 사람에게 넘깁니다. {askUnknowns}개의 unknown에서 {askQ}개의 owner question을 만들었습니다.",
+    "en": "Hand the questions the sources cannot settle to a person: {askQ} owner questions drawn from {askUnknowns} unknowns."
   },
   "L.f8": {
-    "ko": "사람이 답합니다. 그 답은 다음 회차에도 그대로 남습니다.",
-    "en": "A person answers. That answer is still there on the next pass."
+    "ko": "사람이 답하면 그 답은 다음 작업의 지식으로 남습니다. 이 데모에는 owner가 없어 {owner}건이 열린 채로 있습니다.",
+    "en": "A person answers, and the answer stays as knowledge for the next task. This demo has no owner, so {owner} of them are still open."
   },
   "L.fLoop": {
     "ko": "다음 회차는 여기서 시작합니다. 매번 처음부터 다시 알아내지 않습니다.",
@@ -380,8 +376,8 @@
     "en": "Beside a generator"
   },
   "L.diffHeadA": {
-    "ko": "생성기",
-    "en": "A generator"
+    "ko": "일반적인 코드 기반 생성",
+    "en": "A code-based generator"
   },
   "L.diffHeadB": {
     "ko": "reef",
@@ -392,44 +388,44 @@
     "en": "State"
   },
   "L.d1a": {
-    "ko": "무상태. 같은 코드, 같은 결과",
-    "en": "Stateless. Same code, same output"
+    "ko": "매번 다시 생성",
+    "en": "Regenerated every time"
   },
   "L.d1b": {
-    "ko": "아티팩트마다 스냅샷 · 모름 {unknowns}건 · 사람의 답은 남음",
-    "en": "A snapshot per artifact · {unknowns} unknowns · a person's answer stays"
+    "ko": "스냅샷과 상태를 유지",
+    "en": "Keeps snapshots and state"
   },
   "L.d2k": {
-    "ko": "유지보수",
-    "en": "Maintenance"
+    "ko": "근거",
+    "en": "Evidence"
   },
   "L.d2a": {
-    "ko": "다시 생성",
-    "en": "Regenerates"
+    "ko": "답변에 따라 다름",
+    "en": "Varies with the answer"
   },
   "L.d2b": {
-    "ko": "대조해서, 더는 참이 아닌 주장을 지목",
-    "en": "Diffs, and names the claims that stopped being true"
+    "ko": "주장과 근거를 연결",
+    "en": "Links each claim to its source"
   },
   "L.d3k": {
-    "ko": "코드 밖 정보",
-    "en": "Beyond the code"
+    "ko": "불확실성",
+    "en": "Uncertainty"
   },
   "L.d3a": {
-    "ko": "코드만",
-    "en": "Code only"
+    "ko": "답변 안에서 사라짐",
+    "en": "Disappears into the prose"
   },
   "L.d3b": {
-    "ko": "위키·티켓·회의록·인수인계 {docs}건을 코드와 같은 자격으로",
-    "en": "{docs} wiki pages, tickets, minutes and handovers, cited like code"
+    "ko": "`known_unknowns`로 기록 — {unknowns}건",
+    "en": "Recorded as `known_unknowns` — {unknowns} of them"
   },
   "L.diffNote": {
-    "ko": "지난 실행: 바뀐 파일 {changed}건 → 아티팩트 {gone}개 지목, {refreshed}개 갱신.",
-    "en": "Last run: {changed} changed files → {gone} artifacts named, {refreshed} refreshed."
+    "ko": "지난 실행에서는 {changed}개의 파일이 바뀌었고, {gone}개의 아티팩트가 영향을 받았으며, {refreshed}개가 갱신되었습니다.",
+    "en": "On the last run {changed} files changed, {gone} artifacts were named, and {refreshed} were refreshed."
   },
   "L.cTitle": {
-    "ko": "믿어 달라고 하지 않습니다",
-    "en": "Don't take this on trust"
+    "ko": "믿어 달라고 하지 않습니다. 직접 채점했습니다.",
+    "en": "Don't take it on trust — it was graded."
   },
   "L.cLede": {
     "ko": "가상의 회사 하나를 지어서 정답을 먼저 적어 두고, 아티팩트만 읽는 에이전트에게 {questions}문항을 풀렸습니다. 정답은 채점이 끝날 때까지 열지 않았습니다.",
@@ -440,36 +436,36 @@
     "en": "All three repositories are public and the answer key is in them. You can run the same grading yourself."
   },
   "L.cCta": {
-    "ko": "검증 방법과 한계 전부 보기",
-    "en": "How to check it, and where it falls short"
+    "ko": "전체 테스트 리포트 보기",
+    "en": "Read the full test report"
   },
   "L.fHuman": {
     "ko": "사람",
     "en": "a person"
   },
   "L.sTitle": {
-    "ko": "가상의 회사 밖에서도",
-    "en": "Outside the fictional company"
+    "ko": "복잡한 시스템일수록, 지식의 구조가 필요합니다.",
+    "en": "The more complex the system, the more the knowledge needs a structure."
   },
   "L.sLede": {
-    "ko": "서비스·데이터·인터페이스가 있는 코드베이스면 됩니다.",
-    "en": "Any codebase with services, data and interfaces."
+    "ko": "서비스·데이터·인터페이스가 있는 코드베이스라면 맞습니다.",
+    "en": "It fits a codebase that has services, data and interfaces."
   },
   "L.sFitT": {
     "ko": "맞는 곳",
     "en": "Where it fits"
   },
   "L.sFit": {
-    "ko": "저장소 3~15개가 한 도메인을 이루는 규모. 100개가 넘으면 팀 단위로 쪼갭니다.",
-    "en": "3 to 15 repositories forming one domain. Past a hundred, split by team."
+    "ko": "하나의 도메인에 3–15개 정도의 repository가 있는 환경을 기준으로 설계했습니다. 100개 이상이라면 팀이나 도메인 단위로 나누는 것을 권장합니다.",
+    "en": "Designed for roughly 3 to 15 repositories forming one domain. Past a hundred, split it by team or by domain."
   },
   "L.sUnfitT": {
     "ko": "안 맞는 곳",
     "en": "Where it doesn't"
   },
   "L.sUnfit": {
-    "ko": "붙잡을 스키마도 API 경계도 없습니다.",
-    "en": "No schemas or service boundaries to hold on to."
+    "ko": "추적할 시스템 경계와 관계가 거의 없는 환경에서는 reef의 구조가 덜 유용합니다.",
+    "en": "Where there are few system boundaries or relationships to track, reef's structure earns less."
   },
   "L.sCta": {
     "ko": "한계와 고지까지 전부 보기",
@@ -532,8 +528,8 @@
     "en": "Install the plugin in Claude Code and point it at the repositories."
   },
   "L.stripNote": {
-    "ko": "정답을 먼저 적어 둔 가상 회사에서, 아티팩트만 읽는 별도 에이전트가 {questions}문항을 풀었습니다. 정답은 봉인.",
-    "en": "On a fictional company whose answer was written down first, a separate agent reading only the artifacts answered {questions} questions. Key sealed."
+    "ko": "{questions}개 질문 중 일부는 원본 소스 자체로 답할 수 없는 질문이었습니다. 그 경우에는 답을 억지로 만들지 않고 부족한 정보로 판정했습니다.",
+    "en": "Some of the {questions} questions could not be answered from the sources at all. Those were marked short of information rather than answered anyway."
   },
   "ui.menu": {
     "ko": "메뉴 열기 / 닫기",
@@ -572,8 +568,8 @@
     "en": "Press a question to switch"
   },
   "L.pairWatch": {
-    "ko": "볼 곳 — 출처를 댈 수 있는지, 모르는 것을 모른다고 하는지.",
-    "en": "Watch for: whether it can name its source, and whether it says so when it cannot know."
+    "ko": "답의 길이보다 이것을 확인해 보세요.",
+    "en": "Look at this rather than the length of the answer."
   },
   "L.pairMore": {
     "ko": "답 전체 보기",
@@ -584,8 +580,8 @@
     "en": "Collapse"
   },
   "L.dTitle": {
-    "ko": "같은 질문을 두 번 던졌습니다",
-    "en": "The same question, put twice"
+    "ko": "같은 질문을 던져 보세요.",
+    "en": "Put the same question to both."
   },
   "L.rNote": {
     "ko": "화면 녹화가 아닙니다. 실행 로그 `log.md`, init 스킬의 실제 출력, `project.json`, 빌드 시점의 `reef.py index · lint · diff` 로 재구성했습니다 — `tools/build-cast.py`.",
@@ -596,12 +592,12 @@
     "en": "Layout"
   },
   "L.zTitle": {
-    "ko": "reef 하나는 이렇게 생겼습니다",
-    "en": "What one reef looks like"
+    "ko": "원본을 읽고, 지식으로 만들고, 그 변화를 추적합니다.",
+    "en": "Read the sources, turn them into knowledge, track what changes."
   },
   "L.zLede": {
-    "ko": "네 구역, 한 방향. 소스에서 아티팩트로, 아티팩트에서 읽는 쪽으로 — 거꾸로는 없습니다. 숫자는 셀플로우 reef 의 실제 값입니다.",
-    "en": "Four zones, one direction: sources into artifacts, artifacts to whoever reads them — never back. The numbers are the Sellflow reef's real ones."
+    "ko": "처음에는 원본에서 지식을 만들고, 그다음부터는 지식과 원본의 변화를 함께 추적합니다. 원본을 임의로 수정하지 않습니다.",
+    "en": "The first pass builds knowledge out of the sources. Every pass after that tracks the knowledge and the sources as they move. The sources are never edited."
   },
   "Z.govName": {
     "ko": "계약과 거버넌스",
@@ -632,12 +628,12 @@
     "en": "The canonical knowledge layer"
   },
   "Z.artDesc": {
-    "ko": "아티팩트 {artifacts}개 · 9종 · 위키링크. 에이전트가 읽으라고 쓴 것입니다.",
-    "en": "{artifacts} artifacts · nine types · wikilinked. Written for an agent to read."
+    "ko": "아티팩트 {artifacts}개, 9개 유형으로 시스템의 구조와 동작을 기록합니다.",
+    "en": "{artifacts} artifacts in nine types, recording how the system is built and how it behaves."
   },
   "Z.artRule": {
-    "ko": "모름으로 적힌 것 {unknowns}건.",
-    "en": "{unknowns} recorded as not known."
+    "ko": "확인하지 못한 내용도 함께 기록합니다 — 현재 `known_unknowns` {unknowns}건.",
+    "en": "What could not be confirmed is recorded beside it — {unknowns} `known_unknowns` today."
   },
   "Z.flow2": {
     "ko": "받아들여질 때 인용 파일 전부를 해시로 스냅샷.",
@@ -648,8 +644,8 @@
     "en": "State"
   },
   "Z.stateDesc": {
-    "ko": "색인 · 아티팩트별 스냅샷 · 지도 · 질문 은행.",
-    "en": "Index · one snapshot per artifact · the map · the question banks."
+    "ko": "색인, 아티팩트별 스냅샷, 변경 지도, 질문 은행을 보관합니다.",
+    "en": "The index, a snapshot per artifact, the change map, and the question bank."
   },
   "Z.stateRule": {
     "ko": "`update` 는 대조합니다. 재생성하지 않습니다.",
@@ -664,16 +660,16 @@
     "en": "Whoever reads it"
   },
   "Z.readDesc": {
-    "ko": "에이전트는 `CLAUDE.md` 로 들어와 그래프를 걷고, 사람은 Obsidian 으로 엽니다. 둘 다 고치지 않습니다.",
-    "en": "An agent comes in through `CLAUDE.md`; a person opens it in Obsidian. Neither edits."
+    "ko": "`CLAUDE.md`가 에이전트의 출발점입니다. 여기서 필요한 지식을 찾아가고, 사람은 `index.md`를 통해 같은 구조를 직접 살펴볼 수 있습니다.",
+    "en": "`CLAUDE.md` is where an agent starts and finds its way to what it needs; a person walks the same structure through `index.md`."
   },
   "Z.note": {
-    "ko": "구역 이름은 실제 폴더 이름입니다.",
-    "en": "The zone names are the real folder names."
+    "ko": "에이전트와 사람이 같은 지식 구조를 서로 다른 방식으로 탐색합니다.",
+    "en": "An agent and a person explore one structure, each in their own way."
   },
   "L.fDeep": {
-    "ko": "가장 중요한 경로 하나를 한 줄씩 따라가며, 어디서 끊기는지 증명합니다.",
-    "en": "Follows the one path that matters most line by line, and proves where it breaks."
+    "ko": "리프를 먼저 읽어 어디가 두껍고 어디가 얇은지 보여 주고, 무엇을 파고들지 되묻습니다. 고른 경로는 한 줄씩 끝까지 따라갑니다.",
+    "en": "Reads the reef back to you — where it is thick, where it is thin — and asks which thread to pull. Then traces that one line by line."
   },
   "L.fTest2": {
     "ko": "아티팩트만 읽는 별도 에이전트가 눈을 가린 채 다시 채점합니다.",
@@ -684,16 +680,16 @@
     "en": "The state on one screen: freshness per source, artifacts by type, warnings left."
   },
   "L.uLabel": {
-    "ko": "가치",
-    "en": "Value"
+    "ko": "왜 다른가",
+    "en": "Why it differs"
   },
   "L.uTitle": {
-    "ko": "코드를 읽어 문서를 만드는 도구는 많습니다",
-    "en": "Plenty of tools turn code into documentation"
+    "ko": "코드 요약기가 아니라, 계속 살아 있는 지식층입니다.",
+    "en": "Not a code summariser — a knowledge layer that stays alive."
   },
   "L.uLede": {
-    "ko": "다른 점은 셋입니다 — 상태 · 유지보수 · 코드 밖 정보.",
-    "en": "Three differences — state, maintenance, and what is not code."
+    "ko": "코드를 읽고 문서를 만들어 주는 도구는 많습니다. reef가 다루는 문제는 그 다음입니다.",
+    "en": "Plenty of tools read code and write documents. reef takes on what comes after that."
   },
   "L.tech.report": {
     "ko": "{report}",
@@ -806,5 +802,213 @@
   "T.srcBack": {
     "ko": "‹ 목록",
     "en": "‹ Files"
+  },
+  "L.heroNote": {
+    "ko": "한 번 만들고 끝나는 문서가 아니라, 시스템과 함께 계속 업데이트되는 지식입니다.",
+    "en": "Not a document you generate once, but knowledge that keeps up with the system."
+  },
+  "P.label": {
+    "ko": "문제",
+    "en": "The problem"
+  },
+  "P.title": {
+    "ko": "복잡한 시스템을 이해할 때, AI도 매번 처음부터 시작합니다.",
+    "en": "Faced with a complex system, AI starts from nothing every time."
+  },
+  "P.body1": {
+    "ko": "코드는 여러 저장소에 흩어져 있고, 중요한 맥락은 위키·티켓·회의록·인수인계 문서에 따로 남아 있습니다. 문서와 코드는 서로 다른 이야기를 하기도 합니다.",
+    "en": "The code is spread across repositories, and the context that matters sits apart from it — in wikis, tickets, minutes and handover notes. Sometimes the documents and the code tell different stories."
+  },
+  "P.body2": {
+    "ko": "그래서 새로운 사람이나 AI 에이전트가 시스템을 이해하려면 같은 탐색을 반복해야 합니다.",
+    "en": "So every new person, and every new agent, repeats the same search."
+  },
+  "P.close": {
+    "ko": "reef는 그 탐색 결과를 한 번 쓰고 버리는 답변이 아니라, 다음 작업에서도 사용할 수 있는 지식으로 만듭니다.",
+    "en": "reef turns the result of that search into knowledge the next task can use, instead of an answer used once and thrown away."
+  },
+  "M.label": {
+    "ko": "reef",
+    "en": "reef"
+  },
+  "M.title": {
+    "ko": "코드와 문서 사이에, 에이전트가 읽을 수 있는 지식층을 만듭니다.",
+    "en": "Between the code and the documents, a knowledge layer an agent can read."
+  },
+  "M.lede": {
+    "ko": "reef는 저장소와 회사 문서를 읽고 시스템의 구조와 동작을 설명하는 아티팩트를 만듭니다. 그리고 단순히 답을 만드는 데서 끝나지 않습니다.",
+    "en": "reef reads the repositories and the company's documents and writes artifacts that describe how the system is built and how it behaves. And it does not stop at producing an answer."
+  },
+  "M.t1": {
+    "ko": "근거를 남깁니다.",
+    "en": "It leaves the evidence."
+  },
+  "M.d1": {
+    "ko": "각 주장에 어떤 소스가 근거가 되었는지 연결합니다.",
+    "en": "Every claim is linked to the source it came from."
+  },
+  "M.t2": {
+    "ko": "모르는 것도 남깁니다.",
+    "en": "It leaves what it does not know."
+  },
+  "M.d2": {
+    "ko": "소스로 확인할 수 없는 내용은 `known_unknowns`로 명시합니다. 이 reef에는 {unknowns}건이 있습니다.",
+    "en": "What the sources cannot settle is written down as `known_unknowns`. This reef holds {unknowns} of them."
+  },
+  "M.t3": {
+    "ko": "낡은 지식을 찾아냅니다.",
+    "en": "It finds the knowledge that went stale."
+  },
+  "M.d3": {
+    "ko": "코드가 바뀌면 기존 지식과 대조해 어떤 내용이 더 이상 유효하지 않을 수 있는지 추적합니다.",
+    "en": "When the code changes, it diffs against what it already knew and tracks which claims may no longer hold."
+  },
+  "M.t4": {
+    "ko": "사람의 답도 지식으로 남깁니다.",
+    "en": "A person's answer becomes knowledge too."
+  },
+  "M.d4": {
+    "ko": "소스만으로 답할 수 없는 질문은 사람에게 넘기고, 답은 다음 작업에서도 사용할 수 있도록 축적합니다.",
+    "en": "Questions the sources cannot answer go to a person, and the answer accumulates for the next task."
+  },
+  "L.d4k": {
+    "ko": "변경",
+    "en": "Change"
+  },
+  "L.d4a": {
+    "ko": "다시 생성",
+    "en": "Regenerate"
+  },
+  "L.d4b": {
+    "ko": "기존 지식과 변경 사항을 대조",
+    "en": "Diffs what changed against what it knew"
+  },
+  "L.d5k": {
+    "ko": "코드 밖의 정보",
+    "en": "Beyond the code"
+  },
+  "L.d5a": {
+    "ko": "코드 중심",
+    "en": "Code only"
+  },
+  "L.d5b": {
+    "ko": "위키·티켓·회의록·인수인계 {docs}건",
+    "en": "{docs} wiki pages, tickets, minutes and handovers"
+  },
+  "L.d6k": {
+    "ko": "사람의 지식",
+    "en": "A person's knowledge"
+  },
+  "L.d6a": {
+    "ko": "대화에서 끝남",
+    "en": "Ends with the conversation"
+  },
+  "L.d6b": {
+    "ko": "다음 작업에서도 사용",
+    "en": "Still there for the next task"
+  },
+  "L.fair": {
+    "ko": "같은 모델 · 같은 설정 · 같은 상한. 컨텍스트는 reef {reefTok} 대 raw {rawTok} 토큰 — 오히려 raw 쪽이 더 큽니다.",
+    "en": "Same model, same settings, same cap. Context: reef {reefTok} against raw {rawTok} tokens — the raw side gets more."
+  },
+  "L.watch1": {
+    "ko": "근거를 따라갈 수 있는가",
+    "en": "Can you follow the evidence?"
+  },
+  "L.watch2": {
+    "ko": "오래된 정보와 현재 코드를 구분하는가",
+    "en": "Does it separate stale information from current code?"
+  },
+  "L.watch3": {
+    "ko": "확인할 수 없는 것을 확실한 것처럼 말하지 않는가",
+    "en": "Does it avoid stating the unverifiable as certain?"
+  },
+  "L.verdict": {
+    "ko": "판정은 하지 않습니다. 어느 쪽이 확인 가능한 답인지 직접 확인하세요.",
+    "en": "No verdict is given here. Which answer you can check is yours to decide."
+  },
+  "L.cMethod": {
+    "ko": "reef가 만든 아티팩트만 읽을 수 있는 별도의 agent를 만들었습니다. 이 agent는 원본 소스와 answer key를 볼 수 없습니다.",
+    "en": "A separate agent was given the artifacts reef built and nothing else — no source repositories, and no answer key."
+  },
+  "T.rs1n": {
+    "ko": "{drafts_min}분",
+    "en": "{drafts_min} min"
+  },
+  "T.rs1l": {
+    "ko": "{drafts}개 초안",
+    "en": "{drafts} drafts"
+  },
+  "T.rs2n": {
+    "ko": "{full_hours}시간",
+    "en": "{full_hours} hours"
+  },
+  "T.rs2l": {
+    "ko": "{artifacts}개 아티팩트",
+    "en": "{artifacts} artifacts"
+  },
+  "T.rs3n": {
+    "ko": "같은 날",
+    "en": "Same day"
+  },
+  "T.rs3l": {
+    "ko": "blind test",
+    "en": "blind test"
+  },
+  "T.rs4n": {
+    "ko": "{log_entries}개",
+    "en": "{log_entries}"
+  },
+  "T.rs4l": {
+    "ko": "log.md timestamps",
+    "en": "log.md timestamps"
+  },
+  "A.finalTitle": {
+    "ko": "reef가 약속하는 것은 AI가 모든 것을 안다는 것이 아닙니다.",
+    "en": "reef does not promise that AI knows everything."
+  },
+  "A.final1": {
+    "ko": "복잡한 시스템을 이해하는 데 필요한 지식을 한 번 만들고,",
+    "en": "Build the knowledge a complex system takes to understand, once."
+  },
+  "A.final2": {
+    "ko": "그 지식에 근거를 붙이고, 무엇을 모르는지 남기고,",
+    "en": "Attach the evidence to it, and leave what is not known standing."
+  },
+  "A.final3": {
+    "ko": "코드가 바뀌면 무엇을 다시 확인해야 하는지 알려주는 것.",
+    "en": "When the code changes, say what has to be checked again."
+  },
+  "A.final4": {
+    "ko": "그리고 그 과정을 직접 검증할 수 있게 만드는 것.",
+    "en": "And make every step of that checkable by someone else."
+  },
+  "A.finalLast": {
+    "ko": "AI가 시스템을 이해하는 방식도, 코드처럼 추적할 수 있어야 하니까요.",
+    "en": "How AI understands a system should be as traceable as the code itself."
+  },
+  "chat.thinking": {
+    "ko": "답을 받아오는 중",
+    "en": "Fetching the answer"
+  },
+  "pager.prev": {
+    "ko": "이전",
+    "en": "Previous"
+  },
+  "pager.next": {
+    "ko": "다음",
+    "en": "Next"
+  },
+  "ui.pager": {
+    "ko": "페이지 이동",
+    "en": "Page navigation"
+  },
+  "ui.repos": {
+    "ko": "공개 저장소",
+    "en": "Public repositories"
+  },
+  "L.rule.f3.6": {
+    "ko": "질문 하나씩 · 답 받아야 다음으로",
+    "en": "one question at a time"
   }
 }

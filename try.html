@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=998e0aa9">
+  <link rel="stylesheet" href="assets/css/site.css?v=46862523">
   <title>reef</title>
   <meta name="description" content="One question about a legacy system, answered twice: once holding a reef, once holding the raw sources.">
 </head>
@@ -49,7 +49,12 @@
         <p class="section-label" data-i18n="T.briefLabel"></p>
         <blockquote class="brief preline" data-i18n="T.h1"></blockquote>
         <p class="body" data-i18n="T.brief"></p>
-        <p class="fair" data-md="T.timeline"></p>
+        <dl class="result-strip">
+          <div><dt data-i18n="T.rs1n"></dt><dd data-i18n="T.rs1l"></dd></div>
+          <div><dt data-i18n="T.rs2n"></dt><dd data-i18n="T.rs2l"></dd></div>
+          <div><dt data-i18n="T.rs3n"></dt><dd data-i18n="T.rs3l"></dd></div>
+          <div><dt data-i18n="T.rs4n"></dt><dd data-i18n="T.rs4l"></dd></div>
+        </dl>
         <p class="meta" data-i18n="T.briefNote"></p>
       </div>
     </section>
@@ -141,8 +146,12 @@
   </main>
 
   <footer>
+    <!-- Filled by the shell: the three pages are a sequence, and the order lives in
+         site.js so it is one fact rather than three copies of it. -->
+    <nav class="pager"></nav>
+    <!-- The public repositories, filled from evidence.json. -->
+    <nav class="foot-repos"></nav>
     <p class="meta" data-i18n="L.foot"></p>
-    <p><a href="about.html" data-i18n="L.footLink"></a></p>
   </footer>
 
   <script>
@@ -150,6 +159,6 @@
        which arms to run. Empty means: prepared answers only. */
     window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
   </script>
-  <script type="module" src="assets/js/compare.js?v=e727907d"></script>
+  <script type="module" src="assets/js/compare.js?v=c0975c09"></script>
 </body>
 </html>
