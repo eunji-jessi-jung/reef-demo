@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=4fe4406c">
+  <link rel="stylesheet" href="assets/css/site.css?v=edb53558">
   <title>reef — 상세</title>
   <meta name="description" content="What the reef demo is made of, every repository and report behind it, how it was graded, and the research that argues against it.">
 </head>
@@ -38,6 +38,23 @@
       </div>
     </section>
 
+    <!-- AI 활용 적절성 is a preliminary-round criterion and a required submission
+         field, and the site did not address it once. Same content as the form, so the
+         two cannot drift. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.aiTitle"></h2>
+        <p class="body" data-i18n="A.aiLede"></p>
+        <ol class="answers">
+          <li><b data-i18n="A.ai1t"></b><span data-md="A.ai1"></span></li>
+          <li><b data-i18n="A.ai2t"></b><span data-md="A.ai2"></span></li>
+          <li><b data-i18n="A.ai3t"></b><span data-md="A.ai3"></span></li>
+          <li><b data-i18n="A.ai4t"></b><span data-md="A.ai4"></span></li>
+        </ol>
+        <p class="meta" data-md="A.aiTools"></p>
+      </div>
+    </section>
+
     <section class="band">
       <div class="band-inner">
         <h2 data-i18n="A.evalTitle"></h2>
@@ -48,14 +65,6 @@
       </div>
     </section>
 
-    <section class="band">
-      <div class="band-inner">
-        <h2 data-i18n="A.benchTitle"></h2>
-        <p class="body" data-i18n="A.benchNote"></p>
-        <table class="bench" id="bench"></table>
-        <p class="body caution" data-i18n="A.benchNeg"></p>
-      </div>
-    </section>
 
     <section class="band">
       <div class="band-inner">
@@ -105,6 +114,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/about.js?v=33942e47"></script>
+  <script type="module" src="assets/js/about.js?v=cb259b32"></script>
 </body>
 </html>

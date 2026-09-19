@@ -24,32 +24,8 @@
   "en": "Knowledge That Compounds"
  },
  "L.sub": {
-  "ko": "AI 에이전트를 위한 지식 레이어 생성 애플리케이션",
-  "en": "An application that builds a knowledge layer for AI agents"
- },
- "L.v1t": {
-  "ko": "출처가 같이 옵니다",
-  "en": "The source comes with it"
- },
- "L.v1b": {
-  "ko": "어느 파일에서 나온 말인지 붙어 옵니다. 미심쩍으면 눌러서 그 파일을 열어 보세요.",
-  "en": "Every answer says which file it came from. If you doubt it, click through and read the file."
- },
- "L.v2t": {
-  "ko": "모르면 모른다고 합니다",
-  "en": "It says when it does not know"
- },
- "L.v2b": {
-  "ko": "소스로 확인이 안 되는 건 그냥 모른다고 남깁니다. 그럴듯하게 지어내지 않습니다.",
-  "en": "What the sources cannot settle is left standing as unknown. It does not fill the gap with something plausible."
- },
- "L.v3t": {
-  "ko": "코드가 바뀌면 알려줍니다",
-  "en": "It tells you when the code moves"
- },
- "L.v3b": {
-  "ko": "어떤 설명이 더는 맞지 않는지 이름을 대 줍니다.",
-  "en": "It names the explanations that have stopped being true."
+  "ko": "코드와 사내 문서를 읽고, 출처가 붙은 답을 만듭니다.",
+  "en": "It reads your code and your company's documents, and produces answers that carry their sources."
  },
  "L.cta": {
   "ko": "직접 물어보기",
@@ -215,18 +191,6 @@
   "ko": "부족했던 5건은 전부 소스로는 답할 수 없고 답하는 방법만 제시할 수 있는 유형이었습니다. 리프가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
   "en": "The five short answers were all of one kind: the sources cannot settle them, and the reef could only supply the method. The reef understated itself 11 times and overstated itself none. The report has it question by question."
  },
- "A.benchTitle": {
-  "ko": "다른 저장소에서도 쟀습니다",
-  "en": "Measured on other repositories too"
- },
- "A.benchNote": {
-  "ko": "셀플로우는 제가 지은 회사라서, 제가 지은 것 위에서만 잰 수치는 증거로 약합니다. 공개 저장소로 따로 벤치마크를 돌렸습니다.",
-  "en": "Sellflow is a company I built, so numbers measured only on something I built are weak evidence. A separate benchmark was run on public repositories."
- },
- "A.benchNeg": {
-  "ko": "같은 방식으로 제 회사 실제 저장소에서도 돌렸고, 구현 과제에서는 reef 없는 쪽이 이겼습니다. 이 저장소는 사내 코드라서 제출할 수 없습니다. 그래도 여기 적어 두는 건, 이기는 수치만 골라 보여주면 위의 채점도 같이 신뢰를 잃기 때문입니다.",
-  "en": "The same method was run on my employer's real repositories, and on implementation tasks the no-reef side won. That repository is internal and cannot be submitted. It is stated here because showing only the favourable numbers would cost the grading above its credibility too."
- },
  "A.ethTitle": {
   "ko": "이 접근을 정면으로 반박하는 연구",
   "en": "Research that argues against this approach"
@@ -298,10 +262,6 @@
  "chat.placeholder": {
   "ko": "셀플로우에 대해 무엇이든 물어보세요",
   "en": "Ask anything about Sellflow"
- },
- "chat.prepared": {
-  "ko": "준비된 답변 · 아티팩트만 읽고 생성",
-  "en": "prepared answer · generated from artifacts only"
  },
  "chat.send": {
   "ko": "보내기",
@@ -424,8 +384,8 @@
   "en": "See what came out of it"
  },
  "L.vTitle": {
-  "ko": "무엇이 다른가",
-  "en": "What is different about it"
+  "ko": "설계가 답하려는 세 가지 질문",
+  "en": "The three questions the design answers"
  },
  "L.diffTitle": {
   "ko": "문서 생성기와 나란히 놓으면",
@@ -498,5 +458,129 @@
  "L.fHuman": {
   "ko": "사람",
   "en": "a person"
+ },
+ "L.vLede": {
+  "ko": "지식 베이스는 대개 낡거나, 틀렸거나, 아무도 못 찾아서 죽습니다. reef 의 모든 설계 결정은 이 셋 중 하나로 거슬러 올라갑니다.",
+  "en": "Knowledge bases die because they go stale, because they are wrong, or because nobody can find anything in them. Every design decision in reef traces back to one of these three."
+ },
+ "L.q1t": {
+  "ko": "어떻게 낡지 않게 하는가",
+  "en": "How do you keep it from going stale?"
+ },
+ "L.q1b": {
+  "ko": "소스를 스냅샷으로 떠 두고, 코드가 바뀌면 어떤 주장이 영향을 받는지 계산합니다. 지난 실행에서는 바뀐 파일 {changed}건을 받아 아티팩트 {gone}개를 지목하고 {refreshed}개를 갱신했습니다.",
+  "en": "It snapshots the sources, and when the code moves it works out which claims are affected. On its last run it took {changed} changed files, named {gone} artifacts and refreshed {refreshed}."
+ },
+ "L.q2t": {
+  "ko": "어떻게 참인 줄 아는가",
+  "en": "How do you know it is true?"
+ },
+ "L.q2b": {
+  "ko": "주장마다 출처 파일이 붙습니다. 소스로 확인이 안 되는 것은 {unknowns}건이 모름으로 적혀 있고, 그중 사람만 답할 수 있는 {owner}건은 질문으로 따로 뽑혀 있습니다.",
+  "en": "Each claim names the file it came from. {unknowns} findings are written down as not determinable, and the {owner} of them only a person can settle are pulled out as questions."
+ },
+ "L.q3t": {
+  "ko": "필요한 걸 어떻게 찾는가",
+  "en": "How does someone find what they need?"
+ },
+ "L.q3b": {
+  "ko": "아티팩트가 9종으로 나뉘고 서로 링크됩니다. 무엇을 알고 싶은지에 따라 들어가는 문이 다릅니다 — 데이터가 뭘 뜻하나는 SCH, 왜 이렇게 됐나는 DEC, 두 시스템이 뭘 약속했나는 CON.",
+  "en": "Artifacts come in nine types and link to each other, so the door you come in by depends on what you want. What the data means is SCH, why it was built this way is DEC, what two systems agreed on is CON."
+ },
+ "L.sTitle": {
+  "ko": "가상의 회사 밖에서도",
+  "en": "Outside the fictional company"
+ },
+ "L.sLede": {
+  "ko": "reef 는 셀플로우에 맞춰 만든 게 아닙니다. 서비스와 데이터와 인터페이스가 있는 코드베이스면 됩니다.",
+  "en": "reef was not built around Sellflow. It needs a codebase that has services, data and interfaces — that is all."
+ },
+ "L.sFitT": {
+  "ko": "맞는 곳",
+  "en": "Where it fits"
+ },
+ "L.sFit": {
+  "ko": "마이크로서비스, 모듈이 있는 모놀리스, 풀스택 앱, 데이터 파이프라인, IaC. 저장소 3~15개가 한 도메인을 이루는 규모가 가장 좋습니다 — 한 사람이 전체를 못 쥐면서도 연결을 전부 추적할 수 있는 크기입니다. 100개가 넘으면 팀이나 도메인 단위로 쪼갭니다.",
+  "en": "Microservices, monoliths with modules, full-stack apps, data pipelines, infrastructure-as-code. The sweet spot is 3 to 15 repositories forming one domain — big enough that no one person holds the whole picture, small enough to trace every connection. Past a hundred, split it by team or domain."
+ },
+ "L.sUnfitT": {
+  "ko": "안 맞는 곳",
+  "en": "Where it does not"
+ },
+ "L.sUnfit": {
+  "ko": "백엔드 없는 네이티브 모바일 앱, 게임 엔진, 임베디드 펌웨어, ML 학습 노트북. 데이터 스키마도 API 경계도 없어서 reef 가 붙잡을 재료가 없습니다.",
+  "en": "Native mobile apps with no backend, game engines, embedded firmware, ML training notebooks. There are no data schemas or service boundaries for it to hold on to."
+ },
+ "L.sBenchT": {
+  "ko": "공개 저장소에서 따로 쟀습니다",
+  "en": "Measured separately on public repositories"
+ },
+ "L.sBench": {
+  "ko": "셀플로우는 제가 지은 회사입니다. 제가 지은 것 위에서만 잰 숫자는 증거로 약해서, 공개 저장소로 벤치마크를 따로 돌렸습니다.",
+  "en": "Sellflow is a company I built. Numbers measured only on something I built are weak evidence, so a separate benchmark was run on public repositories."
+ },
+ "L.sNeg": {
+  "ko": "같은 방법으로 제 회사 실제 저장소에서도 돌렸더니, 구현 과제에서는 reef 없는 쪽이 이겼습니다. 사내 코드라 제출할 수 없습니다. 그래도 적어 두는 건, 이기는 숫자만 보여주면 위의 숫자도 같이 못 믿게 되기 때문입니다.",
+  "en": "The same method was run on my employer's real repositories, and on implementation tasks the side without a reef won. That code is internal and cannot be submitted. It is here because showing only the favourable numbers would cost the numbers above their credibility."
+ },
+ "L.sCta": {
+  "ko": "벤치마크와 한계 전부 보기",
+  "en": "The full benchmark, and the limits"
+ },
+ "A.aiTitle": {
+  "ko": "AI 를 어떻게 썼나",
+  "en": "How AI was used"
+ },
+ "A.aiLede": {
+  "ko": "전부 Claude Code 로 만들었습니다. 코드를 대신 쓰게 한 게 아니라, 에이전트가 스스로 조사하고 스스로 채점하는 파이프라인을 설계했습니다.",
+  "en": "All of it was built with Claude Code. Not by having it write the code for me, but by designing a pipeline in which the agent investigates and then grades itself."
+ },
+ "A.ai1t": {
+  "ko": "결정적인 일과 판단할 일을 나눴습니다",
+  "en": "What is deterministic is separated from what needs judgement"
+ },
+ "A.ai1": {
+  "ko": "색인, 소스 스냅샷, 변경 영향 계산, 린트는 `reef.py` 가 처리하고 모델을 한 번도 부르지 않습니다. 같은 입력이면 같은 출력이 나와야 하는 일이기 때문입니다. 판단이 필요한 일만 스킬이 모델에게 넘깁니다.",
+  "en": "Indexing, source snapshots, change impact and linting are done by `reef.py`, which never calls a model — these are jobs where the same input has to give the same output. Only the parts that need judgement are handed to a model, by the skills."
+ },
+ "A.ai2t": {
+  "ko": "채점할 수 있게 만드는 데 가장 공을 들였습니다",
+  "en": "Most of the work went into making it gradable"
+ },
+ "A.ai2": {
+  "ko": "AI 가 만든 문서가 맞는지 증명하려면 정답이 있어야 하는데, 실제 코드베이스에는 정답이 없습니다. 그래서 정답을 먼저 문서로 고정한 가상 코드베이스를 짓고, 아티팩트만 읽을 수 있는 **별도 에이전트**에게 눈 가린 채점을 시켰습니다. 채점하는 쪽은 소스도 정답도 보지 못했습니다.",
+  "en": "To prove that AI-written documentation is correct you need an answer, and a real codebase does not have one. So a fictional codebase was built with its answer written down first, and a **separate agent** allowed to read only the artifacts was made to grade it blind. The grader saw neither the sources nor the key."
+ },
+ "A.ai3t": {
+  "ko": "이 사이트의 숫자는 손으로 타이핑하지 않습니다",
+  "en": "No number on this site was typed by hand"
+ },
+ "A.ai3": {
+  "ko": "화면에 나오는 모든 수치는 `tools/build-*.py` 가 세 저장소에서 추출합니다. 저장소가 바뀌면 사이트가 따라옵니다 — 이 제품이 주장하는 규율을 사이트 자신에게도 적용했습니다.",
+  "en": "Every figure on screen is extracted from the three repositories by `tools/build-*.py`. When the repositories change, the site follows — the same discipline this product argues for, applied to the site itself."
+ },
+ "A.ai4t": {
+  "ko": "만들면서 두 번 스스로를 반박했습니다",
+  "en": "Twice, it contradicted itself and said so"
+ },
+ "A.ai4": {
+  "ko": "지지 근거로 인용하려던 연구가 실은 이 접근에 반대한다는 것을 원문에서 확인하고 논지를 다시 짰습니다. 그리고 셀플로우에 써 보다가 드러난 플러그인 결함 5건을 고쳐 공개했습니다 — 넷은 변경 감지를 망가뜨리고 있었습니다.",
+  "en": "A paper that was going to be cited in support turned out, on reading the original, to argue against this approach, so the argument was rebuilt around it. And five defects that surfaced while using the plugin on Sellflow were fixed and published — four of them were breaking change detection."
+ },
+ "A.aiTools": {
+  "ko": "쓴 것: Claude Code (Opus 5) 로 플러그인·픽스처·리프·이 사이트를, Claude Sonnet 5 로 이 데모의 채팅을. 그 밖에는 Python 3 과 Vercel Functions 뿐입니다.",
+  "en": "What was used: Claude Code (Opus 5) for the plugin, the fixture, the reef and this site; Claude Sonnet 5 for this demo's chat. Beyond that, only Python 3 and Vercel Functions."
+ },
+ "T.timeline": {
+  "ko": "이 리프는 {drafts_min}분 만에 초안 {drafts}개가 서고, {full_hours}시간 뒤 아티팩트 {artifacts}개가 됐습니다. 눈 가린 채점까지 같은 날 안에 끝났습니다 — 무엇을 언제 했는지는 리프 저장소 `log.md` 에 {log_entries}건의 타임스탬프로 남아 있습니다.",
+  "en": "This reef stood up {drafts} drafts in {drafts_min} minutes and reached {artifacts} artifacts {full_hours} hours later. The blind grading finished the same day — what was done when is in the reef's own `log.md`, {log_entries} timestamped entries."
+ },
+ "T.runTitle": {
+  "ko": "직접 돌려 보려면",
+  "en": "To run it yourself"
+ },
+ "T.runNote": {
+  "ko": "플러그인을 Claude Code 에 설치하고 저장소를 가리키면 됩니다. `/reef:init` 이 소스를 물어보고, 나머지는 순서대로 돕니다.",
+  "en": "Install the plugin into Claude Code and point it at your repositories. `/reef:init` asks where the sources are; the rest runs in order."
  }
 }

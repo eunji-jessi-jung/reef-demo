@@ -13,7 +13,7 @@
  * If the proxy is absent, over budget or unreachable, the page falls back to recorded
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
-import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=47ab1988';
+import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=b3ed5e9a';
 
 const API = window.REEF_API || '';
 const ARMS = ['reef', 'raw'];
@@ -230,6 +230,24 @@ function renderSources() {
     .map(x => `<li><code>${esc(x)}</code></li>`).join('');
 }
 
+/* The commands, in the order the skills actually run, with the plugin's own install
+   line. Kept here rather than in the copy file because it is code, not prose. */
+function renderRun() {
+  const el2 = document.getElementById('run');
+  if (!el2) return;
+  const plugin = state.ev?.repos?.plugin || '';
+  /* No comments on these lines: the block should read the same in both languages,
+     and the copy above already says what each one does. */
+  el2.textContent = [
+    `/plugin install ${plugin.replace('https://github.com/', '')}`,
+    '',
+    '/reef:init',
+    '/reef:scuba',
+    '/reef:test',
+    '/reef:update',
+  ].join('\n');
+}
+
 function syncInput() {
   if (el.form) el.form.hidden = !live;
   if (el.offline) {
@@ -259,6 +277,7 @@ async function mount() {
 
   chips();
   renderSources();
+  renderRun();
   syncInput();
   /* qa.json arrives after the shell has filled the copy, and it carries the measured
      context sizes, so the strings that quote them are refilled once it is in. */

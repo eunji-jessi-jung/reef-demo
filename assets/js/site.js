@@ -55,6 +55,11 @@ export function copyVars() {
     gone: l.artifacts_gone_false,
     refreshed: l.artifacts_refreshed,
     verified: ev.external?.eth?.verified,
+    /* How long this reef took, read off its own log by tools/build-evidence.py. */
+    drafts: ev.build?.drafts,
+    drafts_min: ev.build?.drafts_min,
+    full_hours: ev.build?.full_hours,
+    log_entries: ev.build?.entries,
     /* The no-reef arm's inventory, straight from the manifest the proxy was built from. */
     files: state.sources?.files_n,
     /* Context actually given to each arm, as the API reported it on a recorded run. */

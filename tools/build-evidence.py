@@ -7,6 +7,7 @@ site follows them — which is the same discipline the product argues for.
     python3 tools/build-evidence.py
 """
 import json, pathlib, re, subprocess, sys
+from datetime import datetime
 
 SF = pathlib.Path.home() / "Projects/sellflow"
 RF = pathlib.Path.home() / "Projects/sellflow-reef"
@@ -175,6 +176,38 @@ EXTERNAL = {
 }
 
 
+def build_timeline(log: str) -> dict:
+    """How long the reef took to stand up, read off log.md's own timestamps.
+
+    The plugin README quotes 10-20 minutes for a small project, which is not what
+    happened here and must not be claimed. What the log actually supports is three
+    checkpoints, and a judge can hold each against the timestamp beside it:
+    the snorkel pass that produced the first drafts, the point scuba's manifest
+    closed, and the last entry of the day. Anything not in the log is not reported.
+    """
+    entries = [(datetime.fromisoformat(m.group(1)), m.group(2))
+               for m in re.finditer(r"\*\*(\S+?)\*\* — (.+)", log)]
+    if not entries:
+        return {}
+    start = entries[0][0]
+    out = {"entries": len(entries), "start": start.isoformat(timespec="minutes")}
+
+    def minutes(then):
+        return round((then - start).total_seconds() / 60)
+
+    for when, text in entries:
+        m = re.search(r"generated (\d+) artifacts", text)
+        if m and "drafts_min" not in out:
+            out["drafts"] = int(m.group(1))
+            out["drafts_min"] = minutes(when)
+        if re.search(r"manifest \d+/\d+ complete", text) and "full_min" not in out:
+            out["full_min"] = minutes(when)
+
+    out["last_min"] = minutes(entries[-1][0])
+    out["full_hours"] = round(out.get("full_min", 0) / 60, 1)
+    return out
+
+
 def main():
     fx = {"wiki": wiki(), "v1": legacy_class(), "grep": grep_proof(), "backlog": backlog()}
     fx["counts"] = {
@@ -196,6 +229,7 @@ def main():
         "evaluation": evaluation(),
         "external": EXTERNAL,
         "loop": {"changed_files": 32, "artifacts_gone_false": 13, "artifacts_refreshed": 23},
+        "build": build_timeline(log),
         "log": [{"at": m.group(1)[:16].replace("T", " "), "text": m.group(2).strip()}
                 for m in re.finditer(r"\*\*(\S+?)\*\* — (.+)", log)],
     }
@@ -206,6 +240,9 @@ def main():
     print(f"grep     {len(ev['fixture']['grep']['hits'])} hits")
     print(f"reef     {r['artifacts']} artifacts · {r['unknowns']} unknowns · {r['owner_questions']} owner questions")
     print(f"eval     {e['answered']}/{e['questions']} answered · {e['fragments_recovered']}/{e['fragments_total']} fragments")
+    b2 = ev["build"]
+    print(f"build    {b2['drafts']} drafts in {b2['drafts_min']} min · "
+          f"{r['artifacts']} in {b2['full_hours']} h · {b2['entries']} log entries")
     print(f"→ {OUT}")
 
 

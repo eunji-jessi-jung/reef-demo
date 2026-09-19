@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=4fe4406c">
+  <link rel="stylesheet" href="assets/css/site.css?v=edb53558">
   <title>reef — 같은 질문, 답 두 개</title>
   <meta name="description" content="One question about a legacy system, answered twice: once holding a reef, once holding the raw sources.">
 </head>
@@ -28,6 +28,7 @@
         <p class="kicker" data-i18n="T.kicker"></p>
         <blockquote class="brief preline" data-i18n="T.h1"></blockquote>
         <p class="body" data-i18n="T.brief"></p>
+        <p class="fair" data-md="T.timeline"></p>
         <p class="meta" data-i18n="T.briefNote"></p>
       </div>
     </section>
@@ -89,6 +90,15 @@
         </aside>
       </div>
     </section>
+
+    <!-- Feasibility: the thing installs and runs, and here is the order. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="T.runTitle"></h2>
+        <p class="body" data-md="T.runNote"></p>
+        <pre class="term" id="run"></pre>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -101,6 +111,6 @@
        which arms to run. Empty means: prepared answers only. */
     window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
   </script>
-  <script type="module" src="assets/js/compare.js?v=d578f531"></script>
+  <script type="module" src="assets/js/compare.js?v=29151ee3"></script>
 </body>
 </html>

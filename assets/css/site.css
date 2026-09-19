@@ -316,3 +316,27 @@ h3{font-size:clamp(17px,1.9vw,20px); margin:34px 0 12px; color:var(--ink)}
 .cta-quiet{background:transparent; color:var(--accent); border:1px solid var(--accent)}
 .cta-quiet:hover{background:color-mix(in srgb,var(--accent) 12%,transparent); filter:none}
 .band .cta{margin-top:10px}
+
+/* ---------- landing: the three questions, and where it fits ---------- */
+.questions{list-style:none; margin:0 0 8px; padding:0; counter-reset:q; display:grid; gap:20px}
+@media(min-width:900px){ .questions{grid-template-columns:repeat(3,1fr); gap:26px} }
+.questions li{counter-increment:q; border-top:2px solid var(--accent); padding-top:14px}
+.questions b{display:block; margin-bottom:8px; font-size:16px}
+.questions b::before{
+  content:counter(q); font-family:var(--mono); color:var(--accent);
+  margin-right:8px; font-weight:400;
+}
+.questions span{color:var(--ink-dim); font-size:15px; line-height:1.6}
+/* Where it fits, and where it does not — the second half is the part that earns trust,
+   so it is not styled as a warning. */
+.fit{margin-bottom:8px}
+.fit-yes{border-left:2px solid var(--accent); padding-left:16px}
+.fit-no{border-left:2px solid var(--line); padding-left:16px}
+.fit .phase{margin-top:0}
+.fit .body{max-width:none}
+
+/* The AI-use list: a heading per item, then the explanation. Scoped to the direct
+   child, because the explanations contain their own inline <b> emphasis. */
+.answers li > b{display:block; margin-bottom:6px; color:var(--ink)}
+.answers li > span{display:block; color:var(--ink-dim)}
+.answers li > span b{color:var(--ink)}

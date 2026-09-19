@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=4fe4406c">
+  <link rel="stylesheet" href="assets/css/site.css?v=edb53558">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -69,11 +69,12 @@
     <section class="band">
       <div class="band-inner">
         <h2 data-i18n="L.vTitle"></h2>
-        <ul class="values">
-          <li><b data-i18n="L.v1t"></b><span data-i18n="L.v1b"></span></li>
-          <li><b data-i18n="L.v2t"></b><span data-i18n="L.v2b"></span></li>
-          <li><b data-i18n="L.v3t"></b><span data-i18n="L.v3b"></span></li>
-        </ul>
+        <p class="body" data-i18n="L.vLede"></p>
+        <ol class="questions">
+          <li><b data-i18n="L.q1t"></b><span data-i18n="L.q1b"></span></li>
+          <li><b data-i18n="L.q2t"></b><span data-i18n="L.q2b"></span></li>
+          <li><b data-i18n="L.q3t"></b><span data-i18n="L.q3b"></span></li>
+        </ol>
 
         <h3 data-i18n="L.diffTitle"></h3>
         <table class="diff">
@@ -90,7 +91,33 @@
       </div>
     </section>
 
-    <!-- 4. How it was checked, in three numbers, with the way to check it yourself. -->
+    <!-- 4. Range. The preliminary round scores 확장성 and the site had nothing on it:
+         one fictional company, and the one real benchmark three clicks away. Stating
+         where it does not fit is part of the answer. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="L.sTitle"></h2>
+        <p class="body" data-i18n="L.sLede"></p>
+        <div class="grid2 fit">
+          <div class="fit-yes">
+            <p class="phase" data-i18n="L.sFitT"></p>
+            <p class="body" data-i18n="L.sFit"></p>
+          </div>
+          <div class="fit-no">
+            <p class="phase" data-i18n="L.sUnfitT"></p>
+            <p class="body" data-i18n="L.sUnfit"></p>
+          </div>
+        </div>
+
+        <h3 data-i18n="L.sBenchT"></h3>
+        <p class="body" data-i18n="L.sBench"></p>
+        <table class="bench" id="bench"></table>
+        <p class="body caution" data-i18n="L.sNeg"></p>
+        <a class="cta cta-quiet" href="about.html"><span data-i18n="L.sCta"></span> <em>&#8594;</em></a>
+      </div>
+    </section>
+
+    <!-- 5. How it was checked, in three numbers, with the way to check it yourself. -->
     <section class="band">
       <div class="band-inner">
         <h2 data-i18n="L.cTitle"></h2>
@@ -106,6 +133,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=cda8cca8"></script>
+  <script type="module" src="assets/js/landing.js?v=7f75f5a9"></script>
 </body>
 </html>
