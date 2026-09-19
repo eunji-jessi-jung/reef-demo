@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="reef">
+  <!-- The brand mark is the tilde already in the wordmark: a wave. Two of them, the
+       upper one lit and the lower one faint, because the thing this names accretes.
+       One shape, two strokes — legible at 16px, which is the only size that matters. -->
+  <rect width="32" height="32" rx="8" fill="#061714"/>
+  <path d="M6 13.4c2.5-4 5-4 7.5 0s5 4 7.5 0 5-4 5 0"
+        fill="none" stroke="#ff7d66" stroke-width="3.1" stroke-linecap="round"/>
+  <path d="M6 21.6c2.5-4 5-4 7.5 0s5 4 7.5 0 5-4 5 0"
+        fill="none" stroke="#ff7d66" stroke-width="3.1" stroke-linecap="round" opacity=".42"/>
+</svg>

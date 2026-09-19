@@ -566,3 +566,8 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
   font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
   color:var(--ink-faint); margin:0 0 14px;
 }
+
+/* The wordmark: the same two waves as the icon, then the name. */
+.brand{display:inline-flex; align-items:center; gap:9px}
+.brand-mark{width:26px; height:20px; color:var(--accent); flex:0 0 auto}
+.brand:hover .brand-mark{filter:brightness(1.12)}
