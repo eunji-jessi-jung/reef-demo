@@ -32,7 +32,7 @@
   "en": "The source comes with it"
  },
  "L.v1b": {
-  "ko": "어느 파일에서 나온 말인지 붙어 옵니다. 못 미더우면 눌러서 그 파일을 열어 보면 됩니다.",
+  "ko": "어느 파일에서 나온 말인지 붙어 옵니다. 미심쩍으면 눌러서 그 파일을 열어 보세요.",
   "en": "Every answer says which file it came from. If you doubt it, click through and read the file."
  },
  "L.v2t": {
@@ -72,7 +72,7 @@
   "en": "Three days"
  },
  "T.h1": {
-  "ko": "「정산 정정 업무를 AI 에이전트로 자동화하려 합니다.\n현재 프로세스가 어떻게 도는지 3일 안에 파악해 주세요.」",
+  "ko": "\"정산 정정 업무를 AI 에이전트로 자동화하려 합니다.\n현재 프로세스가 어떻게 도는지 3일 안에 파악해 주세요.\"",
   "en": "“We want to automate settlement corrections with an AI agent.\nWork out how the current process runs. You have three days.”"
  },
  "T.brief": {
@@ -88,7 +88,7 @@
   "en": "What you are handed"
  },
  "T.srcNote": {
-  "ko": "코드만이 아닙니다. 실제 회사가 그렇듯 답의 절반은 문서에 있고, 그 문서 중 몇 개는 틀렸습니다. 아래는 reef 없는 쪽이 받은 파일 {files}개 전부입니다 — reef 가 만들어낸 것은 한 개도 들어 있지 않습니다.",
+  "ko": "코드만 보면 되는 게 아닙니다. 실제 회사가 그렇듯 답의 절반은 문서에 있고, 그 문서 중 몇 개는 틀렸습니다. 아래는 reef 없는 쪽이 받은 파일 {files}개 전부입니다. reef 가 만들어낸 것은 하나도 없습니다.",
   "en": "Not only code. As in a real company, half the answer is in the documents — and several of those documents are wrong. Below are all {files} files handed to the no-reef side. None of them is something the reef produced."
  },
  "T.srcCode": {
@@ -112,7 +112,7 @@
   "en": "`/reef:init` — registers and indexes the five repositories and the document tree."
  },
  "T.s2": {
-  "ko": "`/reef:snorkel` + `/reef:source` — 구조를 훑고, API 스펙과 ER 다이어그램을 앱을 실제로 띄워 뽑아냅니다. 아티팩트 43개 초안.",
+  "ko": "`/reef:snorkel` + `/reef:source` — 구조를 훑고, 앱을 실제로 띄워서 API 스펙과 ER 다이어그램을 뽑습니다. 아티팩트 43개 초안.",
   "en": "`/reef:snorkel` + `/reef:source` — sweeps the structure and extracts API specs and ER diagrams by importing the apps themselves. 43 draft artifacts."
  },
  "T.s3": {
@@ -140,7 +140,7 @@
   "en": "Pick a question below, or ask your own. The left answer is given holding the reef; the right one is given holding all of Sellflow's sources."
  },
  "T.fair": {
-  "ko": "공정하게 맞춘 것: 같은 모델 · 같은 추론 강도 · 같은 토큰 상한 · 규칙도 한 줄씩 대응시켰습니다. 컨텍스트 실측은 reef {reefTok} 대 원본 {rawTok} 토큰으로, 원본 쪽이 더 큽니다({recordedAt} 측정). 차이는 무엇을 들고 있느냐 하나뿐입니다.",
+  "ko": "공정하게 맞췄습니다. 모델도, 추론 강도도, 토큰 상한도 같고 규칙은 한 줄씩 대응시켰습니다. 컨텍스트를 실측하면 reef {reefTok} 대 원본 {rawTok} 토큰으로 원본 쪽이 더 큽니다({recordedAt} 측정). 다른 건 무엇을 들고 있느냐 하나뿐입니다.",
   "en": "Held equal on purpose: same model, same reasoning effort, same token ceiling, and rules written line for line against each other. Measured context: {reefTok} tokens for the reef against {rawTok} for the sources — the no-reef side is given the larger of the two (measured {recordedAt}). The only difference is what it is holding."
  },
  "T.armReef": {
@@ -164,7 +164,7 @@
   "en": "No answer came back on this side."
  },
  "T.verdictNote": {
-  "ko": "판정은 하지 않습니다. 두 답을 그대로 놓습니다 — 어느 쪽이 확인 가능한 답인지는 읽는 사람이 정합니다.",
+  "ko": "판정은 하지 않습니다. 두 답을 그대로 놓았으니, 어느 쪽이 확인 가능한 답인지는 읽는 사람이 정합니다.",
   "en": "No verdict is rendered here. Both answers are put down as they came — which one is checkable is the reader's call."
  },
  "A.h1": {
@@ -172,7 +172,7 @@
   "en": "What it is made of, and where to check it"
  },
  "A.lede": {
-  "ko": "이 페이지는 심사용입니다. 주장보다 확인 경로를 우선해 적었습니다.",
+  "ko": "이 페이지는 심사용입니다. 주장보다 확인하는 경로를 먼저 적었습니다.",
   "en": "This page is for review. It puts the ways to check ahead of the claims."
  },
  "A.repoTitle": {
@@ -180,7 +180,7 @@
   "en": "Three repositories"
  },
  "A.repoNote": {
-  "ko": "전부 공개이고 Apache-2.0 입니다. `sellflow` 와 `sellflow-reef` 는 나란히 두어야 합니다 — `.reef/project.json` 이 `../sellflow/repos/*` 를 가리킵니다. 플러그인은 어디에 두어도 됩니다.",
+  "ko": "전부 공개이고 Apache-2.0 입니다. `sellflow` 와 `sellflow-reef` 는 나란히 두어야 합니다. `.reef/project.json` 이 `../sellflow/repos/*` 를 가리키기 때문입니다. 플러그인은 어디에 두어도 됩니다.",
   "en": "All public, all Apache-2.0. `sellflow` and `sellflow-reef` must sit side by side — `.reef/project.json` points at `../sellflow/repos/*`. The plugin can live anywhere."
  },
  "A.repoPlugin": {
@@ -208,11 +208,11 @@
   "en": "How it was graded"
  },
  "A.evalMethod": {
-  "ko": "채점 방법: 아티팩트만 읽을 수 있는 에이전트가 {questions}문항에 답했습니다. 소스 저장소도, 문서 트리도, 채점 기준도 주지 않았고 — 기준은 채점이 닫힐 때까지 봉인했습니다.",
+  "ko": "채점 방법은 이렇습니다. 아티팩트만 읽을 수 있는 에이전트가 {questions}문항에 답했습니다. 소스 저장소도, 문서 트리도, 채점 기준도 주지 않았고, 기준은 채점이 닫힐 때까지 봉인했습니다.",
   "en": "Method: an agent allowed to read only the artifacts answered {questions} questions. No source repositories, no document tree, and no answer key — the key stayed sealed until grading closed."
  },
  "A.evalNote": {
-  "ko": "부족했던 5건은 전부 「소스로 답할 수 없고, 답하는 방법만 제시할 수 있다」는 유형이었습니다. 리프가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
+  "ko": "부족했던 5건은 전부 소스로는 답할 수 없고 답하는 방법만 제시할 수 있는 유형이었습니다. 리프가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
   "en": "The five short answers were all of one kind: the sources cannot settle them, and the reef could only supply the method. The reef understated itself 11 times and overstated itself none. The report has it question by question."
  },
  "A.benchTitle": {
@@ -224,7 +224,7 @@
   "en": "Sellflow is a company I built, so numbers measured only on something I built are weak evidence. A separate benchmark was run on public repositories."
  },
  "A.benchNeg": {
-  "ko": "같은 방식으로 제 회사 실제 저장소에서도 돌렸고, 구현 과제에서는 reef 없는 쪽이 이겼습니다. 이 저장소는 사내 코드라서 제출할 수 없습니다. 여기에 적는 이유는, 이기는 수치만 골라 보여주면 위의 채점도 같이 신뢰를 잃기 때문입니다.",
+  "ko": "같은 방식으로 제 회사 실제 저장소에서도 돌렸고, 구현 과제에서는 reef 없는 쪽이 이겼습니다. 이 저장소는 사내 코드라서 제출할 수 없습니다. 그래도 여기 적어 두는 건, 이기는 수치만 골라 보여주면 위의 채점도 같이 신뢰를 잃기 때문입니다.",
   "en": "The same method was run on my employer's real repositories, and on implementation tasks the no-reef side won. That repository is internal and cannot be submitted. It is stated here because showing only the favourable numbers would cost the grading above its credibility too."
  },
  "A.ethTitle": {
@@ -236,19 +236,19 @@
   "en": "It would be convenient to leave this out. The work was not done in ignorance of it; the paper was read on {verified}."
  },
  "A.ethAnswer1": {
-  "ko": "이 논문이 잰 것은 「이슈 고치기」 과제 성공률입니다. reef 가 겨냥하는 것은 「이 프로세스가 어떻게 도는지 파악하기」이고, 그건 저 벤치마크에 없는 과제입니다.",
+  "ko": "이 논문이 잰 것은 이슈를 고치는 과제의 성공률입니다. reef 가 겨냥하는 건 이 프로세스가 어떻게 도는지 파악하는 일이고, 그건 저 벤치마크에 없는 과제입니다.",
   "en": "The paper measures success on issue-fixing tasks. What reef targets is working out how a process runs, which is not a task in that benchmark."
  },
  "A.ethAnswer2": {
-  "ko": "「저장소 개요는 도움이 안 된다」에는 동의합니다. reef 가 만드는 것은 개요가 아니라 인용된 주장 · 명시된 모름 · 기록된 모순입니다.",
+  "ko": "저장소 개요는 도움이 안 된다는 데 동의합니다. reef 가 만드는 건 개요가 아닙니다. 주장에는 인용이 붙고, 모르는 것은 모른다고 적히고, 모순은 모순대로 기록됩니다.",
   "en": "On repository overviews being unhelpful, I agree. What reef produces is not an overview but cited claims, stated unknowns and recorded contradictions."
  },
  "A.ethAnswer3": {
-  "ko": "「배포 전에 엄밀히 평가하라」가 정확히 `/reef:test` 가 하는 일입니다. 그래서 눈 가린 채점을 돌렸고 결과를 위에 적었습니다.",
+  "ko": "배포 전에 엄밀히 평가하라는 지적이 정확히 `/reef:test` 가 하는 일입니다. 그래서 눈 가린 채점을 돌렸고 결과를 위에 적었습니다.",
   "en": "“Evaluate rigorously before deploying” is exactly what `/reef:test` does. That is why the blind grading was run, and why its result is above."
  },
  "A.ethAnswer4": {
-  "ko": "「추론 비용이 20% 이상 늘어난다」는 인정합니다. 반박할 자체 데이터가 없습니다.",
+  "ko": "추론 비용이 20% 이상 늘어난다는 것은 인정합니다. 반박할 자체 데이터가 없습니다.",
   "en": "On inference cost rising by over 20%, I concede it. I have no data of my own that contradicts it."
  },
  "A.limitTitle": {
@@ -256,7 +256,7 @@
   "en": "Limits"
  },
  "A.limit1": {
-  "ko": "아티팩트 {artifacts}개 전부 `status: draft` 입니다. 사람이 검토한 것이 아니라 소스에 대고 검증된 상태라는 뜻이고, 이 구분을 지키는 것이 리프의 규칙입니다.",
+  "ko": "아티팩트 {artifacts}개 전부 `status: draft` 입니다. 소스에 대고 검증은 됐지만 사람이 검토하지는 않았다는 뜻입니다. 리프는 이 구분을 지킵니다.",
   "en": "All {artifacts} artifacts are `status: draft`. That means verified against the sources, not reviewed by a person — and keeping those two apart is one of the reef's rules."
  },
  "A.limit2": {
@@ -264,11 +264,11 @@
   "en": "Sellflow is fictional. It does not reproduce the mess of real legacy systems, least of all the context that lives only in people."
  },
  "A.limit3": {
-  "ko": "루프의 절반만 이 데모에 있습니다. 사람이 답을 남기고 그것이 다음 회차에 쌓이는 부분은 오너가 있어야 돌아가고, 이 데모에는 오너가 없습니다.",
+  "ko": "이 데모에는 루프의 절반만 있습니다. 사람이 답을 남기고 그것이 다음 회차에 쌓이는 부분은 오너가 있어야 돌아가는데, 이 데모에는 오너가 없습니다.",
   "en": "Only half the loop is in this demo. The half where a person leaves an answer and it accumulates needs an owner, and this demo has none."
  },
  "A.limit4": {
-  "ko": "이 비교의 오른쪽(reef 없음)은 컨텍스트에 원본 전체를 넣는 방식입니다. 도구를 들고 저장소를 탐색하는 에이전트와는 다른 조건이고, 그쪽이 더 잘할 가능성이 있습니다.",
+  "ko": "이 비교의 오른쪽(reef 없음)은 컨텍스트에 원본 전체를 넣는 방식입니다. 도구를 들고 저장소를 탐색하는 에이전트와는 조건이 다르고, 그쪽이 더 잘할 가능성이 있습니다.",
   "en": "The right-hand side of the comparison is given the sources in its context. That is not the same condition as an agent exploring the repository with tools, and such an agent might do better."
  },
  "A.discTitle": {
@@ -388,7 +388,7 @@
   "en": "An account read off the code"
  },
  "A.d1b": {
-  "ko": "인용된 주장 + 명시된 모름 + 기록된 모순",
+  "ko": "인용이 붙은 주장, 모른다고 적어 둔 것, 기록된 모순",
   "en": "Cited claims, stated unknowns, recorded contradictions"
  },
  "A.d2k": {
@@ -416,7 +416,7 @@
   "en": "It names the claims that stopped being true"
  },
  "A.diffNote": {
-  "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 「더는 참이 아님」으로 지목했고, {refreshed}개를 갱신했습니다.",
+  "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 \"더는 참이 아님\"으로 지목했고, {refreshed}개를 갱신했습니다.",
   "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
  }
 }
