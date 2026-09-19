@@ -14,7 +14,7 @@
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
 import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=e4822d9d';
-import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded,
+import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded, sourceUrl,
          shortestPair, wireArtifactPanel } from './pair.js?v=b3047820';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
@@ -111,20 +111,82 @@ function chips() {
 
 /* The source inventory, rendered from the manifest tools/build-corpus.py writes. The
    page cannot claim the no-reef arm was given something it was not. */
+let corpus = null;          /* data/corpus.json, fetched once, on first need */
+let picked = null;          /* the selected file, as `group:path` */
+
+async function loadCorpus() {
+  if (corpus) return corpus;
+  const base = document.body.dataset.base || '.';
+  corpus = await fetch(`${base}/data/corpus.json`, { cache: 'no-cache' })
+    .then(r => r.json()).catch(() => ({ files: [] }));
+  return corpus;
+}
+
+/* Show one file in the viewer. The text is what the proxy holds — the same bytes the
+   no-reef arm was given — and the link is the same file on GitHub. */
+async function showFile(key) {
+  picked = key;
+  const view = document.getElementById('src-view');
+  if (!view) return;
+  const [group, path] = key.split(/:(.+)/);
+  view.querySelector('.src-view-path').textContent = path;
+  view.querySelector('.src-view-link').href = sourceUrl(key) || '#';
+  view.querySelector('.src-view-meta').textContent = '';
+  view.querySelector('.src-view-body').textContent = t('T.srcLoading');
+  el.srcTree?.querySelectorAll('button[data-key]').forEach(b => {
+    b.setAttribute('aria-current', String(b.dataset.key === key));
+  });
+  const c = await loadCorpus();
+  if (picked !== key) return;                     /* the reader moved on */
+  const f = (c.files || []).find(x => x.path === key);
+  const text = f?.text ?? '';
+  view.querySelector('.src-view-body').textContent = text;
+  view.querySelector('.src-view-meta').textContent =
+    t('T.srcLines', { n: text ? text.split('\n').length : 0 });
+  view.querySelector('.src-view-body').scrollTop = 0;
+}
+
+/* The inventory as a tree: one accordion per group, the file list inside, one open at
+   a time. Opening a group selects nothing; clicking a file shows it. On first render
+   the first group is open and its first file is showing, so the viewer is never blank. */
 function renderSources() {
   const groups = state.sources?.groups || [];
-  el.srcGrid.innerHTML = groups.map(g => {
+  if (!el.srcTree) return;
+  const openName = el.srcTree.querySelector('details[open]')?.dataset.group
+    || (picked ? picked.split(':')[0] : groups[0]?.name);
+  el.srcTree.innerHTML = groups.map(g => {
     const isDocs = g.name === 'sellflow-docs';
-    return `<div class="src-card${isDocs ? ' is-docs' : ''}">
-      <p class="src-name"><code>${esc(g.name)}</code><b>${g.n}</b></p>
-      <p class="src-kind">${esc(t(isDocs ? 'T.srcDocs' : 'T.srcCode'))}</p>
-      <details><summary>${esc(t('T.srcList'))}</summary>
-        <ul>${g.paths.map(p => `<li><code>${esc(p)}</code></li>`).join('')}</ul>
-      </details>
-    </div>`;
+    return `<details class="src-group${isDocs ? ' is-docs' : ''}" data-group="${esc(g.name)}"${g.name === openName ? ' open' : ''}>
+      <summary>
+        <code>${esc(g.name)}</code>
+        <span class="src-kind">${esc(t(isDocs ? 'T.srcDocs' : 'T.srcCode'))}</span>
+        <b>${g.n}</b>
+      </summary>
+      <ul>${g.paths.map(p => {
+        const key = `${g.name}:${p}`;
+        return `<li><button type="button" data-key="${esc(key)}" aria-current="${key === picked}">${esc(p)}</button></li>`;
+      }).join('')}</ul>
+    </details>`;
   }).join('');
   el.srcExcluded.innerHTML = (state.sources?.excluded || [])
     .map(x => `<li><code>${esc(x)}</code></li>`).join('');
+
+  if (!picked && groups[0]?.paths?.length) showFile(`${groups[0].name}:${groups[0].paths[0]}`);
+  else if (picked) showFile(picked);
+}
+
+function wireSources() {
+  if (!el.srcTree) return;
+  el.srcTree.addEventListener('click', e => {
+    const b = e.target.closest('button[data-key]');
+    if (b) { showFile(b.dataset.key); return; }
+  });
+  /* One group open at a time. */
+  el.srcTree.addEventListener('toggle', e => {
+    const d = e.target;
+    if (!(d instanceof HTMLDetailsElement) || !d.open) return;
+    el.srcTree.querySelectorAll('details[open]').forEach(o => { if (o !== d) o.open = false; });
+  }, true);
 }
 
 /* The commands, in the order the skills actually run, with the plugin's own install
@@ -164,7 +226,7 @@ async function mount() {
     input: document.querySelector('#ask-form .chat-input'),
     offline: document.getElementById('ask-offline'),
     compare: document.getElementById('compare'),
-    srcGrid: document.getElementById('src-grid'),
+    srcTree: document.getElementById('src-tree'),
     srcExcluded: document.getElementById('src-excluded'),
     panel: document.getElementById('artifact'),
     panelTitle: document.querySelector('#artifact .artifact-title'),
@@ -174,6 +236,7 @@ async function mount() {
 
   chips();
   renderSources();
+  wireSources();
   renderRun();
   syncInput();
   /* qa.json arrives after the shell has filled the copy, and it carries the measured

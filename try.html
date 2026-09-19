@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=fd4cc28c">
+  <link rel="stylesheet" href="assets/css/site.css?v=1fbca290">
   <title>reef</title>
   <meta name="description" content="One question about a legacy system, answered twice: once holding a reef, once holding the raw sources.">
 </head>
@@ -60,7 +60,20 @@
         <p class="section-label" data-i18n="T.srcLabel"></p>
         <h2 data-i18n="T.srcTitle"></h2>
         <p class="body" data-i18n="T.srcNote"></p>
-        <div class="src-grid" id="src-grid"></div>
+        <!-- Every file the no-reef arm was given, browsable: groups on the left, the
+             file itself on the right, and a link to the same file on GitHub. The text
+             comes from data/corpus.json, which is exactly what the proxy holds. -->
+        <div class="src-browser">
+          <div class="src-tree" id="src-tree"></div>
+          <div class="src-view" id="src-view">
+            <div class="src-view-bar">
+              <code class="src-view-path"></code>
+              <span class="src-view-meta"></span>
+              <a class="src-view-link" target="_blank" rel="noopener" data-i18n="T.srcOpen"></a>
+            </div>
+            <pre class="src-view-body"></pre>
+          </div>
+        </div>
         <details class="excluded">
           <summary data-i18n="T.srcExcluded"></summary>
           <ul id="src-excluded"></ul>
@@ -136,6 +149,6 @@
        which arms to run. Empty means: prepared answers only. */
     window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
   </script>
-  <script type="module" src="assets/js/compare.js?v=3a655f59"></script>
+  <script type="module" src="assets/js/compare.js?v=133ff5b1"></script>
 </body>
 </html>

@@ -279,10 +279,6 @@
     "ko": "자유 질문은 지금 꺼져 있습니다. 위의 준비된 질문은 그대로 동작합니다.",
     "en": "Free-form questions are off right now. The prepared questions above still work."
   },
-  "T.srcList": {
-    "ko": "파일 목록",
-    "en": "File list"
-  },
   "A.figAnswered": {
     "ko": "완답",
     "en": "fully answered"
@@ -794,5 +790,17 @@
   "L.navNext": {
     "ko": "다음",
     "en": "Next"
+  },
+  "T.srcOpen": {
+    "ko": "GitHub 에서 열기",
+    "en": "Open on GitHub"
+  },
+  "T.srcLines": {
+    "ko": "{n}줄",
+    "en": "{n} lines"
+  },
+  "T.srcLoading": {
+    "ko": "불러오는 중…",
+    "en": "Loading…"
   }
 }
