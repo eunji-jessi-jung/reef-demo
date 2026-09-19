@@ -131,7 +131,19 @@ function wireReveal() {
   document.querySelectorAll('.band, .hero').forEach(b => io.observe(b));
 }
 
+/* Light is the default. ?theme=dark switches to the previous palette so the two can
+   be compared on the same content; the choice is remembered per browser. */
+function applyTheme() {
+  const asked = new URLSearchParams(location.search).get('theme');
+  let theme = asked;
+  if (!theme) { try { theme = localStorage.getItem('reef-demo-theme'); } catch {} }
+  if (theme === 'dark') document.documentElement.dataset.theme = 'dark';
+  else delete document.documentElement.dataset.theme;
+  if (asked) { try { localStorage.setItem('reef-demo-theme', asked); } catch {} }
+}
+
 export async function boot(afterI18n) {
+  applyTheme();
   try { state.lang = localStorage.getItem(LS_KEY) || 'ko'; } catch {}
   await loadData();
   wireLang();

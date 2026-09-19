@@ -1,14 +1,29 @@
 /* reef demo — three pages: an overview, a comparison, and the details.
    Mobile first; the only breakpoints are where a two-column layout starts to fit. */
+/* Two palettes. Light is the default: four of the six reference sites are light, and
+   the gallery's editorial says dark is the category default that everything blends
+   into. Dark is kept and reachable with ?theme=dark, so the two can be compared
+   without a rebuild — see assets/js/site.js. */
 :root{
-  --bg:#0c0f12; --bg-soft:#12171c; --panel:#161c22; --line:#232c35;
-  --ink:#e6edf3; --ink-dim:#93a3b1; --ink-faint:#5d6b78;
-  --accent:#4ec9b0; --warn:#e3b341; --bad:#f07178; --good:#7ee787;
+  --bg:#faf9f7; --bg-soft:#f2f1ec; --panel:#ffffff; --line:#e3e0d9;
+  --ink:#16191d; --ink-dim:#4f5963; --ink-faint:#8a929b;
+  --accent:#0d7a66; --warn:#9a6b00; --bad:#b3261e; --good:#1c7a3c;
+  --code-bg:#f2f1ec; --code-ink:#2b3239;
+  --lift:0 1px 2px rgba(22,25,29,.05), 0 10px 30px rgba(22,25,29,.07);
+  --panel-shadow:0 18px 50px rgba(22,25,29,.18);
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo",
          "Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --gut:clamp(16px,4vw,48px);
   --measure:66ch;
+}
+:root[data-theme="dark"]{
+  --bg:#0c0f12; --bg-soft:#12171c; --panel:#161c22; --line:#232c35;
+  --ink:#e6edf3; --ink-dim:#93a3b1; --ink-faint:#5d6b78;
+  --accent:#4ec9b0; --warn:#e3b341; --bad:#f07178; --good:#7ee787;
+  --code-bg:#0a0d10; --code-ink:#93a3b1;
+  --lift:none;
+  --panel-shadow:0 18px 50px rgba(0,0,0,.55);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -60,13 +75,16 @@ footer p{margin:0 0 8px; max-width:var(--measure); margin-inline:auto}
 .meta{font-family:var(--mono); font-size:13px; color:var(--ink-faint); max-width:var(--measure)}
 .muted{color:var(--ink-faint)}
 .preline{white-space:pre-line}
-.panel{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px}
+.panel{
+  background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px;
+  box-shadow:var(--lift);
+}
 pre,code{font-family:var(--mono); font-size:13.5px}
 code{color:var(--ink)}
 pre{margin:0; overflow-x:auto; line-height:1.6}
 .term{
-  background:#0a0d10; border:1px solid var(--line); border-radius:8px;
-  padding:14px 16px; color:var(--ink-dim); white-space:pre; overflow-x:auto;
+  background:var(--code-bg); border:1px solid var(--line); border-radius:8px;
+  padding:14px 16px; color:var(--code-ink); white-space:pre; overflow-x:auto;
 }
 .src{font-family:var(--mono); font-size:12px; color:var(--ink-faint)}
 .tag{
@@ -86,7 +104,10 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 /* Sections fade in as they arrive. Presentational only — nothing waits on it. */
 .hero,.band{opacity:1; transition:opacity .4s ease}
 @media(prefers-reduced-motion:no-preference){
-  .band:not([data-active]){opacity:.35}
+  /* On a dark page .35 reads as "not arrived yet". On a light one the same value
+     reads as disabled, so the light default fades far less. */
+  .band:not([data-active]){opacity:.72}
+  :root[data-theme="dark"] .band:not([data-active]){opacity:.35}
 }
 
 /* ---------- 1. landing ---------- */
@@ -414,5 +435,5 @@ body[data-shot="1"] .cta{display:inline-flex}
 main > .artifact-panel{
   position:fixed; inset:auto var(--gut) 20px var(--gut); z-index:30; margin:0;
   max-width:760px; margin-inline:auto; max-height:56vh; overflow-y:auto;
-  box-shadow:0 18px 50px rgba(0,0,0,.55);
+  box-shadow:var(--panel-shadow);
 }
