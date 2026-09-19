@@ -86,7 +86,7 @@
   },
   "b6.kicker": {
     "ko": "41개월치가 쌓여 있다",
-    "en": "41 months of it has piled up"
+    "en": "It has been piling up for 41 months"
   },
   "b6.caveat": {
     "ko": "그리고 리프는 이 숫자를 그대로 쓰지 말라고 적었다",
@@ -437,8 +437,8 @@
     "en": "Then the loop closed on itself"
   },
   "how.s3b": {
-    "ko": "물어볼 사람 없이 돌려 보니 플러그인에 없던 기능이 필요했습니다. 만들어서 플러그인에 되돌렸고, 그것을 쓰다가 변경 감지 버그 4개가 드러났습니다. 전부 고쳐서 공개했습니다.",
-    "en": "Running it with nobody to ask exposed a capability the plugin did not have. We built it and pushed it back into the plugin; using it exposed four change-detection bugs. All fixed and published."
+    "ko": "물어볼 사람 없이 돌려 보니 플러그인에 없던 기능이 필요했습니다. 만들어서 플러그인에 되돌렸고, 그것을 쓰다가 결함 5건이 드러났습니다 — 그중 넷은 변경 감지를 망가뜨리고 있었습니다. 전부 고쳐서 공개했습니다.",
+    "en": "Running it with nobody to ask exposed a capability the plugin did not have. We built it and pushed it back; using it then exposed five defects, four of them in change detection — the pillar this plugin sells. All fixed and published."
   },
   "how.arch": {
     "ko": "결정론과 판단을 나눕니다",
@@ -485,7 +485,7 @@
     "en": "Count what the reef says it does not know"
   },
   "verify.note": {
-    "ko": "두 저장소는 나란히 두어야 합니다. .reef/project.json 이 ../sellflow/repos/* 를 가리킵니다.",
-    "en": "Clone the two side by side — .reef/project.json points at ../sellflow/repos/*."
+    "ko": "sellflow 와 sellflow-reef 는 나란히 두어야 합니다 — .reef/project.json 이 ../sellflow/repos/* 를 가리킵니다. 플러그인은 어디에 두어도 됩니다.",
+    "en": "sellflow and sellflow-reef must sit side by side — .reef/project.json points at ../sellflow/repos/*. The plugin can live anywhere."
   }
 }

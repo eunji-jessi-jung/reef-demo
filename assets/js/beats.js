@@ -7,7 +7,7 @@
  */
 import { runShot } from './shot.js?v=61b6fd32';
 import { boot, state, t, copyVars } from './site.js?v=27772b03';
-import { mountChat } from './chat.js?v=19dfc0e4';
+import { mountChat } from './chat.js?v=7a220917';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

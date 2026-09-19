@@ -64,12 +64,15 @@ function renderHow(ev) {
     .map(l => `<li><span class="when">${esc(l.at)}</span><span>${esc(l.text)}</span></li>`)
     .join('');
 
+  /* One capability that was missing, then five defects that only using it exposed.
+     Four of the five broke change detection, which is the pillar this plugin sells. */
   $('#how-plugin').innerHTML = [
-    ['/reef:ask', 'The plugin had no way to collect the unknowns it so carefully recorded. Built, and pushed back into the plugin.'],
-    ['diff', 'Artifacts with no snapshot were invisible to change detection — 54 of 80 here. Now expanded through the source-artifact map.'],
-    ['snapshot', 'Snapshots stored under a lowercase id matched no artifact. 27 of 54 were silently dropped from every comparison.'],
-    ['health', 'It compared against a cached index without refreshing it, so a reef whose sources had moved came back clean.'],
-    ['index', 'It wrote the resolved absolute path, which put a home directory into every published copy.'],
+    ['/reef:ask — 부재', 'known_unknowns is required on every artifact and referenced 60+ times across the skills, and nothing collected it. Built here, pushed back into the plugin.'],
+    ['diff — 결함', 'Artifacts with no snapshot were invisible to change detection: 54 of 80 had one, and the artifact most affected by a change was not in the output. Now expanded through the source-artifact map.'],
+    ['snapshot — 결함', 'Snapshots stored under a lowercase id matched no artifact, so 27 of 54 were silently dropped from every comparison.'],
+    ['snapshot — 결함', 'An unqualified source ref bound to whichever repository matched first, so an artifact was reported as affected whenever the wrong repo changed.'],
+    ['health — 결함', 'It compared against a cached index without refreshing it, so a reef whose sources had moved came back clean — the one answer a health check must never get wrong.'],
+    ['index — 결함', 'It recorded the resolved absolute path, putting a home directory into every published copy and undoing the portability of a relative one.'],
   ].map(([k, v]) => `<li><span class="when">${esc(k)}</span><span>${esc(v)}</span></li>`).join('');
 
   $('#how-arch').innerHTML = [

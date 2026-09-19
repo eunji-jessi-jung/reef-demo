@@ -100,7 +100,7 @@ function openArtifact(id) {
             a.unknowns.map(u => `<li>${esc(u)}</li>`).join('') + '</ul>'
           : '')
     : `<p>${esc(id)}</p>`;
-  el.panelLink.href = `${base}/blob/main/artifacts`;
+  el.panelLink.href = `${base}/tree/main/artifacts`;
   el.panel.hidden = false;
 }
 
