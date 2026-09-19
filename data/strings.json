@@ -802,5 +802,9 @@
   "T.srcLoading": {
     "ko": "불러오는 중…",
     "en": "Loading…"
+  },
+  "T.srcBack": {
+    "ko": "‹ 목록",
+    "en": "‹ Files"
   }
 }

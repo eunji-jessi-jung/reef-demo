@@ -175,12 +175,26 @@ function renderSources() {
   else if (picked) showFile(picked);
 }
 
+/* On a phone there is no room for two panes, so the browser is one pane that drills
+   down: the list, then the file with a way back. Above the breakpoint both panes are
+   side by side and the mode attribute is simply not there. */
+const narrow = matchMedia('(max-width: 900px)');
+function setMode(mode) {
+  const box = document.querySelector('.src-browser');
+  if (!box) return;
+  if (narrow.matches && mode) { box.dataset.mode = mode; box.scrollIntoView({ block: 'start' }); }
+  else delete box.dataset.mode;
+}
+
 function wireSources() {
   if (!el.srcTree) return;
   el.srcTree.addEventListener('click', e => {
     const b = e.target.closest('button[data-key]');
-    if (b) { showFile(b.dataset.key); return; }
+    if (b) { showFile(b.dataset.key); setMode('file'); return; }
   });
+  document.querySelector('.src-back')?.addEventListener('click', () => setMode('list'));
+  narrow.addEventListener('change', () => setMode(narrow.matches ? 'list' : null));
+  if (narrow.matches) setMode('list');
   /* One group open at a time. */
   el.srcTree.addEventListener('toggle', e => {
     const d = e.target;

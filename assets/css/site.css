@@ -818,3 +818,16 @@ h3.phase{margin-top:34px}
   .stage-deck[data-stepper] h3.phase{display:none}
   .stage-deck[data-stepper] .stages{margin:0}
 }
+
+/* The sources browser on a phone: one pane at a time. */
+.src-back{display:none}
+@media(max-width:900px){
+  .src-browser[data-mode] .src-view{display:none}
+  .src-browser[data-mode="file"] .src-view{display:block}
+  .src-browser[data-mode="file"] .src-tree{display:none}
+  .src-browser[data-mode="file"] .src-back{
+    display:inline-block; flex:0 0 auto; font:inherit; font-family:var(--mono); font-size:12px;
+    color:var(--accent); background:transparent; border:0; padding:0 4px 0 0; cursor:pointer;
+  }
+  .src-browser[data-mode="file"] .src-view-body{height:min(62vh, 560px); white-space:pre-wrap; overflow-wrap:anywhere}
+}
