@@ -20,12 +20,12 @@
     "en": "A Claude Code plugin"
   },
   "L.h1": {
-    "ko": "맨땅에 헤딩하지 마세요",
-    "en": "Don't start from scratch"
+    "ko": "무작정 뛰어들지 마세요",
+    "en": "Don't dive in head first"
   },
   "L.sub": {
-    "ko": "reef 는 저장소와 사내 문서를 읽어 AI 에이전트가 쓸 지식 레이어를 만듭니다. 답마다 출처가 붙고, 확인되지 않은 것은 모른다고 남습니다.",
-    "en": "reef reads your repositories and your company's documents and builds a knowledge layer for AI agents. Every answer carries its sources, and what it could not verify stays marked unknown."
+    "ko": "reef 가 소스 코드와 지식 저장소를 읽어 AI 에이전트를 위한 지식 레이어를 만들어 드립니다.",
+    "en": "Let reef build an AI agent-first knowledge layer for you, from your source code and your knowledge repositories."
   },
   "L.cta": {
     "ko": "직접 물어보기",
