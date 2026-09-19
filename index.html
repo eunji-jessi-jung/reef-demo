@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=565bead3">
+  <link rel="stylesheet" href="assets/css/site.css?v=6c737e53">
   <title>reef — 거듭할수록 쌓이는 지식</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -57,6 +57,66 @@
             <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>&#8594;</em></a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- How a reef is laid out. Four zones and one rule about the direction truth
+         flows in — the same picture the plugin's artifact contract describes, with
+         this reef's real counts dropped in from evidence.json. -->
+    <section class="band" id="zones">
+      <div class="band-inner">
+        <p class="section-label" data-i18n="L.zLabel"></p>
+        <h2 data-i18n="L.zTitle"></h2>
+        <p class="body" data-md="L.zLede"></p>
+
+        <div class="zones">
+          <div class="zone zone-gov">
+            <code class="zone-path">references/</code>
+            <div>
+              <b data-i18n="Z.govName"></b>
+              <span data-md="Z.govDesc"></span>
+            </div>
+          </div>
+
+          <div class="zone">
+            <code class="zone-path">sources/</code>
+            <div>
+              <b data-i18n="Z.srcName"></b>
+              <span data-md="Z.srcDesc"></span>
+              <em data-md="Z.srcRule"></em>
+            </div>
+          </div>
+          <p class="zone-flow"><span class="zone-arrow" aria-hidden="true">&#8595;</span><span data-md="Z.flow1"></span></p>
+
+          <div class="zone zone-core">
+            <code class="zone-path">artifacts/</code>
+            <div>
+              <b data-i18n="Z.artName"></b>
+              <span data-md="Z.artDesc"></span>
+              <em data-md="Z.artRule"></em>
+            </div>
+          </div>
+          <p class="zone-flow"><span class="zone-arrow" aria-hidden="true">&#8595;</span><span data-md="Z.flow2"></span></p>
+
+          <div class="zone">
+            <code class="zone-path">.reef/</code>
+            <div>
+              <b data-i18n="Z.stateName"></b>
+              <span data-md="Z.stateDesc"></span>
+              <em data-md="Z.stateRule"></em>
+            </div>
+          </div>
+          <p class="zone-flow"><span class="zone-arrow" aria-hidden="true">&#8595;</span><span data-md="Z.flow3"></span></p>
+
+          <div class="zone zone-read">
+            <code class="zone-path">CLAUDE.md · index.md</code>
+            <div>
+              <b data-i18n="Z.readName"></b>
+              <span data-md="Z.readDesc"></span>
+            </div>
+          </div>
+        </div>
+        <p class="meta" data-md="Z.note"></p>
       </div>
     </section>
 

@@ -670,5 +670,85 @@
   "L.rNote": {
     "ko": "화면 녹화가 아닙니다. 실행 로그(`log.md`)의 문장, init 스킬이 실제로 출력하는 안내, 리프의 `project.json`, 그리고 빌드 시점에 실행한 `reef.py index · lint · diff` 의 결과로 재구성했습니다. 손으로 쓴 줄은 없습니다 — 만드는 도구는 `tools/build-cast.py` 입니다.",
     "en": "This is not a screen recording. It is reassembled from the run log (`log.md`), what the init skill actually prints, the reef's `project.json`, and `reef.py index · lint · diff` run at build time. No line was typed by hand — the tool that makes it is `tools/build-cast.py`."
+  },
+  "L.zLabel": {
+    "ko": "구조",
+    "en": "Layout"
+  },
+  "L.zTitle": {
+    "ko": "리프 하나는 이렇게 생겼습니다",
+    "en": "What one reef looks like"
+  },
+  "L.zLede": {
+    "ko": "네 구역이 있고, 진실은 한 방향으로만 흐릅니다 — 소스에서 아티팩트로, 아티팩트에서 읽는 쪽으로. 거꾸로 흐르는 길은 없습니다. 아래 숫자는 셀플로우 리프의 실제 값입니다.",
+    "en": "Four zones, and truth flows one way — from sources into artifacts, from artifacts to whoever reads them. There is no path back. The numbers below are the Sellflow reef's real ones."
+  },
+  "Z.govName": {
+    "ko": "계약과 거버넌스",
+    "en": "Contract and governance"
+  },
+  "Z.govDesc": {
+    "ko": "플러그인이 들고 다닙니다. 아티팩트 9종, 관계 5종(`parent` `depends_on` `refines` `constrains` `supersedes`), 프런트매터 스키마, 템플릿. 아티팩트는 받아들여질 때마다 이 계약에 대고 검증됩니다.",
+    "en": "Ships with the plugin. Nine artifact types, five relation types (`parent` `depends_on` `refines` `constrains` `supersedes`), the frontmatter schema, the templates. Every artifact is validated against this contract on accept."
+  },
+  "Z.srcName": {
+    "ko": "원자료 — 읽기만 합니다",
+    "en": "Raw evidence, read only"
+  },
+  "Z.srcDesc": {
+    "ko": "저장소 {repos}개, 거기서 뽑은 API 스펙과 ER 다이어그램, 그리고 회사가 가진 문서 {docs}건 — 위키 스냅샷, 티켓, 회의록, 인수인계.",
+    "en": "{repos} repositories, the API specs and ER diagrams pulled out of them, and the company's own {docs} documents: a wiki export, tickets, minutes, a handover."
+  },
+  "Z.srcRule": {
+    "ko": "reef 는 여기에 아무것도 쓰지 않습니다.",
+    "en": "reef writes nothing here."
+  },
+  "Z.flow1": {
+    "ko": "AI 가 증거를 읽고 아티팩트를 씁니다. 주장마다 출처 파일이 붙고, 소스로 확인이 안 되는 것은 `known_unknowns` 에 남습니다.",
+    "en": "AI reads the evidence and writes the artifacts. Every claim names its source file; what the sources cannot settle goes into `known_unknowns`."
+  },
+  "Z.artName": {
+    "ko": "정본 지식 층",
+    "en": "The canonical knowledge layer"
+  },
+  "Z.artDesc": {
+    "ko": "아티팩트 {artifacts}개 · 9종 · 서로 위키링크로 연결. 각각이 `sources` `last_verified` `freshness_triggers` `known_unknowns` 를 프런트매터로 들고 있습니다 — 사람이 아니라 에이전트가 읽으라고.",
+    "en": "{artifacts} artifacts · nine types · wikilinked to each other. Each carries `sources`, `last_verified`, `freshness_triggers` and `known_unknowns` in its frontmatter — for an agent to read, not a person."
+  },
+  "Z.artRule": {
+    "ko": "스킬이 쓰고 스킬이 고칩니다. 지금 {unknowns}건이 모름으로 적혀 있습니다.",
+    "en": "Written and maintained by the skills. {unknowns} things are currently recorded as not known."
+  },
+  "Z.flow2": {
+    "ko": "아티팩트가 받아들여질 때, 인용한 모든 파일의 해시가 스냅샷으로 남습니다.",
+    "en": "When an artifact is accepted, a hash of every file it cites is snapshotted."
+  },
+  "Z.stateName": {
+    "ko": "상태",
+    "en": "State"
+  },
+  "Z.stateDesc": {
+    "ko": "소스 색인, 아티팩트별 스냅샷(인용 파일마다 sha256), 소스↔아티팩트 지도, 질문 은행.",
+    "en": "The source index, one snapshot per artifact (a sha256 for every cited file), the source-to-artifact map, and the question bank."
+  },
+  "Z.stateRule": {
+    "ko": "`update` 는 다시 색인하고 스냅샷과 대조해서, 어떤 주장이 더는 참이 아닌지 이름을 댑니다. 다시 생성하지 않습니다.",
+    "en": "`update` re-indexes, diffs against the snapshots, and names the claims that stopped being true. It does not regenerate."
+  },
+  "Z.flow3": {
+    "ko": "소스로 풀 수 없는 {owner}건은 사람에게 갈 질문으로 뽑혀 있습니다. 답하면 다음 회차에도 남습니다.",
+    "en": "{owner} things the sources cannot settle are pulled out as questions for a person. An answer stays through the next pass."
+  },
+  "Z.readName": {
+    "ko": "읽는 쪽",
+    "en": "Whoever reads it"
+  },
+  "Z.readDesc": {
+    "ko": "에이전트는 `CLAUDE.md` 로 들어와 `index.md` 를 타고 그래프를 걷습니다. 사람은 Obsidian 으로 같은 폴더를 엽니다. 둘 다 아티팩트를 고치지 않습니다.",
+    "en": "An agent enters through `CLAUDE.md` and walks the graph from `index.md`. A person opens the same folder in Obsidian. Neither edits an artifact."
+  },
+  "Z.note": {
+    "ko": "구역 이름은 실제 폴더 이름입니다. 셀플로우 리프 저장소를 열면 이 구조 그대로입니다.",
+    "en": "The zone names are the real folder names. Open the Sellflow reef repository and this is what you find."
   }
 }

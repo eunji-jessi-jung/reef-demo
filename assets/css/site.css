@@ -681,3 +681,33 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 }
 @keyframes blink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){ .cast-body .cur{animation:none} .cast{transition:none} }
+
+
+/* ---------- landing: the zone map ---------- */
+/* One column, read top to bottom, because that is the direction truth flows in and the
+   layout should say so without an arrowhead having to. The governance zone spans the
+   top like a rule everything under it is subject to. */
+.zones{margin:32px 0 18px; display:grid; gap:0}
+.zone{
+  display:grid; grid-template-columns:minmax(150px, 210px) 1fr; gap:10px 28px;
+  padding:20px 22px; border:1px solid var(--line); border-radius:12px; background:var(--panel);
+}
+@media(max-width:620px){ .zone{grid-template-columns:1fr; gap:8px; padding:16px 18px} }
+.zone-path{font-family:var(--mono); font-size:14px; color:var(--accent); align-self:start; padding-top:3px; word-break:break-all}
+.zone b{display:block; font-size:17px; margin-bottom:6px; color:var(--ink)}
+.zone span{display:block; font-size:15px; line-height:1.6; color:var(--ink-dim); word-break:keep-all}
+.zone em{display:block; font-style:normal; font-size:14px; line-height:1.55; color:var(--ink-faint); margin-top:8px; word-break:keep-all}
+.zone code{font-size:13px; color:var(--ink)}
+.zone-gov{
+  margin-bottom:22px; border-style:dashed;
+  border-color:color-mix(in srgb, var(--ink) 22%, transparent); background:transparent;
+}
+.zone-core{border-color:color-mix(in srgb, var(--accent) 55%, transparent); background:var(--bg-soft)}
+.zone-read{background:transparent}
+.zone-flow{
+  display:flex; gap:14px; align-items:flex-start; margin:0; padding:14px 22px 14px 30px;
+  font-size:14.5px; line-height:1.6; color:var(--ink-dim); word-break:keep-all;
+  border-left:1px solid color-mix(in srgb, var(--accent) 45%, transparent); margin-left:44px;
+}
+@media(max-width:620px){ .zone-flow{margin-left:22px; padding-left:18px} }
+.zone-arrow{font-family:var(--mono); color:var(--accent); flex:0 0 auto; line-height:1.6}
