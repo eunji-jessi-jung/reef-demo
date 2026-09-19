@@ -23,10 +23,10 @@ mkdir -p "$OUT"
 # file | page | ?shot= target
 SHOTS="
 00-cover|index.html|1
-01-loop|index.html|how
-02-compare|try.html|ask
-03-scale|index.html|4
-04-score|index.html|5
+01-zones|index.html|zones
+02-how|index.html|how
+03-value|index.html|value
+04-compare|try.html|ask
 05-ai|about.html|3
 "
 

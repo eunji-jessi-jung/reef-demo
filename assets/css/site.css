@@ -831,3 +831,7 @@ h3.phase{margin-top:34px}
   }
   .src-browser[data-mode="file"] .src-view-body{height:min(62vh, 560px); white-space:pre-wrap; overflow-wrap:anywhere}
 }
+
+/* The cover shot: the hero fills the 16:9 frame with its copy centred, rather than
+   sitting in the top half of it over nothing. */
+body[data-shot] .hero{min-height:100vh; justify-content:center; padding-top:0; padding-bottom:0}
