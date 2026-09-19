@@ -140,28 +140,30 @@ function wireReveal() {
 const THEME_KEY = 'reef-demo-theme';
 
 function setTheme(theme) {
-  if (theme === 'dark') document.documentElement.dataset.theme = 'dark';
+  if (theme === 'light') document.documentElement.dataset.theme = 'light';
   else delete document.documentElement.dataset.theme;
   document.querySelectorAll('[data-theme-toggle]').forEach(b => {
-    b.setAttribute('aria-pressed', String(theme === 'dark'));
+    b.setAttribute('aria-pressed', String(theme !== 'light'));
   });
   try { localStorage.setItem(THEME_KEY, theme); } catch {}
 }
 
-/* Light is the default. ?theme=dark still works, and the toggle writes the same key,
-   so a choice made either way survives a reload. The OS preference is deliberately
-   not consulted: light is a design decision here, not a fallback. */
+/* Dark is the default: the comparison is two dense panels of cited text, and it is
+   simply more legible on dark. Coral only means anything against deep water, too.
+   ?theme=light and the toggle write the same key, so either choice survives a reload.
+   The OS preference is deliberately not consulted — this is a decision, not a
+   fallback. */
 function applyTheme() {
   const asked = new URLSearchParams(location.search).get('theme');
   let theme = asked;
   if (!theme) { try { theme = localStorage.getItem(THEME_KEY); } catch {} }
-  setTheme(theme === 'dark' ? 'dark' : 'light');
+  setTheme(theme === 'light' ? 'light' : 'dark');
 }
 
 function wireTheme() {
   document.querySelectorAll('[data-theme-toggle]').forEach(b => {
     b.addEventListener('click', () => {
-      setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      setTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light');
     });
   });
 }
