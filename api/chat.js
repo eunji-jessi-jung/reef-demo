@@ -23,7 +23,7 @@ const MODEL         = process.env.REEF_MODEL || 'claude-sonnet-5';
    job is grounded extraction with citations, not deep reasoning, so low effort is
    right: the model mostly skips thinking, and the ceiling leaves room when it
    doesn't. Changing either invalidates the prompt cache once. */
-const MAX_TOKENS    = 1200;
+const MAX_TOKENS    = 2000;   // Korean costs roughly 3x English per word
 const EFFORT        = process.env.REEF_EFFORT || 'low';
 const MAX_QUESTION  = 500;    // characters
 const MAX_TURNS     = 6;      // prior messages carried
@@ -79,7 +79,10 @@ RULES
    make these distinctions; preserve them.
 5. Keep Korean identifiers and quoted Korean text verbatim — SANGTAE_CD, CHWISO,
    CancelReconciler, 정산 — and gloss them when answering in English.
-6. Be brief: under 200 words, a few short paragraphs. This renders in a chat bubble.
+6. Be brief. At most four short paragraphs, and never more than about 200 words of
+   English or 450 characters of Korean. This renders in a chat bubble, and an answer
+   that runs past the limit is cut off mid-sentence. Lead with the answer, then the
+   evidence; if there is more to say, stop and say what you left out in one clause.
 7. Answer in the language of the question.
 8. If asked something unrelated to this company or this codebase, say that is outside
    what this reef covers, and do not answer it.
