@@ -10,7 +10,7 @@
  * spinning for no one; and under prefers-reduced-motion, or in screenshot mode, it
  * lays the whole transcript out at once and stays still.
  */
-import { esc } from './site.js?v=d6465fc8';
+import { esc } from './site.js?v=dddd0cd8';
 
 /* Slower than a terminal really is. The first cut typed at forty milliseconds a
    character and nobody could read it; this is the pace of someone watching. */

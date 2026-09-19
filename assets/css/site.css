@@ -739,3 +739,19 @@ a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 .stage .cast-body{height:clamp(220px, 34vh, 320px); font-size:12.5px; padding:14px 16px}
 .h3-gap{margin-top:56px}
 h3.phase{margin-top:34px}
+
+/* The technical detail under each skill: what it makes, where it keeps it, which rule
+   it answers to. Smaller and quieter than the description, and in a definition list so
+   the three labels line up down the page. */
+.stage-tech{
+  display:grid; grid-template-columns:max-content 1fr; gap:6px 14px;
+  margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--line);
+  max-width:56ch;
+}
+.stage-tech dt{
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-faint); padding-top:3px; white-space:nowrap;
+}
+.stage-tech dd{margin:0; font-size:13.5px; line-height:1.6; color:var(--ink-dim); word-break:keep-all}
+.stage-tech dd code{font-size:12px; color:var(--ink); padding:0; background:none; border:0}
+@media(max-width:620px){ .stage-tech{grid-template-columns:1fr; gap:2px 0} .stage-tech dd{margin-bottom:8px} }
