@@ -10,7 +10,7 @@
  * it says it does not know; a source citation opens the actual file on GitHub. Neither
  * side gets to be believed.
  */
-import { state, t, esc, copyVars } from './site.js?v=253c4e71';
+import { state, t, esc, copyVars } from './site.js?v=c38408c3';
 
 export const ARMS = ['reef', 'raw'];
 
@@ -192,10 +192,16 @@ export function wireArtifactPanel(root, panel) {
   const body = panel.querySelector('.artifact-body');
   const link = panel.querySelector('.artifact-link');
 
-  root.addEventListener('click', e => {
+  root.addEventListener('click', async e => {
     const c = e.target.closest('button.cite');
     if (c) {
       const id = c.dataset.artifact;
+      /* digest.json now loads in the background rather than gating first paint (see
+         site.js). It is small and starts loading immediately, so by the time anyone
+         has scrolled to a citation and clicked it, this resolves instantly — but
+         awaiting it here, rather than reading state.digest directly, is what makes
+         that true rather than assumed. */
+      await state.digestReady;
       const a = (state.digest?.items || []).find(x => x.id === id);
       title.textContent = id + (a ? ` — ${a.title}` : '');
       body.innerHTML = a

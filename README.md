@@ -76,6 +76,7 @@ Then set these in the Vercel project's environment variables:
 | `ANTHROPIC_API_KEY` | Required. Set by a human in the dashboard; never committed. |
 | `REEF_MODEL` | Default `claude-sonnet-5`. |
 | `REEF_REQUEST_BUDGET` | Requests before the site falls back to prepared answers. |
+| `REEF_RATE_LIMIT_PER_MIN` | Requests per IP per minute. Default `5`. In-memory, so it throttles a burst rather than enforcing an exact global count. |
 | `REEF_ALLOWED_ORIGINS` | Comma-separated. Defaults to the Pages origin and localhost. |
 
 Finally set `window.REEF_API` in `index.html` to the deployed function URL. Leaving it

@@ -8,9 +8,9 @@
  * nothing, and is the same every visit. Asking a live question is what try.html is
  * for, and that is where the button goes.
  */
-import { state, t, boot, esc } from './site.js?v=253c4e71';
-import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=b55ddb71';
-import { startCast } from './cast.js?v=9c527923';
+import { state, t, boot, reveal, esc } from './site.js?v=c38408c3';
+import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=41809e3b';
+import { startCast } from './cast.js?v=6625899f';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 
 function renderBench() {
@@ -159,3 +159,4 @@ wireArtifactPanel(document, document.getElementById('artifact'));
 document.querySelectorAll('.cast').forEach(startCast);
 wireStepper();
 shotReady();
+reveal();

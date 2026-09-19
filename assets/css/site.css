@@ -1063,3 +1063,30 @@ body[data-shot] .hero{
   margin:26px 0 0; font-size:clamp(16px,1.9vw,20px); line-height:1.6; color:var(--ink);
   word-break:keep-all;
 }
+
+/* ---------- the page's own entrance ---------- */
+
+/* All of it arrives from data — i18n text, chips, the terminal replays, the
+   comparison — so with no reveal treatment the page used to sit blank (structure
+   only, no text) for however long that takes, then snap into place all at once. On
+   a slow connection that reads exactly like something broke, not like something is
+   loading. This fades the whole page in as one deliberate motion instead, once
+   site.js's reveal() says everything that page needs is actually in the DOM.
+
+   The `html{background:...}` inline style in <head> keeps painting underneath
+   regardless — only body's own content fades, never the page going white or black. */
+body{
+  opacity:0; transition:opacity .28s ease;
+  /* Safety net: if boot() never runs — a script error, JS disabled, a data file that
+     404s somewhere this catch-free path did not anticipate — the page must not stay
+     blank forever. This snaps it visible on its own after a delay no real load
+     should reach, and reveal() cancels it by removing the animation once it actually
+     fires for real. */
+  animation:reveal-fallback .01s 4s forwards;
+}
+html.is-ready body{opacity:1; animation:none}
+@keyframes reveal-fallback{ to{opacity:1} }
+@media(prefers-reduced-motion:reduce){ body{transition:none} }
+/* Screenshot mode needs the frame fully painted the instant shotReady() sets the
+   title, not mid-fade — tools/shoot.sh polls for the title, not for this. */
+body[data-shot]{opacity:1!important; animation:none!important; transition:none!important}

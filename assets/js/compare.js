@@ -13,9 +13,9 @@
  * If the proxy is absent, over budget or unreachable, the page falls back to recorded
  * runs from data/qa.json and says so. It never arrives at a broken state.
  */
-import { state, t, boot, esc, copyVars, applyI18n } from './site.js?v=253c4e71';
+import { state, t, boot, esc, copyVars, applyI18n, reveal } from './site.js?v=c38408c3';
 import { ARMS, renderAnswer, addRow as addPairRow, fill, fillRecorded, sourceUrl,
-         shortestPair, wireArtifactPanel } from './pair.js?v=b55ddb71';
+         shortestPair, wireArtifactPanel } from './pair.js?v=41809e3b';
 import { stageShot, shotReady, shotId } from './shot.js?v=3f039834';
 
 const API = window.REEF_API || '';
@@ -318,6 +318,7 @@ async function mount() {
   const shooting = await stageShot();
   await boot();
   await mount();
+  reveal();
   document.addEventListener('reef:lang', () => { chips(); renderSources(); });
 
   /* A screenshot of this page has to show an answered question — an empty chat says

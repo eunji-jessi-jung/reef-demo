@@ -42,10 +42,13 @@ const EFFORT        = process.env.REEF_EFFORT || 'low';
 const MAX_QUESTION  = 500;    // characters
 const MAX_TURNS     = 6;      // prior messages carried, per arm
 const MAX_HISTORY   = 4000;   // characters of history, per arm
-const WINDOW_MS     = 60_000;
-/* Counted in model calls, not HTTP requests, because a comparison is two calls. */
-const PER_IP_WINDOW = 8;
-const BUDGET        = Number(process.env.REEF_REQUEST_BUDGET || 400);
+const WINDOW_MS      = 60_000;
+/* Per caller, per window — one hit per HTTP request, not per model call, so this
+   reads the way the number sounds: 5 questions a minute. A question against both
+   arms (the default) is still 2 Anthropic calls, so the true worst case is
+   PER_IP_LIMIT * 2 model calls/minute/IP — bounded, just not 1:1 with this number. */
+const PER_IP_LIMIT   = Number(process.env.REEF_RATE_LIMIT_PER_MIN || 5);
+const BUDGET         = Number(process.env.REEF_REQUEST_BUDGET || 400);
 
 const ARMS = ['reef', 'raw'];
 
@@ -55,19 +58,23 @@ const ALLOWED = (process.env.REEF_ALLOWED_ORIGINS ||
    'http://localhost:4173', 'http://127.0.0.1:4173'].join(','))
   .split(',').map(s => s.trim());
 
-/* In-memory only. A serverless instance may be recycled, so this throttles a burst
-   from one client rather than enforcing a global total — REEF_REQUEST_BUDGET is the
-   backstop, and the site falls back to its prepared answers when it is spent. */
+/* In-memory only. A serverless instance may be recycled, and a burst of concurrent
+   requests can land on more than one warm instance, so this throttles a burst from
+   one client rather than enforcing an exact global count — it will occasionally let
+   a request or two more than PER_IP_LIMIT through under real concurrency. The two
+   things that do hold exactly, regardless: REEF_REQUEST_BUDGET (the shared spend
+   ceiling this counts toward) and the $200/month cap set in the Anthropic console,
+   which is the one backstop nothing here can be wrong about. */
 const hits = new Map();
 let spent = 0;
 
-function rateLimited(ip, cost) {
+function rateLimited(ip) {
   const now = Date.now();
   const recent = (hits.get(ip) || []).filter(t => now - t < WINDOW_MS);
-  for (let i = 0; i < cost; i++) recent.push(now);
+  recent.push(now);
   hits.set(ip, recent);
   if (hits.size > 500) for (const [k, v] of hits) if (!v.some(t => now - t < WINDOW_MS)) hits.delete(k);
-  return recent.length > PER_IP_WINDOW;
+  return recent.length > PER_IP_LIMIT;
 }
 
 /* The rules both arms are given. They differ only in how a claim is cited, because
@@ -242,7 +249,10 @@ export default async function handler(req, res) {
 
   if (spent + arms.length > BUDGET) return res.status(429).json({ error: 'budget_spent' });
   const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
-  if (rateLimited(ip, arms.length)) return res.status(429).json({ error: 'rate_limited' });
+  if (rateLimited(ip)) {
+    res.setHeader('Retry-After', '60');
+    return res.status(429).json({ error: 'rate_limited' });
+  }
 
   /* Each arm carries its own conversation, because the two diverge immediately.
      A bare `history` array is accepted as the reef arm's, for older callers. */

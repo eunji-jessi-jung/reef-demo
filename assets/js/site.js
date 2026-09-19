@@ -8,19 +8,23 @@ async function loadData() {
   const base = document.body.dataset.base || '.';
   const get = (name, fallback) =>
     fetch(`${base}/data/${name}`, { cache: 'no-cache' }).then(r => r.json()).catch(() => fallback);
+  /* digest.json is the single largest file here (250KB+) and nothing on first paint
+     reads it — only a click on a citation chip does, well after the page is up. It
+     still starts alongside everything else, so it is not slow when it IS needed —
+     it just is not one of the things loadData() makes the page wait for. Whoever
+     reads state.digest before then awaits state.digestReady instead. */
+  state.digestReady = get('digest.json', { items: [] }).then(d => { state.digest = d; return d; });
   /* qa.json is part of the shell load rather than the pair modules' own, because the
      recorded run's context sizes are interpolated into copy. Fetched after the first
      applyI18n, {reefTok} and {rawTok} render as null. */
-  const [strings, ev, digest, sources, qa] = await Promise.all([
+  const [strings, ev, sources, qa] = await Promise.all([
     get('strings.json', {}),
     get('evidence.json', {}),
-    get('digest.json', { items: [] }),
     get('sources-manifest.json', { groups: [], files_n: 0 }),
     get('qa.json', { items: [] }),
   ]);
   state.strings = strings;
   state.ev = ev;
-  state.digest = digest;
   state.sources = sources;
   state.qa = qa;
 }
@@ -208,6 +212,13 @@ function wireNav() {
   document.querySelectorAll('.nav a').forEach(a => {
     if ((a.getAttribute('href') || '').endsWith(here)) a.setAttribute('aria-current', 'page');
   });
+}
+
+/* Marks the page ready to be seen. Called once, by each page, at the point its own
+   render sequence actually finishes — see the CSS: the page fades in from here
+   rather than popping in piece by piece as each fetch happens to resolve. */
+export function reveal() {
+  document.documentElement.classList.add('is-ready');
 }
 
 export async function boot(afterI18n) {
