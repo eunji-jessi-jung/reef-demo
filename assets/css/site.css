@@ -20,7 +20,7 @@
 
   --bg:#061714; --bg-deep:#03100f; --bg-soft:#0b201d; --panel:#0e2320; --line:#1c3833;
   --ink:#e9f2ee; --ink-dim:#94aba4; --ink-faint:#5f7871;
-  --accent:#ff7d66; --warn:#e3b341; --deep:#4ec9b0;
+  --accent:#ff7d66; --warn:#e3b341;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
   --accent-wash:#221714; --dot:rgba(233,242,238,.05);
   --lift:none;
@@ -137,7 +137,6 @@ body::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:
     radial-gradient(62% 48% at 78% 8%,  color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%),
-    radial-gradient(54% 44% at 12% 42%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 70%),
     radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
 }
 
@@ -491,8 +490,7 @@ main > .artifact-panel{
   content:""; position:absolute; inset:-25% -10% auto -10%; height:120%;
   z-index:-1; pointer-events:none;
   background:
-    radial-gradient(44% 48% at 74% 36%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%),
-    radial-gradient(38% 40% at 22% 10%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 72%);
+    radial-gradient(46% 50% at 74% 34%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%);
   opacity:.85;
 }
 
@@ -524,11 +522,11 @@ main > .artifact-panel{
    one is a file in the repository, which nobody wrote a claim about. It also keeps the
    coral for the things that are actually reef's. */
 a.cite{
-  background:color-mix(in srgb, var(--deep) 10%, transparent);
-  color:var(--deep);
-  border-color:color-mix(in srgb, var(--deep) 36%, transparent);
+  background:transparent;
+  color:var(--ink-dim);
+  border-color:var(--line);
 }
-a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
+a.cite:hover{color:var(--ink); border-color:var(--ink-faint)}
 
 /* ---------- the bar's right-hand group, and its phone form ---------- */
 .bar-end{display:flex; align-items:center; gap:16px; margin-left:auto}
@@ -560,45 +558,6 @@ a.cite:hover{background:color-mix(in srgb, var(--deep) 20%, transparent)}
   .lang{align-self:flex-start}
 }
 
-/* ---------- the colony ---------- */
-/* Given its own column rather than floated behind the text. Absolute positioning put
-   it under the fixed bar and let the hero's overflow cut the spiral in half, which
-   loses the one thing the drawing has to show: that it is a single form made of
-   separate pieces. */
-.colony{display:block; width:100%; height:auto}
-
-/* The copy is one grid item so the grid is genuinely one row by two columns. Letting
-   each paragraph be its own item meant the drawing had to span rows it could not
-   name — and spanning to a made-up row number created ninety-odd implicit rows and
-   pushed the hero to seven thousand pixels tall. */
-.hero-copy{display:flex; flex-direction:column; min-width:0}
-@media(min-width:1080px){
-  .hero-inner{
-    display:grid; grid-template-columns:minmax(0,1fr) clamp(300px,26vw,400px);
-    gap:clamp(32px,4vw,72px); align-items:center;
-  }
-  /* Placed explicitly: the drawing sits before the copy in the markup so it is not
-     announced ahead of the headline, but it belongs on the right. */
-  .hero-copy{grid-column:1; grid-row:1}
-  .colony{grid-column:2; grid-row:1; opacity:1}
-}
-
-/* Below that it sits above the headline as a band, small and quiet. */
-@media(max-width:1079px){
-  .colony{width:min(240px,46vw); margin:0 0 -8px auto; opacity:.85}
-}
-@media(max-width:600px){ .colony{display:none} }
-
-@media(prefers-reduced-motion:no-preference){
-  /* The colony assembles outward from the densest artifacts, which is the order the
-     generator lays them down in and roughly the order the reef was built in. */
-  .colony circle{
-    animation:polyp .5s ease-out backwards;
-    animation-delay:calc(var(--i, 0) * 1.6ms);
-    transform-box:fill-box; transform-origin:center;
-  }
-}
-@keyframes polyp{from{opacity:0; transform:scale(.3)}}
 
 /* The section marker: what this part of the page is, in two words, before the
    heading says anything. Walkie's is the clearest example of why it works — it gives
