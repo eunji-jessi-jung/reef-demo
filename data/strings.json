@@ -1,491 +1,422 @@
 {
-  "_note": "UI copy only. Quotations from the fixture and the reef live in evidence.json and are never translated — the English column glosses them.",
-  "nav.demo": {
-    "ko": "데모",
-    "en": "Demo"
-  },
-  "nav.why": {
-    "ko": "왜 만들었나",
-    "en": "Why"
-  },
-  "nav.how": {
-    "ko": "어떻게 만들었나",
-    "en": "How"
-  },
-  "nav.verify": {
-    "ko": "직접 검증하기",
-    "en": "Verify"
-  },
-  "site.title": {
-    "ko": "reef",
-    "en": "reef"
-  },
-  "site.tagline": {
-    "ko": "사람이 남기고 · 코드가 검증하고 · 변경이 다시 묻는다",
-    "en": "People leave it · code verifies it · change asks again"
-  },
-  "b1.kicker": {
-    "ko": "당신은 오늘 이 회사에 도착했다",
-    "en": "You arrived at this company today"
-  },
-  "b1.brief": {
-    "ko": "정산 정정 업무를 AI 에이전트로 자동화하려고 합니다. 현재 프로세스가 어떻게 도는지, 무엇을 자동화하면 되는지 3일 안에 파악해 주세요.",
-    "en": "We want to automate settlement-correction work with an AI agent. Work out how the current process runs and what to automate. You have three days."
-  },
-  "b1.meta": {
-    "ko": "저장소 {repos}개 · 파일 {files}개 · 비코드 소스 {docs}종",
-    "en": "{repos} repositories · {files} files · {docs} kinds of non-code source"
-  },
-  "b2.kicker": {
-    "ko": "먼저, 당신이 찾아본다",
-    "en": "First, you look it up"
-  },
-  "b2.prompt": {
-    "ko": "무엇부터 확인하시겠습니까?",
-    "en": "Where would you start?"
-  },
-  "b2.doc": {
-    "ko": "사내 위키",
-    "en": "Company wiki"
-  },
-  "b2.code": {
-    "ko": "소스 코드",
-    "en": "Source code"
-  },
-  "b3.kicker": {
-    "ko": "문서와 코드가 서로를 뒷받침한다",
-    "en": "Document and code corroborate each other"
-  },
-  "b3.verdict": {
-    "ko": "교차검증 통과",
-    "en": "Cross-check passed"
-  },
-  "b3.conclusion": {
-    "ko": "“정산이 끝난 주문은 취소가 차단된다”",
-    "en": "“A settled order is blocked from cancellation”"
-  },
-  "b4.kicker": {
-    "ko": "그런데 그 코드를 누가 부르는가",
-    "en": "But who calls that code?"
-  },
-  "b4.result": {
-    "ko": "다섯 줄 전부가 자기 파일 안에 있다. 호출자 0.",
-    "en": "All five hits are inside that same file. Zero callers."
-  },
-  "b4.punch": {
-    "ko": "두 검색이 서로 동의했다. 둘 다 틀렸다.",
-    "en": "Two searches agreed. Both were wrong."
-  },
-  "b5.kicker": {
-    "ko": "그럼 돈은 실제로 어디까지 가는가",
-    "en": "So how far does the money actually get?"
-  },
-  "b5.note": {
-    "ko": "9홉 · 독립적인 단절 4곳 · 각각 단독으로 충분하다",
-    "en": "Nine hops · four independent breaks · each sufficient on its own"
-  },
-  "b6.kicker": {
-    "ko": "41개월치가 쌓여 있다",
-    "en": "It has been piling up for 41 months"
-  },
-  "b6.caveat": {
-    "ko": "그리고 리프는 이 숫자를 그대로 쓰지 말라고 적었다",
-    "en": "And the reef wrote down that you should not cite this figure as it stands"
-  },
-  "b7.kicker": {
-    "ko": "그럼 리프가 맞다는 근거는",
-    "en": "So what says the reef is right?"
-  },
-  "b7.blind": {
-    "ko": "눈 가린 채점",
-    "en": "Blind grading"
-  },
-  "b8.kicker": {
-    "ko": "코드가 바뀌면",
-    "en": "When the code changes"
-  },
-  "b8.note": {
-    "ko": "생성기는 다시 만든다. 리프는 무엇이 거짓이 됐는지 말한다.",
-    "en": "A generator regenerates. A reef tells you what stopped being true."
-  },
-  "b9.kicker": {
-    "ko": "모르는 것은 모른다고 한다",
-    "en": "What it does not know, it says"
-  },
-  "b9.note": {
-    "ko": "AI가 묻고, 사람은 자기만 아는 것에만 답한다",
-    "en": "The AI asks; the human answers only what only they can"
-  },
-  "b10.kicker": {
-    "ko": "믿지 마시고, 돌려보세요",
-    "en": "Don't take our word for it. Run it."
-  },
-  "ui.recording": {
-    "ko": "실측 기록",
-    "en": "recorded run"
-  },
-  "ui.source": {
-    "ko": "출처",
-    "en": "source"
-  },
-  "ui.scroll": {
-    "ko": "스크롤",
-    "en": "scroll"
-  },
-  "nav.ask": {
-    "ko": "물어보기",
-    "en": "Ask"
-  },
-  "chat.kicker": {
-    "ko": "직접 물어보세요",
-    "en": "Ask it yourself"
-  },
-  "chat.lede": {
-    "ko": "이 답변은 리프의 아티팩트 80개만 보고 만들어집니다. 소스코드는 보지 않습니다.",
-    "en": "These answers come from the reef's 80 artifacts alone. The source code is not consulted."
-  },
-  "chat.prepared": {
-    "ko": "준비된 답변 · 아티팩트만 읽고 생성",
-    "en": "prepared answer · generated from artifacts only"
-  },
-  "chat.live": {
-    "ko": "실시간",
-    "en": "live"
-  },
-  "chat.placeholder": {
-    "ko": "셀플로우에 대해 무엇이든 물어보세요",
-    "en": "Ask anything about Sellflow"
-  },
-  "chat.send": {
-    "ko": "보내기",
-    "en": "Send"
-  },
-  "chat.offline": {
-    "ko": "자유 질문은 지금 꺼져 있습니다. 위의 준비된 질문은 그대로 동작합니다.",
-    "en": "Free-form questions are off right now. The prepared questions above still work."
-  },
-  "chat.spent": {
-    "ko": "실시간 응답 한도에 도달했습니다. 준비된 질문으로 계속 보실 수 있습니다.",
-    "en": "The live budget is spent. The prepared questions still work."
-  },
-  "chat.error": {
-    "ko": "응답을 받지 못했습니다. 다시 시도해 보세요.",
-    "en": "No answer came back. Try again."
-  },
-  "chat.unknowns": {
-    "ko": "이 아티팩트가 모른다고 적어 둔 것",
-    "en": "What this artifact records as not determinable"
-  },
-  "chat.close": {
-    "ko": "닫기",
-    "en": "Close"
-  },
-  "chat.open": {
-    "ko": "저장소에서 보기",
-    "en": "View in the repository"
-  },
-  "b2.q": {
-    "ko": "정산이 끝난 주문은 취소할 수 있나?",
-    "en": "Can a settled order be cancelled?"
-  },
-  "b2.findDoc": {
-    "ko": "사내 위키에서 찾기",
-    "en": "Look in the company wiki"
-  },
-  "b2.findCode": {
-    "ko": "소스 코드에서 찾기",
-    "en": "Look in the source code"
-  },
-  "b2.docLabel": {
-    "ko": "위키 · 주문 취소 정책 §4",
-    "en": "Wiki · Order cancellation policy §4"
-  },
-  "b2.codeLabel": {
-    "ko": "order-service · OrderCancelServiceV1.java",
-    "en": "order-service · OrderCancelServiceV1.java"
-  },
-  "b3.stampDoc": {
-    "ko": "문서",
-    "en": "Document"
-  },
-  "b3.stampCode": {
-    "ko": "코드",
-    "en": "Code"
-  },
-  "b3.agree": {
-    "ko": "일치",
-    "en": "agree"
-  },
-  "b3.body": {
-    "ko": "서로 다른 두 출처가 같은 말을 한다. 보통은 여기서 확인이 끝난다.",
-    "en": "Two independent sources say the same thing. Normally the check ends here."
-  },
-  "b4.run": {
-    "ko": "그 클래스를 누가 부르는지 찾아본다",
-    "en": "Find out who calls that class"
-  },
-  "b4.hits": {
-    "ko": "{n}줄",
-    "en": "{n} hits"
-  },
-  "b4.allself": {
-    "ko": "다섯 줄 전부 그 파일 자신이다. 호출자 0.",
-    "en": "All five are that file itself. Zero callers."
-  },
-  "b4.reefsays": {
-    "ko": "리프가 적어 둔 것",
-    "en": "What the reef recorded"
-  },
-  "b5.hop": {
-    "ko": "홉",
-    "en": "hop"
-  },
-  "b5.breaks": {
-    "ko": "단절 {n}곳",
-    "en": "{n} breaks"
-  },
-  "b5.advance": {
-    "ko": "다음 홉",
-    "en": "Next hop"
-  },
-  "b5.replay": {
-    "ko": "처음부터",
-    "en": "Replay"
-  },
-  "b5.stops": {
-    "ko": "돈은 6홉에서 멈춘다. 이후 어느 것도 되돌리지 않는다.",
-    "en": "The money stops at hop six. Nothing downstream recovers it."
-  },
-  "b6.rows": {
-    "ko": "대기 건수",
-    "en": "rows waiting"
-  },
-  "b6.amount": {
-    "ko": "추정 미정정 금액",
-    "en": "estimated uncorrected amount"
-  },
-  "b6.months": {
-    "ko": "연속 개월",
-    "en": "consecutive months"
-  },
-  "b6.zero": {
-    "ko": "41개월 중 잔액이 0인 달은 한 번도 없다",
-    "en": "Not one of the 41 months has a zero balance"
-  },
-  "b7.answered": {
-    "ko": "질문에 답함",
-    "en": "questions answered"
-  },
-  "b7.fragments": {
-    "ko": "정답 조각 회수",
-    "en": "answer-key fragments recovered"
-  },
-  "b7.under": {
-    "ko": "리프가 스스로 낮게 매긴 문항",
-    "en": "questions the reef had understated"
-  },
-  "b7.over": {
-    "ko": "부풀린 문항",
-    "en": "overstated"
-  },
-  "b8.changed": {
-    "ko": "소스 파일 변경",
-    "en": "source files changed"
-  },
-  "b8.false": {
-    "ko": "거짓이 된 아티팩트",
-    "en": "artifacts that stopped being true"
-  },
-  "b8.refreshed": {
-    "ko": "다시 검증한 아티팩트",
-    "en": "artifacts re-verified"
-  },
-  "b9.unknowns": {
-    "ko": "기록된 모르는 것",
-    "en": "recorded unknowns"
-  },
-  "b9.questions": {
-    "ko": "오너에게 넘긴 질문",
-    "en": "questions handed to the owner"
-  },
-  "b9.sample": {
-    "ko": "그중 한 장",
-    "en": "One of them"
-  },
-  "b10.clone": {
-    "ko": "세 저장소가 전부 공개돼 있습니다. 채점 기준까지 들어 있습니다.",
-    "en": "All three repositories are public. The grading key is in there too."
-  },
-  "ui.more": {
-    "ko": "더 보기",
-    "en": "Show more"
-  },
-  "why.h": {
-    "ko": "AI가 문서를 써 준다는 건 흔한 아이디어입니다. 그리고 대체로 효과가 없습니다.",
-    "en": "“AI writes your docs” is a common idea. It mostly does not work."
-  },
-  "why.lede": {
-    "ko": "가장 엄밀한 연구가 그렇게 말합니다. 우리 편이 아닙니다. 그래서 먼저 세워 두고 답합니다.",
-    "en": "The most rigorous study of this says so. It is not on our side, so we put it first and answer it."
-  },
-  "why.challenge": {
-    "ko": "반론",
-    "en": "The challenge"
-  },
-  "why.answer": {
-    "ko": "답",
-    "en": "Our answer"
-  },
-  "why.a1": {
-    "ko": "그 연구가 잰 것은 「이슈 고치기」입니다. reef가 겨냥하는 것은 「이 프로세스가 어떻게 도는지 사흘 안에 파악하기」입니다. 같은 일이 아닙니다.",
-    "en": "That study measured fixing an issue. Reef is aimed at working out how a process runs in three days. These are not the same job."
-  },
-  "why.a2": {
-    "ko": "저장소 개요가 쓸모없다는 데 동의합니다. 대부분의 AI 문서화 도구가 만드는 것이 정확히 개요입니다. reef가 만드는 것은 개요가 아니라 인용된 주장, 명시된 모름, 기록된 모순입니다.",
-    "en": "We agree that repository overviews are useless. An overview is exactly what most AI documentation tools produce. Reef produces cited claims, stated unknowns and recorded contradictions instead."
-  },
-  "why.a3": {
-    "ko": "비용이 20% 넘게 는다는 것도 인정합니다. 공짜가 아닙니다.",
-    "en": "We accept the cost: over 20% more inference. This is not free."
-  },
-  "why.a4": {
-    "ko": "「배포 전에 엄밀히 평가하라」 — 그것이 /reef:test 이고, 실제로 했습니다.",
-    "en": "“Evaluate rigorously before deploying” — that is /reef:test, and we ran it."
-  },
-  "why.boundary": {
-    "ko": "세 데이터가 같은 경계선을 가리킵니다",
-    "en": "Three results point at the same boundary"
-  },
-  "why.bound1": {
-    "ko": "ETH 연구 · 이슈 고치기 · 도움 안 됨",
-    "en": "ETH study · fixing issues · no help"
-  },
-  "why.bound2": {
-    "ko": "자체 벤치마크 · 분석 과제 · 89 → 100%",
-    "en": "Own benchmark · analysis tasks · 89 → 100%"
-  },
-  "why.bound3": {
-    "ko": "그 벤치마크가 스스로 적은 한계 · 「모든 과제가 구현이 아니라 분석」",
-    "en": "That benchmark's own caveat · “every task is analysis, not implementation”"
-  },
-  "why.bound": {
-    "ko": "컨텍스트는 구현을 돕지 않습니다. 분석을 돕습니다. 이건 우리 주장이 아니라 우리에게 불리한 연구까지 함께 가리키는 선입니다.",
-    "en": "Context does not help implementation. It helps analysis. That line is drawn by the study that goes against us as much as by the one that does not."
-  },
-  "why.loop": {
-    "ko": "그래서 남은 문제는 하나입니다 — 남긴 것이 참인지 어떻게 아는가",
-    "en": "Which leaves one problem — how do you know what was left behind is true?"
-  },
-  "why.q1": {
-    "ko": "어떻게 낡지 않게 하는가",
-    "en": "How do you keep it from going stale?"
-  },
-  "why.q1a": {
-    "ko": "아티팩트마다 자기를 무효화할 파일 목록을 들고 있습니다. 그 파일이 바뀌면 리프가 먼저 말합니다.",
-    "en": "Every artifact carries the files that would invalidate it. When one changes, the reef says so first."
-  },
-  "why.q2": {
-    "ko": "어떻게 참인 줄 아는가",
-    "en": "How do you know it is true?"
-  },
-  "why.q2a": {
-    "ko": "모든 주장에 출처가 붙습니다. 결론이 안 나는 것은 「모른다」로 적힙니다. 그리고 질문 은행으로 채점합니다.",
-    "en": "Every claim carries its source. What cannot be settled is written down as unknown. Then it is graded against the question bank."
-  },
-  "why.q3": {
-    "ko": "어떻게 필요한 것을 찾는가",
-    "en": "How does someone find what they need?"
-  },
-  "why.q3a": {
-    "ko": "9가지 타입, 위키링크, 그리고 진입점 하나.",
-    "en": "Nine artifact types, wikilinks, and one entry point."
-  },
-  "why.inv": {
-    "ko": "물어볼 사람이 없을 때",
-    "en": "When there is nobody to ask"
-  },
-  "why.inv1": {
-    "ko": "“AI가 답을 찾았고, 질문은 내가 했다”",
-    "en": "“AI found the answers. I asked the questions.”"
-  },
-  "why.inv2": {
-    "ko": "“AI가 질문했고, 당신만 답할 수 있는 것에만 답한다”",
-    "en": "“The AI asked the questions. You answer the ones only you can.”"
-  },
-  "why.invbody": {
-    "ko": "원저자는 떠났고, 실행은 무인이고, 키보드 앞의 사람은 지난주에 왔습니다. 그러면 원칙은 사라지는 게 아니라 뒤집힙니다.",
-    "en": "The authors have left, the run is unattended, the person at the keyboard arrived last week. The principle does not lapse; it inverts."
-  },
-  "how.h": {
-    "ko": "플러그인이 먼저 있었고, 그것을 증명하려다 나머지가 생겼습니다",
-    "en": "The plugin came first. Everything else exists to prove it works."
-  },
-  "how.s1": {
-    "ko": "정답이 있는 코드베이스가 필요했습니다",
-    "en": "We needed a codebase with a known answer"
-  },
-  "how.s1b": {
-    "ko": "실제 회사 코드로는 「리프가 맞았다」를 증명할 수 없습니다. 채점 기준이 없으니까요. 그래서 픽스처를 지었습니다 — 정답과 26개 조각이 문서로 고정된.",
-    "en": "On a real company's code you cannot prove the reef was right, because there is no key. So we built a fixture with a written answer and 26 fragments."
-  },
-  "how.s2": {
-    "ko": "파이프라인",
-    "en": "The pipeline"
-  },
-  "how.s3": {
-    "ko": "그리고 루프가 자기에게 걸렸습니다",
-    "en": "Then the loop closed on itself"
-  },
-  "how.s3b": {
-    "ko": "물어볼 사람 없이 돌려 보니 플러그인에 없던 기능이 필요했습니다. 만들어서 플러그인에 되돌렸고, 그것을 쓰다가 결함 5건이 드러났습니다 — 그중 넷은 변경 감지를 망가뜨리고 있었습니다. 전부 고쳐서 공개했습니다.",
-    "en": "Running it with nobody to ask exposed a capability the plugin did not have. We built it and pushed it back; using it then exposed five defects, four of them in change detection — the pillar this plugin sells. All fixed and published."
-  },
-  "how.arch": {
-    "ko": "결정론과 판단을 나눕니다",
-    "en": "Deterministic work and judgement are separated"
-  },
-  "how.archb": {
-    "ko": "색인·스냅샷·차이·린트·재구축은 파이썬이 합니다. 모델 호출 0회. 모델은 판단이 필요한 것만 합니다.",
-    "en": "Indexing, snapshots, diffing, linting and rebuilding are Python. Zero model calls. The model does only what needs judgement."
-  },
-  "verify.h": {
-    "ko": "우리 말을 믿지 마세요",
-    "en": "Do not take our word for it"
-  },
-  "verify.lede": {
-    "ko": "세 저장소가 전부 공개돼 있고, 채점 기준까지 들어 있습니다. 아래는 직접 확인하는 순서입니다.",
-    "en": "All three repositories are public, and the grading key is in there. Here is how to check it yourself."
-  },
-  "verify.v1": {
-    "ko": "리프의 주장을 채점 기준에 대고 확인",
-    "en": "Check the reef's claims against the key"
-  },
-  "verify.v1b": {
-    "ko": "ANSWER-KEY.md 에 정답과 조각 26개, 그리고 소스로는 판정 불가능한 4가지가 적혀 있습니다. 리프가 그 4가지를 안다고 주장하면 그게 실패입니다.",
-    "en": "ANSWER-KEY.md holds the answer, its 26 fragments, and four things the sources cannot settle. If the reef claims to know those four, that is a failure."
-  },
-  "verify.v2": {
-    "ko": "눈 가린 채점을 다시 돌려 보기",
-    "en": "Re-run the blind grading"
-  },
-  "verify.v2b": {
-    "ko": "아티팩트만 읽고 52문항에 답한 뒤 채점 기준으로 맞춰 보세요. 저희 결과는 .reef/test-report-2026-09-19.md 에 그대로 있습니다.",
-    "en": "Answer the 52 questions from artifacts only, then grade against the key. Our run is in .reef/test-report-2026-09-19.md."
-  },
-  "verify.v3": {
-    "ko": "코드를 바꾸고 리프가 뭐라 하는지 보기",
-    "en": "Change the code and see what the reef says"
-  },
-  "verify.v3b": {
-    "ko": "픽스처의 파일 하나를 고치고 아래를 돌리면, 어떤 아티팩트가 더는 참이 아닌지 이름으로 알려 줍니다.",
-    "en": "Edit one file in the fixture and run this. It names the artifacts that stopped being true."
-  },
-  "verify.v4": {
-    "ko": "리프가 모른다고 한 것들을 세어 보기",
-    "en": "Count what the reef says it does not know"
-  },
-  "verify.note": {
-    "ko": "sellflow 와 sellflow-reef 는 나란히 두어야 합니다 — .reef/project.json 이 ../sellflow/repos/* 를 가리킵니다. 플러그인은 어디에 두어도 됩니다.",
-    "en": "sellflow and sellflow-reef must sit side by side — .reef/project.json points at ../sellflow/repos/*. The plugin can live anywhere."
-  }
+ "_note": {
+  "ko": "화면 문구. 숫자는 evidence.json 에서 {placeholder} 로 주입되므로 여기에 적지 않는다.",
+  "en": "Screen copy. Numbers are injected from evidence.json as {placeholder}; never written here."
+ },
+ "nav.home": {
+  "ko": "소개",
+  "en": "Overview"
+ },
+ "nav.try": {
+  "ko": "비교해보기",
+  "en": "Compare"
+ },
+ "nav.about": {
+  "ko": "상세",
+  "en": "Details"
+ },
+ "L.kicker": {
+  "ko": "Claude Code 플러그인 · 스킬 13개 · Apache-2.0",
+  "en": "A Claude Code plugin · 13 skills · Apache-2.0"
+ },
+ "L.h1": {
+  "ko": "코드를 읽어주는 도구는 많습니다.\nreef 는 코드에 없는 것을 묻습니다.",
+  "en": "Plenty of tools read your code.\nreef asks about what is not in it."
+ },
+ "L.sub": {
+  "ko": "저장소와 사내 문서를 함께 읽고, 인용된 주장 · 명시된 모름 · 기록된 모순으로 된 아티팩트를 남깁니다. 요약이 아닙니다 — 알아낸 것을 더하기 때문에 원본보다 큽니다.",
+  "en": "It reads the repositories and the company's own documents together, and leaves artifacts made of cited claims, stated unknowns and recorded contradictions. Not a summary — it adds what was worked out, so it comes out bigger than its sources."
+ },
+ "L.v1t": {
+  "ko": "인용 없는 문장이 없다",
+  "en": "No sentence without a source"
+ },
+ "L.v1b": {
+  "ko": "주장마다 파일과 줄이 붙습니다. 확인 없이 믿어야 하는 문장이 0개입니다.",
+  "en": "Every claim carries the file and line it came from. Nothing has to be taken on trust."
+ },
+ "L.v2t": {
+  "ko": "모른다고 말한다",
+  "en": "It says when it does not know"
+ },
+ "L.v2b": {
+  "ko": "「소스로는 판정 불가」가 {unknowns}건 명시돼 있습니다. 매끄럽게 넘어가는 대신 질문으로 남깁니다.",
+  "en": "{unknowns} findings are recorded as not determinable from the sources. Instead of smoothing over a gap, it leaves the question standing."
+ },
+ "L.v3t": {
+  "ko": "채점할 수 있다",
+  "en": "It can be graded"
+ },
+ "L.v3b": {
+  "ko": "아티팩트만 읽는 에이전트가 {questions}문항에 답하고, 정답은 채점이 끝날 때까지 봉인했습니다. {answered}문항 완답, 정답 조각 {frag}/{frag} 복원.",
+  "en": "An agent allowed to read only the artifacts answered {questions} questions with the key sealed until grading closed. {answered} fully answered; {frag} of {frag} answer fragments recovered."
+ },
+ "L.cta": {
+  "ko": "reef 있는 답과 없는 답, 나란히 보기",
+  "en": "See the same question answered with and without it"
+ },
+ "L.ctaNote": {
+  "ko": "같은 질문 · 같은 모델 · 같은 분량의 컨텍스트. 한쪽만 reef 를 들고 있습니다.",
+  "en": "Same question, same model, same amount of context. Only one side is holding a reef."
+ },
+ "L.diffTitle": {
+  "ko": "문서 생성기와 무엇이 다른가",
+  "en": "How this differs from a documentation generator"
+ },
+ "L.diffHeadA": {
+  "ko": "생성기",
+  "en": "A generator"
+ },
+ "L.diffHeadB": {
+  "ko": "reef",
+  "en": "reef"
+ },
+ "L.d1k": {
+  "ko": "산출물",
+  "en": "What comes out"
+ },
+ "L.d1a": {
+  "ko": "코드에서 읽어낸 설명",
+  "en": "An account read off the code"
+ },
+ "L.d1b": {
+  "ko": "인용된 주장 + 명시된 모름 + 기록된 모순",
+  "en": "Cited claims, stated unknowns, recorded contradictions"
+ },
+ "L.d2k": {
+  "ko": "상태",
+  "en": "State"
+ },
+ "L.d2a": {
+  "ko": "무상태 — 같은 코드에서 매번 같은 것이 나옵니다",
+  "en": "Stateless — the same code yields the same output every run"
+ },
+ "L.d2b": {
+  "ko": "누적 — 사람이 한 번 답한 것이 다음 회차에 남습니다",
+  "en": "Cumulative — what a person answered once is still there next run"
+ },
+ "L.d3k": {
+  "ko": "코드가 바뀌면",
+  "en": "When the code changes"
+ },
+ "L.d3a": {
+  "ko": "다시 생성합니다",
+  "en": "It regenerates"
+ },
+ "L.d3b": {
+  "ko": "어떤 주장이 더는 참이 아닌지 이름을 댑니다",
+  "en": "It names the claims that stopped being true"
+ },
+ "L.diffNote": {
+  "ko": "마지막 줄이 이 도구가 존재하는 이유입니다. 지난번 실행에서 커밋 {changed}건을 받아 아티팩트 {gone}개를 「더는 참이 아님」으로 지목했고, {refreshed}개를 갱신했습니다.",
+  "en": "The last row is why this exists. On its last run it took {changed} changed files, named {gone} artifacts as no longer true, and refreshed {refreshed}."
+ },
+ "L.foot": {
+  "ko": "셀플로우는 이 데모를 위해 지은 가상의 회사입니다. 실재하는 회사·인물·사건과 무관합니다.",
+  "en": "Sellflow is a fictional company built for this demo. It is not based on any real company, person or incident."
+ },
+ "L.footLink": {
+  "ko": "만든 방법 · 링크 · 한계 전부 보기",
+  "en": "How it was built, every link, and the limits"
+ },
+ "T.kicker": {
+  "ko": "3일",
+  "en": "Three days"
+ },
+ "T.h1": {
+  "ko": "「정산 정정 업무를 AI 에이전트로 자동화하려 합니다.\n현재 프로세스가 어떻게 도는지 3일 안에 파악해 주세요.」",
+  "en": "“We want to automate settlement corrections with an AI agent.\nWork out how the current process runs. You have three days.”"
+ },
+ "T.brief": {
+  "ko": "당신은 이 회사에 처음 들어온 FDE 입니다. 아는 사람이 없고, 이 업무를 맡았던 담당자는 퇴사했고, 사흘 뒤에 무엇을 자동화할지 말해야 합니다. 셀플로우는 이커머스 풀필먼트 회사이고 서비스가 다섯 개입니다.",
+  "en": "You are an FDE walking into this company for the first time. You know no one, the person who owned this work has left, and in three days you have to say what should be automated. Sellflow does e-commerce fulfilment across five services."
+ },
+ "T.briefNote": {
+  "ko": "가상의 회사입니다. 코드와 문서는 실무에서 흔한 구성을 따라 이 데모를 위해 지었고, 정답은 저장소에 공개돼 있습니다.",
+  "en": "A fictional company. Its code and documents were built for this demo along lines common in real repositories, and the intended answer is published in the repository."
+ },
+ "T.srcTitle": {
+  "ko": "당신에게 주어진 것",
+  "en": "What you are handed"
+ },
+ "T.srcNote": {
+  "ko": "코드만이 아닙니다. 실제 회사가 그렇듯 답의 절반은 문서에 있고, 그 문서 중 몇 개는 틀렸습니다. 아래는 reef 없는 쪽이 받은 파일 {files}개 전부입니다 — reef 가 만들어낸 것은 한 개도 들어 있지 않습니다.",
+  "en": "Not only code. As in a real company, half the answer is in the documents — and several of those documents are wrong. Below are all {files} files handed to the no-reef side. None of them is something the reef produced."
+ },
+ "T.srcCode": {
+  "ko": "코드",
+  "en": "Code"
+ },
+ "T.srcDocs": {
+  "ko": "문서",
+  "en": "Documents"
+ },
+ "T.srcExcluded": {
+  "ko": "일부러 제외한 것",
+  "en": "Deliberately withheld"
+ },
+ "T.buildTitle": {
+  "ko": "이 리프는 이렇게 만들어졌습니다",
+  "en": "How this reef was built"
+ },
+ "T.s1": {
+  "ko": "`/reef:init` — 저장소 다섯 개와 문서 트리를 등록하고 색인합니다.",
+  "en": "`/reef:init` — registers and indexes the five repositories and the document tree."
+ },
+ "T.s2": {
+  "ko": "`/reef:snorkel` + `/reef:source` — 구조를 훑고, API 스펙과 ER 다이어그램을 앱을 실제로 띄워 뽑아냅니다. 아티팩트 43개 초안.",
+  "en": "`/reef:snorkel` + `/reef:source` — sweeps the structure and extracts API specs and ER diagrams by importing the apps themselves. 43 draft artifacts."
+ },
+ "T.s3": {
+  "ko": "`/reef:scuba` — 초안을 소스에 대고 파서 {artifacts}개로 채웁니다. 주장마다 인용, 판정 불가는 판정 불가로 기록.",
+  "en": "`/reef:scuba` — deepens the drafts against the sources to {artifacts}. Every claim cited; what cannot be settled is recorded as unsettled."
+ },
+ "T.s4": {
+  "ko": "`/reef:ask` — 소스로는 풀 수 없는 것 {owner}건을 사람에게 물을 질문으로 분리합니다.",
+  "en": "`/reef:ask` — separates out {owner} things the sources cannot answer, as questions for a person."
+ },
+ "T.s5": {
+  "ko": "`/reef:test` — 눈 가린 채점. 아티팩트만 읽는 에이전트가 {questions}문항에 답하고, 채점 기준은 채점이 닫힐 때까지 봉인합니다.",
+  "en": "`/reef:test` — blind grading. An agent reading only the artifacts answers {questions} questions; the key stays sealed until grading closes."
+ },
+ "T.buildNote": {
+  "ko": "사람이 손으로 쓴 아티팩트는 없습니다. 무엇을 언제 왜 했는지는 리프 저장소의 `log.md` 에 그대로 남아 있습니다.",
+  "en": "No artifact was hand-written. What was done, when, and why is left in `log.md` in the reef repository."
+ },
+ "T.askTitle": {
+  "ko": "같은 질문, 답 두 개",
+  "en": "One question, two answers"
+ },
+ "T.askNote": {
+  "ko": "아래 질문을 누르거나, 직접 무엇이든 물어보세요. 왼쪽은 리프를 들고 답하고, 오른쪽은 셀플로우 원본 전체를 들고 답합니다.",
+  "en": "Pick a question below, or ask your own. The left answer is given holding the reef; the right one is given holding all of Sellflow's sources."
+ },
+ "T.fair": {
+  "ko": "공정하게 맞춘 것: 같은 모델 · 같은 추론 강도 · 같은 토큰 상한 · 규칙도 한 줄씩 대응시켰습니다. 컨텍스트 실측은 reef {reefTok} 대 원본 {rawTok} 토큰으로, 원본 쪽이 더 큽니다({recordedAt} 측정). 차이는 무엇을 들고 있느냐 하나뿐입니다.",
+  "en": "Held equal on purpose: same model, same reasoning effort, same token ceiling, and rules written line for line against each other. Measured context: {reefTok} tokens for the reef against {rawTok} for the sources — the no-reef side is given the larger of the two (measured {recordedAt}). The only difference is what it is holding."
+ },
+ "T.armReef": {
+  "ko": "reef 있음",
+  "en": "With reef"
+ },
+ "T.armRaw": {
+  "ko": "reef 없음",
+  "en": "Without reef"
+ },
+ "T.armReefNote": {
+  "ko": "아티팩트 {artifacts}개",
+  "en": "{artifacts} artifacts"
+ },
+ "T.armRawNote": {
+  "ko": "원본 파일 {files}개",
+  "en": "{files} source files"
+ },
+ "T.armFail": {
+  "ko": "이쪽은 답을 받지 못했습니다.",
+  "en": "No answer came back on this side."
+ },
+ "T.verdictNote": {
+  "ko": "판정은 하지 않습니다. 두 답을 그대로 놓습니다 — 어느 쪽이 확인 가능한 답인지는 읽는 사람이 정합니다.",
+  "en": "No verdict is rendered here. Both answers are put down as they came — which one is checkable is the reader's call."
+ },
+ "A.h1": {
+  "ko": "무엇으로 만들었고, 어디서 확인할 수 있나",
+  "en": "What it is made of, and where to check it"
+ },
+ "A.lede": {
+  "ko": "이 페이지는 심사용입니다. 주장보다 확인 경로를 우선해 적었습니다.",
+  "en": "This page is for review. It puts the ways to check ahead of the claims."
+ },
+ "A.repoTitle": {
+  "ko": "저장소 세 개",
+  "en": "Three repositories"
+ },
+ "A.repoNote": {
+  "ko": "전부 공개이고 Apache-2.0 입니다. `sellflow` 와 `sellflow-reef` 는 나란히 두어야 합니다 — `.reef/project.json` 이 `../sellflow/repos/*` 를 가리킵니다. 플러그인은 어디에 두어도 됩니다.",
+  "en": "All public, all Apache-2.0. `sellflow` and `sellflow-reef` must sit side by side — `.reef/project.json` points at `../sellflow/repos/*`. The plugin can live anywhere."
+ },
+ "A.repoPlugin": {
+  "ko": "플러그인 — 스킬 13개와 `reef.py`. 모델 호출 없이 결정적으로 도는 부분이 전부 여기 있습니다.",
+  "en": "The plugin — 13 skills and `reef.py`, which does all of the deterministic work with no model calls."
+ },
+ "A.repoFixture": {
+  "ko": "픽스처 — 가상 회사 셀플로우. 코드 저장소 다섯 개와 문서 트리, 그리고 `ANSWER-KEY.md`.",
+  "en": "The fixture — Sellflow itself: five code repositories, the document tree, and `ANSWER-KEY.md`."
+ },
+ "A.repoReef": {
+  "ko": "결과물 — 아티팩트 {artifacts}개, 실행 기록 `log.md`, 채점 보고서 `.reef/test-report-2026-09-19.md`.",
+  "en": "The output — {artifacts} artifacts, the run log `log.md`, and the grading report `.reef/test-report-2026-09-19.md`."
+ },
+ "A.stackTitle": {
+  "ko": "무엇으로 만들었나",
+  "en": "Built with"
+ },
+ "A.stackNote": {
+  "ko": "프레임워크를 쓰지 않았습니다. 정적 HTML 세 장과 서버리스 함수 한 개입니다.",
+  "en": "No framework. Three static pages and one serverless function."
+ },
+ "A.evalTitle": {
+  "ko": "평가 결과",
+  "en": "How it was graded"
+ },
+ "A.evalMethod": {
+  "ko": "채점 방법: 아티팩트만 읽을 수 있는 에이전트가 {questions}문항에 답했습니다. 소스 저장소도, 문서 트리도, 채점 기준도 주지 않았고 — 기준은 채점이 닫힐 때까지 봉인했습니다.",
+  "en": "Method: an agent allowed to read only the artifacts answered {questions} questions. No source repositories, no document tree, and no answer key — the key stayed sealed until grading closed."
+ },
+ "A.evalNote": {
+  "ko": "부족했던 5건은 전부 「소스로 답할 수 없고, 답하는 방법만 제시할 수 있다」는 유형이었습니다. 리프가 스스로를 과소평가한 경우가 11건, 과대평가한 경우가 0건입니다. 보고서에 문항별로 남아 있습니다.",
+  "en": "The five short answers were all of one kind: the sources cannot settle them, and the reef could only supply the method. The reef understated itself 11 times and overstated itself none. The report has it question by question."
+ },
+ "A.benchTitle": {
+  "ko": "다른 저장소에서도 쟀습니다",
+  "en": "Measured on other repositories too"
+ },
+ "A.benchNote": {
+  "ko": "셀플로우는 제가 지은 회사라서, 제가 지은 것 위에서만 잰 수치는 증거로 약합니다. 공개 저장소로 따로 벤치마크를 돌렸습니다.",
+  "en": "Sellflow is a company I built, so numbers measured only on something I built are weak evidence. A separate benchmark was run on public repositories."
+ },
+ "A.benchNeg": {
+  "ko": "같은 방식으로 제 회사 실제 저장소에서도 돌렸고, 구현 과제에서는 reef 없는 쪽이 이겼습니다. 이 저장소는 사내 코드라서 제출할 수 없습니다. 여기에 적는 이유는, 이기는 수치만 골라 보여주면 위의 채점도 같이 신뢰를 잃기 때문입니다.",
+  "en": "The same method was run on my employer's real repositories, and on implementation tasks the no-reef side won. That repository is internal and cannot be submitted. It is stated here because showing only the favourable numbers would cost the grading above its credibility too."
+ },
+ "A.ethTitle": {
+  "ko": "이 접근을 정면으로 반박하는 연구",
+  "en": "Research that argues against this approach"
+ },
+ "A.ethNote": {
+  "ko": "숨기는 편이 유리하지만, 이 연구를 모르는 채로 만든 것은 아닙니다. 원문을 {verified} 에 확인했습니다.",
+  "en": "It would be convenient to leave this out. The work was not done in ignorance of it; the paper was read on {verified}."
+ },
+ "A.ethAnswer1": {
+  "ko": "이 논문이 잰 것은 「이슈 고치기」 과제 성공률입니다. reef 가 겨냥하는 것은 「이 프로세스가 어떻게 도는지 파악하기」이고, 그건 저 벤치마크에 없는 과제입니다.",
+  "en": "The paper measures success on issue-fixing tasks. What reef targets is working out how a process runs, which is not a task in that benchmark."
+ },
+ "A.ethAnswer2": {
+  "ko": "「저장소 개요는 도움이 안 된다」에는 동의합니다. reef 가 만드는 것은 개요가 아니라 인용된 주장 · 명시된 모름 · 기록된 모순입니다.",
+  "en": "On repository overviews being unhelpful, I agree. What reef produces is not an overview but cited claims, stated unknowns and recorded contradictions."
+ },
+ "A.ethAnswer3": {
+  "ko": "「배포 전에 엄밀히 평가하라」가 정확히 `/reef:test` 가 하는 일입니다. 그래서 눈 가린 채점을 돌렸고 결과를 위에 적었습니다.",
+  "en": "“Evaluate rigorously before deploying” is exactly what `/reef:test` does. That is why the blind grading was run, and why its result is above."
+ },
+ "A.ethAnswer4": {
+  "ko": "「추론 비용이 20% 이상 늘어난다」는 인정합니다. 반박할 자체 데이터가 없습니다.",
+  "en": "On inference cost rising by over 20%, I concede it. I have no data of my own that contradicts it."
+ },
+ "A.limitTitle": {
+  "ko": "한계",
+  "en": "Limits"
+ },
+ "A.limit1": {
+  "ko": "아티팩트 {artifacts}개 전부 `status: draft` 입니다. 사람이 검토한 것이 아니라 소스에 대고 검증된 상태라는 뜻이고, 이 구분을 지키는 것이 리프의 규칙입니다.",
+  "en": "All {artifacts} artifacts are `status: draft`. That means verified against the sources, not reviewed by a person — and keeping those two apart is one of the reef's rules."
+ },
+ "A.limit2": {
+  "ko": "셀플로우는 가상입니다. 실제 레거시의 지저분함, 특히 사람만 아는 맥락은 재현하지 못합니다.",
+  "en": "Sellflow is fictional. It does not reproduce the mess of real legacy systems, least of all the context that lives only in people."
+ },
+ "A.limit3": {
+  "ko": "루프의 절반만 이 데모에 있습니다. 사람이 답을 남기고 그것이 다음 회차에 쌓이는 부분은 오너가 있어야 돌아가고, 이 데모에는 오너가 없습니다.",
+  "en": "Only half the loop is in this demo. The half where a person leaves an answer and it accumulates needs an owner, and this demo has none."
+ },
+ "A.limit4": {
+  "ko": "이 비교의 오른쪽(reef 없음)은 컨텍스트에 원본 전체를 넣는 방식입니다. 도구를 들고 저장소를 탐색하는 에이전트와는 다른 조건이고, 그쪽이 더 잘할 가능성이 있습니다.",
+  "en": "The right-hand side of the comparison is given the sources in its context. That is not the same condition as an agent exploring the repository with tools, and such an agent might do better."
+ },
+ "A.discTitle": {
+  "ko": "고지",
+  "en": "Disclaimer"
+ },
+ "A.disc": {
+  "ko": "셀플로우와 그 코드·문서·인물·사건·데이터는 전부 가상입니다. `api.sellflow.co.kr` 은 등록되지 않은 도메인이고, 이 데모의 어떤 부분도 실재하는 회사의 코드나 문서를 포함하지 않습니다. 저자의 고용주와 무관하게 개인 자격으로 만들었습니다.",
+  "en": "Sellflow and all of its code, documents, people, incidents and data are fictional. `api.sellflow.co.kr` is an unregistered domain, and no part of this demo contains code or documents from any real company. It was built in a personal capacity, unconnected to the author's employer."
+ },
+ "A.costNote": {
+  "ko": "자유 질문은 두 번의 모델 호출로 답하므로 한 번에 두 배가 듭니다. 상한을 걸어 두었고, 상한을 넘으면 준비된 답변만 남고 페이지는 그대로 동작합니다.",
+  "en": "A free-typed question costs two model calls, so twice a single answer. A hard cap is set; past it, the prepared answers remain and the page keeps working."
+ },
+ "chat.close": {
+  "ko": "닫기",
+  "en": "Close"
+ },
+ "chat.live": {
+  "ko": "실시간",
+  "en": "live"
+ },
+ "chat.open": {
+  "ko": "저장소에서 보기",
+  "en": "View in the repository"
+ },
+ "chat.placeholder": {
+  "ko": "셀플로우에 대해 무엇이든 물어보세요",
+  "en": "Ask anything about Sellflow"
+ },
+ "chat.prepared": {
+  "ko": "준비된 답변 · 아티팩트만 읽고 생성",
+  "en": "prepared answer · generated from artifacts only"
+ },
+ "chat.send": {
+  "ko": "보내기",
+  "en": "Send"
+ },
+ "chat.spent": {
+  "ko": "실시간 응답 한도에 도달했습니다. 준비된 질문으로 계속 보실 수 있습니다.",
+  "en": "The live budget is spent. The prepared questions still work."
+ },
+ "chat.unknowns": {
+  "ko": "이 아티팩트가 모른다고 적어 둔 것",
+  "en": "What this artifact records as not determinable"
+ },
+ "chat.offline": {
+  "ko": "자유 질문은 지금 꺼져 있습니다. 위의 준비된 질문은 그대로 동작합니다.",
+  "en": "Free-form questions are off right now. The prepared questions above still work."
+ },
+ "T.srcList": {
+  "ko": "파일 목록",
+  "en": "File list"
+ },
+ "A.figAnswered": {
+  "ko": "완답",
+  "en": "fully answered"
+ },
+ "A.figFragments": {
+  "ko": "정답 조각 복원",
+  "en": "answer fragments recovered"
+ },
+ "A.figOverstated": {
+  "ko": "과대 주장",
+  "en": "claims overstated"
+ },
+ "A.reportIs": {
+  "ko": "문항별 채점 기록:",
+  "en": "Graded question by question in"
+ },
+ "A.benchReport": {
+  "ko": "보고서",
+  "en": "the report"
+ },
+ "A.stackSite": {
+  "ko": "페이지",
+  "en": "Pages"
+ },
+ "A.stackHost": {
+  "ko": "호스팅",
+  "en": "Hosting"
+ },
+ "A.stackProxy": {
+  "ko": "채팅 프록시",
+  "en": "Chat proxy"
+ },
+ "A.stackModel": {
+  "ko": "모델 (양쪽 동일)",
+  "en": "Model (both arms)"
+ },
+ "A.stackPlugin": {
+  "ko": "플러그인",
+  "en": "The plugin"
+ },
+ "T.recorded": {
+  "ko": "기록된 실행 · {recordedAt}",
+  "en": "recorded run · {recordedAt}"
+ }
 }

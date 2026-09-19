@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="assets/css/site.css?v=adea0933">
-  <title>reef — demo</title>
+  <link rel="stylesheet" href="assets/css/site.css?v=9257fbf9">
+  <title>reef — 코드에 없는 것을 묻습니다</title>
+  <meta name="description" content="reef is a Claude Code plugin that asks what the code cannot answer and leaves cited claims, stated unknowns and recorded contradictions.">
 </head>
 <body data-base=".">
   <header class="topbar">
     <a class="brand" href="index.html">~ <span>reef</span></a>
     <nav class="nav">
-      <a href="index.html"  data-i18n="nav.demo"></a>
-      <a href="why.html"    data-i18n="nav.why"></a>
-      <a href="how.html"    data-i18n="nav.how"></a>
-      <a href="index.html#ask" data-i18n="nav.ask"></a>
-      <a href="verify.html" data-i18n="nav.verify"></a>
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="try.html"   data-i18n="nav.try"></a>
+      <a href="about.html" data-i18n="nav.about"></a>
     </nav>
     <div class="lang">
       <button data-lang="ko" aria-pressed="true">한국어</button>
@@ -23,157 +22,50 @@
   </header>
 
   <main>
-    <section class="beat" id="top">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="site.tagline"></p>
-        <h1 class="lede" data-i18n="b1.brief"></h1>
-        <p class="meta" data-i18n="b1.meta"></p>
-      </div>
-    </section>
+    <!-- One screen. Says what it is, why it matters, and where to go next. -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="kicker" data-i18n="L.kicker"></p>
+        <h1 class="hero-h1 preline" data-i18n="L.h1"></h1>
+        <p class="hero-sub" data-i18n="L.sub"></p>
 
-    <section class="beat" id="search" data-beat="2">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b2.kicker"></p>
-                <div class="q-line"><span class="q-mark">?</span><span data-i18n="b2.q"></span></div>
-        <div class="find-row">
-          <button class="find-btn" data-find="doc" data-i18n="b2.findDoc"></button>
-          <button class="find-btn" data-find="code" data-i18n="b2.findCode"></button>
-        </div>
-        <div class="grid2 find-panels">
-          <figure class="panel find-panel" data-panel="doc" hidden>
-            <figcaption class="tag" data-i18n="b2.docLabel"></figcaption>
-            <div class="find-body"></div>
-            <p class="src"></p>
-          </figure>
-          <figure class="panel find-panel" data-panel="code" hidden>
-            <figcaption class="tag" data-i18n="b2.codeLabel"></figcaption>
-            <pre class="find-body"></pre>
-            <p class="src"></p>
-          </figure>
-        </div>
-      </div>
-    </section>
-    <section class="beat" id="crosscheck" data-beat="3">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b3.kicker"></p>
-                <div class="stamps">
-          <span class="stamp"><b data-i18n="b3.stampDoc"></b> ✓</span>
-          <span class="stamp"><b data-i18n="b3.stampCode"></b> ✓</span>
-          <span class="stamp stamp-verdict" data-i18n="b3.agree"></span>
-        </div>
-        <p class="lede" data-i18n="b3.conclusion"></p>
-        <p class="body" data-i18n="b3.body"></p>
-      </div>
-    </section>
-    <section class="beat" id="reveal" data-beat="4">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b4.kicker"></p>
-                <p class="body" data-i18n="b4.run"></p>
-        <pre class="term" id="b4-term"></pre>
-        <p class="lede punch" id="b4-punch" hidden></p>
-        <figure class="panel reef-says" id="b4-reef" hidden>
-          <figcaption class="tag" data-i18n="b4.reefsays"></figcaption>
-          <div class="find-body"></div>
-          <p class="src"></p>
-        </figure>
-      </div>
-    </section>
-    <section class="beat" id="path" data-beat="5">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b5.kicker"></p>
-                <div class="path-head">
-          <button class="find-btn" id="b5-next" data-i18n="b5.advance"></button>
-          <button class="find-btn ghost" id="b5-replay" data-i18n="b5.replay"></button>
-          <span class="meta" id="b5-counter"></span>
-        </div>
-        <ol class="hops" id="b5-hops"></ol>
-        <p class="lede punch" id="b5-punch" hidden data-i18n="b5.stops"></p>
-      </div>
-    </section>
-    <section class="beat" id="backlog" data-beat="6">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b6.kicker"></p>
-                <div class="figures" id="b6-figures"></div>
-        <svg class="spark" id="b6-chart" viewBox="0 0 820 120" preserveAspectRatio="none" role="img"></svg>
-        <p class="meta" data-i18n="b6.zero"></p>
-        <figure class="panel caveat" id="b6-caveat">
-          <figcaption class="tag" data-i18n="b6.caveat"></figcaption>
-          <div class="find-body"></div>
-        </figure>
-      </div>
-    </section>
-    <section class="beat" id="evaluation" data-beat="7">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b7.kicker"></p>
-                <div class="figures" id="b7-figures"></div>
-        <p class="body" id="b7-method"></p>
-      </div>
-    </section>
-    <section class="beat" id="loop" data-beat="8">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b8.kicker"></p>
-                <div class="figures" id="b8-figures"></div>
-        <p class="body" data-i18n="b8.note"></p>
-      </div>
-    </section>
-    <section class="beat" id="unknowns" data-beat="9">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b9.kicker"></p>
-                <div class="figures" id="b9-figures"></div>
-        <p class="body" data-i18n="b9.note"></p>
-        <figure class="panel owner-q" id="b9-sample">
-          <figcaption class="tag" data-i18n="b9.sample"></figcaption>
-          <div class="find-body"></div>
-        </figure>
-      </div>
-    </section>
-    <section class="beat" id="ask" data-beat="chat">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="chat.kicker"></p>
-        <p class="body" data-i18n="chat.lede"></p>
-        <div class="chat has-panel">
-          <div class="chat-main">
-            <div class="chat-chips"></div>
-            <div class="chat-log" aria-live="polite"></div>
-            <form class="chat-form" hidden>
-              <input class="chat-input" type="text" maxlength="500" autocomplete="off"
-                     data-i18n-ph="chat.placeholder">
-              <button type="submit" data-i18n="chat.send"></button>
-            </form>
-            <p class="chat-offline" data-i18n="chat.offline"></p>
-          </div>
-          <aside class="artifact-panel" hidden>
-            <div class="artifact-head">
-              <p class="artifact-title"></p>
-              <button class="artifact-close" data-i18n="chat.close"></button>
-            </div>
-            <div class="artifact-body"></div>
-            <a class="artifact-link src" target="_blank" rel="noopener" data-i18n="chat.open"></a>
-          </aside>
+        <ul class="values">
+          <li><b data-i18n="L.v1t"></b><span data-i18n="L.v1b"></span></li>
+          <li><b data-i18n="L.v2t"></b><span data-i18n="L.v2b"></span></li>
+          <li><b data-i18n="L.v3t"></b><span data-i18n="L.v3b"></span></li>
+        </ul>
+
+        <div class="cta-row">
+          <a class="cta" href="try.html"><span data-i18n="L.cta"></span> <em>→</em></a>
+          <p class="meta" data-i18n="L.ctaNote"></p>
         </div>
       </div>
     </section>
 
-    <section class="beat" id="verify" data-beat="10">
-      <div class="beat-inner">
-        <p class="kicker" data-i18n="b10.kicker"></p>
-                <p class="lede" data-i18n="b10.clone"></p>
-        <pre class="term" id="b10-clone"></pre>
-        <div class="repo-links" id="b10-links"></div>
+    <!-- The one objection worth answering on the landing page: "a generator does this". -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="L.diffTitle"></h2>
+        <table class="diff">
+          <thead>
+            <tr><th></th><th data-i18n="L.diffHeadA"></th><th class="is-reef" data-i18n="L.diffHeadB"></th></tr>
+          </thead>
+          <tbody>
+            <tr><th data-i18n="L.d1k"></th><td data-i18n="L.d1a"></td><td class="is-reef" data-i18n="L.d1b"></td></tr>
+            <tr><th data-i18n="L.d2k"></th><td data-i18n="L.d2a"></td><td class="is-reef" data-i18n="L.d2b"></td></tr>
+            <tr><th data-i18n="L.d3k"></th><td data-i18n="L.d3a"></td><td class="is-reef" data-i18n="L.d3b"></td></tr>
+          </tbody>
+        </table>
+        <p class="body" data-i18n="L.diffNote"></p>
       </div>
     </section>
   </main>
 
   <footer>
-    <span class="meta">reef demo · skeleton</span>
+    <p class="meta" data-i18n="L.foot"></p>
+    <p><a href="about.html" data-i18n="L.footLink"></a></p>
   </footer>
 
-  <script>
-    /* The proxy holds the key and the reef; the browser only sends a question.
-       Empty means: prepared answers only. If this endpoint is unreachable or out of
-       budget, the chat drops back to them on its own. */
-    window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
-  </script>
-  <script type="module" src="assets/js/beats.js?v=8e1e8451"></script>
+  <script type="module" src="assets/js/landing.js?v=ec10d322"></script>
 </body>
 </html>

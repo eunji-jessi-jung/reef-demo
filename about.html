@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="assets/css/site.css?v=9257fbf9">
+  <title>reef — 상세</title>
+  <meta name="description" content="What the reef demo is made of, every repository and report behind it, how it was graded, and the research that argues against it.">
+</head>
+<body data-base=".">
+  <header class="topbar">
+    <a class="brand" href="index.html">~ <span>reef</span></a>
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="try.html"   data-i18n="nav.try"></a>
+      <a href="about.html" data-i18n="nav.about"></a>
+    </nav>
+    <div class="lang">
+      <button data-lang="ko" aria-pressed="true">한국어</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="band band-tight">
+      <div class="band-inner">
+        <h1 data-i18n="A.h1"></h1>
+        <p class="body" data-i18n="A.lede"></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.repoTitle"></h2>
+        <div class="repo-list" id="repo-list"></div>
+        <p class="meta" data-md="A.repoNote"></p>
+        <pre class="term" id="clone"></pre>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.evalTitle"></h2>
+        <div class="figures" id="eval-figures"></div>
+        <p class="body" data-i18n="A.evalMethod"></p>
+        <p class="body" data-i18n="A.evalNote"></p>
+        <p class="meta" id="eval-report"></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.benchTitle"></h2>
+        <p class="body" data-i18n="A.benchNote"></p>
+        <table class="bench" id="bench"></table>
+        <p class="body caution" data-i18n="A.benchNeg"></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.ethTitle"></h2>
+        <p class="body" data-i18n="A.ethNote"></p>
+        <figure class="panel paper" id="eth"></figure>
+        <ol class="answers">
+          <li data-md="A.ethAnswer1"></li>
+          <li data-md="A.ethAnswer2"></li>
+          <li data-md="A.ethAnswer3"></li>
+          <li data-md="A.ethAnswer4"></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.stackTitle"></h2>
+        <p class="body" data-i18n="A.stackNote"></p>
+        <table class="stack" id="stack"></table>
+        <p class="meta" data-i18n="A.costNote"></p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="A.limitTitle"></h2>
+        <ul class="limits">
+          <li data-md="A.limit1"></li>
+          <li data-md="A.limit2"></li>
+          <li data-md="A.limit3"></li>
+          <li data-md="A.limit4"></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band band-disc">
+      <div class="band-inner">
+        <h2 data-i18n="A.discTitle"></h2>
+        <p class="body" data-md="A.disc"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="meta" data-i18n="L.foot"></p>
+  </footer>
+
+  <script type="module" src="assets/js/about.js?v=acdb7500"></script>
+</body>
+</html>

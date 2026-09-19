@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": { "api/chat.js": { "maxDuration": 30, "memory": 512 } }
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30,
+      "memory": 512
+    }
+  },
+  "buildCommand": "",
+  "outputDirectory": "."
 }

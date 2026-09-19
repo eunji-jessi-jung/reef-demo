@@ -1,138 +1,401 @@
 {
-  "_note": "Answers generated from artifacts/ only — no source code, no answer key. Every citation resolves to an artifact in sellflow-reef.",
-  "generated": "2026-09-19",
-  "items": [
-    {
-      "id": "q1",
-      "q": {
-        "ko": "정산이 완료된 주문을 취소할 수 있나요?",
-        "en": "Can an order that has already been settled be cancelled?"
-      },
-      "a": {
-        "ko": "네, 취소됩니다. 2023년 4월 이후 이를 막는 코드가 없습니다. [PROC-ORDER-CANCEL]\n\n`OrderCancelService`가 차단하는 상태는 딱 둘, `CHWISO`(취소)와 `BANPUM`(반품)뿐입니다. `JUNGSAN_WANRYO`(정산완료)는 차단 집합에 없으므로 정산이 끝난 주문도 평범하게 취소되고, `SANGTAE_CD`는 `CHWISO`로 덮어써집니다. [PROC-ORDER-CANCEL]\n\n예전에는 검사가 있었습니다. 한 달에 CS 문의 214건이 쌓이자 SF-2287 티켓이 `order-service 2.8.0`에서 정산 상태 확인 로직을 제거했습니다. [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL]\n\n문서를 조심하세요. 2021년 위키는 아직도 \"정산이 완료된 주문은 취소할 수 없습니다\"라고 적고 409 Conflict를 약속하지만, 그 페이지는 2021-03-17 이후 수정된 적이 없습니다. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\n취소는 허용됩니다. 풀리지 않은 문제는 이미 나간 돈을 되찾는 쪽입니다. [CON-ORDER-SETTLEMENT]",
-        "en": "Yes. Since April 2023 nothing in the code stops it. [PROC-ORDER-CANCEL]\n\n`OrderCancelService` blocks exactly two states: `CHWISO` (취소, cancelled) and `BANPUM` (반품, returned). `JUNGSAN_WANRYO` (정산완료, settlement complete) is not in the blocking set, so a settled order cancels normally and its `SANGTAE_CD` (status code) is overwritten with `CHWISO`. [PROC-ORDER-CANCEL]\n\nThe check used to exist. Ticket SF-2287 removed it in `order-service 2.8.0` after CS reported 214 enquiries in a single month from customers the block had stopped. [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL]\n\nBe careful what you read. The 2021 wiki page still states 정산이 완료된 주문은 취소할 수 없습니다 (\"an order whose settlement is complete cannot be cancelled\") and promises a 409 Conflict. It has not been edited since 2021-03-17. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\nCancelling is allowed. Getting the money back is the unsolved half. [CON-ORDER-SETTLEMENT]"
-      },
-      "cites": [
-        "PROC-ORDER-CANCEL",
-        "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
-        "PAT-SELLFLOW-DOC-CODE-DRIFT",
-        "CON-ORDER-SETTLEMENT"
-      ]
-    },
-    {
-      "id": "q2",
-      "q": {
-        "ko": "그럼 취소된 주문의 정산금은 어떻게 회수되나요?",
-        "en": "How does the money get clawed back, then?"
-      },
-      "a": {
-        "ko": "문서상으로는 차월 정산에서 차감합니다. 2023년 SF-2287 스레드에서 합의됐고, 2024년 정산_정정_업무절차 v1.1이 정산팀의 상시 책임으로 못박았습니다. [DEC-SETTLEMENT-CANCEL-CLAWBACK]\n\n코드상으로는 회수되지 않습니다. 릴레이까지는 동작합니다. 10분 주기로 취소 이벤트를 읽어 `SETTLEMENT_DTL`에 해당 주문이 이미 있는지 확인하고, 있으면 `CANCEL_RECON_QUEUE`에 `PENDING` 한 줄을 넣습니다. [CON-ORDER-SETTLEMENT]\n\n거기서 멈춥니다. 대기열을 비우도록 작성된 `CancelReconciler`는 Quartz 트리거도, 호출자도 없습니다. 설령 등록해도 첫 문장이 `SETTLEMENT_ADJUSTMENT`에 INSERT인데, 다섯 저장소 어디에도 그 테이블의 CREATE TABLE이 없습니다. 게다가 다음 달 정산 배치는 이 대기열을 아예 읽지 않습니다. [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\n지급 요청 자체는 되돌릴 수 없습니다. 정정은 오직 차월 상계뿐입니다. [PROC-SETTLEMENT-DAILY-BATCH]\n\n실제로 돈을 되찾는 것은 사람입니다. 그것도 파트너가 문의한 건에 한해서만 처리합니다. [RISK-SETTLEMENT-RECON-BACKLOG]",
-        "en": "On paper, by deducting it from the partner's next monthly payout — agreed in the SF-2287 thread in 2023 and made a standing responsibility of 정산팀 (the settlement team) by procedure v1.1 in 2024. [DEC-SETTLEMENT-CANCEL-CLAWBACK]\n\nIn code, it is not recovered. The relay does its half: every 10 minutes it reads the cancellation, checks whether `SETTLEMENT_DTL` already holds that order, and if so inserts a `PENDING` row into `CANCEL_RECON_QUEUE`. [CON-ORDER-SETTLEMENT]\n\nThen it stops. `CancelReconciler`, the class written to drain that queue, has no Quartz trigger and no caller anywhere. Even if it were scheduled, its first statement inserts into `SETTLEMENT_ADJUSTMENT` — a table with no CREATE TABLE in any of the five repos. And the next month's settlement batch never reads the queue. [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\nThe payment request itself cannot be recalled; correction is by next-month offset only. [PROC-SETTLEMENT-DAILY-BATCH]\n\nWhat actually recovers money is a person, reactively, and only for the cases a partner asks about. [RISK-SETTLEMENT-RECON-BACKLOG]"
-      },
-      "cites": [
-        "DEC-SETTLEMENT-CANCEL-CLAWBACK",
-        "CON-ORDER-SETTLEMENT",
-        "PROC-SELLFLOW-CANCEL-MONEY-PATH",
-        "PROC-SETTLEMENT-DAILY-BATCH",
-        "RISK-SETTLEMENT-RECON-BACKLOG"
-      ]
-    },
-    {
-      "id": "q3",
-      "q": {
-        "ko": "위키 문서를 믿어도 되나요?",
-        "en": "Can I trust the wiki?"
-      },
-      "a": {
-        "ko": "현재 동작의 설명으로는 믿으면 안 됩니다. 날짜가 찍힌 '의도의 기록'으로 읽으세요.\n\n취소 정책 페이지는 2021-03-17이 마지막 수정이고, 2023년에 폐기된 규칙을 아직도 단언합니다. 2024-08-19에 한 독자가 \"이 문서 아직 유효한가요?\"라고 남긴 댓글에는 답이 없고, 페이지는 2026년에 그대로 export됐습니다. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\n원인은 부주의가 아니라 구조입니다. 코드 변경과 그 코드를 설명하는 문서를 이어주는 장치가 하나도 없습니다. 문서 소유자 필드도, 스펙을 검사하는 CI도, \"이 변경이 무효화하는 문서는?\"을 묻는 리뷰 항목도 없습니다. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\n\"문서는 대체로 보수적일 것\" 같은 휴리스틱은 통하지 않습니다. 드리프트는 양방향입니다. 위키는 코드보다 엄격하고(코드가 허용하는 취소를 금지), 정산 정정 절차서는 코드보다 낙관적입니다(아무도 수행하지 않는 월 1회 차감을 배정). [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\n실무 규칙은 이렇습니다. 문서의 날짜를 확인하고, 코드를 확인하고, 두 입장을 모두 보고할 것. [PAT-SELLFLOW-DOC-CODE-DRIFT]",
-        "en": "Not as a description of current behaviour. Read it as a dated record of intent.\n\nThe cancellation policy page was last edited 2021-03-17 and still asserts a rule repealed in 2023. A reader's comment from 2024-08-19 asking whether it is still valid went unanswered, and the page was exported unchanged in 2026. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\nThe cause is structural, not carelessness. Nothing connects a code change to the documents describing it: no doc-ownership metadata, no CI step that checks a spec, no review question asking which pages a change invalidates. [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\nDo not fall back on \"documents are probably conservative\". Drift runs both ways here: the wiki is stricter than the code (forbidding a cancellation the code allows), while the settlement correction procedure is more optimistic than the code (assigning a monthly deduction nobody performs). [PAT-SELLFLOW-DOC-CODE-DRIFT]\n\nWorking rule: date the document, check the code, report both positions. [PAT-SELLFLOW-DOC-CODE-DRIFT]"
-      },
-      "cites": [
-        "PAT-SELLFLOW-DOC-CODE-DRIFT"
-      ]
-    },
-    {
-      "id": "q4",
-      "q": {
-        "ko": "미정정 금액 1억 8,885만원은 정확한 숫자인가요?",
-        "en": "Is the 188,851,520 KRW figure accurate?"
-      },
-      "a": {
-        "ko": "쿼리 결과로는 정확하지만, 돈의 측정치로는 약합니다. '회수해야 할 금액'으로 인용하지 마세요. [RISK-SETTLEMENT-RECON-BACKLOG]\n\n출처는 단 한 번의 추출입니다. 2026-09-01 14:22, `settlement_prod` 리드 레플리카에서 `STATUS='PENDING'` 4,127행, 41개월치입니다. [RISK-SETTLEMENT-RECON-BACKLOG]\n\n금액은 실제 지급액의 합이 아닙니다. 41개월 모든 금액이 행 수 × 45,760원으로 정확히 나누어떨어지는 균일 단가 추정이고, 컬럼 헤더 자체가 \"추정 미정정 금액\"입니다. [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\n나머지 세 가지 단서. 쿼리는 `PENDING` 행만 반환했으므로 시스템 밖에서 수기로 처리된 건도 여전히 집계돼 있습니다. 합산된 `EXPECTED_AMT` 컬럼은 `settlement-batch`의 어떤 마이그레이션에도 정의가 없습니다. 그리고 export README가 명시합니다 — \"재추출 없이 그대로 인용하지 말 것.\" [RISK-SETTLEMENT-RECON-BACKLOG]\n\n자릿수는 충분히 뒷받침됩니다. 원 단위 숫자는 그렇지 않습니다. [CON-ORDER-SETTLEMENT]",
-        "en": "It is an exact query result and a weak measure of money. Do not quote it as the amount owed. [RISK-SETTLEMENT-RECON-BACKLOG]\n\nIt comes from one extraction: 2026-09-01 at 14:22, against the `settlement_prod` read replica — 4,127 rows with `STATUS='PENDING'` across 41 months. [RISK-SETTLEMENT-RECON-BACKLOG]\n\nThe amount is not a sum of real payouts. Every month's figure divides by its row count to exactly 45,760 KRW, a flat per-case estimate, and the column header calls it 추정 미정정 금액 (\"estimated uncorrected amount\"). [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\nThree further caveats. The query returned `PENDING` rows only, so anything fixed by hand outside the system is still counted in it. The summed column, `EXPECTED_AMT`, has no defining migration in `settlement-batch`. And the export's own README says: 재추출 없이 그대로 인용하지 말 것 — \"do not cite it as-is without re-extracting\". [RISK-SETTLEMENT-RECON-BACKLOG]\n\nThe order of magnitude is well supported. The exact won figure is not. [CON-ORDER-SETTLEMENT]"
-      },
-      "cites": [
-        "RISK-SETTLEMENT-RECON-BACKLOG",
-        "PROC-SELLFLOW-CANCEL-MONEY-PATH",
-        "CON-ORDER-SETTLEMENT"
-      ]
-    },
-    {
-      "id": "q5",
-      "q": {
-        "ko": "정산 배치는 실제로 매일 돌고 있나요?",
-        "en": "Does the settlement batch actually run every night?"
-      },
-      "a": {
-        "ko": "두 가지 다른 질문으로 나눠야 합니다. 스케줄은 확인 가능하고, 배포 상태는 확인 불가능합니다.\n\n등록된 사실: Quartz에 `dailySettlementTrigger`가 cron `0 0 2 * * ?`, `Asia/Seoul`로 걸려 있고 클러스터 모드입니다. 이 배치는 웹 계층이 없어 Quartz가 유일한 진입점입니다. [PROC-SELLFLOW-RUNTIME]\n\n실제로 돌았다는 증거: `CANCEL_RECON_QUEUE`는 취소된 주문이 이미 `SETTLEMENT_DTL`에 있을 때만 행이 생기는데, 2023-04부터 2026-08까지 41개월 연속으로 행이 있고 0인 달이 하나도 없습니다. [CON-ORDER-SETTLEMENT] [RISK-SETTLEMENT-RECON-BACKLOG] 2025-07-12에는 트리거가 두 번 발화해 17개 파트너에게 중복 지급이 나갔습니다. 운영에서 돌았다는 직접 증거입니다. [PROC-SETTLEMENT-DAILY-BATCH]\n\n확인 불가능한 사실: 리프의 어떤 내용도 실행 중인 환경을 직접 관찰한 것이 아닙니다. 두 Java 파이프라인 모두 저장소에 없는 `deploy.sh`를 호출하고, 배포 매니페스트도 없습니다. [PROC-SELLFLOW-RUNTIME]\n\n정리하면, 매일 02시로 스케줄돼 있고 돌았던 흔적도 분명합니다. 다만 \"하루도 거르지 않는다\"는 리프가 증명할 수 없습니다.",
-        "en": "Split this into two claims. The schedule is verifiable; the deployment is not.\n\nRegistered: Quartz holds `dailySettlementTrigger` on cron `0 0 2 * * ?` in `Asia/Seoul`, in clustered JDBC mode. The batch runs no web tier, so Quartz is its only entry point. [PROC-SELLFLOW-RUNTIME]\n\nEvidence it has really run: a `CANCEL_RECON_QUEUE` row is created only when the cancelled order already has a `SETTLEMENT_DTL` row, and there are rows in all 41 consecutive months from 2023-04 to 2026-08, with no zero month. [CON-ORDER-SETTLEMENT] [RISK-SETTLEMENT-RECON-BACKLOG] On 2025-07-12 the trigger fired twice and duplicated payouts to 17 partners — direct evidence of production execution. [PROC-SETTLEMENT-DAILY-BATCH]\n\nNot verifiable from here: nothing in the reef was observed against a running environment. Both Java CD pipelines call a `deploy.sh` that is in neither repo, and no deployment manifest exists anywhere. [PROC-SELLFLOW-RUNTIME]\n\nSo: it is scheduled for 02:00 nightly and has demonstrably run. 'It never misses a night' is a claim the reef cannot check."
-      },
-      "cites": [
-        "PROC-SELLFLOW-RUNTIME",
-        "CON-ORDER-SETTLEMENT",
-        "RISK-SETTLEMENT-RECON-BACKLOG",
-        "PROC-SETTLEMENT-DAILY-BATCH"
-      ]
-    },
-    {
-      "id": "q6",
-      "q": {
-        "ko": "주문을 취소하면 재고는 복원되나요?",
-        "en": "Is stock restored when an order is cancelled?"
-      },
-      "a": {
-        "ko": "아니요. 이 다섯 저장소의 증거로는 어떤 사유 코드에서도 복원되지 않습니다. [CON-ORDER-INVENTORY]\n\n취소 트랜잭션에는 재고 호출이 아예 없습니다. `InventoryClient.restore`는 존재하지만 다섯 저장소를 grep하면 클래스 선언 한 줄만 나옵니다. 사슬이 첫 고리에서 끊깁니다. [PROC-ORDER-CANCEL]\n\n설령 연결해도 네 군데가 어긋납니다. 클라이언트는 `/inventory/restore`로 POST하는데 재고 서비스는 그 라우터를 mount하지 않고, JSON 바디가 필요한 곳에 쿼리 파라미터를 보내며, 필드명이 `ordNo`/`reason` 대 `ord_no`/`reason_code`로 갈리고, 바디로 리터럴 null을 보내 FastAPI가 422로 거절합니다. [CON-ORDER-INVENTORY]\n\n정책과 코드도 어긋납니다. `inventory-api`는 사유 코드 01, 02만 복원하지만 업무 규칙 시트는 04(배송 실패)도 복원 대상(O)이라고 적고 있습니다. [CON-ORDER-INVENTORY]\n\n`RESTORE_LOG`는 2023-04-14부터 존재하지만 쓰는 코드가 없습니다. 비어 있다는 것은 \"복원이 없었다\"가 아니라 \"기록이 없었다\"는 뜻입니다. [CON-ORDER-INVENTORY]",
-        "en": "No — not for any reason code, on the evidence in these five repos. [CON-ORDER-INVENTORY]\n\nThe cancel transaction contains no inventory call at all. `InventoryClient.restore` exists, but a grep across all five repos returns only its own class declaration. The chain breaks at the first link. [PROC-ORDER-CANCEL]\n\nEven if it were wired up, it would fail four ways: it posts to `/inventory/restore`, a path the inventory service never mounts; it sends query parameters where a JSON body is required; the field names differ (`ordNo`/`reason` versus `ord_no`/`reason_code`); and it sends a literal null body, which FastAPI rejects with 422. [CON-ORDER-INVENTORY]\n\nPolicy and code also disagree. `inventory-api` restocks only reason codes 01 and 02, while the business-rules sheet marks 04 (배송 실패, delivery failure) as restockable. [CON-ORDER-INVENTORY]\n\n`RESTORE_LOG` has existed since 2023-04-14 and no code writes it, so an empty table means \"nothing was recorded\", not \"nothing was restocked\". [CON-ORDER-INVENTORY]"
-      },
-      "cites": [
-        "CON-ORDER-INVENTORY",
-        "PROC-ORDER-CANCEL"
-      ]
-    },
-    {
-      "id": "q7",
-      "q": {
-        "ko": "이 시스템에서 가장 위험한 것은 무엇인가요?",
-        "en": "What is the most dangerous thing in this system?"
-      },
-      "a": {
-        "ko": "돈이 되돌릴 수 없는 방향으로 나가는데, 코드 어디에도 되돌리는 경로가 없다는 점입니다.\n\n지급 요청은 전송되면 취소할 수 없고 유일한 구제는 차월 상계입니다. 이론이 아닙니다. 2025-07-12에 Quartz 설정이 한 노드에만 적용되어 배치가 두 번 돌았고, 17개 파트너에게 약 42,000,000원이 중복 지급되어 차월 상계로 처리됐습니다. 그때 제기된 멱등성 키 도입은 아직 담당자도 없습니다. [PROC-SETTLEMENT-DAILY-BATCH]\n\n취소 회수 경로도 같은 일방향 성질을 가집니다. 9홉 중 6홉에서 돈이 멈추고, 그 뒤로 독립적인 단절이 네 개 있습니다. [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\n둘째, 실패가 시끄럽지 않고 조용합니다. 릴레이는 사유 코드를 고정 오프셋 substring으로 파싱하고 실패 시 리터럴 `\"00\"`을 반환합니다. 예외도, 로그도, dead-letter도 없이 그럴듯한 값이 큐에 들어갑니다. [CON-ORDER-SETTLEMENT]\n\n셋째, 네 서비스가 하나의 MySQL을 공유합니다. 주문팀의 평범한 컬럼 rename이 새벽 2시 정산 배치를 깹니다. V15/V16의 `BIGO` 사건이 이미 그 선례입니다. [CON-ORDER-SETTLEMENT]",
-        "en": "That money can leave irreversibly, and no code path brings it back.\n\nA settlement payment request cannot be recalled once sent; the only remedy is an offset in a later month. That is not theory: on 2025-07-12 a Quartz setting applied to only one of two nodes made the batch run twice, duplicating roughly 42,000,000 KRW of payouts to 17 partners, resolved by next-month offset. The idempotency key raised afterwards is still unassigned. [PROC-SETTLEMENT-DAILY-BATCH]\n\nThe cancellation recovery path has the same one-way property. Money stops at hop six of nine, behind four independent breaks. [PROC-SELLFLOW-CANCEL-MONEY-PATH]\n\nSecond, failures here are quiet rather than loud. The relay parses the cancel reason by fixed substring offsets and returns the literal `\"00\"` on a miss — a plausible-looking value inserted into the queue with no exception, no log line and no dead letter. [CON-ORDER-SETTLEMENT]\n\nThird, four services share one MySQL database, so an ordinary column rename in Order breaks Settlement at 02:00. The V15/V16 `BIGO` rollback is the worked precedent. [CON-ORDER-SETTLEMENT]"
-      },
-      "cites": [
-        "PROC-SETTLEMENT-DAILY-BATCH",
-        "PROC-SELLFLOW-CANCEL-MONEY-PATH",
-        "CON-ORDER-SETTLEMENT"
-      ]
-    },
-    {
-      "id": "q8",
-      "q": {
-        "ko": "리프가 모른다고 인정하는 것은 무엇인가요?",
-        "en": "What does the reef admit it does not know?"
-      },
-      "a": {
-        "ko": "꽤 많고, 각 아티팩트의 `known_unknowns`에 그대로 적혀 있습니다.\n\n`PENDING` 행이 생긴 다음 단계를 누가 소유하는지 모릅니다. 2026년 회의에서 주문팀과 정산팀이 서로 상대가 한다고 말했고, 레지스트리는 아직도 큐의 consumer를 `TODO # 확인 필요`로 기록합니다. [CON-ORDER-SETTLEMENT]\n\n백로그 중 얼마가 이미 수기로 해결됐는지 모릅니다. 수기 정정은 시스템에 기록을 남기지 않으므로, 1억 8,885만원 중 알 수 없는 몫은 집계돼 있지만 이미 정산된 것입니다. `EXPECTED_AMT`의 산출 근거도 마찬가지로 불명입니다. [RISK-SETTLEMENT-RECON-BACKLOG]\n\n재고 복원·결제 취소·환불이 어딘가에서 일어나는지 모릅니다. 리프가 증명할 수 있는 것은 order-service가 하지 않는다는 사실뿐입니다. 창고 관리 시스템이나 운영자 화면, 사람이 직접 실행하는 curl은 다섯 저장소에서 보이지 않습니다. [PROC-ORDER-CANCEL] [CON-ORDER-INVENTORY]\n\n운영에서 실제로 무엇이 도는지 모릅니다. 어떤 환경도 관찰하지 않았고, `deploy.sh`는 어느 저장소에도 없으며, settlement-anomaly가 배포돼 있는지조차 미확인입니다. [PROC-SELLFLOW-RUNTIME] 라이터가 의존하는 `SETTLEMENT_RUN` 행을 누가 만드는지도 모릅니다. [PROC-SETTLEMENT-DAILY-BATCH]",
-        "en": "Quite a lot, and it says so in each artifact's `known_unknowns` list.\n\nWho owns the step after a `PENDING` row appears. At a 2026 meeting Order and Settlement each said the other side handles it, and the service registry still records the queue's consumer as `TODO # 확인 필요` (\"needs checking\"). [CON-ORDER-SETTLEMENT]\n\nHow much of the backlog was already fixed by hand. Manual corrections leave no record the system can see, so an unknown share of the 188,851,520 KRW is counted but already settled. The provenance of `EXPECTED_AMT` is equally unknown. [RISK-SETTLEMENT-RECON-BACKLOG]\n\nWhether stock restore, payment cancellation or refunds happen anywhere at all. The reef can prove only that order-service does not do them; a warehouse system, an operator screen or a person running curl would be invisible to these five repos. [PROC-ORDER-CANCEL] [CON-ORDER-INVENTORY]\n\nWhat actually runs in production. No environment was inspected, `deploy.sh` is in neither Java repo, and whether settlement-anomaly is deployed at all is unknown. [PROC-SELLFLOW-RUNTIME] Also unknown: who creates the `SETTLEMENT_RUN` row every settlement detail row depends on. [PROC-SETTLEMENT-DAILY-BATCH]"
-      },
-      "cites": [
-        "CON-ORDER-SETTLEMENT",
-        "RISK-SETTLEMENT-RECON-BACKLOG",
-        "PROC-ORDER-CANCEL",
-        "CON-ORDER-INVENTORY",
-        "PROC-SELLFLOW-RUNTIME",
-        "PROC-SETTLEMENT-DAILY-BATCH"
-      ]
-    }
-  ]
+ "_note": "Answers as they came back, unedited and unselected. The reef arm holds the artifacts; the raw arm holds the fixture repository. Regenerate with tools/record-pairs.py.",
+ "generated": "2026-09-19",
+ "items": [
+  {
+   "id": "q1",
+   "q": {
+    "ko": "정산이 완료된 주문을 취소할 수 있나요?",
+    "en": "Can an order that has already been settled be cancelled?"
+   },
+   "a": {
+    "ko": "네, 가능합니다. `OrderCancelService`는 현재 `CHWISO`(취소)와 `BANPUM`(반품) 상태의 주문만 취소를 막고, `JUNGSAN_WANRYO`(정산완료)를 포함한 다른 모든 상태는 취소를 허용합니다 [OrderCancelService.java]. 이는 2023-04-21 SF-2287 결정으로 기존 \"정산 완료된 주문은 취소할 수 없습니다\" 규칙(구 `OrderCancelServiceV1`)을 제거한 결과입니다 [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL].\n\n다만 주의할 점 두 가지가 있습니다:\n1. 2021년 작성된 Confluence 정책 문서(주문-취소-정책_48213.html)는 여전히 \"정산완료 시 취소 불가, 409 반환\"이라고 적혀 있으며, 2024-08-19에 강태오가 갱신되지 않았다고 지적했지만 반영되지 않았습니다 [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL, RISK-SELLFLOW-DOC-DRIFT].\n2. delivery-bff의 2022년산 자동생성 클라이언트(`orderApi.ts`)는 여전히 \"정산이 완료된 주문은 취소할 수 없습니다\"라는 옛 규칙을 주석에 담고 409 에러를 던지도록 되어 있어, 코드상 실제 동작과 어긋납니다 [DEC-DELIVERY-GENERATED-CLIENT].\n\n즉, 코드(order-service) 기준으로는 정산완료 주문도 취소가 \"허용\"되지만, 취소 시 발생하는 정산 차감 처리(CancelReconciler)는 스케줄 등록이 안 되어 있어 실제로 실행되지 않는다는 별개의 문제가 있습니다 [DEC-SETTLEMENT-CANCEL-CLAWBACK].",
+    "en": "Yes. As of SF-2287 (2023-04-21), `OrderCancelService` blocks cancellation only for orders in status `CHWISO` (already cancelled) or `BANPUM` (return); every other status, including `JUNGSAN_WANRYO` (settled), is cancellable [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL], [PROC-ORDER-CANCEL].\n\nThis is a reversal of the original design: the deprecated `OrderCancelServiceV1` explicitly checked `SETTLEMENT_DTL` and threw \"정산 완료된 주문은 취소할 수 없습니다\" (a settled order cannot be cancelled) [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL]. That old rule is still what the 2021 Confluence policy page states (정산완료 → 취소 불가, 409 Conflict) and it was never updated despite a 2024 reader comment flagging it as stale, and it's also what the 2022-generated delivery-bff client still enforces client-side [PAT-SELLFLOW-DOC-CODE-DRIFT], [DEC-DELIVERY-GENERATED-CLIENT].\n\nOne wrinkle: `JUNGSAN_WANRYO` is a status \"set by the settlement team's batch; 주문팀 does not change it directly\" [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL], so after this change an order can be cancelled out of a state 주문팀 doesn't control. What happens downstream (money clawback) is a separate, largely broken path — see settlement correction machinery — but the reef does not settle whether cancellation of a settled order is otherwise restricted anywhere else in the stack."
+   },
+   "cites": {
+    "ko": [
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "RISK-SELLFLOW-DOC-DRIFT",
+     "DEC-DELIVERY-GENERATED-CLIENT",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK"
+    ],
+    "en": [
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "PROC-ORDER-CANCEL",
+     "PAT-SELLFLOW-DOC-CODE-DRIFT",
+     "DEC-DELIVERY-GENERATED-CLIENT"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "order-service:TASK.md",
+     "order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java",
+     "order-service:src/main/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1.java",
+     "sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html",
+     "delivery-bff:src/generated/orderApi.ts"
+    ],
+    "en": [
+     "order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java",
+     "sellflow-docs:tickets/SF-2287.md",
+     "order-service:TASK.md",
+     "sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html",
+     "delivery-bff:src/generated/orderApi.ts",
+     "order-service:src/main/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1.java",
+     "order-service:src/test/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1Test.java"
+    ]
+   },
+   "a_raw": {
+    "ko": "네, 취소할 수 있습니다. 원래는 정산완료(JUNGSAN_WANRYO) 주문은 취소가 차단되었지만, CS팀 문의 폭증(월 214건)으로 SF-2287 티켓을 통해 2023-04-21 order-service 2.8.0에서 취소 API의 정산 상태 확인 로직이 제거되었습니다 [order-service:tickets/SF-2287.md, order-service:TASK.md]. 현재 `OrderCancelService.cancel()`은 상태가 CHWISO(취소) 또는 BANPUM(반품)일 때만 차단하며, JUNGSAN_WANRYO는 차단 목록에 없습니다 [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java].\n\n다만 구버전 `OrderCancelServiceV1`(deprecated, 삭제 예정)은 여전히 SETTLEMENT_DTL을 확인해 정산완료 건 취소를 막는 로직을 갖고 있으니 혼동하지 마세요 [order-service:src/main/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1.java]. 또한 위키 문서(주문-취소-정책_48213.html)는 \"정산완료는 취소 불가\"라고 되어 있으나, 댓글에서 2024년에 이미 정책이 바뀌었는데 반영 안 됐다는 지적이 있어 현재는 outdated입니다 [sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html]. 반면 delivery-bff의 자동생성 클라이언트(2022년 스펙 기준)는 여전히 409/차단을 전제로 한 주석이 남아있어 실제 동작과 다를 수 있습니다 [delivery-bff:src/generated/orderApi.ts].\n\n정산완료 후 취소가 발생하면 자동으로 정산이 되돌아가지는 않고, `CANCEL_RECON_QUEUE`에 적재되어 정산팀이 차월 정산에서 수기로 차감하는 프로세스입니다 — 다만 이 자동 차감 배치가 실제로 도는지는 불확실합니다(뒤에 상세 설명 가능).",
+    "en": "Yes, in the current code. `OrderCancelService.cancel()` only blocks cancellation for orders already in `CHWISO` (cancelled) or `BANPUM` (returned) status — there's no check against `JUNGSAN_WANRYO` (settlement-complete) [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java]. This was a deliberate change: ticket SF-2287 explicitly removed the settlement-status check because CS was getting 214 complaints/month from customers blocked from cancelling after the nightly settlement batch ran [sellflow-docs:tickets/SF-2287.md], and `TASK.md` confirms \"취소 API 정산 상태 확인 제거 (SF-2287)\" was completed [order-service:TASK.md].\n\nHowever, this contradicts the still-published wiki page \"주문 취소 정책,\" which says settled orders **cannot** be cancelled and the API returns 409 [sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html], and the generated API client that still throws an error on 409 for this exact reason [delivery-bff:src/generated/orderApi.ts]. A 2024 comment on that wiki page flags it may be stale. The legacy V1 cancel service (deprecated but not deleted) still enforces the block via a `SETTLEMENT_DTL` check [order-service:src/main/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1.java], and its test is disabled specifically because it no longer matches policy [order-service:src/test/java/kr/co/sellflow/order/legacy/OrderCancelServiceV1Test.java].\n\nSo: cancellation of settled orders is currently allowed by the live code, but downstream settlement correction relies on `ORDER_EVENT_OUTBOX`/`CANCEL_RECON_QUEUE` and manual reconciliation, which the docs (handover, Slack, mail) suggest may not be reliably happening — that's a separate, unresolved question I won't conflate here."
+   }
+  },
+  {
+   "id": "q2",
+   "q": {
+    "ko": "그럼 취소된 주문의 정산금은 어떻게 회수되나요?",
+    "en": "How does the money get clawed back, then?"
+   },
+   "a": {
+    "ko": "설계상으로는 회수되지만, 실제로는 코드가 그 과정을 완성하지 않습니다.\n\n**의도된 흐름**: 주문 취소 시 `order.cancelled` 이벤트가 outbox에 쌓이고, `OrderEventRelayJob`이 10분마다 폴링하여 이미 정산된 주문(`SETTLEMENT_DTL`에 존재)이면 `CANCEL_RECON_QUEUE`에 `PENDING` 상태로 적재합니다 [PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE]. 그 다음 `CancelReconciler.reconcileCancellations()`가 이 큐를 읽어 `SETTLEMENT_ADJUSTMENT`에 `CANCEL_CLAWBACK`(차월 차감) 행을 넣고 큐 상태를 `PROCESSED`로 바꾸는 것이 절차입니다 [DEC-SETTLEMENT-CANCEL-CLAWBACK].\n\n**실제로는 실행되지 않습니다**: `CancelReconciler`는 `@Component`로만 등록되어 있고 Quartz 스케줄이나 다른 호출자가 전혀 없습니다. 코드 자체에 \"TODO Quartz 스케줄 등록 필요 (박성민님 확인 후 QuartzConfig에 추가 예정) - 2023-04-24 김도윤\"이라는 TODO가 박혀 있고, 이를 위한 티켓 SF-4512는 2023-04-24부터 지금까지 담당자 없이 `To Do` 상태입니다 [DEC-SETTLEMENT-CANCEL-CLAWBACK, RISK-SETTLEMENT].\n\n**결과**: 2026-09-01 기준 `CANCEL_RECON_QUEUE`에는 41개월치, 4,127건, 총 188,851,520원이 `PENDING` 상태로 쌓여 있고, 단 한 달도 잔액이 0이 된 적이 없습니다 — 즉 이 메커니즘으로 실제 회수된 사례가 확인되지 않습니다 [RISK-SETTLEMENT-RECON-BACKLOG]. 시스템 밖에서 수기로 처리되는 부분이 있는지는 판단할 근거가 reef에 없습니다(Not determinable) [PROC-SETTLEMENT-CORRECTION].",
+    "en": "The intended clawback path is: order-service publishes `order.cancelled` to `ORDER_EVENT_OUTBOX` inside the cancel transaction [PROC-ORDER-EVENT-OUTBOX-LIFECYCLE]. `OrderEventRelayJob`, running every 10 minutes, polls the outbox and, only if `SETTLEMENT_DTL` already has a row for that order (i.e. it was already settled), inserts a `PENDING` row into `CANCEL_RECON_QUEUE` [CON-ORDER-SETTLEMENT]. Procedure v1.1 says 정산팀 (settlement team) then checks the queue monthly and deducts the amount from next month's payout, `CancelReconciler.reconcileCancellations()` implementing exactly that: reading `PENDING` rows and inserting a `SETTLEMENT_ADJUSTMENT` with `ADJ_TYPE='CANCEL_CLAWBACK'`, then marking the queue row `PROCESSED` [DEC-SETTLEMENT-CANCEL-CLAWBACK].\n\n**But that last step never runs.** `CancelReconciler` is a plain `@Component` — nothing schedules it. `QuartzConfig` registers exactly two jobs (`dailySettlementJob`, `orderEventRelayJob`) and `CancelReconciler` is not one of them; no controller, CLI, or `@Scheduled` calls it either [PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE]. The gap was flagged in the code itself the day it shipped — \"TODO Quartz 스케줄 등록 필요 (박성민님 확인 후 QuartzConfig 에 추가 예정) - 2023-04-24 김도윤\" — and the corresponding ticket SF-4512 has sat \"To Do\", priority Low, unassigned, since that date [RISK-SETTLEMENT].\n\nSo in practice: rows accumulate in `CANCEL_RECON_QUEUE` as `PENDING` and nothing ever moves them to `PROCESSED`. A 2026-09-01 export found 4,127 pending rows totalling 188,851,520 KRW across 41 months with no month ever draining to zero [RISK-SETTLEMENT-RECON-BACKLOG]. Whether any of this money is recovered by hand outside the system is not determinable from the sources — no manual-correction record exists in the reef [CON-ORDER-SETTLEMENT]."
+   },
+   "cites": {
+    "ko": [
+     "PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "RISK-SETTLEMENT",
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PROC-SETTLEMENT-CORRECTION"
+    ],
+    "en": [
+     "PROC-ORDER-EVENT-OUTBOX-LIFECYCLE",
+     "CON-ORDER-SETTLEMENT",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE",
+     "RISK-SETTLEMENT",
+     "RISK-SETTLEMENT-RECON-BACKLOG"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "order-service:src/main/java/kr/co/sellflow/order/event/OrderEventPublisher.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv"
+    ],
+    "en": [
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "sellflow-docs:sprints/tickets_2026-S17.csv",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:slack/settlement-dev_2023-04_2026-08.json",
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv"
+    ]
+   },
+   "a_raw": {
+    "ko": "정책상으로는 \"차월 정산에서 수기 차감\"입니다. 하지만 실제로 자동 차감이 이뤄지는지는 증거가 불확실하고, 오히려 누락 정황이 강합니다.\n\n**의도된 흐름**: order-service가 취소 시 `order.cancelled` 이벤트를 아웃박스에 적재 [order-service:src/main/java/kr/co/sellflow/order/event/OrderEventPublisher.java] → settlement-batch의 `OrderEventRelayJob`이 10분마다 폴링해 이미 정산된 건(`SETTLEMENT_DTL`에 존재)이면 `CANCEL_RECON_QUEUE`에 PENDING으로 적재 [settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java] → `CancelReconciler`가 이를 읽어 `SETTLEMENT_ADJUSTMENT`에 차감(CANCEL_CLAWBACK)을 기록 [settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java].\n\n**문제**: `CancelReconciler`를 실행하는 Quartz 스케줄이 등록되어 있지 않습니다. `QuartzConfig`에는 `dailySettlementJob`과 `orderEventRelayJob` 트리거만 있고 CancelReconciler용 트리거가 없습니다 [settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java]. 코드 내 TODO도 \"Quartz 스케줄 등록 필요… 미착수\"라고 명시합니다 [settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java]. 실제로는 정산팀이 대기열을 자동이 아니라 \"문의 들어온 건만\" 수기로 확인해 왔습니다 [sellflow-docs:handover/2025-03_정산팀_인수인계.md].\n\n**데이터 증거**: 2026-09 시점 `CANCEL_RECON_QUEUE`의 PENDING 누적이 41개월치 4,127건, 약 1.89억원으로, 2023-04분까지 아직 남아 있습니다 [sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv]. 이는 자동 차감이 사실상 작동하지 않았음을 강하게 시사합니다(추론). 결론적으로 \"회수되는 절차는 설계돼 있으나, 실행 주체(자동 배치)가 미가동 상태로 방치되어 대부분 회수되지 않은 것으로 보입니다.\"",
+    "en": "**설계상 흐름**: 주문 취소 → `order.cancelled` 이벤트가 아웃박스에 적재 → `OrderEventRelayJob`이 10분마다 폴링해 이미 정산된 건이면 `CANCEL_RECON_QUEUE`에 넣음 [settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java]. 그 다음 `CancelReconciler`가 PENDING 건을 읽어 `SETTLEMENT_ADJUSTMENT`에 `CANCEL_CLAWBACK` 타입으로 기록하고 차월 정산에서 차감하도록 되어 있습니다 [settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java].\n\n**하지만 실제로는 자동 차감이 돌지 않습니다.** `CancelReconciler`는 코드는 있지만 `QuartzConfig.java`에 스케줄이 등록되어 있지 않고, 클래스 주석에도 \"Quartz 스케줄 등록 필요\"라고 명시되어 있습니다 [settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java][settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java]. 관련 티켓 SF-4512는 2026-09 기준 여전히 \"To Do\"이고 담당자 미지정입니다 [sellflow-docs:sprints/tickets_2026-S17.csv].\n\n**증거**: 인수인계 문서와 슬랙 기록에 따르면 정산팀은 대기열을 전수 확인하지 않고 파트너 문의가 들어온 건만 수기로 처리해왔습니다 [sellflow-docs:handover/2025-03_정산팀_인수인계.md][sellflow-docs:slack/settlement-dev_2023-04_2026-08.json]. 실제로 2026-09 추출 데이터에는 2023-04월 건이 아직도 PENDING으로 남아있고, 누적 4,127건·약 1억8,885만원이 미처리 상태입니다 [sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv]. 즉 \"차감된다\"는 정책 문서상 답변과 달리, 실질적으로는 자동 차감 배치가 가동된 적이 없고 수기 처리도 전수 커버하지 못하고 있다는 것이 데이터로 뒷받침됩니다."
+   }
+  },
+  {
+   "id": "q3",
+   "q": {
+    "ko": "위키 문서를 믿어도 되나요?",
+    "en": "Can I trust the wiki?"
+   },
+   "a": {
+    "ko": "아니요, 신중히 다뤄야 합니다. 이 레프에서 문서(위키/Confluence/절차서)와 실제 코드가 반복적으로 어긋나는 패턴이 여러 건 확인됩니다 [PAT-SELLFLOW-DOC-CODE-DRIFT].\n\n대표적 사례로, 2021년 작성된 주문취소 정책 Confluence 페이지는 \"정산완료 주문은 취소 불가, 409 반환\"이라고 명시하지만, 이 규칙은 2023-04-21 SF-2287로 폐지되었고 이후 3년 넘게 페이지는 갱신되지 않았습니다. 심지어 문서 자체에 \"정책 변경 시 반드시 갱신해달라\"는 안내문이 있고, 2024-08-19에 독자가 \"이거 아직 유효한가요? 반영이 안 된 것 같다\"는 댓글을 남겼음에도 방치되었습니다 [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL, RISK-SELLFLOW-DOC-DRIFT].\n\n다른 사례: delivery-bff의 README/코드 주석은 \"조회 실패 시 마지막 저장 값을 반환한다\"고 주장하지만, 이 서비스는 아무 저장소도 갖고 있지 않아 실제로는 하드코딩된 'PREPARING' 값만 반환합니다 [API-DELIVERY, GLOSSARY-DELIVERY]. 2023년 CS 통계에 근거한 \"월 10건 미만\" 추정치도 이후 문서들에서 \"확인된 사실\"처럼 인용되지만, 실측 데이터는 월 100~160건대입니다 [DEC-SELLFLOW-2026-AUTOMATION-SIZING, RISK-SETTLEMENT-RECON-BACKLOG].\n\n즉, 이 회사의 문서는 코드 변경 시점에 갱신되는 경우가 드물고, 조직 이벤트(절차 공식화, 프로젝트 착수 등)가 있을 때만 갱신되는 경향이 있습니다. 어떤 문서가 코드 변경으로 인해 갱신된 사례가 있었는지는 이 레프에서 확인되지 않습니다 [PAT-SELLFLOW-DOC-CODE-DRIFT: Not determinable]. 결론적으로, 문서는 항상 코드/스키마와 대조 검증한 뒤에만 신뢰하는 것이 안전합니다.",
+    "en": "No — the reef documents systematic, dated drift between documentation and running code across Sellflow. Specific evidence:\n\n**Policy pages assert repealed rules.** The 2021 Confluence cancellation policy still says settled orders cannot be cancelled and that the API returns 409 for them — a rule removed in April 2023 by SF-2287. A reader flagged this in 2024 (\"이 문서 아직 유효한가요?\" — is this document still valid?) and it was never fixed, despite the page's own banner instructing 주문팀 to update it on policy change [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL, RISK-SELLFLOW-DOC-DRIFT].\n\n**The service registry calls itself authoritative and is stale and self-contradictory.** `services.yaml` states \"이 파일이 서비스·소유팀·저장소의 단일 기준이다\" (this file is the single standard) but hasn't been reviewed since 2026-03-02, lists three separate databases where code shows one shared instance, disagrees with the README on Node/Python versions, and carries an unresolved `owner_team: TODO` for delivery-bff [PROC-SELLFLOW-OWNERSHIP, RISK-SELLFLOW-DOC-DRIFT].\n\n**Estimates get cited as measurements.** A 2023 Jira guess (\"월 10건 미만일 것으로 예상됩니다\" — expected under 10/month) was formalized into procedure v0.3, survived deletion from v1.1, and reappears in a 2026 plan as a present-tense \"finding\" — while the actual queue held 4,127 pending rows worth ₩188M across 41 months with volume of 139–163/month in 2026 [DEC-SELLFLOW-2026-AUTOMATION-SIZING, RISK-SETTLEMENT-RECON-BACKLOG].\n\n**READMEs and code comments describe features that don't exist** — e.g. delivery-bff's README/comment claim a \"last stored value\" fallback, but the service has no store at all [PROC-DELIVERY-ERROR-HANDLING].\n\nI don't have visibility into any wiki outside this reef, so I can't speak to documents not captured here — but within these sources, treat any narrative document as a hypothesis to verify against code, not as fact."
+   },
+   "cites": {
+    "ko": [
+     "PAT-SELLFLOW-DOC-CODE-DRIFT",
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "RISK-SELLFLOW-DOC-DRIFT",
+     "API-DELIVERY",
+     "GLOSSARY-DELIVERY",
+     "DEC-SELLFLOW-2026-AUTOMATION-SIZING",
+     "RISK-SETTLEMENT-RECON-BACKLOG"
+    ],
+    "en": [
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "RISK-SELLFLOW-DOC-DRIFT",
+     "PROC-SELLFLOW-OWNERSHIP",
+     "DEC-SELLFLOW-2026-AUTOMATION-SIZING",
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PROC-DELIVERY-ERROR-HANDLING"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html",
+     "order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java",
+     "sellflow-docs:tickets/SF-2287.md",
+     "sellflow-docs:business-rules.md"
+    ],
+    "en": [
+     "sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html",
+     "order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java",
+     "sellflow-docs:tickets/SF-2287.md",
+     "delivery-bff:src/generated/orderApi.ts",
+     "delivery-bff:src/orderClient.ts"
+    ]
+   },
+   "a_raw": {
+    "ko": "아니요, 적어도 취소 정책 관련해서는 그대로 믿으면 안 됩니다.\n\n위키 문서 [sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html]는 \"정산완료 주문은 취소 불가, 409 반환\"이라고 명시하지만, 이는 2021-03-17에 마지막 수정된 내용입니다. 실제로는 2023-04-21 SF-2287로 이 로직이 제거되어 정산완료 주문도 취소가 허용되도록 바뀌었습니다 [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java][sellflow-docs:tickets/SF-2287.md]. 코드상 `OrderCancelService`의 취소 불가 상태는 CHWISO(취소)·BANPUM(반품)뿐이고 JUNGSAN_WANRYO(정산완료)는 포함되지 않습니다.\n\n문서 자체에도 2024-08-19에 강태오가 \"작년에 정책 바뀐 걸로 아는데 반영이 안 된 것 같다\"는 댓글을 남겼고, 이후 답변이 없습니다 [sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html]. 즉 문서가 갱신되지 않은 채 방치된 것으로 보입니다.\n\n다만 취소 사유 코드(01~04)나 재고 복원 관련 기본 원칙 등은 business-rules.md와 대체로 일치하므로, 부분적으로는 여전히 유효해 보입니다 [sellflow-docs:business-rules.md]. 결론적으로 위키는 \"관리 책임자가 갱신하기로 되어 있으나 실제로는 갱신되지 않은 문서\"이며, 상태 전이·취소 가능 여부처럼 코드로 검증 가능한 부분은 반드시 코드/티켓 기준으로 재확인해야 합니다.",
+    "en": "No — at least not the confluence wiki export on cancellation policy. [sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html] states \"정산이 완료된 주문은 취소할 수 없습니다\" (settlement-completed orders cannot be cancelled) and that the API returns 409 for such orders — but this was last modified 2021-03-17, and SF-2287 (resolved 2023-04-21) explicitly removed that settlement-status check from `OrderCancelService` [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java, sellflow-docs:tickets/SF-2287.md]. A reader comment from 강태오 on 2024-08-19 even flags this directly: \"이 문서 아직 유효한가요? 작년에 취소 정책 바뀐 걸로 아는데 반영이 안 된 것 같습니다\" (is this still valid? policy changed but doesn't seem reflected) — and it went unanswered.\n\nAlso note the stale generated API client in delivery-bff still throws on 409 expecting the old settlement-block behavior [delivery-bff:src/generated/orderApi.ts], generated 2022-11-08 and never regenerated (tracked but unstarted as SF-4901) [delivery-bff:src/orderClient.ts].\n\nSo treat wiki pages here as possibly outdated snapshots, not live truth — verify against current code/migrations (e.g. V8 outbox migration, OrderCancelService) before trusting policy claims. I can't tell from these sources whether other wiki pages are similarly stale, only that this one demonstrably is."
+   }
+  },
+  {
+   "id": "q4",
+   "q": {
+    "ko": "미정정 금액 1억 8,885만원은 정확한 숫자인가요?",
+    "en": "Is the 188,851,520 KRW figure accurate?"
+   },
+   "a": {
+    "ko": "188,851,520원(약 1억 8,885만원)이라는 숫자는 실재하는 추출 결과이지만, \"정확한 총액\"은 아닙니다.\n\n**근거**: 이 수치는 2026-09-01 14:22 `settlement_prod`(read replica)에서 CANCEL_RECON_QUEUE 테이블의 `STATUS='PENDING'`인 행만 집계한 것으로, 4,127건, 41개월(2023-04~2026-08) 누적입니다 [RISK-SETTLEMENT-RECON-BACKLOG]. SF-2287이 배포된 2023-04부터 단 한 달도 잔액이 0이 된 적이 없습니다 [RISK-SETTLEMENT-RECON-BACKLOG].\n\n**한계**: export 자체가 PENDING 상태만 조회했으므로, 다른 상태(예: PROCESSED)의 행은 포함되지 않았고, 이는 원래 쌓였던 총량의 하한선이자 실제로 정정 처리된 부분에 대해서는 아무것도 말해주지 않습니다 — 즉 \"The true total\"은 not determinable [RISK-SETTLEMENT-RECON-BACKLOG]. 또한 시스템 밖에서 수기로 처리된 정정 건이 얼마나 되는지도 확인되지 않습니다 — export README와 인수인계 문서 모두 수기 처리분은 반영되지 않는다고 명시합니다 [RISK-SETTLEMENT-RECON-BACKLOG].\n\n재무팀도 사전에 독립적으로 비슷한 규모를 파악하고 모순을 지적한 바 있습니다: \"차감이 정상적으로 이루어지고 있다면 대기 잔액이 이 규모로 누적될 수 없습니다\" [RISK-SETTLEMENT-RECON-BACKLOG]. 즉 숫자 자체는 특정 시점 쿼리 결과로서 정확하지만, \"미정정 금액의 정확한 총합\"이라 부르기엔 하한값이라는 점을 감안해야 합니다.",
+    "en": "No — it's a lower bound, not an accurate/complete figure.\n\nThe number comes from a single 2026-09-01 export of `CANCEL_RECON_QUEUE` filtered to `STATUS='PENDING'` only [RISK-SETTLEMENT-RECON-BACKLOG]. That export explicitly warns it excludes any rows in other states and doesn't reflect manual corrections handled outside the system, so both the count (4,127 rows) and the amount are described as lower bounds on what was queued, and upper bounds on nothing [RISK-SETTLEMENT-RECON-BACKLOG].\n\nSeparately, the export's own `EXPECTED_AMT` field has no defined origin — no migration in settlement-batch defines that column, so either production has drifted from the checked-in schema or the extractor used a derived value not documented anywhere [PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE]. That casts some doubt on how the KRW total itself was computed, not just on completeness.\n\nFinance independently arrived at the same order of magnitude before this export and used it to argue the deduction process (차월 차감, next-month clawback) isn't actually working: \"if deductions were happening properly, a pending balance could not accumulate to this size\" [RISK-SETTLEMENT-RECON-BACKLOG]. So the figure is corroborated directionally but not certified as precise — how much was settled manually outside the system, and the true total across all statuses, are both explicitly not determinable from the sources [RISK-SETTLEMENT-RECON-BACKLOG]."
+   },
+   "cites": {
+    "ko": [
+     "RISK-SETTLEMENT-RECON-BACKLOG"
+    ],
+    "en": [
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv",
+     "sellflow-docs:exports/README.md",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:slack/settlement-dev_2023-04_2026-08.json",
+     "sellflow-docs:mail/RE_정산_미정정_금액_문의.eml"
+    ],
+    "en": [
+     "sellflow-docs:exports/README.md",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:mail/RE_정산_미정정_금액_문의.eml"
+    ]
+   },
+   "a_raw": {
+    "ko": "아니요, 정확한 실측치가 아니라 **추정치**이며 여러 단서가 그 부정확성을 보여줍니다.\n\n1. 그 숫자(188,851,520원)는 `CANCEL_RECON_QUEUE`에서 `STATUS='PENDING'`인 건만 집계한 값입니다 [sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv]. README는 \"STATUS 가 PENDING 외의 값을 가진 행은 조회되지 않았다. 수기 정정분이 시스템 밖에서 처리되었다면 이 수치에 반영되지 않는다\"고 명시합니다 [sellflow-docs:exports/README.md].\n\n2. \"추정 미정정 금액\"이라는 컬럼명 자체가 추정치임을 나타냅니다 — `EXPECTED_AMT`를 합산한 것이며 실제 정정 완료 여부와 무관합니다.\n\n3. 더 근본적으로, 이 대기열이 실제로 처리(차감)되고 있는지조차 조직 내에서 불확실합니다. 인수인계 문서에서 \"이벤트 연동 후 실제로 차감이 자동으로 되는지는 확인해 본 적 없음\" [sellflow-docs:handover/2025-03_정산팀_인수인계.md], 정산팀은 \"문의 들어온 건만 수기로 확인\"해왔다고 밝히고 있어 [sellflow-docs:handover/2025-03_정산팀_인수인계.md; sellflow-docs:slack/settlement-dev_2023-04_2026-08.json], 대기열 건수와 실제 미정정 잔액이 정확히 일치하는지는 문서상 검증되지 않았습니다. 재무기획팀 메일도 이 수치와 \"정상 차감 중\"이라는 설명이 서로 맞지 않는다고 지적하고 있습니다 [sellflow-docs:mail/RE_정산_미정정_금액_문의.eml].\n\n결론: 1.8억은 대기열 스냅샷 기반의 근사치이며, 실제 미정정 금액과 정확히 같다고 볼 근거는 자료에 없습니다.",
+    "en": "188,851,520원은 정확한 확정치가 아니라 **추정치의 합계**다.\n\n근거: 해당 CSV 자체가 \"추정 미정정 금액(원)\"이라는 컬럼명을 쓰고 있고, README에 \"STATUS 가 PENDING 외의 값을 가진 행은 조회되지 않았다. 수기 정정분이 시스템 밖에서 처리되었다면 이 수치에 반영되지 않는다\"고 명시되어 있다 [sellflow-docs:exports/README.md]. 즉 이 숫자는 2026-09-01 시점 `CANCEL_RECON_QUEUE`의 STATUS='PENDING' 건만 집계한 것이며, 실제로 수기로 처리되었지만 STATUS가 갱신되지 않은 건이 있다면 과대계상될 수 있고, 반대로 시스템 밖 처리 건이 반영 안 됐을 수도 있다.\n\n정황상 이 숫자가 부풀려졌을 가능성도 있다: `CancelReconciler`의 Quartz 스케줄 등록이 2023-04 이후 계속 미착수 상태로 남아있고 [settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java, sellflow-docs/sprints/tickets_2026-S17.csv의 SF-4512], 정산팀은 \"문의 들어온 건만\" 확인해 처리해왔다는 인수인계 기록이 있다 [sellflow-docs:handover/2025-03_정산팀_인수인계.md]. 이는 대기열에 실제 미정정 잔액이 쌓이고 있었을 가능성을 뒷받침하지만, 정확한 \"실제 차감 처리 건수\"는 문지영의 메일 질의에도 아직 답변되지 않은 상태다 [sellflow-docs:mail/RE_정산_미정정_금액_문의.eml]. 따라서 이 수치는 신뢰할 수 있는 상한 추정치 정도로 봐야 하며, 자료들 자체가 \"정확히 확인 필요\"라고 반복해서 표시하고 있다."
+   }
+  },
+  {
+   "id": "q5",
+   "q": {
+    "ko": "정산 배치는 실제로 매일 돌고 있나요?",
+    "en": "Does the settlement batch actually run every night?"
+   },
+   "a": {
+    "ko": "코드상으로는 매일 도는 구조입니다. `QuartzConfig`가 `dailySettlementTrigger`를 cron `0 0 2 * * ?` (Asia/Seoul)로 등록하고, `spring.batch.job.enabled: false`로 Spring Batch 자체 자동 실행은 막아두어 Quartz가 유일한 트리거입니다 [API-SETTLEMENT-BATCH][SYS-SETTLEMENT][PROC-SETTLEMENT-FLOW-CATALOG].\n\n다만 \"실제로 매일 돌고 있다\"는 것을 증명하는 운영 증거는 reef에 없습니다. `SETTLEMENT_RUN` 테이블에 `SANGTAE='RUNNING'`인 런 헤더가 있어야 정산 상세가 쓰이는데, 5개 저장소 전체를 grep해도 이 테이블에 대한 INSERT 문이 하나도 없습니다 — 누가/무엇이 이 행을 만드는지 확인 불가 [PROC-SETTLEMENT-RUN-LIFECYCLE][SYS-SETTLEMENT]. 또한 2025-07-12에 배치가 중복 실행되어 17개 파트너에게 약 4,200만원 규모의 중복 지급 요청이 발생한 장애가 있었고, 이는 Quartz job parameter의 `ts` 필드가 매 실행을 새 JobInstance로 만들어 Spring Batch의 중복 방지 기능을 무력화했기 때문입니다 [PROC-SETTLEMENT-ERROR-HANDLING].\n\n즉, 스케줄 설정은 매일 새벽 2시로 확실하지만, 실제 프로덕션에서 매번 성공적으로 도는지, 실패 시 무엇이 남는지는 로그·모니터링 자료가 없어 판단할 수 없습니다 [PROC-SETTLEMENT-ERROR-HANDLING][SYS-SETTLEMENT: Not determinable 항목].",
+    "en": "The Quartz trigger is registered to run nightly: `dailySettlementTrigger` uses cron `0 0 2 * * ?` in `Asia/Seoul`, and since `spring.batch.job.enabled: false` disables Spring Batch's own auto-launch, Quartz is the sole entry point for the job [API-SETTLEMENT-BATCH][SYS-SETTLEMENT]. So *by configuration*, yes — it is scheduled to fire every night at 02:00 KST.\n\nWhether it actually *runs successfully* every night is a different question the artifacts can't fully settle. There's evidence of at least one real execution going wrong: a 2025-07-12 postmortem records an unintended duplicate run that caused duplicate payment requests to 17 partners (~42,000,000 KRW), tied to how `DailySettlementQuartzJob` builds job parameters (a `ts` timestamp that defeats Spring Batch's duplicate-instance protection) [PROC-SETTLEMENT-ERROR-HANDLING][PROC-SETTLEMENT-AUTH]. Error handling in the job is fragile — one bare `try/catch` wraps the whole thing with no retry, no skip-logic, and a mid-run failure leaves the day \"half-settled\" with nothing recording that partial state [PROC-SETTLEMENT-ERROR-HANDLING].\n\nThere's also a foundational gap: `SettlementItemWriter` depends on a `SETTLEMENT_RUN` row already existing with `SANGTAE='RUNNING'`, but no code in any of the five repos ever inserts into `SETTLEMENT_RUN` — this is explicitly flagged as Not Determinable [PROC-SETTLEMENT-RUN-LIFECYCLE][SYS-SETTLEMENT]. So the job clearly *has* produced settlement data historically (SETTLEMENT_DTL rows exist per other artifacts), but what creates that prerequisite row is unexplained from these sources."
+   },
+   "cites": {
+    "ko": [
+     "API-SETTLEMENT-BATCH",
+     "SYS-SETTLEMENT",
+     "PROC-SETTLEMENT-FLOW-CATALOG",
+     "PROC-SETTLEMENT-RUN-LIFECYCLE",
+     "PROC-SETTLEMENT-ERROR-HANDLING"
+    ],
+    "en": [
+     "API-SETTLEMENT-BATCH",
+     "SYS-SETTLEMENT",
+     "PROC-SETTLEMENT-ERROR-HANDLING",
+     "PROC-SETTLEMENT-AUTH",
+     "PROC-SETTLEMENT-RUN-LIFECYCLE"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "sellflow-docs:runbooks/장애회고_2025-07-12_정산배치_중복실행.md",
+     "settlement-batch:src/main/resources/db/migration/V2__add_settlement_run_log.sql"
+    ],
+    "en": [
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "settlement-batch:README.md",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/job/DailySettlementQuartzJob.java",
+     "sellflow-docs:runbooks/장애회고_2025-07-12_정산배치_중복실행.md",
+     "sellflow-docs:sprints/tickets_2026-S17.csv"
+    ]
+   },
+   "a_raw": {
+    "ko": "코드상으로는 매일 02:00 KST에 `dailySettlementJob`이 Quartz cron(`0 0 2 * * ?`)으로 등록되어 있습니다 [settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java]. 실제 운영 중 실행 이력은 별도 조회 결과가 없어 이 자료들만으로는 매일 빠짐없이 도는지 확정할 수 없지만, 2025-07-12 장애 회고는 이 배치가 실제로(중복) 실행되었음을 보여주는 근거입니다 [sellflow-docs:runbooks/장애회고_2025-07-12_정산배치_중복실행.md].\n\n다만 `SETTLEMENT_RUN_LOG` 테이블이 실행 이력을 남기도록 만들어져 있으나[settlement-batch:src/main/resources/db/migration/V2__add_settlement_run_log.sql], 이 자료들에는 그 테이블의 실제 데이터(가동 여부 확인용 조회 결과)가 포함되어 있지 않아 \"매일 빠짐없이\" 도는지는 판단할 수 없습니다.",
+    "en": "Yes — the schedule is defined via Quartz cron `0 0 2 * * ?` (Asia/Seoul), registered in [settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java], matching the README's stated \"매일 새벽 02:00 KST\" [settlement-batch:README.md]. `DailySettlementQuartzJob` fires the Spring Batch job on that trigger [settlement-batch:src/main/java/kr/co/sellflow/settlement/job/DailySettlementQuartzJob.java].\n\nOne caveat proven by an incident: on 2025-07-12 the batch ran twice in one night because Quartz cluster config was only applied to one node, causing duplicate payment requests to 17 partners (~4,200만원), fixed the same week [sellflow-docs:runbooks/장애회고_2025-07-12_정산배치_중복실행.md]. I found no evidence in these sources of missed nightly runs — only this duplicate-run incident and a general \"batch execution history alert\" ticket (SF-5099) added afterward as a monitoring improvement [sellflow-docs:sprints/tickets_2026-S17.csv]."
+   }
+  },
+  {
+   "id": "q6",
+   "q": {
+    "ko": "주문을 취소하면 재고는 복원되나요?",
+    "en": "Is stock restored when an order is cancelled?"
+   },
+   "a": {
+    "ko": "아니요 — 적어도 이 다섯 개 저장소에 있는 코드로는 재고가 복원되지 않습니다.\n\n- 주문 취소 트랜잭션(`OrderCancelService.cancel`)은 `ORDER_MST` 상태 변경, `ORDER_CANCEL` 행 저장, `order.cancelled` 아웃박스 발행만 하고 재고 호출은 전혀 하지 않습니다 [OrderCancelService.java]. `InventoryClient.restore(ordNo, sayuCd)`라는 클래스는 존재하지만, 다섯 저장소 전체를 grep해도 이 클래스를 호출하는 곳은 선언부 자체뿐입니다 [CON-ORDER-INVENTORY].\n- 설령 호출이 있었다 해도 목적지가 없습니다: `InventoryClient`는 `POST {base}/inventory/restore`로 보내는데, inventory-api가 실제로 마운트한 라우트는 `POST /stock/restock`과 `GET /stock/{sku}` 뿐이고 `/inventory` 프리픽스 라우터(`app/routers.py`)는 `include_router`가 호출되지 않아 전혀 등록되지 않습니다 — 즉 `/inventory/restore`는 404입니다 [API-INVENTORY].\n- 실제로 살아있는 `POST /stock/restock`도 사유코드 `01`, `02`만 재고를 복원하고, `03`(고객변심)과 `04`(배송실패)는 복원하지 않습니다 — 스프레드시트 정책은 04도 O(복원)로 요구하지만 코드는 반영하지 않습니다 [DEC-INVENTORY-RESTOCK-BY-REASON].\n\n즉 (1) 주문 서비스가 재고 서비스를 아예 호출하지 않고, (2) 호출한다 해도 경로가 존재하지 않으며, (3) 실제 restock 엔드포인트도 사유코드 절반만 처리합니다. 창고 시스템이나 운영자가 수동으로 재고를 되돌리는지는 이 reef의 다섯 저장소 밖의 일이라 판단할 수 없습니다 — \"Not determinable\" [CON-ORDER-INVENTORY].",
+    "en": "Sometimes — and for one reason code it's disputed even in principle.\n\n- `inventory-api` restocks only cancel reasons `01` and `02` (allow-list `RESTOCKABLE_REASONS = {\"01\",\"02\"}`), via `POST /stock/restock` incrementing `available_qty` [PROC-INVENTORY-RESTOCK, GLOSSARY-INVENTORY].\n- The business-rules spreadsheet (취소정책) says restoration should happen for `01`, `02`, and **also `04`** (배송 실패/delivery failure), and not for `03` (고객 변심/customer change of mind, since shipping already started) [DEC-INVENTORY-RESTOCK-BY-REASON]. The code's exclusion of `03` matches the sheet's rationale, but its exclusion of `04` contradicts it, and no comment, ticket, or commit explains why [DEC-INVENTORY-RESTOCK-BY-REASON].\n- Even when a reason code qualifies, **order-service never actually calls this endpoint**: `InventoryClient.restore(...)` exists but has zero callers anywhere in the five repos, and it targets `POST /inventory/restore`, a path that doesn't exist (`/inventory/*` routes are declared in `app/routers.py` but never mounted — `include_router` is never called) [CON-ORDER-INVENTORY, PAT-SELLFLOW-ORPHANED-COMPONENTS]. `OrderCancelService.cancel` writes `ORDER_CANCEL`, updates `ORDER_MST`, and publishes an outbox event — nothing about inventory [CON-ORDER-INVENTORY].\n\nSo structurally, restocking as designed in inventory-api never fires from a live cancellation. Whether stock is corrected some other way (manual process, warehouse system, unversioned script) is not determinable from these repos [CON-ORDER-INVENTORY Not determinable note]."
+   },
+   "cites": {
+    "ko": [
+     "CON-ORDER-INVENTORY",
+     "API-INVENTORY",
+     "DEC-INVENTORY-RESTOCK-BY-REASON"
+    ],
+    "en": [
+     "PROC-INVENTORY-RESTOCK",
+     "GLOSSARY-INVENTORY",
+     "DEC-INVENTORY-RESTOCK-BY-REASON",
+     "CON-ORDER-INVENTORY",
+     "PAT-SELLFLOW-ORPHANED-COMPONENTS"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "inventory-api:app/config.py",
+     "inventory-api:app/main.py",
+     "sellflow-docs:business-rules.md",
+     "order-service:src/main/java/kr/co/sellflow/order/client/InventoryClient.java"
+    ],
+    "en": [
+     "order-service:src/main/java/kr/co/sellflow/order/client/InventoryClient.java",
+     "inventory-api:app/main.py",
+     "inventory-api:app/config.py",
+     "sellflow-docs:business-rules.md",
+     "inventory-api:tests/test_restore.py"
+    ]
+   },
+   "a_raw": {
+    "ko": "사유 코드에 따라 다릅니다. 재고 복원 대상은 취소 사유 코드 기준으로 결정되며, `inventory-api`의 `RESTOCKABLE_REASONS = {\"01\", \"02\"}` (파트너 귀책, 시스템 오류)만 자동 복원됩니다 [inventory-api:app/config.py][inventory-api:app/main.py]. 03(고객 변심)은 배송 시작 후 취소가 많아 복원 대상이 아니라고 명시되어 있습니다 [inventory-api:app/main.py].\n\n다만 `business-rules.md`(정산팀 문서)에는 04(배송 실패)도 재고 복원 \"O\"로 표기되어 있어, 코드(`RESTOCKABLE_REASONS`)와 문서 간 불일치가 있습니다 [sellflow-docs:business-rules.md] vs [inventory-api:app/config.py]. 어느 쪽이 실제 운영 기준인지는 이 자료만으로 판단할 수 없습니다.\n\n취소 자체는 `order-service`가 처리하고, 이후 `InventoryClient.restore()`를 통해 재고 API에 복원 요청을 보내는 구조이며, 복원 여부 판단은 재고팀 로직(inventory-api)에 위임되어 있습니다 [order-service:src/main/java/kr/co/sellflow/order/client/InventoryClient.java].",
+    "en": "Depends on the cancel reason code (SAYU_CD), not automatic for all cancellations.\n\n- `order-service`'s `InventoryClient.restore()` calls inventory-api on cancellation, but delegates the actual restock decision to inventory-api [order-service:src/main/java/kr/co/sellflow/order/client/InventoryClient.java].\n- `inventory-api` only restocks for reason codes **01** (partner fault) and **02** (system error) — `RESTOCKABLE_REASONS = {\"01\", \"02\"}` [inventory-api:app/main.py][inventory-api:app/config.py]. Reason **03** (customer change of mind) and by implication 04 are not restocked by this check, with a code comment noting 03 often occurs after shipping has started [inventory-api:app/main.py].\n- This matches the business rules doc: reasons 01, 02, 04 restore stock (\"재고 복원 O\"), while 03 (고객 변심) does not, especially after delivery has started [sellflow-docs:business-rules.md]. Note this is a discrepancy from the code, which only whitelists 01/02 — code doesn't restock for 04 despite the business rule saying O. I can't resolve this conflict from the sources; it may be a gap between policy and implementation.\n- Tests confirm the code behavior: 01/02 restockable, 03 not [inventory-api:tests/test_restore.py]."
+   }
+  },
+  {
+   "id": "q7",
+   "q": {
+    "ko": "이 시스템에서 가장 위험한 것은 무엇인가요?",
+    "en": "What is the most dangerous thing in this system?"
+   },
+   "a": {
+    "ko": "가장 위험한 것은 **차월 차감(정산 정정) 메커니즘이 통째로 작동하지 않는 것**입니다.\n\nSF-2287 이후 취소된 주문의 정산 금액을 되돌리는 유일한 코드인 `CancelReconciler.reconcileCancellations()`는 2023-04-24부터 Quartz 스케줄에 등록된 적이 없고, 어떤 코드도 이를 호출하지 않습니다. 이 사실은 코드 자체의 TODO 주석에도 기록돼 있습니다: \"TODO Quartz 스케줄 등록 필요 (박성민님 확인 후 QuartzConfig 에 추가 예정) - 2023-04-24 김도윤\" [DEC-SETTLEMENT-CANCEL-CLAWBACK][CancelReconciler.java]. 이를 고치는 티켓 SF-4512는 우선순위 Low, 담당자 미배정 상태로 3년 넘게 `To Do`에 머물러 있습니다 [RISK-SETTLEMENT-RECON-BACKLOG].\n\n그 결과 `CANCEL_RECON_QUEUE`에는 2026-09-01 기준 4,127건, 총 188,851,520원의 `PENDING` 행이 41개월(2023-04~2026-08) 연속으로 쌓여 있고, 단 한 달도 잔액이 0이 된 적이 없습니다 [RISK-SETTLEMENT-RECON-BACKLOG]. 재무팀도 스스로 모순을 지적했습니다: \"차감이 정상적으로 이루어지고 있다면 대기 잔액이 이 규모로 누적될 수 없습니다\" [RISK-SETTLEMENT-RECON-BACKLOG]. 이는 실제 돈이 회수되지 않고 있다는 뜻이며, 그 규모조차 하한선일 뿐입니다(추출 자체가 PENDING 상태만 조회했으므로) [RISK-SETTLEMENT-RECON-BACKLOG].\n\n다음으로 큰 위험은 다섯 개 서비스 전체에 서비스 간 인증이 전혀 없다는 점이며(취소 엔드포인트 포함), 이는 구조적 위험이지만 금전적 손실이 직접 관측되지는 않았습니다 [PAT-SELLFLOW-CROSS-SERVICE-AUTH]. 어느 쪽이 \"가장\" 위험한지는 판단 기준(진행 중인 손실 vs 잠재적 익스포저)에 따라 다를 수 있습니다.",
+    "en": "가장 위험한 것은 단일 버그가 아니라 **\"정산완료 주문도 취소 가능 + 그 취소를 보정하는 메커니즘은 한번도 실행된 적 없음\"**이라는 조합입니다.\n\n1. SF-2287(2023-04-21)로 order-service는 `JUNGSAN_WANRYO`(정산완료) 상태의 주문도 취소를 막지 않게 되었습니다 — 차단 대상은 `CHWISO`/`BANPUM`뿐입니다 [DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL, OrderCancelService.java].\n2. 보정책은 `CancelReconciler.reconcileCancellations()`가 `CANCEL_RECON_QUEUE`의 PENDING 건을 읽어 차월 정산에서 차감하는 것이었지만, 이 컴포넌트는 Quartz에 한 번도 등록되지 않았습니다 — 스스로 남긴 TODO에 \"박성민님 확인 후 QuartzConfig에 추가 예정 - 2023-04-24 김도윤\"이라고 적혀 있고, 이를 고치는 티켓 SF-4512는 여전히 `To Do`, 우선순위 Low, 담당자 미지정 상태입니다 [DEC-SETTLEMENT-CANCEL-CLAWBACK, CancelReconciler.java, QuartzConfig.java].\n3. 그 결과 실측 데이터로 확인된 실제 손실이 존재합니다: 2026-09-01 기준 `CANCEL_RECON_QUEUE`에 PENDING 4,127건, 총 188,851,520원이 41개월(2023-04~2026-08) 동안 단 한 달도 0으로 줄어든 적 없이 누적되어 있습니다 [RISK-SETTLEMENT-RECON-BACKLOG]. 재무팀도 이 모순을 스스로 지적했습니다: \"차감이 정상적으로 이루어지고 있다면 대기 잔액이 이 규모로 누적될 수 없습니다\" [RE_정산_미정정_금액_문의.eml].\n4. 여기에 더해 취소 엔드포인트(`POST /orders/{ordNo}/cancel`) 자체에 인증이 전혀 없고 CORS도 적용되지 않아, 누구든 호출할 수 있는 구조입니다 [PROC-ORDER-AUTH, PAT-SELLFLOW-CROSS-SERVICE-AUTH].\n\n즉 \"돈을 돌려받아야 하는 취소를 무제한 허용\"하면서 \"그 돈을 회수하는 코드는 3년 넘게 잠들어 있음\"이라는 조합이, 다른 어떤 개별 결함보다 실측된 금전적 피해가 있는 가장 위험한 지점입니다. 다만 시스템 밖에서 수동으로 얼마나 회수됐는지는 이 reef로는 확인 불가합니다 [RISK-SETTLEMENT-RECON-BACKLOG의 Not determinable 항목]."
+   },
+   "cites": {
+    "ko": [
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PAT-SELLFLOW-CROSS-SERVICE-AUTH"
+    ],
+    "en": [
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PROC-ORDER-AUTH",
+     "PAT-SELLFLOW-CROSS-SERVICE-AUTH"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "sellflow-docs:tickets/SF-2287.md",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "sellflow-docs:sprints/tickets_2026-S17.csv",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv",
+     "sellflow-docs:mail/RE_정산_미정정_금액_문의.eml",
+     "settlement-anomaly:README.md",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/job/SettlementItemWriter.java"
+    ],
+    "en": [
+     "order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "sellflow-docs:sprints/tickets_2026-S17.csv",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:tickets/SF-2287.md",
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv",
+     "sellflow-docs:mail/RE_정산_미정정_금액_문의.eml",
+     "sellflow-docs:minutes/2026-06-18_정산정정_자동화_킥오프.md",
+     "settlement-anomaly:README.md"
+    ]
+   },
+   "a_raw": {
+    "ko": "가장 위험한 지점은 **정산 완료 후 취소된 주문의 금액이 실제로는 차감(정정)되지 않은 채 대기열에 계속 쌓이고 있다는 것**입니다.\n\nSF-2287(2023-04)로 정산완료 주문도 취소가 허용되도록 바뀌면서, 취소 발생 시 `order.cancelled` 이벤트를 통해 `CANCEL_RECON_QUEUE`에 적재하고 정산팀이 차월 정산에서 수기로 차감하기로 했습니다[sellflow-docs:tickets/SF-2287.md]. 그런데 이 정정을 실제로 수행하는 `CancelReconciler`는 만들어졌지만 **Quartz 스케줄에 등록된 적이 없습니다** — 코드 자체에 \"TODO Quartz 스케줄 등록 필요... 2023-04-24 김도윤\"이라는 미완료 메모가 남아 있고[settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java], `QuartzConfig`에도 이 잡이 등록되어 있지 않습니다[settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java]. 관련 티켓 SF-4512도 여전히 \"To Do\" 상태입니다[sellflow-docs:sprints/tickets_2026-S17.csv].\n\n정산팀은 \"문의 들어온 건만\" 수기로 처리해왔고, 전체 대기열을 정기적으로 확인하는 절차가 없었습니다[sellflow-docs:handover/2025-03_정산팀_인수인계.md]. 실제 대기열 추출 결과 2023-04부터 41개월간 PENDING 4,127건, 약 1억 8,885만 원이 미정정 상태로 누적되어 있고[sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv], 재무기획팀도 분기 결산에서 이 불일치(1.8억)를 지적했습니다[sellflow-docs:mail/RE_정산_미정정_금액_문의.eml]. 즉 \"월 10건 미만이라 수기로 충분하다\"던 2023년 가정[sellflow-docs:tickets/SF-2287.md]이 깨졌고, 이를 감지할 자동 탐지(`settlement-anomaly`의 `CANCELLED_SETTLED`)도 \"후속 조치는 범위 밖\"이라 실제 시정으로 이어지지 않습니다[settlement-anomaly:README.md]. 지급 요청은 전송 후 되돌릴 수 없다는 점[settlement-batch:src/main/java/kr/co/sellflow/settlement/job/SettlementItemWriter.java]까지 고려하면, 이는 지속적으로 누적되는 재무 리스크입니다.",
+    "en": "가장 위험한 것은 **정산 완료 주문 취소 후 금전 정정이 실제로는 자동화되어 있지 않다는 점**입니다.\n\n- SF-2287(2023)로 `order-service`는 정산완료 주문도 취소를 허용하도록 바뀌었고, 취소 시 `order.cancelled` 이벤트를 발행해 `settlement-batch`가 `CANCEL_RECON_QUEUE`에 적재하는 구조를 만들었습니다 [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java, settlement-batch:src/main/java/kr/co/sellflow/settlement/relay/OrderEventRelayJob.java].\n- 그러나 대기열을 실제로 소진해 차감을 반영하는 `CancelReconciler`는 **Quartz에 스케줄 등록이 안 되어 있다**고 코드에 명시되어 있고 [settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java], 관련 티켓(SF-4512)도 여전히 \"To Do\" 상태입니다 [sellflow-docs:sprints/tickets_2026-S17.csv].\n- 정산팀 자체도 \"월 10건 정도라 수기로 충분하다\"는 2023년 가정을 그대로 유지한 채 문의 들어온 건만 처리해왔고 [sellflow-docs:handover/2025-03_정산팀_인수인계.md, sellflow-docs:tickets/SF-2287.md], 실제 대기열은 매달 수십~백여 건씩 계속 쌓여 2026-09 기준 PENDING 4,127건, 추정 미정정 금액 약 1억8885만원까지 누적됐습니다 [sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv].\n- 재무기획팀은 이를 분기 결산 부채로 인식해야 하는지 문의했고, 정산팀장은 \"차감이 정상 처리 중\"이라 답했지만 실제로는 자동 처리 주체가 없다는 사실이 조직 간에 서로 다르게 인지되고 있습니다(주문팀은 \"이벤트만 보냈다\", 정산팀은 \"차감은 자동으로 되는 줄 알았다\") [sellflow-docs:mail/RE_정산_미정정_금액_문의.eml, sellflow-docs:minutes/2026-06-18_정산정정_자동화_킥오프.md].\n\n즉, 취소 정책 완화로 생긴 재무 리스크를 메꿀 자동화 배치가 3년째 미가동 상태로 방치되어 실질적인 금전 손실/부채가 조용히 누적되고 있는 것이 가장 위험합니다. (settlement-anomaly가 `CANCELLED_SETTLED` 유형을 탐지하지만 후속 조치 주체는 정의되어 있지 않다는 점도 같은 구조적 공백입니다 [settlement-anomaly:README.md].)"
+   }
+  },
+  {
+   "id": "q8",
+   "q": {
+    "ko": "이 시스템에 대해 확실히 알 수 없는 것은 무엇인가요?",
+    "en": "What cannot be known for certain about this system?"
+   },
+   "a": {
+    "ko": "확실히 알 수 없는 것들은 각 아티팩트마다 \"Not determinable from the sources\"로 명시되어 있습니다. 주요한 것들을 정리하면:\n\n**게이트웨이/인증 관련**: 5개 저장소 전체에서 인증 관련 코드(auth, JWT, bearer 등)가 전혀 발견되지 않으며, order-service의 CORS 주석(\"앱은 게이트웨이를 통해 들어온다\")이 유일한 단서입니다. 하지만 이 게이트웨이가 실제로 존재하는지, 어디 있는지, 2022년 스펙이 요구하는 bearerAuth JWT를 검증하는지는 다섯 저장소 어디에도 근거가 없어 판단 불가합니다 [PAT-SELLFLOW-CROSS-SERVICE-AUTH], [PROC-ORDER-AUTH].\n\n**운영/배포 관련**: 모든 CD 워크플로우가 `deploy.sh $ENVIRONMENT`를 호출하지만 이 스크립트는 어느 저장소에도 존재하지 않아 실제로 무엇을 하는지 알 수 없습니다 [PROC-SELLFLOW-RUNTIME], [API-SETTLEMENT-BATCH].\n\n**재고 복원 관련**: 취소 사유 코드 04(배송 실패)가 재고 복원 대상에서 제외된 이유가 어디에도 설명되어 있지 않습니다(스프레드시트는 복원을 요구하지만 코드는 제외) [DEC-INVENTORY-RESTOCK-BY-REASON].\n\n**정산 정정(CancelReconciler) 관련**: `CancelReconciler.reconcileCancellations()`가 스케줄되지 않은 채 3년 이상 방치되어 있는데, 이 gap이 실제로 수작업으로 메워지는지, SF-4512 티켓이 왜 Low 우선순위로 남아있는지는 알 수 없습니다 [DEC-SETTLEMENT-CANCEL-CLAWBACK], [RISK-SETTLEMENT-RECON-BACKLOG].\n\n**소유권 관련**: delivery-bff의 owner_team이 registry에는 TODO로, org-chart에는 물류팀으로 서로 다르게 기재되어 있어 실제 소유팀이 확정되지 않았습니다 [PROC-SELLFLOW-OWNERSHIP], [SYS-DELIVERY].\n\n**데이터/스키마 관련**: SETTLEMENT_RUN 행을 누가 생성하는지, SETTLEMENT_ADJUSTMENT 테이블의 실제 정의(어느 마이그레이션에도 없음), RESTORE_LOG/SETTLEMENT_RUN_LOG가 실제로 운영 환경에 존재하는지 등은 모두 \"확인 불가\"로 남아 있습니다 [SCH-SETTLEMENT-BATCH], [PROC-SETTLEMENT-RUN-LIFECYCLE].\n\n**settlement-anomaly 관련**: `POST /detect`를 누가 호출하는지, 프로덕션에서 실제 실행되는지 여부는 5개 저장소 어디에도 근거가 없습니다 [API-SETTLEMENT-ANOMALY], [RISK-SETTLEMENT-ANOMALY].\n\n이 외에도 각 항목별로 \"Not determinable\" 섹션이 있으니 특정 주제(예: 인증, 재고, 정산)를 지정해 주시면 더 구체적으로 답할 수 있습니다.",
+    "en": "Quite a lot, actually — the reef flags \"Not determinable\" items on almost every artifact. Some of the biggest categories:\n\n**Whether things run at all.** No caller for `POST /detect` exists anywhere in the five repos, and no scheduler triggers it despite the README's claim of a daily 03:00 run [API-SETTLEMENT-ANOMALY]. `CancelReconciler` has never been scheduled — SF-4512 to fix that has sat \"To Do\" since 2023-04-24 [DEC-SETTLEMENT-CANCEL-CLAWBACK]. Who creates `SETTLEMENT_RUN` rows is unknown; nothing in any repo inserts one, yet settlement demonstrably happens [PROC-SETTLEMENT-RUN-LIFECYCLE].\n\n**Where the boundary of the system actually is.** Whether a gateway exists in front of order-service is unresolved — the only evidence is one Korean comment in `WebConfig`, naming no product, host, or policy [PAT-SELLFLOW-CROSS-SERVICE-AUTH]. Whether database grants restrict cross-service table access in production is unverifiable — no GRANT statement exists in any repo [PAT-SELLFLOW-CROSS-SERVICE-DATA-FLOW].\n\n**Rationale behind decisions.** Why reason code 04 is excluded from restock eligibility, why a broker was never used instead of DB polling, why the 2021 cancellation policy page was never updated, who approved SF-2287 — none of these have any ADR, ticket discussion, or sign-off record [DEC-INVENTORY-RESTOCK-BY-REASON, DEC-ORDER-OUTBOX-RELAY, DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL].\n\n**Basic factual state.** Whether `stock_item` or `RESTORE_LOG` hold any real rows, whether the Alembic migrations were ever applied to a live database, whether production schemas match the checked-in migrations at all [SCH-INVENTORY, SCH-ORDER-MIGRATION-HISTORY].\n\nThis is not a gap in my answer — it's the reef's own repeated verdict: absence of evidence (a grep returning nothing) is treated as evidence of absence for code paths, but organizational intent, live runtime state, and out-of-repo systems (gateways, manual corrections, deploy scripts) are consistently marked \"Not determinable from the sources.\""
+   },
+   "cites": {
+    "ko": [
+     "PAT-SELLFLOW-CROSS-SERVICE-AUTH",
+     "PROC-ORDER-AUTH",
+     "PROC-SELLFLOW-RUNTIME",
+     "API-SETTLEMENT-BATCH",
+     "DEC-INVENTORY-RESTOCK-BY-REASON",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "RISK-SETTLEMENT-RECON-BACKLOG",
+     "PROC-SELLFLOW-OWNERSHIP",
+     "SYS-DELIVERY",
+     "SCH-SETTLEMENT-BATCH",
+     "PROC-SETTLEMENT-RUN-LIFECYCLE",
+     "API-SETTLEMENT-ANOMALY",
+     "RISK-SETTLEMENT-ANOMALY"
+    ],
+    "en": [
+     "API-SETTLEMENT-ANOMALY",
+     "DEC-SETTLEMENT-CANCEL-CLAWBACK",
+     "PROC-SETTLEMENT-RUN-LIFECYCLE",
+     "PAT-SELLFLOW-CROSS-SERVICE-AUTH",
+     "PAT-SELLFLOW-CROSS-SERVICE-DATA-FLOW",
+     "DEC-INVENTORY-RESTOCK-BY-REASON",
+     "DEC-ORDER-OUTBOX-RELAY",
+     "DEC-ORDER-SF2287-CANCEL-BLOCK-REMOVAL",
+     "SCH-INVENTORY",
+     "SCH-ORDER-MIGRATION-HISTORY"
+    ]
+   },
+   "cites_raw": {
+    "ko": [
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java",
+     "sellflow-docs:sprints/tickets_2026-S17.csv",
+     "sellflow-docs:tickets/SF-2287.md",
+     "sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv",
+     "sellflow-docs:handover/2025-03_정산팀_인수인계.md",
+     "sellflow-docs:registry/services.yaml",
+     "settlement-batch:src/main/java/kr/co/sellflow/settlement/job/SettlementItemProcessor.java"
+    ],
+    "en": []
+   },
+   "a_raw": {
+    "ko": "확실히 알 수 없는 것들 (근거 없음/모순만 있는 항목):\n\n**1. CANCEL_RECON_QUEUE 자동 처리 여부** — `CancelReconciler.reconcileCancellations()`는 코드로 존재하지만[settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java] Quartz에 스케줄 등록된 흔적이 `QuartzConfig.java`에 없다[settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java]. 클래스 자체 TODO 주석도 \"스케줄 등록 필요\"라 명시[settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java]. 2026년까지도 티켓(SF-4512)이 \"To Do\", 담당 미배정 상태[sellflow-docs:sprints/tickets_2026-S17.csv]. 즉 이 잡이 실행되는지 여부는 확정할 수 없음.\n\n**2. 대기열 실제 규모 vs \"월 10건\" 가정** — 2023년 합의는 \"월 10건 미만\"이었으나[order-service:tickets/SF-2287.md 해당 없음, sellflow-docs:tickets/SF-2287.md] 2026-09 추출 데이터로는 월 100건 이상, PENDING 누적 4,127건·약 1.88억원[sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv]. 실제 처리(수기 차감) 건수와 이 누적치의 관계는 불명 — 인수인계 문서도 \"확인해 본 적 없음\"이라고 함[sellflow-docs:handover/2025-03_정산팀_인수인계.md].\n\n**3. 담당 조직/오너십 불명확한 부분** — delivery-bff의 owner_team이 TODO로 미확정[sellflow-docs:registry/services.yaml], CANCEL_RECON_QUEUE의 consumer도 TODO[sellflow-docs:registry/services.yaml].\n\n**4. SETTLEMENT_ADJUSTMENT 테이블** — 문서상 존재하나 실제 조회가 안 된다는 미해결 사항[sellflow-docs:handover/2025-03_정산팀_인수인계.md]. 그 원인은 소스 어디에도 규명되어 있지 않음.\n\n이 외에도 남길 것: PARTNER_CONTRACT 수수료율이 실제 반영되는지(2021년 이후 미정비로 기본율만 적용[settlement-batch:src/main/java/kr/co/sellflow/settlement/job/SettlementItemProcessor.java]) 등은 이미 코드로 확인 가능하므로 \"불확실\"이 아니라 확정된 사실입니다.",
+    "en": "Several important things cannot be determined with certainty from these sources:\n\n**Whether automatic settlement clawback actually runs.** `settlement-batch:src/main/java/kr/co/sellflow/settlement/recon/CancelReconciler.java` contains the logic to process `CANCEL_RECON_QUEUE` into `SETTLEMENT_ADJUSTMENT`, but its own TODO says \"Quartz 스케줄 등록 필요\" (needs Quartz schedule registration), and `settlement-batch:src/main/java/kr/co/sellflow/settlement/config/QuartzConfig.java` registers only `dailySettlementJob` and `orderEventRelayJob` — no trigger for `CancelReconciler`. The ticket `sellflow-docs:sprints/tickets_2026-S17.csv` (SF-4512, \"CancelReconciler Quartz 스케줄 등록\") is still \"To Do\" as of 2026. So whether reconciliation ever executes automatically is unresolved — evidenced by absence, not proof of non-execution.\n\n**The true size/growth of the backlog and whether it's being worked at all.** `sellflow-docs:exports/cancel_recon_queue_monthly_20260901.csv` shows PENDING rows accumulating from 2023 to 2026 (total ~4,127 rows / ₩188,851,520), but the export README notes rows with STATUS other than PENDING wouldn't show, and manual corrections done outside the system aren't reflected — so the real outstanding amount is uncertain.\n\n**Who actually owns/consumes `CANCEL_RECON_QUEUE`.** `sellflow-docs:registry/services.yaml` lists consumer as `TODO — 확인 필요`.\n\n**Whether `order-service`'s cancel API still checks settlement status.** `order-service:TASK.md` says the check was removed (SF-2287), but `delivery-bff:src/generated/orderApi.ts` (a stale 2022 generated client) still documents a 409 for \"정산이 완료된 주문,\" and the wiki page `sellflow-docs:raw/confluence-snapshots/주문-취소-정책_48213.html` (last edited 2021, flagged possibly outdated by a 2024 comment) still states cancellation is blocked post-settlement — these sources conflict, and no one is confirmed to have reconciled documentation.\n\n**Delivery-bff's ownership** is literally `TODO` in the registry despite org-chart implying 물류팀.\n\nI'm leaving out other minor open items (e.g., partner fee rates in `PARTNER_CONTRACT`, actual monthly reconciliation volume) for brevity."
+   }
+  }
+ ],
+ "recorded": {
+  "at": "2026-09-19",
+  "endpoint": "https://reef-demo-delta.vercel.app/api/chat",
+  "note": "Answers as they came back, unedited and unselected. The reef arm holds the artifacts; the raw arm holds the fixture repository. Regenerate with tools/record-pairs.py.",
+  "context_tokens": {
+   "reef": 87670,
+   "raw": 89808
+  }
+ }
 }

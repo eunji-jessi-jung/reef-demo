@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="assets/css/site.css?v=9257fbf9">
+  <title>reef — 같은 질문, 답 두 개</title>
+  <meta name="description" content="One question about a legacy system, answered twice: once holding a reef, once holding the raw sources.">
+</head>
+<body data-base=".">
+  <header class="topbar">
+    <a class="brand" href="index.html">~ <span>reef</span></a>
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav.home"></a>
+      <a href="try.html"   data-i18n="nav.try"></a>
+      <a href="about.html" data-i18n="nav.about"></a>
+    </nav>
+    <div class="lang">
+      <button data-lang="ko" aria-pressed="true">한국어</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. The brief: who you are and what you were asked. -->
+    <section class="band band-tight">
+      <div class="band-inner">
+        <p class="kicker" data-i18n="T.kicker"></p>
+        <blockquote class="brief preline" data-i18n="T.h1"></blockquote>
+        <p class="body" data-i18n="T.brief"></p>
+        <p class="meta" data-i18n="T.briefNote"></p>
+      </div>
+    </section>
+
+    <!-- 2. The sources, rendered from the manifest the proxy was built from. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="T.srcTitle"></h2>
+        <p class="body" data-i18n="T.srcNote"></p>
+        <div class="src-grid" id="src-grid"></div>
+        <details class="excluded">
+          <summary data-i18n="T.srcExcluded"></summary>
+          <ul id="src-excluded"></ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- 3. How the reef was built. Five commands, in order. -->
+    <section class="band">
+      <div class="band-inner">
+        <h2 data-i18n="T.buildTitle"></h2>
+        <ol class="steps">
+          <li data-md="T.s1"></li>
+          <li data-md="T.s2"></li>
+          <li data-md="T.s3"></li>
+          <li data-md="T.s4"></li>
+          <li data-md="T.s5"></li>
+        </ol>
+        <p class="meta" data-md="T.buildNote"></p>
+      </div>
+    </section>
+
+    <!-- 4. The payoff: one question, two answers, side by side. -->
+    <section class="band band-ask" id="ask">
+      <div class="band-inner">
+        <h2 data-i18n="T.askTitle"></h2>
+        <p class="body" data-i18n="T.askNote"></p>
+        <p class="fair" data-i18n="T.fair"></p>
+
+        <div class="chat-chips" id="chips"></div>
+
+        <form class="chat-form" id="ask-form">
+          <input class="chat-input" type="text" maxlength="500" autocomplete="off"
+                 data-i18n-ph="chat.placeholder">
+          <button type="submit" data-i18n="chat.send"></button>
+        </form>
+        <p class="chat-offline" id="ask-offline" hidden data-i18n="chat.offline"></p>
+
+        <div class="compare" id="compare"></div>
+        <p class="meta" data-i18n="T.verdictNote"></p>
+
+        <aside class="artifact-panel" id="artifact" hidden>
+          <div class="artifact-head">
+            <p class="artifact-title"></p>
+            <button class="artifact-close" data-i18n="chat.close"></button>
+          </div>
+          <div class="artifact-body"></div>
+          <a class="artifact-link src" target="_blank" rel="noopener" data-i18n="chat.open"></a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="meta" data-i18n="L.foot"></p>
+    <p><a href="about.html" data-i18n="L.footLink"></a></p>
+  </footer>
+
+  <script>
+    /* The proxy holds the key and both corpora; the browser only sends a question and
+       which arms to run. Empty means: prepared answers only. */
+    window.REEF_API = "https://reef-demo-delta.vercel.app/api/chat";
+  </script>
+  <script type="module" src="assets/js/compare.js?v=4ff50c00"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 # Rebuild everything the site derives from the repositories, then stamp the assets.
 # Run this before every commit. The stamp step in particular is not optional: skip it
 # and a returning visitor keeps the JavaScript they loaded last time, which is how a
@@ -8,6 +8,9 @@ cd "$(dirname "$0")/.."
 
 echo "── evidence  (figures and quotations, extracted from the three repositories)"
 python3 tools/build-evidence.py
+
+echo "── corpus    (the sellflow sources, as the no-reef arm of the comparison sees them)"
+python3 tools/build-corpus.py
 
 echo "── digest    (the reef, compressed for the chat's system prompt)"
 python3 tools/build-digest.py
@@ -30,7 +33,9 @@ strings = json.loads(pathlib.Path("data/strings.json").read_text(encoding="utf-8
 import re
 used = set()
 for page in pathlib.Path(".").glob("*.html"):
-    used |= set(re.findall(r'data-i18n(?:-ph)?="([^"]+)"', page.read_text(encoding="utf-8")))
+    text = page.read_text(encoding="utf-8")
+    used |= set(re.findall(r'data-i18n(?:-ph)?="([^"]+)"', text))
+    used |= set(re.findall(r'data-md="([^"]+)"', text))
 missing = sorted(k for k in used if k not in strings)
 half = sorted(k for k in used if k in strings and not (strings[k].get("ko") and strings[k].get("en")))
 if missing: bad.append("strings missing: " + ", ".join(missing))
