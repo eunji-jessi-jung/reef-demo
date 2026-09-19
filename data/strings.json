@@ -20,12 +20,12 @@
   "en": "A Claude Code plugin"
  },
  "L.h1": {
-  "ko": "코드는 다 읽었는데,\n왜 이렇게 돌아가는지는 아무도 모를 때",
-  "en": "You have read all the code.\nNobody can tell you why it works this way."
+  "ko": "거듭할수록 쌓이는 지식",
+  "en": "Knowledge That Compounds"
  },
  "L.sub": {
-  "ko": "reef 는 저장소와 사내 문서를 같이 읽고, 질문에 답하는 지식 베이스를 만듭니다. 답에는 출처가 붙고, 확인이 안 되는 건 모른다고 적습니다.",
-  "en": "reef reads your repositories and your company's documents together, and builds something that answers questions. Answers come with their sources, and what cannot be confirmed is written down as unknown."
+  "ko": "AI 에이전트를 위한 지식 레이어 생성 애플리케이션",
+  "en": "An application that builds a knowledge layer for AI agents"
  },
  "L.v1t": {
   "ko": "출처가 같이 옵니다",

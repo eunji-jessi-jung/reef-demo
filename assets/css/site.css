@@ -270,3 +270,10 @@ summary{cursor:pointer; font-size:13px; color:var(--ink-faint); font-family:var(
 
 /* The line under the call to action is an invitation, not metadata. */
 .cta-note{margin:0; font-size:15px; color:var(--ink-dim); max-width:46ch}
+
+/* The one-line descriptor under the headline. It states what the thing is, so it sits
+   close to the headline and reads as part of it rather than as body copy. */
+.hero-desc{
+  margin:-8px 0 36px; font-size:clamp(16px,1.6vw,19px); color:var(--ink-dim);
+  max-width:50ch;
+}
