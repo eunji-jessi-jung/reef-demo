@@ -18,11 +18,11 @@
   --page:1120px;
   --measure:66ch;
 
-  --bg:#08110f; --bg-soft:#0e1a17; --panel:#111e1a; --line:#1f302b;
-  --ink:#e8f0ec; --ink-dim:#93a79f; --ink-faint:#5f736c;
+  --bg:#061714; --bg-deep:#03100f; --bg-soft:#0b201d; --panel:#0e2320; --line:#1c3833;
+  --ink:#e9f2ee; --ink-dim:#94aba4; --ink-faint:#5f7871;
   --accent:#ff7d66; --warn:#e3b341; --bad:#f07178; --good:#7ee787; --deep:#4ec9b0;
   --code-bg:#0a0d10; --code-ink:#93a3b1;
-  --accent-wash:#1d1512; --dot:rgba(232,240,236,.055);
+  --accent-wash:#221714; --dot:rgba(233,242,238,.05);
   --lift:none;
   --panel-shadow:0 18px 50px rgba(0,0,0,.55);
 }
@@ -30,7 +30,7 @@
   /* Warm paper rather than white, and a green-black ink rather than a neutral one —
      both lifted from SayBriefly, where the palette does the work an illustration
      budget would otherwise have to. */
-  --bg:#faf8f3; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
+  --bg:#faf8f3; --bg-deep:#f4f1e8; --bg-soft:#f3f0e8; --panel:#ffffff; --line:#e6e1d6;
   --ink:#13211c; --ink-dim:#4c5a54; --ink-faint:#8b938d;
   --accent:#c2503c; --accent-wash:#fdeeea; --dot:rgba(19,33,28,.06);
   --warn:#8a5d00; --bad:#b3261e; --good:#1c7a3c; --deep:#0f5d50;
@@ -46,7 +46,8 @@ body{
      reading as an empty div. Sized so it is texture at reading distance, not pattern. */
   background:
     radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0 / 22px 22px,
-    var(--bg);
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  background-attachment:scroll, fixed;
   font-family:var(--sans); font-size:17px; line-height:1.65;
   -webkit-font-smoothing:antialiased;
   /* Two rules working together. keep-all stops Korean breaking mid-word — without it
@@ -57,7 +58,7 @@ body{
 }
 a{color:var(--accent)}
 h1,h2{line-height:1.22}
-h2{font-size:clamp(22px,2.7vw,32px); margin:0 0 16px; font-weight:500; letter-spacing:-.018em}
+h2{font-size:clamp(24px,3.1vw,38px); margin:0 0 18px; font-weight:500; letter-spacing:-.02em}
 
 /* ---------- chrome ---------- */
 /* The bar aligns to the same column the content uses, rather than hugging the window
@@ -113,7 +114,9 @@ footer p{margin:0 0 8px; max-width:var(--measure); margin-inline:auto}
 .muted{color:var(--ink-faint)}
 .preline{white-space:pre-line}
 .panel{
-  background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px;
+  background:color-mix(in srgb, var(--panel) 82%, transparent);
+  backdrop-filter:blur(6px);
+  border:1px solid var(--line); border-radius:16px; padding:22px;
   box-shadow:var(--lift);
 }
 pre,code{font-family:var(--mono); font-size:13.5px}
@@ -137,6 +140,19 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
    component silently un-hides it. State this once, loudly. */
 [hidden]{display:none !important}
 [data-i18n]:empty::after,[data-md]:empty::after{content:"…"; color:var(--ink-faint)}
+
+/* Light through water: a fixed layer of soft blooms that stays with the viewport as
+   you scroll, so the whole page sits in one body of water rather than the hero alone
+   being lit. No blur filter — wide, soft colour stops are cheaper and do not shimmer
+   on a repaint. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(62% 48% at 78% 8%,  color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%),
+    radial-gradient(54% 44% at 12% 42%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 70%),
+    radial-gradient(70% 50% at 60% 96%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
+}
+:root[data-theme="light"] body::before{opacity:.55}
 
 /* Sections fade in as they arrive. Presentational only — nothing waits on it. */
 .hero,.band{opacity:1; transition:opacity .4s ease}
@@ -175,7 +191,7 @@ pre{margin:0; overflow-x:auto; line-height:1.6}
 .hero-demo .compare{margin:0}
 .hero-demo .cmp-row{min-width:0}
 .hero-h1{
-  font-size:clamp(30px,5.6vw,58px); margin:0 0 22px;
+  font-size:clamp(32px,6vw,66px); margin:0 0 24px;
   font-weight:500; letter-spacing:-.022em; line-height:1.18;
 }
 .hero-sub{font-size:clamp(17px,1.5vw,19px); color:var(--ink-dim); max-width:60ch; margin:0 0 36px}
@@ -486,9 +502,9 @@ main > .artifact-panel{
   content:""; position:absolute; inset:-25% -10% auto -10%; height:120%;
   z-index:-1; pointer-events:none;
   background:
-    radial-gradient(42% 46% at 72% 34%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 70%),
-    radial-gradient(38% 40% at 24% 12%, color-mix(in srgb, var(--deep) 20%, transparent), transparent 70%);
-  filter:blur(46px); opacity:.75;
+    radial-gradient(44% 48% at 74% 36%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%),
+    radial-gradient(38% 40% at 22% 10%, color-mix(in srgb, var(--deep) 16%, transparent), transparent 72%);
+  opacity:.85;
 }
 :root[data-theme="light"] .hero::before{opacity:.5}
 
