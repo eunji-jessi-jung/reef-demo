@@ -103,6 +103,42 @@ function wireHero() {
   });
 }
 
+/* The flow as a stepper on a phone. Steps are the .stage rows in document order,
+   across both phases; the phase name travels with the position. Off a phone the
+   attribute comes off and the CSS shows the whole column again. */
+function wireStepper() {
+  const deck = document.getElementById('stage-deck');
+  const nav = document.getElementById('stage-nav');
+  if (!deck || !nav) return;
+  const steps = [...deck.querySelectorAll('.stage')];
+  const phaseOf = st => st.closest('.stages')?.previousElementSibling?.textContent || '';
+  const mq = matchMedia('(max-width: 900px)');
+  let i = 0;
+
+  const show = () => {
+    steps.forEach((st, k) => { if (k === i) st.dataset.active = ''; else delete st.dataset.active; });
+    nav.querySelector('.stage-phase').textContent = phaseOf(steps[i]);
+    nav.querySelector('.stage-count').textContent = `${i + 1} / ${steps.length}`;
+    nav.querySelector('.stage-prev').disabled = i === 0;
+    nav.querySelector('.stage-next').disabled = i === steps.length - 1;
+  };
+  const go = d => {
+    i = Math.min(steps.length - 1, Math.max(0, i + d));
+    show();
+    const top = deck.getBoundingClientRect().top;
+    if (top < 0) deck.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
+  const apply = () => {
+    if (mq.matches) { deck.dataset.stepper = ''; nav.hidden = false; show(); }
+    else { delete deck.dataset.stepper; nav.hidden = true; steps.forEach(st => delete st.dataset.active); }
+  };
+  nav.querySelector('.stage-prev').addEventListener('click', () => go(-1));
+  nav.querySelector('.stage-next').addEventListener('click', () => go(1));
+  document.addEventListener('reef:lang', show);
+  mq.addEventListener('change', apply);
+  apply();
+}
+
 function render() {
   renderBench();
   renderEval();
@@ -124,4 +160,5 @@ renderMore();
 wireHero();
 wireArtifactPanel(document, document.getElementById('artifact'));
 document.querySelectorAll('.cast').forEach(startCast);
+wireStepper();
 shotReady();

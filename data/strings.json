@@ -786,5 +786,13 @@
   "L.rule.fHealth.2": {
     "ko": "아무것도 안 고침",
     "en": "fixes nothing"
+  },
+  "L.navPrev": {
+    "ko": "이전",
+    "en": "Back"
+  },
+  "L.navNext": {
+    "ko": "다음",
+    "en": "Next"
   }
 }

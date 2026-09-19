@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=f2ea22b2">
+  <link rel="stylesheet" href="assets/css/site.css?v=9f80f675">
   <title>reef</title>
   <meta name="description" content="reef reads your repositories and your company's documents and builds something that answers questions — with sources, and with the gaps left standing as unknown.">
 </head>
@@ -132,6 +132,7 @@
         <h2 data-i18n="L.fTitle"></h2>
         <p class="body" data-i18n="L.fLede"></p>
 
+        <div class="stage-deck" id="stage-deck">
         <h3 class="phase" data-i18n="L.fPhase1"></h3>
         <div class="stages">
           <div class="stage">
@@ -255,6 +256,12 @@
             </figure>
           </div>
         </div>
+        </div>
+        <nav class="stage-nav" id="stage-nav" hidden>
+          <button type="button" class="stage-prev" data-i18n="L.navPrev"></button>
+          <span class="stage-pos"><b class="stage-phase"></b><span class="stage-count"></span></span>
+          <button type="button" class="stage-next" data-i18n="L.navNext"></button>
+        </nav>
         <p class="loop-back"><span class="loop-mark" aria-hidden="true">&#8630;</span><span data-i18n="L.fLoop"></span></p>
         <p class="meta" data-md="L.rNote"></p>
       </div>
@@ -335,6 +342,6 @@
     <p class="meta" data-i18n="L.foot"></p>
   </footer>
 
-  <script type="module" src="assets/js/landing.js?v=26c901b3"></script>
+  <script type="module" src="assets/js/landing.js?v=f5d96c1e"></script>
 </body>
 </html>
