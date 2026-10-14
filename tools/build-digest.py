@@ -13,7 +13,7 @@ dropped — they paraphrase the Key Facts and are what drifts.
 """
 import json, pathlib, re, sys
 
-REEF = pathlib.Path.home() / "Projects/sellflow-reef"
+REEF = pathlib.Path.home() / "Projects/reef-lab/sellflow-reef"
 OUT = pathlib.Path(__file__).resolve().parent.parent / "data/digest.json"
 MAX_FACT = 300          # chars of claim, after the citation tail is compacted
 MAX_FACTS = 8

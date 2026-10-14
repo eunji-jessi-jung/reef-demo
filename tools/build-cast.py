@@ -20,14 +20,14 @@ import json, pathlib, re, subprocess, sys
 from datetime import datetime
 
 HOME = pathlib.Path.home()
-RF = HOME / "Projects/sellflow-reef"
-REEF = HOME / "Projects/reef/scripts/reef.py"
+RF = HOME / "Projects/reef-lab/sellflow-reef"
+REEF = HOME / "Projects/reef-lab/reef/scripts/reef.py"
 # The installed plugin when there is one, otherwise the same clone reef.py is read
 # from. Both are the same file; only a machine with the marketplace copy has the first.
 SKILL = next((p for p in (
     HOME / ".claude/plugins/cache/reef-marketplace/reef/1.0.0/skills/init/SKILL.md",
-    HOME / "Projects/reef/skills/init/SKILL.md",
-) if p.exists()), HOME / "Projects/reef/skills/init/SKILL.md")
+    HOME / "Projects/reef-lab/reef/skills/init/SKILL.md",
+) if p.exists()), HOME / "Projects/reef-lab/reef/skills/init/SKILL.md")
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 EV = ROOT / "data/evidence.json"
 OUT = ROOT / "data/cast.json"

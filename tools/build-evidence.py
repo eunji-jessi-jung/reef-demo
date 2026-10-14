@@ -9,8 +9,8 @@ site follows them — which is the same discipline the product argues for.
 import json, pathlib, re, subprocess, sys
 from datetime import datetime
 
-SF = pathlib.Path.home() / "Projects/sellflow"
-RF = pathlib.Path.home() / "Projects/sellflow-reef"
+SF = pathlib.Path.home() / "Projects/reef-lab/sellflow"
+RF = pathlib.Path.home() / "Projects/reef-lab/sellflow-reef"
 OUT = pathlib.Path(__file__).resolve().parent.parent / "data/evidence.json"
 
 for p in (SF, RF):
@@ -84,7 +84,7 @@ def reef_side():
         types[t] = types.get(t, 0) + 1
 
     unk = json.loads(subprocess.run(
-        ["python3", str(pathlib.Path.home() / "Projects/reef/scripts/reef.py"),
+        ["python3", str(pathlib.Path.home() / "Projects/reef-lab/reef/scripts/reef.py"),
          "unknowns", "--reef", str(RF)], capture_output=True, text=True).stdout)
 
     return {
@@ -229,7 +229,7 @@ def run_stats(log: str) -> dict:
 
 def plugin_counts() -> dict:
     """The plugin's own surface. Optional: the site still builds without the repo."""
-    pl = pathlib.Path.home() / "Projects/reef"
+    pl = pathlib.Path.home() / "Projects/reef-lab/reef"
     skills = pl / "skills"
     if not skills.is_dir():
         return {}
