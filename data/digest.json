@@ -4,7 +4,7 @@
  "artifacts": 80,
  "facts": 666,
  "facts_sourced": 659,
- "approx_tokens": 65602,
+ "approx_tokens": 65603,
  "items": [
   {
    "id": "API-DELIVERY",
@@ -1352,7 +1352,7 @@
      "s": "OrderEventRelayJob.java"
     },
     {
-     "c": "**Delivery is at-most-once, where the design assumed at-least-once.** `executeInternal` declares no `@Transactional` and no try/catch. If the `INSERT` into `CANCEL_RECON_QUEUE` succeeds and the process then dies before the `UPDATE`, the row is re-inserted on the next pass (duplicate); if the …",
+     "c": "**A failure is retried, but only by accident: with duplicates, and with no protection from a row that always fails.** `executeInternal` declares no `@Transactional` and no try/catch, so each `JdbcTemplate` statement commits on its own. If the `INSERT` into `CANCEL_RECON_QUEUE` succeeds and the …",
      "s": "OrderEventRelayJob.java"
     },
     {

@@ -9,7 +9,7 @@
  * for, and that is where the button goes.
  */
 import { state, t, boot, reveal, esc } from './site.js?v=c38408c3';
-import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=41809e3b';
+import { addRow, fillRecorded, wireArtifactPanel } from './pair.js?v=c865bb0b';
 import { startCast } from './cast.js?v=6625899f';
 import { stageShot, shotReady } from './shot.js?v=3f039834';
 

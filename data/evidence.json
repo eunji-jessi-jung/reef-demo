@@ -414,12 +414,12 @@
     "artifacts_refreshed": 23
   },
   "build": {
-    "entries": 13,
+    "entries": 14,
     "start": "2026-09-18T14:56+00:00",
     "drafts": 43,
     "drafts_min": 22,
     "full_min": 171,
-    "last_min": 462,
+    "last_min": 37152,
     "full_hours": 2.9
   },
   "runs": {
@@ -488,6 +488,10 @@
     {
       "at": "2026-09-18 22:38",
       "text": "Test pass (independent, artifacts-only): 47/52 fully answered, 5 partial, 0 unanswered; 26/26 answer-key fragments recovered; both designed traps passed; no dishonest certainty. One soft finding acted on: PROC-SETTLEMENT-FLOW-CATALOG and CON-SETTLEMENT-ANOMALY-SETTLEMENT-BATCH asserted the settlement batch runs nightly, which API-SETTLEMENT-BATCH's own guidance says to keep in known_unknowns. Both now separate the registered trigger and the 41-month queue evidence from the unverifiable deployment claim."
+    },
+    {
+      "at": "2026-10-14 10:08",
+      "text": "Correction: PAT-SELLFLOW-DB-AS-QUEUE said a failure inside the relay's settled branch is acked and never revisited (at-most-once). The code says otherwise: `executeInternal` has no try/catch, so an `INSERT` that throws leaves before the ack, the row stays `PUBLISHED_YN='N'` and the next poll retries it. Key Fact, cost 2, summary and Agent Guidance rewritten to match PROC-SETTLEMENT-ERROR-HANDLING, which already had it right: retry by accident, duplicates on a crash between insert and ack, and a row that always throws blocks the outbox. Found by a reef-demo probe in which every arm answered correctly against the reef."
     }
   ]
 }

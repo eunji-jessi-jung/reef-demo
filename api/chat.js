@@ -9,16 +9,22 @@
  *
  * THE TWO ARMS
  *
- *   reef — the 80 artifacts: claims with citations, explicit unknowns, recorded
- *          contradictions. ~67K tokens.
+ *   reef — the reef AND the sources: the 80 artifacts (claims with citations, explicit
+ *          unknowns, recorded contradictions; ~65K tokens) plus every source file the
+ *          raw arm gets. ~125K tokens.
  *   raw  — the sellflow sources as an agent without a reef sees them: five code
  *          repositories and the whole document tree. ~60K tokens.
+ *
+ * The reef arm used to hold the artifacts alone. That compared reef against sources,
+ * which is not how a reef is used: an agent reads the reef first and then opens the
+ * code. And the artifacts fit only as a digest — about a tenth of the reef, Key Facts
+ * capped and cut — so the arm said "the reef does not know" about things the digest
+ * had dropped. Both arms now hold the same sources, so the difference between the two
+ * answers is what the reef adds.
  *
  * Everything else is held equal on purpose: same model, same effort, same token
  * ceiling, and rules written line-for-line against each other. The raw arm gets no
  * hint about what it will find; writing one would be coaching from the answer key.
- * The reef arm gets slightly MORE context than the raw arm, not less, because a reef
- * is not a summary — it adds what was worked out, so it is bigger than its sources.
  *
  * Every limit below is a hard number so the worst case is arithmetic, not a guess.
  */
@@ -97,6 +103,10 @@ function rules(citeInstruction, undeterminedInstruction) {
    what this material covers, and do not answer it.`;
 }
 
+/* Shared by both arms, so the reef arm's copy of the sources is byte-for-byte the
+   raw arm's. */
+const sourceLines = () => corpus.files.map(f => `### ${f.path}\n${f.text}`).join('\n\n');
+
 function reefSystem() {
   const lines = digest.items.map(a => {
     const head = `### ${a.id} — ${a.title} [${a.type}, ${a.status}, verified ${a.verified}]`;
@@ -108,25 +118,38 @@ function reefSystem() {
   }).join('\n\n');
 
   return `You are answering questions about 셀플로우 (Sellflow), a fictional Korean e-commerce
-fulfilment company, using a reef — a structured knowledge layer built from its five
-repositories and its internal documents. The reef's ${digest.artifacts} artifacts are below.
+fulfilment company. You have two things below.
+
+THE REEF is a structured knowledge layer built from the company's sources: ${digest.artifacts}
+artifacts of claims with citations, unknowns that were investigated and could not be
+settled, and recorded contradictions between documents and code. It is a digest — facts
+are capped and some are cut short — so read it as a map, not as everything there is.
+
+THE SOURCES are the company's complete sources: ${corpus.files_n} files — five code repositories
+and its documents. They are the ground truth.
+
+Use the reef to find what matters and where to look, then confirm the details in the
+sources. If the reef and the sources disagree, the sources win; say so. Something
+missing from the reef is not unknown — look in the sources before saying it cannot
+be determined.
 
 ${rules(
-  `Cite every substantive claim with the artifact id in square brackets, e.g. [SYS-ORDER].
-   Use ids exactly as written. Never invent one.`,
-  `If the artifacts do not settle something, say so plainly and point at the relevant
-   "Not determinable" note. Saying "the reef does not know" is a correct answer here and
-   is more useful than a confident guess.`)}
+  `Cite every substantive claim in square brackets, with an artifact id for what the
+   reef worked out (e.g. [SYS-ORDER]) or a file path, exactly as in the headings below,
+   for what a source says (e.g. [order-service:src/main/java/kr/co/sellflow/order/service/OrderCancelService.java]).
+   Use ids and paths exactly as written. Never invent one.`,
+  `If neither the reef nor the sources settle something, say so plainly rather than
+   guessing, and point at the reef's "Not determinable" note when there is one. That is
+   a correct answer here and is more useful than a confident guess.`)}
 
 THE REEF
-${lines}`;
+${lines}
+
+THE SOURCES
+${sourceLines()}`;
 }
 
 function rawSystem() {
-  const lines = corpus.files
-    .map(f => `### ${f.path}\n${f.text}`)
-    .join('\n\n');
-
   return `You are answering questions about 셀플로우 (Sellflow), a fictional Korean e-commerce
 fulfilment company. Below are its complete sources: ${corpus.files_n} files — five code
 repositories and the company's own documents (a wiki export, its published OpenAPI spec,
@@ -144,27 +167,43 @@ ${rules(
    useful than a confident guess.`)}
 
 THE SOURCES
-${lines}`;
+${sourceLines()}`;
 }
 
-/* Built once per instance and cached upstream by Anthropic, so the 60-67K tokens of
+/* Built once per instance and cached upstream by Anthropic, so the 60-125K tokens of
    context are paid for at the cache-read rate after the first call of each arm. */
 const built = { reef: null, raw: null };
 const system = arm => (built[arm] ??= arm === 'reef' ? reefSystem() : rawSystem());
 
 /* What each arm is allowed to have cited. A bracket may hold several references, and
    not all of them resolve — the model sometimes names something not in its material.
-   Take every token inside every bracket, keep the ones that resolve, drop the rest. */
+   Take every token inside every bracket, keep the ones that resolve, drop the rest.
+   The reef arm holds the sources too, so it may cite either. */
 const vocabulary = { reef: null, raw: null };
-const vocab = arm => (vocabulary[arm] ??= new Set(
-  arm === 'reef' ? digest.items.map(a => a.id) : corpus.files.map(f => f.path)));
+const vocab = arm => (vocabulary[arm] ??= new Set([
+  ...(arm === 'reef' ? digest.items.map(a => a.id) : []),
+  ...corpus.files.map(f => f.path)]));
+
+/* The digest's facts cite sources by basename, and the model copies that style. A
+   basename that names exactly one file resolves to its full path; one shared across
+   repositories (README.md, application.yml, ...) is ambiguous and stays unresolved. */
+let basenames = null;
+const byBasename = () => (basenames ??= (() => {
+  const seen = new Map();
+  for (const f of corpus.files) {
+    const base = f.path.split(/[:/]/).pop();
+    seen.set(base, seen.has(base) ? null : f.path);
+  }
+  return seen;
+})());
 
 function extractCites(arm, text) {
   const known = vocab(arm);
   return [...new Set([...text.matchAll(/\[([^\]\n]+)\]/g)]
     .flatMap(m => m[1].split(/[,;]/))
     .map(t => t.trim())
-    .filter(t => known.has(t)))];
+    .map(t => known.has(t) ? t : byBasename().get(t))
+    .filter(Boolean))];
 }
 
 function trimHistory(raw) {
@@ -276,7 +315,8 @@ export default async function handler(req, res) {
       model: MODEL,
       remaining: Math.max(0, BUDGET - spent),
       /* Shown on the page so the comparison can be checked, not just believed. */
-      context: { reef: `${digest.artifacts} artifacts`, raw: `${corpus.files_n} source files` },
+      context: { reef: `${digest.artifacts} artifacts + ${corpus.files_n} source files`,
+                 raw: `${corpus.files_n} source files` },
     });
   } catch (e) {
     console.error('proxy_error', e);

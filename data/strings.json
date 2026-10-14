@@ -32,8 +32,8 @@
     "en": "See it in action"
   },
   "L.ctaNote": {
-    "ko": "왼쪽은 reef가 만든 지식에서 답하고, 오른쪽은 원본 파일 전체에서 바로 답합니다.",
-    "en": "The left answers from the knowledge reef built. The right answers from every source file, directly."
+    "ko": "양쪽 모두 원본 파일 전체를 받습니다. 왼쪽은 여기에 reef가 만든 지식을 더 받습니다.",
+    "en": "Both sides get every source file. The left also gets the knowledge reef built."
   },
   "L.foot": {
     "ko": "셀플로우는 이 데모를 위해 지어낸 회사입니다. 실재하는 회사나 사람과는 관계가 없습니다.",
@@ -108,12 +108,12 @@
     "en": "One question, two answers"
   },
   "T.askNote": {
-    "ko": "질문을 누르거나 직접 물어보세요. 왼쪽은 reef, 오른쪽은 셀플로우 원본 전체.",
-    "en": "Press a question or ask your own. Left holds the reef; right holds all of Sellflow's sources."
+    "ko": "질문을 누르거나 직접 물어보세요. 양쪽 모두 셀플로우 원본 전체를 받고, 왼쪽은 reef도 받습니다.",
+    "en": "Press a question or ask your own. Both sides hold all of Sellflow's sources; the left holds the reef as well."
   },
   "T.fair": {
-    "ko": "같은 모델, 같은 강도, 같은 상한. 컨텍스트는 reef {reefTok} 대 원본 {rawTok} 토큰 — 원본이 더 큽니다.",
-    "en": "Same model, same effort, same cap. Context: reef {reefTok} against sources {rawTok} tokens — the sources get more."
+    "ko": "같은 모델, 같은 강도, 같은 상한, 같은 원본. 컨텍스트는 reef + 원본 {reefTok} 대 원본 {rawTok} 토큰 — 차이는 reef 하나입니다.",
+    "en": "Same model, same effort, same cap, same sources. Context: reef + sources {reefTok} against sources {rawTok} tokens — the only difference is the reef."
   },
   "T.armReef": {
     "ko": "reef 있음",
@@ -124,8 +124,8 @@
     "en": "Without reef"
   },
   "T.armReefNote": {
-    "ko": "아티팩트 {artifacts}개",
-    "en": "{artifacts} artifacts"
+    "ko": "아티팩트 {artifacts}개 + 원본 파일 {files}개",
+    "en": "{artifacts} artifacts + {files} source files"
   },
   "T.armRawNote": {
     "ko": "원본 파일 {files}개",
@@ -908,8 +908,8 @@
     "en": "Still there for the next task"
   },
   "L.fair": {
-    "ko": "같은 모델 · 같은 설정 · 같은 상한. 컨텍스트는 reef {reefTok} 대 raw {rawTok} 토큰 — 오히려 raw 쪽이 더 큽니다.",
-    "en": "Same model, same settings, same cap. Context: reef {reefTok} against raw {rawTok} tokens — the raw side gets more."
+    "ko": "같은 모델 · 같은 설정 · 같은 상한 · 같은 원본. 컨텍스트는 reef + 원본 {reefTok} 대 원본 {rawTok} 토큰 — 차이는 reef 하나입니다.",
+    "en": "Same model, same settings, same cap, same sources. Context: reef + sources {reefTok} against sources {rawTok} tokens — the only difference is the reef."
   },
   "L.watch1": {
     "ko": "근거를 따라갈 수 있는가",

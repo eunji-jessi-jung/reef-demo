@@ -60,10 +60,26 @@ function knownPaths() {
   return out;
 }
 
-/* Render an answer: paragraphs, inline code, and citation chips. */
+/* A citation by basename — the style the digest's facts use, which the model copies —
+   resolved to the one path it names. A basename shared across repositories is
+   ambiguous and maps to null, so it stays plain text. Mirrors the proxy. */
+function pathsByBasename(paths) {
+  const out = new Map();
+  for (const p of paths) {
+    const base = p.split(/[:/]/).pop();
+    out.set(base, out.has(base) ? null : p);
+  }
+  return out;
+}
+
+/* Render an answer: paragraphs, inline code, and citation chips. The reef arm holds
+   the sources as well as the reef, so it may cite either kind. */
 export function renderAnswer(arm, text) {
-  const known = arm === 'reef' ? knownIds() : knownPaths();
-  const chip = ref => arm === 'reef'
+  const ids = arm === 'reef' ? knownIds() : new Set();
+  const paths = knownPaths();
+  const known = new Set([...ids, ...paths]);
+  const byBase = pathsByBasename(paths);
+  const chip = ref => ids.has(ref)
     ? `<button class="cite" data-artifact="${esc(ref)}">${esc(ref)}</button>`
     : `<a class="cite" href="${esc(sourceUrl(ref))}" target="_blank" rel="noopener">${esc(shorten(ref))}</a>`;
 
@@ -77,6 +93,7 @@ export function renderAnswer(arm, text) {
          dropping a citation that resolves. */
       const split = part => {
         if (known.has(part)) return [part, ''];
+        if (byBase.get(part)) return [byBase.get(part), ''];
         const m2 = /^([A-Za-z0-9-]+)(.*)$/.exec(part);
         return m2 && known.has(m2[1]) ? [m2[1], m2[2]] : [null, part];
       };
