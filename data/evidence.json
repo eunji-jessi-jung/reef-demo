@@ -414,12 +414,12 @@
     "artifacts_refreshed": 23
   },
   "build": {
-    "entries": 14,
+    "entries": 15,
     "start": "2026-09-18T14:56+00:00",
     "drafts": 43,
     "drafts_min": 22,
     "full_min": 171,
-    "last_min": 37152,
+    "last_min": 37178,
     "full_hours": 2.9
   },
   "runs": {
@@ -492,6 +492,10 @@
     {
       "at": "2026-10-14 10:08",
       "text": "Correction: PAT-SELLFLOW-DB-AS-QUEUE said a failure inside the relay's settled branch is acked and never revisited (at-most-once). The code says otherwise: `executeInternal` has no try/catch, so an `INSERT` that throws leaves before the ack, the row stays `PUBLISHED_YN='N'` and the next poll retries it. Key Fact, cost 2, summary and Agent Guidance rewritten to match PROC-SETTLEMENT-ERROR-HANDLING, which already had it right: retry by accident, duplicates on a crash between insert and ack, and a row that always throws blocks the outbox. Found by a reef-demo probe in which every arm answered correctly against the reef."
+    },
+    {
+      "at": "2026-10-14 10:34",
+      "text": "Correction: RISK-SETTLEMENT-RECON-BACKLOG called the 188,851,520 KRW figure a lower bound (\"lower bounds on what was queued and upper bounds on nothing\"). The PENDING filter excludes nothing in practice: the only writer of PROCESSED is CancelReconciler, which has never run (V5: 아직 쓰는 코드는 없다). Hand-corrected cases stay PENDING and are still counted, so the figure can overstate, and every monthly amount is count x 45,760 KRW, a flat estimate. The known_unknown, caveat 1 and caveat 3 now say so, matching PROC-SETTLEMENT-CANCEL-RECON-QUEUE-LIFECYCLE and CON-ORDER-SETTLEMENT. Found by a blind grader on the reef-demo recorded pairs, where the reef arm repeated the claim in both languages."
     }
   ]
 }

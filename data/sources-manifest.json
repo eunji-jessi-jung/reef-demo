@@ -11,7 +11,7 @@
   "*.xlsx                            — binary; the verbatim .md rendering beside it is included"
  ],
  "files_n": 160,
- "chars": 190731,
+ "chars": 144369,
  "groups": [
   {
    "name": "delivery-bff",

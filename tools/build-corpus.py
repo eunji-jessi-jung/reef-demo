@@ -26,6 +26,10 @@ insight, so withholding it would tilt the comparison the other way.
 
 The exclusion list ships inside corpus.json so a judge can check the arm was not
 rigged in either direction.
+
+JSON files are re-serialised without indentation. The published OpenAPI spec alone was
+46% of the corpus by characters, half of that indentation, and both arms carry the
+corpus on every call. The content is unchanged; only whitespace goes.
 """
 
 import json, os, sys
@@ -54,6 +58,15 @@ EXCLUDED = [
 ]
 
 
+def compact_json(text: str) -> str:
+    """Drop the indentation, keep every key and value. A file that does not parse is
+    left exactly as it is rather than guessed at."""
+    try:
+        return json.dumps(json.loads(text), ensure_ascii=False, separators=(",", ":"))
+    except ValueError:
+        return text
+
+
 def collect(root: Path, prefix_of):
     out = []
     for dirpath, dirnames, filenames in os.walk(root):
@@ -66,6 +79,8 @@ def collect(root: Path, prefix_of):
                 text = path.read_text(encoding="utf-8")
             except (UnicodeDecodeError, OSError):
                 continue
+            if path.suffix.lower() == ".json":
+                text = compact_json(text)
             out.append({"path": prefix_of(path), "text": text})
     return out
 
@@ -88,6 +103,7 @@ def main() -> int:
                   "repository, and nothing from the reef. Rebuild: python3 tools/build-corpus.py"),
         "rule": "include everything in the fixture repository; include nothing from the reef repository",
         "excluded": EXCLUDED,
+        "formatting": "JSON files are re-serialised without indentation; their content is unchanged",
         "roots": ["sellflow/repos (5 repositories)", "sellflow/sources (the document tree)"],
         "files_n": len(files),
         "chars": chars,

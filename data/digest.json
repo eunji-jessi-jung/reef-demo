@@ -3115,7 +3115,7 @@
     }
    ],
    "unknowns": [
-    "The true total. The export returned only STATUS='PENDING' rows; rows in any other state were not returned, so both the count and the amount are lower bounds on what was queued and upper bounds on noth",
+    "The true total. It is neither a lower nor an upper bound. The PENDING filter excludes nothing in practice, because the only code that moves a row out of PENDING (CancelReconciler) has never run. Cases",
     "How much of the balance was settled manually outside the system. The export README warns that manual corrections handled outside the system are not reflected, and the handover says manual handling lea"
    ]
   },

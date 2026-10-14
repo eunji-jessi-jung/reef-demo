@@ -10,10 +10,10 @@
  * THE TWO ARMS
  *
  *   reef — the reef AND the sources: the 80 artifacts (claims with citations, explicit
- *          unknowns, recorded contradictions; ~65K tokens) plus every source file the
- *          raw arm gets. ~125K tokens.
+ *          unknowns, recorded contradictions; ~86K tokens) plus every source file the
+ *          raw arm gets. ~167K tokens, measured.
  *   raw  — the sellflow sources as an agent without a reef sees them: five code
- *          repositories and the whole document tree. ~60K tokens.
+ *          repositories and the whole document tree. ~82K tokens, measured.
  *
  * The reef arm used to hold the artifacts alone. That compared reef against sources,
  * which is not how a reef is used: an agent reads the reef first and then opens the
@@ -170,8 +170,16 @@ THE SOURCES
 ${sourceLines()}`;
 }
 
-/* Built once per instance and cached upstream by Anthropic, so the 60-125K tokens of
-   context are paid for at the cache-read rate after the first call of each arm. */
+/* Built once per instance and cached upstream by Anthropic, so the 80-170K tokens of
+   context are paid for at the cache-read rate after the first call of each arm.
+
+   The cache lives an hour, not the default five minutes. A demo is visited in bursts
+   with gaps of minutes between questions, and with a 5-minute entry nearly every
+   question past the first paid the full write (1.25x) on 170K tokens. An hour's entry
+   costs 2x to write once and 0.1x to read for the rest of the visit, so it is cheaper
+   from the second question that arrives more than five minutes after the last. Under
+   continuous traffic the 5-minute entry would be cheaper; this demo does not have that. */
+const CACHE_TTL = '1h';
 const built = { reef: null, raw: null };
 const system = arm => (built[arm] ??= arm === 'reef' ? reefSystem() : rawSystem());
 
@@ -232,7 +240,7 @@ async function ask(arm, question, history, lang) {
     body: JSON.stringify({
       model: MODEL,
       max_tokens: MAX_TOKENS,
-      system: [{ type: 'text', text: system(arm), cache_control: { type: 'ephemeral' } }],
+      system: [{ type: 'text', text: system(arm), cache_control: { type: 'ephemeral', ttl: CACHE_TTL } }],
       output_config: { effort: EFFORT },
       messages: [...history, {
         role: 'user',
