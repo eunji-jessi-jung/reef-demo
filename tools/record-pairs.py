@@ -132,8 +132,8 @@ def main() -> int:
         "at": date.today().isoformat(),
         "endpoint": args.endpoint,
         "note": ("Answers as they came back, unedited and unselected. The reef arm holds the "
-                 "artifacts; the raw arm holds the fixture repository. Regenerate with "
-                 "tools/record-pairs.py."),
+                 "artifacts and the fixture repository; the raw arm holds the fixture "
+                 "repository alone. Regenerate with tools/record-pairs.py."),
         "context_tokens": measured,
     }
     doc["_note"] = doc["recorded"]["note"]
